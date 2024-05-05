@@ -30,7 +30,7 @@ public class TotemItem extends Item {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        return TotemData.get(stack).glint();
+        return ColoredGlints.has(stack);
     }
 
     @Override

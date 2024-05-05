@@ -1,14 +1,20 @@
 package svenhjol.charm.feature.colored_glints;
 
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.foundation.Feature;
+import svenhjol.charm.foundation.Registration;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 public class ColoredGlints extends CommonFeature {
+    static Supplier<DataComponentType<ColoredGlintData>> data;
+
     @Override
     public String description() {
         return """
@@ -16,16 +22,27 @@ public class ColoredGlints extends CommonFeature {
             If disabled then other features and mods that rely on it will not function properly.""";
     }
 
+    @Override
+    public Optional<Registration<? extends Feature>> registration() {
+        return Optional.of(new CommonRegistration(this));
+    }
+
     /**
      * Set the enchanted item's glint to the dye color.
      * Probably should only apply it to a stack with foil...
      */
     public static void apply(ItemStack stack, DyeColor color) {
-        stack.set(DataComponents.BASE_COLOR, color);
+        ColoredGlintData.create()
+            .setColor(color)
+            .save(stack);
+
+//        stack.set(DataComponents.BASE_COLOR, color);
     }
 
     public static void remove(ItemStack stack) {
-        stack.remove(DataComponents.BASE_COLOR);
+        ColoredGlintData.remove(stack);
+
+//        stack.remove(DataComponents.BASE_COLOR);
     }
 
     /**
@@ -33,19 +50,19 @@ public class ColoredGlints extends CommonFeature {
      * If it isn't set then return the configured default.
      */
     public static DyeColor get(@Nullable ItemStack stack) {
-        if (!stackHasFoilAndColor(stack)) {
+        if (stack == null || !ColoredGlintData.has(stack)) {
             return getDefault();
         }
 
-        return stack.get(DataComponents.BASE_COLOR);
+        return ColoredGlintData.get(stack).color();
     }
 
     /**
      * Check if stack has a colored glint.
      */
     @SuppressWarnings("unused")
-    public static boolean stackHasFoilAndColor(@Nullable ItemStack stack) {
-        return stack != null && stack.hasFoil() && stack.has(DataComponents.BASE_COLOR);
+    public static boolean has(@Nullable ItemStack stack) {
+        return stack != null && ColoredGlintData.has(stack);
     }
 
     /**

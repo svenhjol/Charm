@@ -72,7 +72,7 @@ public final class CommonRegistration extends Registration<ColoredGlintSmithingT
     private InteractionResult handleCanTake(SmithingTableInstance instance, Player player) {
         if (!instance.output.isEmpty()) {
             var out = instance.output.getItem(0);
-            if (ColoredGlints.stackHasFoilAndColor(out)) {
+            if (ColoredGlints.has(out)) {
                 return InteractionResult.SUCCESS;
             }
         }
@@ -119,7 +119,7 @@ public final class CommonRegistration extends Registration<ColoredGlintSmithingT
      * We just hook in here to trigger the advancement.
      */
     private boolean handleOnTake(SmithingTableInstance instance, Player player, ItemStack stack) {
-        if (ColoredGlints.stackHasFoilAndColor(stack)) {
+        if (ColoredGlints.has(stack)) {
             ColoredGlintSmithingTemplates.triggerAppliedColoredGlintTemplate(player);
         }
         return false;

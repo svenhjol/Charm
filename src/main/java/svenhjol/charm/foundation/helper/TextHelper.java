@@ -16,6 +16,15 @@ public final class TextHelper {
         return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, string);
     }
 
+    public static String snakeToPascal(String string) {
+        var ss = string.split("_");
+        var b = new StringBuilder();
+        for (var s : ss) {
+            b.append(capitalize(s));
+        }
+        return b.toString();
+    }
+
     public static String featureName(String string) {
         var snake = upperCamelToSnake(string);
         var first = snake.substring(0, 1);

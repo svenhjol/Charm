@@ -15,7 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
 
-public class ClientHandler {
+public class ClientHandlers {
     static final Map<DyeColor, ResourceLocation> ITEM_TEXTURES = new HashMap<>();
     static final Map<DyeColor, ResourceLocation> ENTITY_TEXTURES = new HashMap<>();
     static final Map<DyeColor, RenderType> GLINT = new HashMap<>();

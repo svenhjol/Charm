@@ -58,6 +58,6 @@ public class ColoredGlintsClient extends ClientFeature {
 
     @SuppressWarnings("unused")
     public void handleClientStarted(Minecraft client) {
-        ClientHandler.init();
+        ClientHandlers.init();
     }
 }

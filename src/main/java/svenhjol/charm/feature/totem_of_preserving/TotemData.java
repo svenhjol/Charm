@@ -9,14 +9,12 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
-public record TotemData(List<ItemStack> items, String message, boolean glint) {
+public record TotemData(List<ItemStack> items, String message) {
     public static final Codec<TotemData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("items")
             .forGetter(TotemData::items),
         Codec.STRING.fieldOf("message")
-            .forGetter(TotemData::message),
-        Codec.BOOL.fieldOf("glint")
-            .forGetter(TotemData::glint)
+            .forGetter(TotemData::message)
     ).apply(instance, TotemData::new));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, TotemData> STREAM_CODEC = StreamCodec.composite(
@@ -24,42 +22,38 @@ public record TotemData(List<ItemStack> items, String message, boolean glint) {
             TotemData::items,
         ByteBufCodecs.STRING_UTF8,
             TotemData::message,
-        ByteBufCodecs.BOOL,
-            TotemData::glint,
         TotemData::new
     );
 
-    public static final TotemData EMPTY = new TotemData(List.of(), "", false);
+    public static final TotemData EMPTY = new TotemData(List.of(), "");
 
     public static Mutable create() {
-        return new Mutable(new TotemData(List.of(), "", false));
+        return new Mutable(EMPTY);
     }
 
     public static TotemData get(ItemStack stack) {
         return stack.getOrDefault(TotemOfPreserving.data.get(), EMPTY);
     }
 
-    public static Mutable getMutable(ItemStack stack) {
+    public static Mutable mutable(ItemStack stack) {
         return new Mutable(get(stack));
     }
 
-    public static void set(ItemStack stack, Mutable data) {
-        stack.set(TotemOfPreserving.data.get(), data.toImmutable());
+    public static void set(ItemStack stack, Mutable mutable) {
+        stack.set(TotemOfPreserving.data.get(), mutable.toImmutable());
     }
 
     public static class Mutable {
         private List<ItemStack> items;
         private String message;
-        private boolean glint;
 
         public Mutable(TotemData data) {
             this.items = data.items();
             this.message = data.message();
-            this.glint = data.glint();
         }
 
         public TotemData toImmutable() {
-            return new TotemData(items, message, glint);
+            return new TotemData(items, message);
         }
 
         public void save(ItemStack stack) {
@@ -73,11 +67,6 @@ public record TotemData(List<ItemStack> items, String message, boolean glint) {
 
         public Mutable setItems(List<ItemStack> items) {
             this.items = items;
-
-            if (!items.isEmpty()) {
-                this.glint = true;
-            }
-
             return this;
         }
     }

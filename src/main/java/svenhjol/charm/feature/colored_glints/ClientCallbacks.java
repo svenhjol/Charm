@@ -12,32 +12,32 @@ public final class ClientCallbacks {
     public static boolean enabled = false;
 
     public static RenderType getArmorGlintRenderLayer() {
-        return ClientHandler.ARMOR_GLINT
+        return ClientHandlers.ARMOR_GLINT
             .getOrDefault(ColoredGlints.get(targetStack), RenderType.ARMOR_GLINT);
     }
 
     public static RenderType getArmorEntityGlintRenderLayer() {
-        return ClientHandler.ARMOR_ENTITY_GLINT
+        return ClientHandlers.ARMOR_ENTITY_GLINT
             .getOrDefault(ColoredGlints.get(targetStack), RenderType.ARMOR_ENTITY_GLINT);
     }
 
     public static RenderType getDirectGlintRenderLayer() {
-        return ClientHandler.GLINT_DIRECT
+        return ClientHandlers.GLINT_DIRECT
             .getOrDefault(ColoredGlints.get(targetStack), RenderType.GLINT_DIRECT);
     }
 
     public static RenderType getDirectEntityGlintRenderLayer() {
-        return ClientHandler.ENTITY_GLINT_DIRECT
+        return ClientHandlers.ENTITY_GLINT_DIRECT
             .getOrDefault(ColoredGlints.get(targetStack), RenderType.ENTITY_GLINT_DIRECT);
     }
 
     public static RenderType getEntityGlintRenderLayer() {
-        return ClientHandler.ENTITY_GLINT
+        return ClientHandlers.ENTITY_GLINT
             .getOrDefault(ColoredGlints.get(targetStack), RenderType.ENTITY_GLINT);
     }
 
     public static RenderType getGlintRenderLayer() {
-        return ClientHandler.GLINT
+        return ClientHandlers.GLINT
             .getOrDefault(ColoredGlints.get(targetStack), RenderType.GLINT);
     }
 }
