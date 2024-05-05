@@ -21,16 +21,16 @@ public class TotemBlockEntityRenderer<T extends TotemBlockEntity> implements Blo
     @Override
     public void render(T entity, float tickDelta, PoseStack poseStack, MultiBufferSource bufferSource, int light, int overlay) {
         poseStack.pushPose();
-        poseStack.scale(1F, 1F, 1F);
-        poseStack.translate(0.5F, 0.5F, 0.5F);
-        poseStack.scale(0.5F, 0.5F, 0.5F);
+        poseStack.scale(1f, 1f, 1f);
+        poseStack.translate(0.5f, 0.5f, 0.5f);
+        poseStack.scale(0.5f, 0.5f, 0.5f);
 
         var itemRenderer = Minecraft.getInstance().getItemRenderer();
         var level = Minecraft.getInstance().level;
 
-        entity.rotateTicks += 0.25F;
-        if (entity.rotateTicks >= 360F) {
-            entity.rotateTicks = 0F;
+        entity.rotateTicks += 0.25f;
+        if (entity.rotateTicks >= 360f) {
+            entity.rotateTicks = 0f;
         }
 
         poseStack.mulPose(Axis.YP.rotationDegrees(entity.rotateTicks));

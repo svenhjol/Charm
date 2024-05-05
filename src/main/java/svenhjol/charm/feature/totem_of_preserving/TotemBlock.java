@@ -2,13 +2,7 @@ package svenhjol.charm.feature.totem_of_preserving;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -21,12 +15,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Log;
 
 public class TotemBlock extends BaseEntityBlock {
-    static final Log LOGGER = new Log(Charm.ID, "TotemOfPreservingBlock");
-
     static final MapCodec<TotemBlock> CODEC = simpleCodec(TotemBlock::new);
     static final VoxelShape SHAPE = Block.box(2, 2, 2, 14, 14, 14);
 
@@ -78,21 +68,7 @@ public class TotemBlock extends BaseEntityBlock {
      */
     @Override
     public void onRemove(BlockState blockState, Level level, BlockPos pos, BlockState state, boolean bl) {
-        var dimension = level.dimension().location();
-
-        if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)
-            && TotemOfPreserving.PROTECT_POSITIONS.get(dimension).contains(pos)
-            && level.getBlockEntity(pos) instanceof TotemBlockEntity totem
-            && !level.isClientSide) {
-
-            LOGGER.debug("Something wants to overwrite the totem block, emergency item drop");
-            var items = totem.getItems();
-            for (ItemStack stack : items) {
-                var itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack);
-                level.addFreshEntity(itemEntity);
-            }
-        }
-        LOGGER.debug("Going to remove a totem block");
+        CommonHandlers.handleServerWantsToRemoveBlock(level, pos);
         super.onRemove(blockState, level, pos, state, bl);
     }
 
@@ -101,44 +77,7 @@ public class TotemBlock extends BaseEntityBlock {
      */
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
-        if (entity instanceof Player player
-            && !player.level().isClientSide()
-            && player.isAlive()
-            && level.getBlockEntity(pos) instanceof TotemBlockEntity totem
-            && (!TotemOfPreserving.ownerOnly
-                || (totem.getOwner().equals(player.getUUID()) || player.getAbilities().instabuild))
-        ) {
-            var serverLevel = (ServerLevel)level;
-            var dimension = serverLevel.dimension().location();
-
-            // Create a new totem item and give it to player.
-            LOGGER.debug("Player has interacted with totem holder block at pos: " + pos + ", player: " + player);
-            var totemItem = new ItemStack(TotemOfPreserving.item.get());
-
-            if (TotemData.has(totemItem)) {
-                TotemItem.setItems(totemItem, totem.getItems());
-                TotemItem.setMessage(totemItem, totem.getMessage());
-                TotemItem.setTotemDamage(totemItem, totem.getDamage());
-
-                if (!totem.getItems().isEmpty()) {
-                    TotemItem.setGlint(totemItem);
-                }
-            }
-
-            LOGGER.debug("Adding totem item to player's inventory: " + player);
-            player.getInventory().add(totemItem);
-
-            level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
-
-            if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)) {
-                TotemOfPreserving.PROTECT_POSITIONS.get(dimension).remove(pos);
-            }
-
-            // Remove the totem block.
-            LOGGER.debug("Removing totem holder block and block entity: " + pos);
-            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
-        }
-
+        CommonHandlers.handlePlayerEnteredBlock(level, pos, entity);
         super.entityInside(state, level, pos, entity);
     }
 }

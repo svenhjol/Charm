@@ -29,7 +29,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z",
-            ordinal = 2,
+            ordinal = 1,
             shift = At.Shift.BEFORE
         ),
         cancellable = true,

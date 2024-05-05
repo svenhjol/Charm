@@ -15,17 +15,17 @@ import java.util.List;
 public record TotemOfPreservingTooltip(List<ItemStack> items) implements ClientTooltipComponent, CharmTooltip {
     @Override
     public int getWidth(Font font) {
-        return this.gridSizeX() * 18 + 2;
+        return this.gridSizeX() * SLOT_SIZE_X + 2;
     }
 
     @Override
     public int getHeight() {
-        return this.gridSizeY() * 20 + 2;
+        return this.gridSizeY() * SLOT_SIZE_Y + MARGIN_Y;
     }
 
     @Override
     public int gridSizeX() {
-        return Math.max(2, (int)Math.ceil(Math.sqrt((double)this.items.size() + 1.0)));
+        return Math.max(9, (int)Math.ceil(Math.sqrt((double)this.items.size() + 1.0)));
     }
 
     @Override

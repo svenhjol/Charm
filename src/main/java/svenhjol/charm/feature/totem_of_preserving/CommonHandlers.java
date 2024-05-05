@@ -3,19 +3,30 @@ package svenhjol.charm.feature.totem_of_preserving;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
+import svenhjol.charm.api.enums.EventResult;
+import svenhjol.charm.api.enums.EventResultWithItemStack;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.event.AnvilUpdateEvent;
 import svenhjol.charm.foundation.Globals;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.helper.ClientEffectHelper;
+import svenhjol.charm.foundation.helper.TotemHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,14 +34,77 @@ import java.util.List;
 import java.util.Optional;
 
 public final class CommonHandlers {
-    static final Log LOGGER = new Log(Charm.ID, "TotemOfPreservingHandler");
+    static final Log LOGGER = new Log(Charm.ID, "TotemCommonHandlers");
+
+    static void handlePlayerEnteredBlock(Level level, BlockPos pos, Entity entity) {
+        if (entity instanceof Player player
+            && !player.level().isClientSide()
+            && player.isAlive()
+            && level.getBlockEntity(pos) instanceof TotemBlockEntity totemBlockEntity
+            && (!TotemOfPreserving.ownerOnly
+            || (totemBlockEntity.getOwner().equals(player.getUUID())
+            || player.getAbilities().instabuild))
+        ) {
+            var serverLevel = (ServerLevel)level;
+            var dimension = serverLevel.dimension().location();
+
+            // Create a new totem item and give it to player.
+            LOGGER.debug("Player has interacted with totem holder block at pos: " + pos + ", player: " + player);
+            var totem = new ItemStack(TotemOfPreserving.item.get());
+
+            // Get the data out of the block entity.
+            var items = totemBlockEntity.getItems();
+            var message = totemBlockEntity.getMessage();
+            var damage = totemBlockEntity.getDamage();
+
+            // Set data for the totem.
+            TotemData.create()
+                .setItems(items)
+                .setMessage(message)
+                .save(totem);
+
+            totem.setDamageValue(damage);
+            TotemItem.setGlint(totem);
+
+            LOGGER.debug("Adding totem item to player's inventory: " + player);
+            player.getInventory().add(totem);
+
+            level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
+
+            if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)) {
+                TotemOfPreserving.PROTECT_POSITIONS.get(dimension).remove(pos);
+            }
+
+            // Remove the totem block.
+            LOGGER.debug("Removing totem holder block and block entity: " + pos);
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+        }
+    }
+
+    static void handleServerWantsToRemoveBlock(Level level, BlockPos pos) {
+        var dimension = level.dimension().location();
+
+        if (TotemOfPreserving.PROTECT_POSITIONS.containsKey(dimension)
+            && TotemOfPreserving.PROTECT_POSITIONS.get(dimension).contains(pos)
+            && level.getBlockEntity(pos) instanceof TotemBlockEntity totem
+            && !level.isClientSide) {
+
+            LOGGER.debug("Something wants to overwrite the totem block, emergency item drop");
+            var items = totem.getItems();
+            for (ItemStack stack : items) {
+                var itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack);
+                level.addFreshEntity(itemEntity);
+            }
+        }
+        LOGGER.debug("Going to remove a totem block");
+    }
 
     static InteractionResult handlePlayerInventoryDrop(Player player, Inventory inventory) {
         if (player.level().isClientSide) {
             return InteractionResult.PASS;
         }
 
-        ItemStack found = ItemStack.EMPTY;
+        var found = ItemStack.EMPTY;
         var damage = 0; // Track how much damage the totem has taken
         var loader = Globals.common(Charm.ID);
         var serverPlayer = (ServerPlayer)player;
@@ -50,7 +124,12 @@ public final class CommonHandlers {
 
             if (!totemWorksFromInventory) {
                 for (var held : player.getHandSlots()) {
-                    if (!held.is(TotemOfPreserving.item.get()) || TotemItem.hasItems(held)) {
+                    if (!held.is(TotemOfPreserving.item.get())) {
+                        continue;
+                    }
+
+                    var data = TotemData.get(held);
+                    if (!data.items().isEmpty()) {
                         continue;
                     }
 
@@ -96,6 +175,7 @@ public final class CommonHandlers {
         // This doesn't do anything in graveMode because found is always empty.
         if (!found.isEmpty()) {
             found.shrink(found.getCount());
+            preserveItems = preserveItems.stream().filter(i -> !i.isEmpty()).toList(); // refilter to remove air
         }
 
         // Place a totem block in the world.
@@ -264,5 +344,75 @@ public final class CommonHandlers {
             return Optional.of(recipe);
         }
         return Optional.empty();
+    }
+
+    static EventResultWithItemStack handleUseTotemInHand(Level level, Player player, InteractionHand hand) {
+        var totem = player.getItemInHand(hand);
+        var data = TotemData.get(totem);
+        var pos = player.blockPosition();
+        var destroyTotem = false;
+
+        // Don't break totem if it's empty.
+        if (data.items().isEmpty()) {
+            var newTotem = givePlayerCleanTotem(player, hand);
+            newTotem.setDamageValue(totem.getDamageValue());
+            return new EventResultWithItemStack(EventResult.PASS, newTotem);
+        }
+
+        level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
+
+        if (TotemOfPreserving.graveMode) {
+
+            // Always destroy totem in Grave Mode.
+            destroyTotem = true;
+
+        } else if (TotemOfPreserving.durability <= 0) {
+
+            givePlayerCleanTotem(player, hand);
+
+        } else {
+
+            // Durability config of 1 or more causes damage to the totem.
+            var damage = totem.getDamageValue();
+            if (damage < totem.getMaxDamage() && (totem.getMaxDamage() - damage > 1)) {
+
+                var newTotem = givePlayerCleanTotem(player, hand);
+                newTotem.setDamageValue(damage + 1);
+
+            } else {
+                destroyTotem = true;
+            }
+        }
+
+        if (!destroyTotem) {
+            level.playSound(null, pos, TotemOfPreserving.releaseSound.get(), SoundSource.PLAYERS, 0.8f, 1.0f);
+        } else {
+            destroyTotem(totem, player);
+        }
+
+        if (!level.isClientSide) {
+            // Add totem items to the world.
+            for (var stack : data.items()) {
+                var itemEntity = new ItemEntity(level, pos.getX(), pos.getY() + 0.5d, pos.getZ(), stack);
+                level.addFreshEntity(itemEntity);
+            }
+        }
+
+        return new EventResultWithItemStack(EventResult.NONE, ItemStack.EMPTY);
+    }
+
+
+    private static ItemStack givePlayerCleanTotem(Player player, InteractionHand hand) {
+        var stack = new ItemStack(TotemOfPreserving.item.get());
+        player.setItemInHand(hand, stack);
+        return stack;
+    }
+
+    private static void destroyTotem(ItemStack stack, Player player) {
+        if (!player.level().isClientSide) {
+            TotemHelper.destroy(player, stack);
+        } else {
+            ClientEffectHelper.destroyTotem(player.blockPosition());
+        }
     }
 }

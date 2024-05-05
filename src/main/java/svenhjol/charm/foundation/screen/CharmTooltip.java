@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface CharmTooltip extends TooltipComponent {
     ResourceLocation BACKGROUND_SPRITE = new ResourceLocation("container/bundle/background");
-    int MARGIN_Y = 4;
+    int MARGIN_Y = 6;
     int SLOT_SIZE_X = 18;
-    int SLOT_SIZE_Y = 20;
+    int SLOT_SIZE_Y = 18;
 
     int gridSizeX();
 
@@ -26,7 +26,7 @@ public interface CharmTooltip extends TooltipComponent {
     }
 
     default int backgroundHeight() {
-        return this.gridSizeY() * SLOT_SIZE_Y + 2;
+        return this.gridSizeY() * SLOT_SIZE_Y;
     }
 
     default void defaultRenderImage(Font font, int x, int y, GuiGraphics guiGraphics) {
@@ -38,7 +38,7 @@ public interface CharmTooltip extends TooltipComponent {
         for (int n = 0; n < gy; ++n) {
             for (int o = 0; o < gx; ++o) {
                 int p = x + o * 18 + 1;
-                int q = y + n * 20 + 1;
+                int q = y + n * 18 + 1;
                 renderSlot(p, q, m++, guiGraphics, font);
             }
         }
@@ -63,8 +63,8 @@ public interface CharmTooltip extends TooltipComponent {
     }
 
     enum Texture {
-        BLOCKED_SLOT(new ResourceLocation("container/bundle/blocked_slot"), 18, 20),
-        SLOT(new ResourceLocation("container/bundle/slot"), 18, 20);
+        BLOCKED_SLOT(new ResourceLocation("container/bundle/blocked_slot"), 18, 18),
+        SLOT(new ResourceLocation("container/bundle/slot"), 18, 18);
 
         public final ResourceLocation sprite;
         public final int w;

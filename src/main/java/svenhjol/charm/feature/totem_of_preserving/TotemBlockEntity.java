@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class TotemBlockEntity extends BlockEntity {
-    static final String ITEMS_TAG = "items";
     static final String OWNER_TAG = "owner";
     static final String MESSAGE_TAG = "message";
     static final String DAMAGE_TAG = "damage";
@@ -30,22 +29,8 @@ public class TotemBlockEntity extends BlockEntity {
         super(TotemOfPreserving.blockEntity.get(), pos, state);
     }
 
-//    @Override
-//    public void load(CompoundTag tag) {
-//        super.load(tag);
-//        items.clear();
-//
-//        var itemsList = tag.getList(ITEMS_TAG, 10);
-//        for (var t : itemsList) {
-//            var stack = ItemStack.of((CompoundTag) t);
-//            items.add(stack);
-//        }
-//
-//        message = tag.getString(MESSAGE_TAG);
-//        owner = tag.getUUID(OWNER_TAG);
-//        damage = tag.getInt(DAMAGE_TAG);
-//    }
-
+    // NonNullLists don't support addAll()
+    @SuppressWarnings("UseBulkOperation")
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.loadAdditional(tag, provider);
@@ -64,6 +49,8 @@ public class TotemBlockEntity extends BlockEntity {
         damage = tag.getInt(DAMAGE_TAG);
     }
 
+    // NonNullLists don't support addAll()
+    @SuppressWarnings("UseBulkOperation")
     @Override
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
         super.saveAdditional(tag, provider);

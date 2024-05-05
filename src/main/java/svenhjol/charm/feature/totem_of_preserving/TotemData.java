@@ -29,12 +29,14 @@ public record TotemData(List<ItemStack> items, String message, boolean glint) {
         TotemData::new
     );
 
-    public static boolean has(ItemStack stack) {
-        return stack.has(TotemOfPreserving.data.get());
+    public static final TotemData EMPTY = new TotemData(List.of(), "", false);
+
+    public static Mutable create() {
+        return new Mutable(new TotemData(List.of(), "", false));
     }
 
     public static TotemData get(ItemStack stack) {
-        return stack.get(TotemOfPreserving.data.get());
+        return stack.getOrDefault(TotemOfPreserving.data.get(), EMPTY);
     }
 
     public static Mutable getMutable(ItemStack stack) {
@@ -71,9 +73,11 @@ public record TotemData(List<ItemStack> items, String message, boolean glint) {
 
         public Mutable setItems(List<ItemStack> items) {
             this.items = items;
+
             if (!items.isEmpty()) {
                 this.glint = true;
             }
+
             return this;
         }
     }
