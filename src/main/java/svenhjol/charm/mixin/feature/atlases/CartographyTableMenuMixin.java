@@ -12,11 +12,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.atlases.CommonCallbacks;
+import svenhjol.charm.feature.atlases.Atlases;
 
 /**
  * Scale atlases on cartography table.
  */
+@SuppressWarnings("UnreachableCode")
 @Mixin(CartographyTableMenu.class)
 public class CartographyTableMenuMixin {
     @Shadow @Final private ContainerLevelAccess access;
@@ -28,7 +29,7 @@ public class CartographyTableMenuMixin {
         at = @At("TAIL")
     )
     private void hookConstructor(int syncId, Inventory inventory, ContainerLevelAccess context, CallbackInfo ci) {
-        CommonCallbacks.setupAtlasUpscale(inventory, (CartographyTableMenu) (Object) this);
+        Atlases.handlers.setupAtlasUpscale(inventory, (CartographyTableMenu) (Object) this);
     }
 
     @Inject(
@@ -39,7 +40,8 @@ public class CartographyTableMenuMixin {
     private void hookUpdateResult(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, CallbackInfo ci) {
         Level level = access.evaluate((w, b) -> w).orElse(null);
         if (level == null) return;
-        if (CommonCallbacks.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, level, resultContainer, (CartographyTableMenu) (Object) this)) {
+        if (Atlases.handlers.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, level, resultContainer,
+            (CartographyTableMenu) (Object) this)) {
             ci.cancel();
         }
     }

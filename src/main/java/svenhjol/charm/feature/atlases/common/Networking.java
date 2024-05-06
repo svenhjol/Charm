@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.common;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -9,33 +9,15 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ComplexItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
+import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.foundation.feature.Network;
 
-public final class CommonNetworking extends Network<Atlases> {
-    public CommonNetworking(Atlases feature) {
+public final class Networking extends Network<Atlases> {
+    public Networking(Atlases feature) {
         super(feature);
     }
 
-    @Override
-    public void onRegister() {
-        var registry = feature.registry();
-
-        // Server senders
-        registry.serverPacketSender(S2CSwappedAtlasSlot.TYPE, S2CSwappedAtlasSlot.CODEC);
-        registry.serverPacketSender(S2CUpdateInventory.TYPE, S2CUpdateInventory.CODEC);
-
-        // Client senders
-        registry.clientPacketSender(C2SSwapAtlasSlot.TYPE, C2SSwapAtlasSlot.CODEC);
-        registry.clientPacketSender(C2STransferAtlas.TYPE, C2STransferAtlas.CODEC);
-
-        // Server receivers
-        registry.packetReceiver(C2SSwapAtlasSlot.TYPE,
-            Atlases::handleSwappedSlot);
-        registry.packetReceiver(C2STransferAtlas.TYPE,
-            Atlases::handleTransferAtlas);
-    }
-
-    public static void sendMapToClient(ServerPlayer player, ItemStack map, boolean markDirty) {
+    public void sendMapToClient(ServerPlayer player, ItemStack map, boolean markDirty) {
         if (map.getItem().isComplex()) {
             if (markDirty) {
                 var mapData = MapItem.getSavedData(map, player.level());
@@ -58,10 +40,10 @@ public final class CommonNetworking extends Network<Atlases> {
 
     // Server-to-client
     public record S2CSwappedAtlasSlot(int slot) implements CustomPacketPayload {
-        static final String ID = "charm:swapped_atlas_slot";
-        static CustomPacketPayload.Type<S2CSwappedAtlasSlot> TYPE
+        private static final String ID = "charm:swapped_atlas_slot";
+        public static CustomPacketPayload.Type<S2CSwappedAtlasSlot> TYPE
             = CustomPacketPayload.createType(ID);
-        static StreamCodec<FriendlyByteBuf, S2CSwappedAtlasSlot> CODEC
+        public static StreamCodec<FriendlyByteBuf, S2CSwappedAtlasSlot> CODEC
             = StreamCodec.of(S2CSwappedAtlasSlot::encode, S2CSwappedAtlasSlot::decode);
 
         public static void send(ServerPlayer player, int slot) {
@@ -84,9 +66,9 @@ public final class CommonNetworking extends Network<Atlases> {
 
     // Server-to-client
     public record S2CUpdateInventory(int slot) implements CustomPacketPayload {
-        static final String ID = "charm:update_atlas_inventory";
-        static CustomPacketPayload.Type<S2CUpdateInventory> TYPE = CustomPacketPayload.createType(ID);
-        static StreamCodec<FriendlyByteBuf, S2CUpdateInventory> CODEC = StreamCodec.of(S2CUpdateInventory::encode, S2CUpdateInventory::decode);
+        private static final String ID = "charm:update_atlas_inventory";
+        public static CustomPacketPayload.Type<S2CUpdateInventory> TYPE = CustomPacketPayload.createType(ID);
+        public static StreamCodec<FriendlyByteBuf, S2CUpdateInventory> CODEC = StreamCodec.of(S2CUpdateInventory::encode, S2CUpdateInventory::decode);
 
         public static void send(ServerPlayer player, int slot) {
             ServerPlayNetworking.send(player, new S2CUpdateInventory(slot));
@@ -110,9 +92,9 @@ public final class CommonNetworking extends Network<Atlases> {
 
     // Client-to-server
     public record C2SSwapAtlasSlot(int slot) implements CustomPacketPayload {
-        static final String ID = "charm:swap_atlas_slot";
-        static CustomPacketPayload.Type<C2SSwapAtlasSlot> TYPE = CustomPacketPayload.createType(ID);
-        static StreamCodec<FriendlyByteBuf, C2SSwapAtlasSlot> CODEC = StreamCodec.of(C2SSwapAtlasSlot::encode, C2SSwapAtlasSlot::decode);
+        private static final String ID = "charm:swap_atlas_slot";
+        public static CustomPacketPayload.Type<C2SSwapAtlasSlot> TYPE = CustomPacketPayload.createType(ID);
+        public static StreamCodec<FriendlyByteBuf, C2SSwapAtlasSlot> CODEC = StreamCodec.of(C2SSwapAtlasSlot::encode, C2SSwapAtlasSlot::decode);
 
         public static void send(int slot) {
             ClientPlayNetworking.send(new C2SSwapAtlasSlot(slot));
@@ -134,9 +116,9 @@ public final class CommonNetworking extends Network<Atlases> {
 
     // Client-to-server
     public record C2STransferAtlas(int atlasSlot, int mapX, int mapZ, MoveMode moveMode) implements CustomPacketPayload {
-        static final String ID = "charm:transfer_atlas";
-        static CustomPacketPayload.Type<C2STransferAtlas> TYPE = CustomPacketPayload.createType(ID);
-        static StreamCodec<FriendlyByteBuf, C2STransferAtlas> CODEC = StreamCodec.of(C2STransferAtlas::encode, C2STransferAtlas::decode);
+        private static final String ID = "charm:transfer_atlas";
+        public static CustomPacketPayload.Type<C2STransferAtlas> TYPE = CustomPacketPayload.createType(ID);
+        public static StreamCodec<FriendlyByteBuf, C2STransferAtlas> CODEC = StreamCodec.of(C2STransferAtlas::encode, C2STransferAtlas::decode);
 
         public static void send(int atlasSlot, int mapX, int mapZ, MoveMode moveMode) {
             ClientPlayNetworking.send(new C2STransferAtlas(atlasSlot, mapX, mapZ, moveMode));

@@ -107,16 +107,13 @@ public abstract class Loader<T extends Feature> {
         // Load configuration state for the features.
         configure();
 
-        // Early setup for features that initialise enums or other pre-registration tasks.
-        setups();
-
         // Final checks before registration. Last chance for feature to set itself as enabled/disabled.
         checks();
 
         // Create references to feature register classes. Registers are executed even if the feature is disabled.
-        registers();
+        setup();
 
-        // To be removed.
+        // TODO: To be removed.
         networks();
     }
 
@@ -186,33 +183,16 @@ public abstract class Loader<T extends Feature> {
     }
 
     /**
-     * Gets the setup classes for ALL features (including disabled) organising by feature priority.
-     * A setup failure will bail.
+     * Runs the setup() method for each feature (including disabled features).
+     * This allows the feature to run its own registrations, handlers, networking etc.
      */
-    protected void setups() {
-        sortFeaturesByPriority();
-
-        for (T feature : getFeatures()) {
-            try {
-                feature.setups();
-            } catch (Exception e) {
-                log().error("Setups failed for " + feature.name() + ": " + e.getMessage());
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    /**
-     * Gets the register classes for ALL features (including disabled) organising by feature priority.
-     * A registration failure will bail.
-     */
-    protected void registers() {
+    protected void setup() {
         sortFeaturesByPriority();
         LinkedList<Register<T>> local = new LinkedList<>();
 
         for (T feature : getFeatures()) {
             try {
-                feature.registers();
+                feature.setup();
                 feature.registration().ifPresent(register -> local.add((Register<T>) register));
             } catch (Exception e) {
                 log().error("Registrations failed for " + feature.name() + ": " + e.getMessage());

@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.common;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapId;
+import svenhjol.charm.feature.atlases.Atlases;
 
 @SuppressWarnings("unused")
 public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Level> dimension) {
@@ -51,11 +52,11 @@ public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Leve
     }
 
     public static boolean has(ItemStack stack) {
-        return stack.has(Atlases.mapData.get());
+        return stack.has(Atlases.registers.mapData.get());
     }
 
     public static MapData get(ItemStack stack) {
-        return stack.get(Atlases.mapData.get());
+        return stack.get(Atlases.registers.mapData.get());
     }
 
     public static MapData.Mutable getMutable(ItemStack stack) {
@@ -64,7 +65,7 @@ public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Leve
 
     public static ItemStack set(ItemStack stack, MapData.Mutable data) {
         var immutable = data.toImmutable();
-        stack.set(Atlases.mapData.get(), immutable);
+        stack.set(Atlases.registers.mapData.get(), immutable);
         return stack;
     }
 

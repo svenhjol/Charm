@@ -5,7 +5,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 
 public class ExtractableEnchantmentsClient extends ClientFeature {
     @Override
-    public Class<? extends CommonFeature> commonClass() {
+    public Class<? extends CommonFeature> relatedCommonFeature() {
         return ExtractableEnchantments.class;
     }
 }

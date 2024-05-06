@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.common;
 
 public enum MoveMode {
     TO_HAND,

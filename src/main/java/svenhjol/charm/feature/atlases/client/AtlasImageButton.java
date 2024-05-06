@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.client;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;

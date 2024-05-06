@@ -16,7 +16,7 @@ public class AutoRestock extends CommonFeature {
     }
 
     @Override
-    public void registers() {
+    public void setup() {
         advancements = new Advancements(this);
         handlers = new Handlers(this);
         registers = new Registers(this);

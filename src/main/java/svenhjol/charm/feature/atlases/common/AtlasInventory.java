@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.common;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -25,6 +25,7 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import svenhjol.charm.feature.atlases.Atlases;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,7 +59,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public static AtlasInventory find(Inventory inventory) {
         for (var hand : InteractionHand.values()) {
             var held = inventory.player.getItemInHand(hand);
-            if (held.getItem() == Atlases.item.get()) {
+            if (held.getItem() == Atlases.registers.item.get()) {
                 return get(inventory.player.level(), held);
             }
         }
@@ -162,7 +163,7 @@ public class AtlasInventory implements MenuProvider, Container {
         }
 
         if (activeMap != null) {
-            CommonNetworking.sendMapToClient(player, activeMap.map, false);
+            Atlases.networking.sendMapToClient(player, activeMap.map, false);
         }
 
         return madeNewMap;
@@ -214,7 +215,7 @@ public class AtlasInventory implements MenuProvider, Container {
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int syncId, @Nonnull Inventory playerInventory, @Nonnull Player player) {
-        return new AtlasContainer(syncId, playerInventory, this);
+        return new Menu(syncId, playerInventory, this);
     }
 
     @Override
@@ -295,7 +296,7 @@ public class AtlasInventory implements MenuProvider, Container {
         var data = AtlasData.get(atlas);
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldItem = player.getItemInHand(hand);
-            if (heldItem.getItem() == Atlases.item.get()) {
+            if (heldItem.getItem() == Atlases.registers.item.get()) {
                 return Objects.equals(data.getId(), AtlasData.get(heldItem).getId());
             }
         }
@@ -313,7 +314,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void startOpen(Player player) {
         isOpen = true;
         if (!player.level().isClientSide) {
-            player.playNotifySound(Atlases.openSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(Atlases.registers.openSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
         }
     }
 
@@ -321,7 +322,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void stopOpen(Player player) {
         isOpen = false;
         if (!player.level().isClientSide) {
-            player.playNotifySound(Atlases.closeSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(Atlases.registers.closeSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
         }
     }
 

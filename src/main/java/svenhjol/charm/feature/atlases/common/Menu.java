@@ -1,23 +1,24 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.common;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.foundation.menu.CharmConditionalSlot;
 import svenhjol.charm.foundation.menu.CharmContainerMenu;
 
 import java.util.Objects;
 
-public class AtlasContainer extends CharmContainerMenu {
+public class Menu extends CharmContainerMenu {
     private final AtlasInventory inventory;
 
-    public AtlasContainer(int syncId, Inventory playerInventory) {
+    public Menu(int syncId, Inventory playerInventory) {
         this(syncId, playerInventory, AtlasInventory.find(playerInventory));
     }
 
-    public AtlasContainer(int syncId, Inventory playerInventory, AtlasInventory atlasInventory) {
-        super(Atlases.menuType.get(), syncId, playerInventory, atlasInventory);
+    public Menu(int syncId, Inventory playerInventory, AtlasInventory atlasInventory) {
+        super(Atlases.registers.menuType.get(), syncId, playerInventory, atlasInventory);
         this.inventory = atlasInventory;
 
         // Container's inventory slots.
@@ -38,8 +39,8 @@ public class AtlasContainer extends CharmContainerMenu {
                 @Override
                 public boolean mayPickup(Player playerIn) {
                     var itemData = AtlasData.get(getItem());
-                    var containerData = AtlasData.get(AtlasContainer.this.inventory.getAtlasItem());
-                    return getItem().getItem() != Atlases.item.get()
+                    var containerData = AtlasData.get(Menu.this.inventory.getAtlasItem());
+                    return getItem().getItem() != Atlases.registers.item.get()
                         || !Objects.equals(itemData.getId(), containerData.getId());
                 }
             });

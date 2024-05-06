@@ -13,7 +13,7 @@ public class CoralSquidsClient extends ClientFeature {
     static Supplier<ModelLayerLocation> layer;
 
     @Override
-    public Class<? extends CommonFeature> commonClass() {
+    public Class<? extends CommonFeature> relatedCommonFeature() {
         return CoralSquids.class;
     }
 

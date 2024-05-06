@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -11,6 +11,7 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
@@ -21,8 +22,13 @@ import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.joml.Matrix4f;
-import svenhjol.charm.feature.atlases.CommonNetworking.C2STransferAtlas;
+import svenhjol.charm.Charm;
+import svenhjol.charm.feature.atlases.common.AtlasInventory;
+import svenhjol.charm.feature.atlases.common.Menu;
+import svenhjol.charm.feature.atlases.common.MoveMode;
+import svenhjol.charm.feature.atlases.common.Networking.C2STransferAtlas;
 import svenhjol.charm.foundation.helper.KeyboardHelper;
+import svenhjol.charm.foundation.helper.MapHelper;
 import svenhjol.charm.foundation.screen.CharmContainerScreen;
 
 import java.util.EnumMap;
@@ -38,7 +44,11 @@ import java.util.stream.Collector;
  * @since 28.12.2020
  */
 @SuppressWarnings("ConstantConditions")
-public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
+public class AtlasScreen extends CharmContainerScreen<Menu> {
+    private static final RenderType MAP_BACKGROUND = RenderType.text(
+        new ResourceLocation("textures/map/map_background.png"));
+    private static final ResourceLocation CONTAINER_BACKGROUND = Charm.id("textures/gui/atlas.png");
+
     private static final int SIZE = 48;
     private static final int LEFT = 74;
     private static final int TOP = 16;
@@ -59,8 +69,8 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
     private final Player player;
     private final Inventory inventory;
 
-    public AtlasScreen(AtlasContainer menu, Inventory inv, Component title) {
-        super(menu, inv, title, AtlasesClient.CONTAINER_BACKGROUND);
+    public AtlasScreen(Menu menu, Inventory inv, Component title) {
+        super(menu, inv, title, CONTAINER_BACKGROUND);
         this.imageWidth = 175;
         this.imageHeight = 168;
         this.inventory = inv;
@@ -118,9 +128,9 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
         pose.scale(BASE_SCALE, BASE_SCALE, 1);
 
         var bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
-        var background = bufferSource.getBuffer(AtlasesClient.MAP_BACKGROUND);
+        var background = bufferSource.getBuffer(MAP_BACKGROUND);
 
-        AtlasMapHelper.drawBackgroundVertex(pose, LIGHT, background);
+        MapHelper.drawBackgroundVertex(pose, LIGHT, background);
 
         mapGui.render(guiGraphics, bufferSource, mouseX, mouseY);
         bufferSource.endBatch();
@@ -226,13 +236,13 @@ public class AtlasScreen extends CharmContainerScreen<AtlasContainer> {
     }
 
     private enum ButtonDirection {
-        LEFT(-BUTTON_SIZE - BUTTON_DISTANCE, CENTER, BUTTON_SIZE, BUTTON_SIZE, AtlasesClient.LEFT_BUTTON, -1, 0),
-        UP(CENTER, -BUTTON_SIZE - BUTTON_DISTANCE, BUTTON_SIZE, BUTTON_SIZE, AtlasesClient.UP_BUTTON, 0, -1),
-        RIGHT(SIZE + BUTTON_DISTANCE, CENTER, BUTTON_SIZE, BUTTON_SIZE, AtlasesClient.RIGHT_BUTTON, 1, 0),
-        DOWN(CENTER, SIZE + BUTTON_DISTANCE, BUTTON_SIZE, BUTTON_SIZE, AtlasesClient.DOWN_BUTTON, 0, 1),
-        BACK(82, -12, 16, 16, AtlasesClient.BACK_BUTTON, 0, 0),
-        ZOOM_OUT(79, SIZE + BUTTON_DISTANCE - 5, 8, 9, AtlasesClient.ZOOM_OUT_BUTTON, 0, 0),
-        ZOOM_IN(87, SIZE + BUTTON_DISTANCE - 5, 8, 9, AtlasesClient.ZOOM_IN_BUTTON, 0, 0);
+        LEFT(-BUTTON_SIZE - BUTTON_DISTANCE, CENTER, BUTTON_SIZE, BUTTON_SIZE, Buttons.LEFT_BUTTON, -1, 0),
+        UP(CENTER, -BUTTON_SIZE - BUTTON_DISTANCE, BUTTON_SIZE, BUTTON_SIZE, Buttons.UP_BUTTON, 0, -1),
+        RIGHT(SIZE + BUTTON_DISTANCE, CENTER, BUTTON_SIZE, BUTTON_SIZE, Buttons.RIGHT_BUTTON, 1, 0),
+        DOWN(CENTER, SIZE + BUTTON_DISTANCE, BUTTON_SIZE, BUTTON_SIZE, Buttons.DOWN_BUTTON, 0, 1),
+        BACK(82, -12, 16, 16, Buttons.BACK_BUTTON, 0, 0),
+        ZOOM_OUT(79, SIZE + BUTTON_DISTANCE - 5, 8, 9, Buttons.ZOOM_OUT_BUTTON, 0, 0),
+        ZOOM_IN(87, SIZE + BUTTON_DISTANCE - 5, 8, 9, Buttons.ZOOM_IN_BUTTON, 0, 0);
         final int left;
         final int top;
         final int width;

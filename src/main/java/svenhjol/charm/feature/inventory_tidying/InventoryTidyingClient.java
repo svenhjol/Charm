@@ -22,7 +22,7 @@ public class InventoryTidyingClient extends ClientFeature
     static final Map<Class<? extends Screen>, Pair<Integer, Integer>> CONTAINER_OFFSETS = new HashMap<>();
 
     @Override
-    public Class<? extends CommonFeature> commonClass() {
+    public Class<? extends CommonFeature> relatedCommonFeature() {
         return InventoryTidying.class;
     }
 

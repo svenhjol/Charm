@@ -23,14 +23,16 @@ public class Advancements extends CommonFeature {
     }
 
     @Override
-    public void registers() {
+    public void setup() {
         handlers = new Handlers(this);
         registers = new Registers(this);
     }
 
     /**
      * Call by any mod to trigger the ActionPerformed advancement.
+     * Deprecation: Create a feature setup Advancement and use the parent's trigger() method.
      */
+    @Deprecated
     public static void trigger(ResourceLocation advancement, Player player) {
         if (handlers == null) {
             throw new RuntimeException("Advancement handlers not initialized");

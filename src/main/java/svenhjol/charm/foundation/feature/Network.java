@@ -8,7 +8,7 @@ public abstract class Network<T extends Feature> {
 
     public Network(T feature) {
         this.feature = feature;
-        log().debug("Initializing handler class " + name() + " for " + feature.name());
+        log().debug("Initializing network class " + name() + " for " + feature.name());
     }
 
     public Log log() {

@@ -3,7 +3,6 @@ package svenhjol.charm.foundation;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.feature.Network;
 import svenhjol.charm.foundation.feature.Register;
-import svenhjol.charm.foundation.feature.Setup;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,9 +28,6 @@ public abstract class Feature {
     public abstract Registry registry();
 
     @Deprecated
-    public Optional<Setup<? extends Feature>> setup() { return Optional.empty(); }
-
-    @Deprecated
     public Optional<Register<? extends Feature>> registration() {
         return Optional.empty();
     }
@@ -41,11 +37,7 @@ public abstract class Feature {
         return Optional.empty();
     }
 
-    public void setups() {
-        // no op
-    }
-
-    public void registers() {
+    public void setup() {
         // no op
     }
 

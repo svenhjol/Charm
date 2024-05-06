@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class HoverSortingClient extends ClientFeature {
     @Override
-    public Class<? extends CommonFeature> commonClass() {
+    public Class<? extends CommonFeature> relatedCommonFeature() {
         return HoverSorting.class;
     }
 

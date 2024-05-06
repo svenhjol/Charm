@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class AzaleaWoodClient extends ClientFeature {
     @Override
-    public Class<? extends CommonFeature> commonClass() {
+    public Class<? extends CommonFeature> relatedCommonFeature() {
         return AzaleaWood.class;
     }
 

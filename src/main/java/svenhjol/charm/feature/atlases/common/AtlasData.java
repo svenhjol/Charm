@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.common;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -8,13 +8,16 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.maps.MapId;
+import svenhjol.charm.feature.atlases.Atlases;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class AtlasData {
+public final class AtlasData {
+    private static final Registers REGISTERS = Atlases.registers;
+
     public static final Codec<AtlasData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("empty_maps")
             .forGetter(a -> a.emptyMaps),
@@ -68,11 +71,11 @@ public class AtlasData {
     }
 
     public static boolean has(ItemStack stack) {
-        return stack.has(Atlases.atlasData.get());
+        return stack.has(Atlases.registers.atlasData.get());
     }
 
     public static AtlasData get(ItemStack stack) {
-        return stack.get(Atlases.atlasData.get());
+        return stack.get(Atlases.registers.atlasData.get());
     }
 
     public static AtlasData.Mutable getMutable(ItemStack stack) {
@@ -81,7 +84,7 @@ public class AtlasData {
 
     public static ItemStack set(ItemStack stack, AtlasData.Mutable data) {
         var immutable = data.toImmutable();
-        stack.set(Atlases.atlasData.get(), immutable);
+        stack.set(Atlases.registers.atlasData.get(), immutable);
         return stack;
     }
 

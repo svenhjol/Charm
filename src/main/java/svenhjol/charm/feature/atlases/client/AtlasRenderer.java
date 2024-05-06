@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -15,9 +15,14 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import svenhjol.charm.Charm;
+import svenhjol.charm.feature.atlases.common.AtlasInventory;
+import svenhjol.charm.foundation.helper.MapHelper;
 
 @SuppressWarnings("unused")
 public class AtlasRenderer {
+    private static final RenderType ATLAS_BACKGROUND = RenderType.text(Charm.id("textures/map/atlas.png"));
+
     private final MapRenderer mapItemRenderer;
     private final EntityRenderDispatcher renderManager;
 
@@ -107,7 +112,7 @@ public class AtlasRenderer {
     }
 
     public void renderAtlasMap(MapId mapId, MapItemSavedData mapData, PoseStack pose, MultiBufferSource buffers, int light) {
-        this.renderBackground(AtlasesClient.ATLAS_BACKGROUND, pose, buffers, light);
+        this.renderBackground(ATLAS_BACKGROUND, pose, buffers, light);
 
         if (mapData != null) {
             pose.pushPose();
@@ -123,6 +128,6 @@ public class AtlasRenderer {
         pose.scale(0.38F, 0.38F, 0.38F);
         pose.translate(-0.5D, -0.5D, 0.0D);
         pose.scale(0.0078125F, 0.0078125F, 0.0078125F);
-        AtlasMapHelper.drawBackgroundVertex(pose, light, buffers.getBuffer(background));
+        MapHelper.drawBackgroundVertex(pose, light, buffers.getBuffer(background));
     }
 }

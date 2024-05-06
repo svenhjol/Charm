@@ -8,12 +8,12 @@ public class TotemOfPreservingClient extends ClientFeature {
     public static Registers registers;
 
     @Override
-    public Class<? extends CommonFeature> commonClass() {
+    public Class<? extends CommonFeature> relatedCommonFeature() {
         return TotemOfPreserving.class;
     }
 
     @Override
-    public void registers() {
+    public void setup() {
         registers = new Registers(this);
     }
 }

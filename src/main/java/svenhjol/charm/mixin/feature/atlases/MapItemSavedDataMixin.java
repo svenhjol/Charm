@@ -6,7 +6,7 @@ import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.feature.atlases.CommonCallbacks;
+import svenhjol.charm.feature.atlases.Atlases;
 
 import java.util.function.Predicate;
 
@@ -23,6 +23,6 @@ public class MapItemSavedDataMixin {
         )
     )
     private boolean hookContains(Inventory inventory, Predicate<ItemStack> predicate) {
-        return CommonCallbacks.doesAtlasContainMap(inventory, predicate);
+        return Atlases.handlers.doesAtlasContainMap(inventory, predicate);
     }
 }

@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.atlases;
+package svenhjol.charm.feature.atlases.common;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.BlockTags;
@@ -6,13 +6,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.feature.atlases.Atlases;
 
-public class AtlasItem extends Item {
-    public AtlasItem() {
+public class Item extends net.minecraft.world.item.Item {
+    public Item() {
         super(new Properties()
             .stacksTo(1));
     }
@@ -30,7 +30,7 @@ public class AtlasItem extends Item {
 
         var inventory = AtlasInventory.get(level, held);
         inventory.getCurrentDimensionMapInfos(level).values().forEach(mapInfo
-            -> CommonNetworking.sendMapToClient((ServerPlayer)player, mapInfo.map, true));
+            -> Atlases.networking.sendMapToClient((ServerPlayer)player, mapInfo.map, true));
 
         player.openMenu(inventory);
         return InteractionResultHolder.consume(held);

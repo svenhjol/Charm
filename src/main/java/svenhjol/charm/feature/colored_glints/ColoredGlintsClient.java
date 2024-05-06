@@ -52,7 +52,7 @@ public class ColoredGlintsClient extends ClientFeature {
     }
 
     @Override
-    public Class<? extends CommonFeature> commonClass() {
+    public Class<? extends CommonFeature> relatedCommonFeature() {
         return ColoredGlints.class;
     }
 

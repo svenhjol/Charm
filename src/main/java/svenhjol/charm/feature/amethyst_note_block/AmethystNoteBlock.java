@@ -15,7 +15,7 @@ public class AmethystNoteBlock extends CommonFeature {
     }
 
     @Override
-    public void registers() {
+    public void setup() {
         advancements = new Advancements(this);
         registers = new Registers(this);
     }
