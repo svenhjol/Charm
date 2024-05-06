@@ -9,7 +9,7 @@ public final class Advancements extends Advancement<AutoRestock> {
         super(feature);
     }
 
-    public void restockedItem(Player player) {
+    public void restockedCurrentItem(Player player) {
         trigger("restocked_current_item", player);
     }
 }

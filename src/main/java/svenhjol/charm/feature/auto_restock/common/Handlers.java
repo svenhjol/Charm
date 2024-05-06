@@ -58,7 +58,7 @@ public final class Handlers extends Handler<AutoRestock> {
                 && EnchantmentHelper.containsSameEnchantments(possibleReplacement, stackData.enchantments)) {
                 player.setItemInHand(hand, possibleReplacement.copy());
                 inventory.removeItem(i, inventory.getMaxStackSize());
-                AutoRestock.advancements.restockedItem(player);
+                AutoRestock.advancements.restockedCurrentItem(player);
                 break;
             }
         }
