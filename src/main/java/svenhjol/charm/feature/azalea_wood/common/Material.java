@@ -1,15 +1,16 @@
-package svenhjol.charm.feature.azalea_wood;
+package svenhjol.charm.feature.azalea_wood.common;
 
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 
 import java.util.Locale;
 
 @SuppressWarnings("RedundantMethodOverride")
-public enum AzaleaMaterial implements IVariantWoodMaterial {
+public enum Material implements IVariantWoodMaterial {
     AZALEA;
 
     @Override
@@ -24,12 +25,12 @@ public enum AzaleaMaterial implements IVariantWoodMaterial {
 
     @Override
     public BlockSetType blockSetType() {
-        return AzaleaWood.blockSetType.get();
+        return AzaleaWood.registers.blockSetType.get();
     }
 
     @Override
     public WoodType woodType() {
-        return AzaleaWood.woodType.get();
+        return AzaleaWood.registers.woodType.get();
     }
 
     @Override

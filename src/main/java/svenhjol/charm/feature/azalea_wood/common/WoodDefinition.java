@@ -1,12 +1,12 @@
-package svenhjol.charm.feature.azalea_wood;
+package svenhjol.charm.feature.azalea_wood.common;
 
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
 import svenhjol.charm.feature.custom_wood.CustomWoodDefinition;
 
-public class AzaleaWoodDefinition implements CustomWoodDefinition {
+public class WoodDefinition implements CustomWoodDefinition {
     @Override
     public IVariantWoodMaterial getMaterial() {
-        return AzaleaMaterial.AZALEA;
+        return Material.AZALEA;
     }
 
     @Override

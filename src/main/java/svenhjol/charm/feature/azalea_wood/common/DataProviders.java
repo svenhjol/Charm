@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.azalea_wood;
+package svenhjol.charm.feature.azalea_wood.common;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.iface.IConditionalRecipe;
@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.Globals;
 
 import java.util.List;
 
-public class AzaleaWoodRecipeProvider implements IConditionalRecipeProvider {
+public class DataProviders implements IConditionalRecipeProvider {
     @Override
     public List<IConditionalRecipe> getRecipeConditions() {
         return List.of(

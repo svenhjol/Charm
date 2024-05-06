@@ -1,18 +1,17 @@
-package svenhjol.charm.feature.azalea_wood;
+package svenhjol.charm.feature.azalea_wood.client;
 
 import net.minecraft.client.renderer.RenderType;
+import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
+import svenhjol.charm.feature.azalea_wood.common.Material;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.foundation.feature.Register;
 
-public final class ClientRegistration extends Register<AzaleaWoodClient> {
-    public ClientRegistration(AzaleaWoodClient feature) {
+public final class Registers extends Register<AzaleaWoodClient> {
+    public Registers(AzaleaWoodClient feature) {
         super(feature);
-    }
 
-    @Override
-    public void onRegister() {
         var registry = feature.registry();
-        var holder = CustomWood.getHolder(AzaleaMaterial.AZALEA);
+        var holder = CustomWood.getHolder(Material.AZALEA);
 
         var door = holder.getDoor().orElseThrow();
         var trapdoor = holder.getTrapdoor().orElseThrow();

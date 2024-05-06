@@ -1,21 +1,11 @@
 package svenhjol.charm.feature.azalea_wood;
 
-import net.minecraft.world.level.block.state.properties.BlockSetType;
-import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
-import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.feature.Register;
+import svenhjol.charm.feature.azalea_wood.common.Registers;
 import svenhjol.charm.foundation.common.CommonFeature;
-
-import java.util.Optional;
-import java.util.function.Supplier;
 
 public class AzaleaWood extends CommonFeature {
     public static final String BOAT_ID = "charm_azalea";
-
-    static Supplier<BlockSetType> blockSetType;
-    static Supplier<WoodType> woodType;
-    static IVariantWoodMaterial material;
+    public static Registers registers;
 
     @Override
     public String description() {
@@ -23,7 +13,7 @@ public class AzaleaWood extends CommonFeature {
     }
 
     @Override
-    public Optional<Register<? extends Feature>> registration() {
-        return Optional.of(new CommonRegistration(this));
+    public void setup() {
+        registers = new Registers(this);
     }
 }

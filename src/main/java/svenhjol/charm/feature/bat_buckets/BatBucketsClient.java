@@ -1,20 +1,19 @@
 package svenhjol.charm.feature.bat_buckets;
 
-import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.feature.Register;
+import svenhjol.charm.feature.bat_buckets.client.Registers;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.common.CommonFeature;
 
-import java.util.Optional;
-
 public class BatBucketsClient extends ClientFeature {
+    public static Registers registers;
+
     @Override
     public Class<? extends CommonFeature> relatedCommonFeature() {
         return BatBuckets.class;
     }
 
     @Override
-    public Optional<Register<? extends Feature>> registration() {
-        return Optional.of(new ClientRegistration(this));
+    public void setup() {
+        registers = new Registers(this);
     }
 }
