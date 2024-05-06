@@ -20,8 +20,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
-import svenhjol.charm.api.enums.EventResult;
-import svenhjol.charm.api.enums.EventResultWithItemStack;
+import svenhjol.charm.api.enums.ItemStackResult;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.event.AnvilUpdateEvent;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
@@ -349,7 +348,7 @@ public class Handlers extends Handler<TotemOfPreserving> {
         return Optional.empty();
     }
 
-    public EventResultWithItemStack useTotemInHand(Level level, Player player, InteractionHand hand) {
+    public ItemStackResult useTotemInHand(Level level, Player player, InteractionHand hand) {
         var totem = player.getItemInHand(hand);
         var data = Data.get(totem);
         var pos = player.blockPosition();
@@ -359,7 +358,7 @@ public class Handlers extends Handler<TotemOfPreserving> {
         if (data.items().isEmpty()) {
             var newTotem = givePlayerCleanTotem(player, hand);
             newTotem.setDamageValue(totem.getDamageValue());
-            return new EventResultWithItemStack(EventResult.PASS, newTotem);
+            return ItemStackResult.pass(newTotem);
         }
 
         level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
@@ -401,7 +400,7 @@ public class Handlers extends Handler<TotemOfPreserving> {
             }
         }
 
-        return new EventResultWithItemStack(EventResult.NONE, ItemStack.EMPTY);
+        return ItemStackResult.none();
     }
 
 

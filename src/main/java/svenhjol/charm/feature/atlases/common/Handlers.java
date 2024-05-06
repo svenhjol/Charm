@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.atlases.common;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -10,7 +11,10 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MapItem;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.api.enums.EventResult;
+import svenhjol.charm.api.enums.ItemStackResult;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.foundation.feature.Handler;
 import svenhjol.charm.mixin.feature.atlases.MapItemSavedDataMixin;
@@ -22,6 +26,45 @@ import java.util.function.Predicate;
 public final class Handlers extends Handler<Atlases> {
     public Handlers(Atlases feature) {
         super(feature);
+    }
+
+    public ItemStackResult useAtlasInHand(Level level, Player player, InteractionHand hand) {
+        var held = player.getItemInHand(hand);
+        if (level.isClientSide) {
+            return ItemStackResult.consume(held);
+        }
+
+        if (hand == InteractionHand.OFF_HAND && !Atlases.offHandOpen) {
+            return ItemStackResult.pass(held);
+        }
+
+        var inventory = AtlasInventory.get(level, held);
+        inventory.getCurrentDimensionMapInfos(level).values().forEach(mapInfo
+            -> Atlases.networking.sendMapToClient((ServerPlayer)player, mapInfo.map, true));
+
+        player.openMenu(inventory);
+
+        return ItemStackResult.consume(held);
+    }
+
+    public EventResult useAtlasOn(UseOnContext context) {
+        var level = context.getLevel();
+        var blockstate = level.getBlockState(context.getClickedPos());
+
+        if (blockstate.is(BlockTags.BANNERS)) {
+            if (!level.isClientSide && context.getPlayer() instanceof ServerPlayer) {
+                var inventory = AtlasInventory.get(level, context.getItemInHand());
+                var mapdata = inventory.getActiveMap(level);
+
+                if (mapdata != null) {
+                    mapdata.toggleBanner(level, context.getClickedPos());
+                }
+            }
+
+            return EventResult.SUCCESS;
+        }
+
+        return EventResult.PASS;
     }
 
     /**
@@ -88,7 +131,7 @@ public final class Handlers extends Handler<Atlases> {
         return false;
     }
 
-    public void handleSwappedSlot(Player player, Networking.C2SSwapAtlasSlot request) {
+    public void swappedSlot(Player player, Networking.C2SSwapAtlasSlot request) {
         var swappedSlot = request.slot();
         var offhandItem = player.getOffhandItem().copy();
         var mainHandItem = player.getMainHandItem().copy();
@@ -123,7 +166,7 @@ public final class Handlers extends Handler<Atlases> {
         doSwap.accept(slot);
     }
 
-    public void handleTransferAtlas(Player player, Networking.C2STransferAtlas request) {
+    public void transferAtlas(Player player, Networking.C2STransferAtlas request) {
         var serverPlayer = (ServerPlayer)player;
         var atlasSlot = request.atlasSlot();
         var mapX = request.mapX();

@@ -54,9 +54,9 @@ public final class Registers extends Register<Atlases> {
 
         // Server packet receivers
         registry.packetReceiver(Networking.C2SSwapAtlasSlot.TYPE,
-            Atlases.handlers::handleSwappedSlot);
+            Atlases.handlers::swappedSlot);
         registry.packetReceiver(Networking.C2STransferAtlas.TYPE,
-            Atlases.handlers::handleTransferAtlas);
+            Atlases.handlers::transferAtlas);
 
         ApiHelper.registerProvider(new DataProviders());
     }

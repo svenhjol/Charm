@@ -48,7 +48,7 @@ public class Item extends net.minecraft.world.item.Item {
         var result = HANDLERS.useTotemInHand(level, player, hand);
 
         if (result.result() == EventResult.PASS) {
-            return InteractionResultHolder.pass(result.stack());
+            return result.asInteractionResultHolder();
         }
 
         return super.use(level, player, hand);
