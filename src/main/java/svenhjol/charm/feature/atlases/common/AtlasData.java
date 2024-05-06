@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.UUID;
 
 public final class AtlasData {
-    private static final Registers REGISTERS = Atlases.registers;
-
     public static final Codec<AtlasData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("empty_maps")
             .forGetter(a -> a.emptyMaps),
@@ -62,12 +60,12 @@ public final class AtlasData {
         this.filledMaps = filledMaps;
     }
 
-    public static AtlasData.Mutable create(UUID id) {
+    public static Mutable create(UUID id) {
         List<ItemStack> emptyMaps = new ArrayList<>();
         for (int i = 0; i < Atlases.EMPTY_MAP_SLOTS; i++) {
             emptyMaps.add(i, ItemStack.EMPTY);
         }
-        return new AtlasData.Mutable(new AtlasData(emptyMaps, List.of(), id.toString(), 0, -1));
+        return new Mutable(new AtlasData(emptyMaps, List.of(), id.toString(), 0, -1));
     }
 
     public static boolean has(ItemStack stack) {
@@ -79,10 +77,10 @@ public final class AtlasData {
     }
 
     public static AtlasData.Mutable getMutable(ItemStack stack) {
-        return new AtlasData.Mutable(get(stack));
+        return new Mutable(get(stack));
     }
 
-    public static ItemStack set(ItemStack stack, AtlasData.Mutable data) {
+    public static ItemStack set(ItemStack stack, Mutable data) {
         var immutable = data.toImmutable();
         stack.set(Atlases.registers.atlasData.get(), immutable);
         return stack;
