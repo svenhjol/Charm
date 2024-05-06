@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.auto_restock;
+package svenhjol.charm.feature.auto_restock.common;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.ItemEnchantments;

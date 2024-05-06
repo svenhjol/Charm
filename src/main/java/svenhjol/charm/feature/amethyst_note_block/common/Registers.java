@@ -1,18 +1,20 @@
-package svenhjol.charm.feature.amethyst_note_block;
+package svenhjol.charm.feature.amethyst_note_block.common;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.foundation.feature.Register;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
-public final class CommonRegistration extends Register<AmethystNoteBlock> {
-    public CommonRegistration(AmethystNoteBlock feature) {
-        super(feature);
-    }
+import java.util.function.Supplier;
 
-    @Override
-    public void onRegister() {
-        AmethystNoteBlock.sound = feature.registry().soundEvent("amethyst");
+public final class Registers extends Register<AmethystNoteBlock> {
+    public Supplier<SoundEvent> sound;
+
+    public Registers(AmethystNoteBlock feature) {
+        super(feature);
+        sound = feature.registry().soundEvent("amethyst");
     }
 
     /**
@@ -23,7 +25,7 @@ public final class CommonRegistration extends Register<AmethystNoteBlock> {
     public void onEnabled() {
         var registry = BuiltInRegistries.SOUND_EVENT;
 
-        registry.getResourceKey(AmethystNoteBlock.sound.get())
+        registry.getResourceKey(sound.get())
             .flatMap(registry::getHolder)
             .ifPresent(
                 holder -> EnumHelper.setNoteBlockSound(

@@ -1,26 +1,24 @@
 package svenhjol.charm.feature.auto_restock;
 
-import net.minecraft.world.entity.player.Player;
-import svenhjol.charm.Charm;
-import svenhjol.charm.feature.advancements.Advancements;
-import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.feature.Register;
+import svenhjol.charm.feature.auto_restock.common.Advancements;
+import svenhjol.charm.feature.auto_restock.common.Handlers;
+import svenhjol.charm.feature.auto_restock.common.Registers;
 import svenhjol.charm.foundation.common.CommonFeature;
 
-import java.util.Optional;
-
 public class AutoRestock extends CommonFeature {
+    public static Advancements advancements;
+    public static Handlers handlers;
+    public static Registers registers;
+
     @Override
     public String description() {
         return "Refills hotbar from your inventory.";
     }
 
     @Override
-    public Optional<Register<? extends Feature>> registration() {
-        return Optional.of(new CommonRegistration(this));
-    }
-
-    public static void triggerRestockedCurrentItem(Player player) {
-        Advancements.trigger(Charm.id("restocked_current_item"), player);
+    public void registers() {
+        advancements = new Advancements(this);
+        handlers = new Handlers(this);
+        registers = new Registers(this);
     }
 }

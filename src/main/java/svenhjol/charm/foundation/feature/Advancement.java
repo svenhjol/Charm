@@ -22,6 +22,6 @@ public abstract class Advancement<T extends Feature> {
     }
 
     public void trigger(String id, Player player) {
-        Advancements.trigger(feature.id(id), player);
+        Advancements.handlers.trigger(feature.id(id), player);
     }
 }

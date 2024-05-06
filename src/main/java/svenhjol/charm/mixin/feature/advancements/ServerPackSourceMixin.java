@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.advancements.CommonCallbacks;
+import svenhjol.charm.feature.advancements.Advancements;
 
 @Mixin(ServerPacksSource.class)
 public class ServerPackSourceMixin {
@@ -18,7 +18,7 @@ public class ServerPackSourceMixin {
         at = @At("HEAD")
     )
     private static void hookCreatePackRepository(LevelStorageSource.LevelStorageAccess levelStorageAccess, CallbackInfoReturnable<PackRepository> cir) {
-        CommonCallbacks.handlePackReload("createPackRepository");
+        Advancements.handlers.packReload("createPackRepository");
     }
 
     @Inject(
@@ -26,6 +26,6 @@ public class ServerPackSourceMixin {
         at = @At("HEAD")
     )
     private void hookCreateBuiltinPack(String string, Pack.ResourcesSupplier resourcesSupplier, Component component, CallbackInfoReturnable<Pack> cir) {
-        CommonCallbacks.handlePackReload("createBuiltinPack");
+        Advancements.handlers.packReload("createBuiltinPack");
     }
 }

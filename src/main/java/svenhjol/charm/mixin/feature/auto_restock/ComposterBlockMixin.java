@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-import svenhjol.charm.feature.auto_restock.CommonCallbacks;
+import svenhjol.charm.feature.auto_restock.AutoRestock;
 
 @Mixin(ComposterBlock.class)
 public class ComposterBlockMixin {
@@ -30,6 +30,6 @@ public class ComposterBlockMixin {
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     public void hookOnUse(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
-        CommonCallbacks.addItemUsedStat(player, itemStack);
+        AutoRestock.handlers.addItemUsedStat(player, itemStack);
     }
 }

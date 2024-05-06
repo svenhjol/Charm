@@ -1,17 +1,13 @@
 package svenhjol.charm.feature.amethyst_note_block;
 
-import net.minecraft.sounds.SoundEvent;
-import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.feature.Register;
+import svenhjol.charm.feature.amethyst_note_block.common.Advancements;
+import svenhjol.charm.feature.amethyst_note_block.common.Registers;
 import svenhjol.charm.foundation.common.CommonFeature;
-
-import java.util.Optional;
-import java.util.function.Supplier;
 
 public class AmethystNoteBlock extends CommonFeature {
     public static final String NOTE_BLOCK_ID = "charm_amethyst";
-
-    static Supplier<SoundEvent> sound;
+    public static Registers registers;
+    public static Advancements advancements;
 
     @Override
     public String description() {
@@ -19,7 +15,8 @@ public class AmethystNoteBlock extends CommonFeature {
     }
 
     @Override
-    public Optional<Register<? extends Feature>> registration() {
-        return Optional.of(new CommonRegistration(this));
+    public void registers() {
+        advancements = new Advancements(this);
+        registers = new Registers(this);
     }
 }

@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.auto_restock;
+package svenhjol.charm.feature.auto_restock.common;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
@@ -6,28 +6,28 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import svenhjol.charm.api.event.PlayerTickEvent;
-import svenhjol.charm.foundation.feature.Register;
+import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.feature.auto_restock.AutoRestock;
+import svenhjol.charm.foundation.feature.Handler;
 import svenhjol.charm.foundation.helper.EnchantmentHelper;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public final class CommonRegistration extends Register<AutoRestock> {
+public final class Handlers extends Handler<AutoRestock> {
     // Remember which items were in our hands and how often they were used.
     private final Map<Player, EnumMap<InteractionHand, StackData>> handCache = new WeakHashMap<>();
 
-    public CommonRegistration(AutoRestock feature) {
+    public Handlers(AutoRestock feature) {
         super(feature);
     }
 
-    @Override
-    public void onEnabled() {
-        PlayerTickEvent.INSTANCE.handle(this::handlePlayerTick);
+    public void addItemUsedStat(Player player, ItemStack stack) {
+        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
     }
 
-    private void handlePlayerTick(Player player) {
+    public void playerTick(Player player) {
         if (player.level().isClientSide()) return;
 
         var serverPlayer = (ServerPlayer)player;
@@ -58,7 +58,7 @@ public final class CommonRegistration extends Register<AutoRestock> {
                 && EnchantmentHelper.containsSameEnchantments(possibleReplacement, stackData.enchantments)) {
                 player.setItemInHand(hand, possibleReplacement.copy());
                 inventory.removeItem(i, inventory.getMaxStackSize());
-                AutoRestock.triggerRestockedCurrentItem(player);
+                AutoRestock.advancements.restockedItem(player);
                 break;
             }
         }

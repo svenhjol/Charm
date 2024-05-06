@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.auto_restock.CommonCallbacks;
+import svenhjol.charm.feature.auto_restock.AutoRestock;
 
 @Mixin(Parrot.class)
 public class ParrotMixin {
@@ -24,6 +24,6 @@ public class ParrotMixin {
         )
     )
     private void hookMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        CommonCallbacks.addItemUsedStat(player, player.getItemInHand(hand));
+        AutoRestock.handlers.addItemUsedStat(player, player.getItemInHand(hand));
     }
 }

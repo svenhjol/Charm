@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.auto_restock.CommonCallbacks;
+import svenhjol.charm.feature.auto_restock.AutoRestock;
 
 @Mixin(Animal.class)
 public class AnimalMixin {
@@ -20,6 +20,6 @@ public class AnimalMixin {
         at = @At("HEAD")
     )
     public void hookConsumeItemFromStack(Player player, InteractionHand hand, ItemStack stack, CallbackInfo callbackInfo) {
-        CommonCallbacks.addItemUsedStat(player, stack);
+        AutoRestock.handlers.addItemUsedStat(player, stack);
     }
 }
