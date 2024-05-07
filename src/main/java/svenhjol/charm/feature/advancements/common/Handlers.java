@@ -11,8 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Handlers extends Handler<Advancements> {
+    private final Registers registers;
     public List<String> fuzzyRemove = new ArrayList<>();
     public List<String> exactRemove = new ArrayList<>();
+
+    public Handlers() {
+        this.registers = feature().registers.get();
+    }
 
     public void packReload(String reason) {
         log().debug("Reloading Charm custom advancement filtering: " + reason);
@@ -20,7 +25,7 @@ public final class Handlers extends Handler<Advancements> {
         exactRemove.clear();
         fuzzyRemove.clear();
 
-        for (var condition : feature().registers.get().conditions) {
+        for (var condition : registers.conditions) {
             if (condition.test()) continue;
             condition.advancements().forEach(remove -> {
                 if (remove.contains("*") || !remove.contains(":")) {
@@ -44,7 +49,7 @@ public final class Handlers extends Handler<Advancements> {
     public void trigger(ResourceLocation advancement, Player player) {
         // Don't do anything on the client.
         if (!player.level().isClientSide) {
-            feature().registers.get().actionPerformed.trigger(advancement, (ServerPlayer)player);
+            registers.actionPerformed.trigger(advancement, (ServerPlayer)player);
         }
     }
 

@@ -1,13 +1,12 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.foundation.feature.*;
+import svenhjol.charm.foundation.feature.Advancement;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
-public abstract class Feature implements SetupRunner {
+public abstract class Feature {
     protected Loader<? extends Feature> loader;
     protected Log log;
     private boolean enabled = true;
@@ -18,10 +17,19 @@ public abstract class Feature implements SetupRunner {
         this.log = new Log(loader.id(), name());
     }
 
-//    public void onInit(Loader<? extends Feature> loader) {
-//        this.loader = loader;
-//        this.log = new Log(loader.id(), name());
-//    }
+    /**
+     * Run tasks when the feature is enabled.
+     */
+    public void onEnabled() {
+        // no op
+    }
+
+    /**
+     * Run tasks when the feature is disabled.
+     */
+    public void onDisabled() {
+        // no op
+    }
 
     public Log log() {
         return log;
@@ -30,21 +38,6 @@ public abstract class Feature implements SetupRunner {
     public abstract Loader<? extends Feature> loader();
 
     public abstract Registry registry();
-
-    @Deprecated
-    public Optional<Register<? extends Feature>> registration() {
-        return Optional.empty();
-    }
-
-    @Deprecated
-    public Optional<Network<? extends Feature>> networking() {
-        return Optional.empty();
-    }
-
-    @Deprecated
-    public void setup() {
-        // no op
-    }
 
     public Advancement<? extends Feature> advancements() {
         return null;
