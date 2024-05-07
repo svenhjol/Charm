@@ -18,7 +18,7 @@ import java.util.Locale;
  * @link <a href="https://github.com/SpongePowered/Mixin/issues/387#issuecomment-888408556">...</a>
  * Each charm mod that adds enums should have a NoteBlockEnums with list of strings to inject.
  */
-@SuppressWarnings({"SameParameterValue", "unused", "target"})
+@SuppressWarnings({"SameParameterValue", "unused", "target", "UnreachableCode"})
 @Mixin(NoteBlockInstrument.class)
 @Unique
 public class NoteBlockInstrumentMixin {
@@ -38,7 +38,6 @@ public class NoteBlockInstrumentMixin {
         throw new AssertionError();
     }
 
-    @SuppressWarnings("UnreachableCode")
     @Unique
     private static void addVariant(String newName, String noteName, Holder<SoundEvent> holder, NoteBlockInstrument.Type type) {
         List<NoteBlockInstrument> variants = new ArrayList<>(Arrays.asList(NoteBlockInstrumentMixin.$VALUES));

@@ -19,7 +19,7 @@ import java.util.Locale;
  * @link <a href="https://github.com/SpongePowered/Mixin/issues/387#issuecomment-888408556">...</a>
  * Each charm mod that adds enums should have a BoatTypeEnums with list of strings to inject.
  */
-@SuppressWarnings({"target", "unused", "SameParameterValue"})
+@SuppressWarnings({"target", "unused", "SameParameterValue", "UnreachableCode"})
 @Mixin(Boat.Type.class)
 public class BoatTypeMixin {
     @Shadow
@@ -38,7 +38,6 @@ public class BoatTypeMixin {
         throw new AssertionError();
     }
 
-    @SuppressWarnings("UnreachableCode")
     @Unique
     private static void addVariant(String newName, Block block, String typeName) {
         List<Boat.Type> variants = new ArrayList<>(Arrays.asList(BoatTypeMixin.$VALUES));
