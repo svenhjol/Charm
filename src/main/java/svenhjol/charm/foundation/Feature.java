@@ -1,23 +1,27 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.foundation.feature.Network;
-import svenhjol.charm.foundation.feature.Register;
+import svenhjol.charm.foundation.feature.*;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
-public abstract class Feature {
+public abstract class Feature implements SetupRunner {
     protected Loader<? extends Feature> loader;
     protected Log log;
     private boolean enabled = true;
     private boolean enabledInConfig = true;
 
-    public void onInit(Loader<? extends Feature> loader) {
+    public Feature(Loader<? extends Feature> loader) {
         this.loader = loader;
         this.log = new Log(loader.id(), name());
     }
+
+//    public void onInit(Loader<? extends Feature> loader) {
+//        this.loader = loader;
+//        this.log = new Log(loader.id(), name());
+//    }
 
     public Log log() {
         return log;
@@ -37,16 +41,13 @@ public abstract class Feature {
         return Optional.empty();
     }
 
+    @Deprecated
     public void setup() {
         // no op
     }
 
-    public void onEnabled() {
-        // no op
-    }
-
-    public void onDisabled() {
-        // no op
+    public Advancement<? extends Feature> advancements() {
+        return null;
     }
 
     public ResourceLocation id(String id) {

@@ -2,22 +2,22 @@ package svenhjol.charm.foundation.feature;
 
 import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.Resolve;
 
-public abstract class Register<T extends Feature> {
-    protected T feature;
-
-    public Register(T feature) {
-        this.feature = feature;
-        log().debug("Initializing registration class " + name() + " for " + feature.name());
-        feature.loader().onRegisterComplete(this);
-    }
+public abstract class Register<T extends Feature> implements SetupRunner {
+    private T resolved;
 
     public T feature() {
-        return feature;
+        if (resolved == null) {
+            resolved = Resolve.feature(type());
+        }
+        return resolved;
     }
 
+    protected abstract Class<T> type();
+
     public Log log() {
-        return this.feature.log();
+        return feature().log();
     }
 
     public String name() {
@@ -26,14 +26,6 @@ public abstract class Register<T extends Feature> {
 
     @Deprecated
     public void onRegister() {
-        // no op
-    }
-
-    public void onEnabled() {
-        // no op
-    }
-
-    public void onDisabled() {
         // no op
     }
 }

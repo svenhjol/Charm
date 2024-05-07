@@ -12,9 +12,8 @@ import java.util.function.Supplier;
 public final class Registers extends Register<AmethystNoteBlock> {
     public Supplier<SoundEvent> sound;
 
-    public Registers(AmethystNoteBlock feature) {
-        super(feature);
-        sound = feature.registry().soundEvent("amethyst");
+    public Registers() {
+        sound = feature().registry().soundEvent("amethyst");
     }
 
     /**
@@ -33,5 +32,10 @@ public final class Registers extends Register<AmethystNoteBlock> {
                     holder,
                     NoteBlockInstrument.Type.BASE_BLOCK
                 ));
+    }
+
+    @Override
+    protected Class<AmethystNoteBlock> type() {
+        return AmethystNoteBlock.class;
     }
 }

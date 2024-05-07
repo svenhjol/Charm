@@ -17,7 +17,7 @@ public class ClientInitializer implements ClientModInitializer {
         if (initialized) return;
 
         var loader = ClientLoader.create(Charm.ID);
-        loader.setupFeatures(CharmClient.features());
+        loader.features(CharmClient.features());
         loader.run();
 
         initialized = true;

@@ -2,17 +2,22 @@ package svenhjol.charm.foundation.feature;
 
 import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.Resolve;
 
-public abstract class Network<T extends Feature> {
-    protected T feature;
+public abstract class Network<T extends Feature> implements SetupRunner {
+    private T resolved;
 
-    public Network(T feature) {
-        this.feature = feature;
-        log().debug("Initializing network class " + name() + " for " + feature.name());
+    public T feature() {
+        if (resolved == null) {
+            resolved = Resolve.feature(featureClass());
+        }
+        return resolved;
     }
 
+    protected abstract Class<T> featureClass();
+
     public Log log() {
-        return this.feature.log();
+        return feature().log();
     }
 
     public String name() {

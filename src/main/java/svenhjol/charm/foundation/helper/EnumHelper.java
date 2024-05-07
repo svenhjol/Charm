@@ -6,12 +6,14 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Globals;
+import svenhjol.charm.foundation.Log;
 
 import java.util.Locale;
 import java.util.function.Supplier;
 
 public final class EnumHelper {
+    private static final Log LOGGER = new Log(Charm.ID, "EnumHelper");
+
     /**
      * Sound registration usually happens after the custom note block enum is processed.
      * soundEvent is made accessible so we can safely set it to the registered sound here.
@@ -23,7 +25,7 @@ public final class EnumHelper {
             noteBlock.type = type;
         } catch (Exception e) {
             // Don't crash if this fails to assign.
-            Globals.common(Charm.ID).log().error("Failed to add sound " + soundEvent + " to the noteblock " + noteBlockName + ". Maybe enum mixin was not applied?");
+            LOGGER.error("Failed to add sound " + soundEvent + " to the noteblock " + noteBlockName + ". Maybe enum mixin was not applied?");
         }
     }
 
@@ -37,7 +39,7 @@ public final class EnumHelper {
             boatType.planks = planks;
         } catch (Exception e) {
             // Don't crash if this fails to assign.
-            Globals.common(Charm.ID).log().error("Failed to add planks " + planks + " to the boat type " + boatTypeName + ". Maybe enum mixin was not applied?");
+            LOGGER.error("Failed to add planks " + planks + " to the boat type " + boatTypeName + ". Maybe enum mixin was not applied?");
         }
     }
 

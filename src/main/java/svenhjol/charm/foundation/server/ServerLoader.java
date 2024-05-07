@@ -8,4 +8,9 @@ public class ServerLoader extends Loader<ServerFeature> {
         super(id);
         this.log = new Log(id, this);
     }
+
+    @Override
+    protected Class<? extends Loader<ServerFeature>> type() {
+        return ServerLoader.class;
+    }
 }

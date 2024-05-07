@@ -1,9 +1,12 @@
 package svenhjol.charm.foundation.client;
 
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
 
 public class ClientFeature extends Feature {
+    public ClientFeature(ClientLoader loader) {
+        super(loader);
+    }
+
     @Override
     public ClientLoader loader() {
         return (ClientLoader)loader;
@@ -17,9 +20,5 @@ public class ClientFeature extends Feature {
     @Override
     public boolean canBeDisabled() {
         return false;
-    }
-
-    public Class<? extends CommonFeature> relatedCommonFeature() {
-        return null;
     }
 }

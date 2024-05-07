@@ -14,8 +14,7 @@ public final class Registers extends Register<Advancements> {
     public ActionPerformed actionPerformed;
     public List<IConditionalAdvancement> conditions = new ArrayList<>();
 
-    public Registers(Advancements feature) {
-        super(feature);
+    public Registers() {
         actionPerformed = CriteriaTriggers.register("charmony_action_performed", new ActionPerformed());
     }
 
@@ -23,5 +22,10 @@ public final class Registers extends Register<Advancements> {
     public void onEnabled() {
         ApiHelper.consume(IConditionalAdvancementProvider.class,
             provider -> conditions.addAll(provider.getAdvancementConditions()));
+    }
+
+    @Override
+    protected Class<Advancements> type() {
+        return Advancements.class;
     }
 }

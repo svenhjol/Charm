@@ -1,6 +1,6 @@
 package svenhjol.charm.foundation.common;
 
-import svenhjol.charm.foundation.Globals;
+import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.Loader;
 import svenhjol.charm.foundation.Log;
 
@@ -25,8 +25,13 @@ public class CommonLoader extends Loader<CommonFeature> {
 
         CommonEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
 
-        Globals.COMMON_LOADERS.put(id, loader);
+        Resolve.COMMON_LOADERS.put(id, loader);
         return loader;
+    }
+
+    @Override
+    protected Class<? extends Loader<CommonFeature>> type() {
+        return CommonLoader.class;
     }
 
     @Override

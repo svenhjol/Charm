@@ -3,13 +3,15 @@ package svenhjol.charm.foundation.helper;
 import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.Charm;
-import svenhjol.charm.feature.diagnostics.Diagnostics;
 import svenhjol.charm.foundation.enums.Side;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public final class ConfigHelper {
+    public static final String DEBUG_MODE = "Debug mode";
+    public static final String COMPAT_MODE = "Compat mode";
+
     private static boolean hasCheckedDebugConfig = false;
     private static boolean hasCheckedCompatConfig = false;
     private static boolean cachedDebugValue = false;
@@ -30,7 +32,7 @@ public final class ConfigHelper {
 
         if (!hasCheckedDebugConfig) {
             var toml = read(filename(Charm.ID, Side.COMMON));
-            var key = "Diagnostics.\"" + Diagnostics.DEBUG_MODE + "\"";
+            var key = "Diagnostics.\"" + DEBUG_MODE + "\"";
             if (toml.contains(key)) {
                 cachedDebugValue = toml.getBoolean(key);
             }
@@ -47,7 +49,7 @@ public final class ConfigHelper {
     public static boolean isCompatEnabled() {
         if (!hasCheckedCompatConfig) {
             var toml = read(filename(Charm.ID, Side.COMMON));
-            var key = "Diagnostics.\"" + Diagnostics.COMPAT_MODE + "\"";
+            var key = "Diagnostics.\"" + COMPAT_MODE + "\"";
             if (toml.contains(key)) {
                 cachedCompatValue = toml.getBoolean(key);
             }

@@ -1,9 +1,9 @@
 package svenhjol.charm.foundation.client;
 
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.Globals;
 import svenhjol.charm.foundation.Loader;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.Resolve;
 
 import java.util.Comparator;
 
@@ -28,22 +28,33 @@ public class ClientLoader extends Loader<ClientFeature> {
 
         ClientEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
 
-        Globals.CLIENT_LOADERS.put(id, loader);
+        Resolve.CLIENT_LOADERS.put(id, loader);
         return loader;
     }
 
     @Override
-    protected boolean featureInit(ClientFeature feature) {
-        super.featureInit(feature); // Ensure that loader gets added to the feature.
+    protected Class<? extends Loader<ClientFeature>> type() {
+        return ClientLoader.class;
+    }
 
-        // If the associated common feature is disabled, also disable this client feature.
-        var clazz = feature.relatedCommonFeature();
-        var loader = Globals.COMMON_LOADERS.get(feature.modId());
-        if (clazz != null && loader != null) {
-            loader.get(clazz).ifPresent(common -> feature.setEnabled(common.isEnabled()));
+    /**
+     * Update the enabled status of all client features to common features with the same name.
+     */
+    @Override
+    protected void checks() {
+        var commonLoader = Resolve.common(this.id());
+
+        for (ClientFeature feature : features()) {
+            var featureName = feature.name();
+            if (commonLoader.has(featureName)) {
+                // If there's a common feature matching the feature name,
+                // match the enabled state of the client and common features.
+                var commonFeatureIsEnabled = commonLoader.isEnabled(featureName);
+                feature.setEnabled(feature.isEnabled() && commonFeatureIsEnabled);
+            }
         }
 
-        return true;
+        super.checks();
     }
 
     @Override

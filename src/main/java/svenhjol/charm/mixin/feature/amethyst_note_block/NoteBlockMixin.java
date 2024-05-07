@@ -14,6 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
+import svenhjol.charm.feature.amethyst_note_block.common.Advancements;
+import svenhjol.charm.foundation.Resolve;
 
 @Mixin(NoteBlock.class)
 public class NoteBlockMixin {
@@ -33,7 +35,7 @@ public class NoteBlockMixin {
         var instrument = state.getValue(INSTRUMENT);
         var name = instrument.getSerializedName();
         if (name.equals(AmethystNoteBlock.NOTE_BLOCK_ID)) {
-            AmethystNoteBlock.advancements.playedNoteBlock(level, pos);
+            Resolve.support(Advancements.class).playedNoteBlock(level, pos);
         }
     }
 }

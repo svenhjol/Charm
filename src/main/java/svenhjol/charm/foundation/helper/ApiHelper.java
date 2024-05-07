@@ -1,7 +1,6 @@
 package svenhjol.charm.foundation.helper;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Globals;
 import svenhjol.charm.foundation.Log;
 
 import java.util.ArrayList;
@@ -73,8 +72,6 @@ public final class ApiHelper {
      * @param <T> API interface type.
      */
     public static <T> void consume(Class<T> iface, Consumer<T> consumer) {
-        var log = Globals.COMMON_LOADERS.get(Charm.ID).log();
-
         CONSUMERS.computeIfAbsent(iface, a -> new ArrayList<>());
         CONSUMERS.get(iface).add((Consumer<Object>)consumer);
 
@@ -88,13 +85,13 @@ public final class ApiHelper {
 
                 // If the provider has never been consumed, consume now and add to this map so it won't be consumed again.
                 if (!CONSUMED_PROVIDERS.containsKey(consumer) || !CONSUMED_PROVIDERS.get(consumer).contains(provider)) {
-                    log.debug("consume(): " + providerName + " consumed by " + consumerName);
+                    LOGGER.debug("consume(): " + providerName + " consumed by " + consumerName);
                     consumer.accept((T)provider);
                     CONSUMED_PROVIDERS
                         .computeIfAbsent((Consumer<Object>) consumer, a -> new ArrayList<>())
                         .add(provider);
                 } else {
-                    log.debug("consume(): " + providerName + " already consumed by " + consumerName + ", ignoring.");
+                    LOGGER.debug("consume(): " + providerName + " already consumed by " + consumerName + ", ignoring.");
                 }
             }
         }

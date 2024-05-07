@@ -1,27 +1,28 @@
 package svenhjol.charm.foundation.feature;
 
 import net.minecraft.world.entity.player.Player;
-import svenhjol.charm.feature.advancements.Advancements;
+import svenhjol.charm.feature.advancements.common.Handlers;
 import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.Resolve;
 
-public abstract class Advancement<T extends Feature> {
-    protected T feature;
+public abstract class Advancement<T extends Feature> implements SetupRunner {
+    private T resolved;
 
-    public Advancement(T feature) {
-        this.feature = feature;
-        log().debug("Initializing advancement class " + name() + " for " + feature.name());
+    public T feature() {
+        if (resolved == null) {
+            resolved = Resolve.feature(type());
+        }
+        return resolved;
     }
+
+    protected abstract Class<T> type();
 
     public Log log() {
-        return feature.log();
-    }
-
-    public String name() {
-        return this.getClass().getSimpleName();
+        return feature().log();
     }
 
     public void trigger(String id, Player player) {
-        Advancements.handlers.trigger(feature.id(id), player);
+        Resolve.support(Handlers.class).trigger(feature().id(id), player);
     }
 }

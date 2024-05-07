@@ -2,8 +2,7 @@ package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.enums.Side;
-import svenhjol.charm.foundation.feature.Network;
-import svenhjol.charm.foundation.feature.Register;
+import svenhjol.charm.foundation.feature.Setup;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 import svenhjol.charm.foundation.helper.TextHelper;
 
@@ -11,11 +10,10 @@ import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("unchecked")
 public abstract class Loader<T extends Feature> {
     protected String id;
     protected LinkedList<T> features = new LinkedList<>();
-    protected LinkedList<Register<?>> registrations = new LinkedList<>();
+    protected LinkedList<Setup<?>> setups = new LinkedList<>();
     protected Log log;
 
     protected Loader(String id) {
@@ -23,10 +21,16 @@ public abstract class Loader<T extends Feature> {
         this.log = new Log(id, this);
     }
 
+    /**
+     * ID of the mod.
+     */
     public String id() {
         return this.id;
     }
 
+    /**
+     * Make a ResourceLocation of modId:path.
+     */
     public ResourceLocation id(String path) {
         return new ResourceLocation(this.id, path);
     }
@@ -38,7 +42,7 @@ public abstract class Loader<T extends Feature> {
      */
     @SuppressWarnings("unused")
     public boolean isEnabled(Class<? extends T> feature) {
-        return getFeatures().stream().anyMatch(
+        return features().stream().anyMatch(
             m -> m.getClass().equals(feature) && m.isEnabled());
     }
 
@@ -49,7 +53,7 @@ public abstract class Loader<T extends Feature> {
      */
     public boolean isEnabled(String name) {
         var upper = TextHelper.snakeToPascal(name);
-        return getFeatures().stream().anyMatch(
+        return features().stream().anyMatch(
             m -> m.name().equals(upper) && m.isEnabled());
     }
 
@@ -63,12 +67,18 @@ public abstract class Loader<T extends Feature> {
         var namespace = id.getNamespace();
         var path = id.getPath();
 
-        if (Globals.has(Side.COMMON, namespace)) {
-            return Globals.COMMON_LOADERS.get(namespace)
+        if (Resolve.has(Side.COMMON, namespace)) {
+            return Resolve.COMMON_LOADERS.get(namespace)
                 .isEnabled(TextHelper.snakeToUpperCamel(path));
         }
 
         return false;
+    }
+
+    public boolean has(String name) {
+        var upper = TextHelper.snakeToPascal(name);
+        return features().stream().anyMatch(
+            m -> m.name().equals(upper));
     }
 
     public Optional<T> get(Class<? extends T> clazz) {
@@ -77,28 +87,28 @@ public abstract class Loader<T extends Feature> {
             .findFirst();
     }
 
-    public List<T> getFeatures() {
+    public List<T> features() {
         return features;
     }
 
-    public List<T> getEnabledFeatures() {
+    public List<T> enabledFeatures() {
         return features.stream().filter(Feature::isEnabled).collect(Collectors.toList());
     }
 
-    public List<T> getDisabledFeatures() {
+    public List<T> disabledFeatures() {
         return features.stream().filter(m -> !m.isEnabled()).collect(Collectors.toList());
     }
 
     /**
      * Instantiates and registers feature classes.
      */
-    public void setupFeatures(List<Class<? extends T>> classes) {
+    public void features(List<Class<? extends T>> classes) {
         if (classes.isEmpty()) {
-            log.info("No features to load for " + id);
+            log().info("No features to load for " + id);
             return;
         } else {
             var size = classes.size();
-            log.info("Loading " + size + " class" + (size > 1 ? "es" : "") + " for " + id);
+            log().info("Loading " + size + " class" + (size > 1 ? "es" : "") + " for " + id);
         }
 
         // Create objects for each feature class. Pass this loader to each of the objects.
@@ -107,14 +117,11 @@ public abstract class Loader<T extends Feature> {
         // Load configuration state for the features.
         configure();
 
-        // Final checks before registration. Last chance for feature to set itself as enabled/disabled.
+        // Final checks before feature setup classes are parsed. Last chance for feature to set itself as enabled/disabled.
         checks();
 
-        // Create references to feature register classes. Registers are executed even if the feature is disabled.
+        // Resolve all feature setup classes.
         setup();
-
-        // TODO: To be removed.
-        networks();
     }
 
     /**
@@ -123,31 +130,22 @@ public abstract class Loader<T extends Feature> {
     protected void instantiate(List<Class<? extends T>> classes) {
         for (var clazz : classes) {
             try {
-                var feature = clazz.getDeclaredConstructor().newInstance();
-                var didInit = featureInit(feature);
-
-                if (!didInit) {
-                    throw new Exception("Did not init properly");
-                }
-
+                var feature = clazz.getDeclaredConstructor(type()).newInstance(this);
                 features.add(feature);
             } catch (Exception e) {
                 var cause = e.getCause();
-                var message = cause != null ? cause.getMessage() : e.getMessage();
-                log.error("Failed to initialize feature " + clazz + ": " + message);
+                var name = clazz.getSimpleName();
+                var message = "Failed to initialize feature " + name + ": " + (cause != null ? cause.getMessage() : e.getMessage());
+                log().error(message);
                 throw new RuntimeException(message);
             }
         }
+
+        // Register all features with the global resolver.
+        features.forEach(Resolve::register);
     }
 
-    /**
-     * Override this to perform additional init steps or to change how a single feature is initialized.
-     * You *must* ensure that your feature has a reference to its loader! Call super() to be sure.
-     */
-    protected boolean featureInit(T feature) {
-        feature.onInit(this);
-        return true;
-    }
+    protected abstract Class<? extends Loader<T>> type();
 
     /**
      * Config differs across server, common and client.
@@ -163,7 +161,7 @@ public abstract class Loader<T extends Feature> {
     protected void checks() {
         var debug = ConfigHelper.isDebugEnabled();
 
-        for (T feature : getFeatures()) {
+        for (T feature : features()) {
             var enabledInConfig = feature.isEnabledInConfig();
             var passedCheck = feature.isEnabled() && (feature.checks().isEmpty()
                 || feature.checks().stream().allMatch(BooleanSupplier::getAsBoolean));
@@ -171,91 +169,71 @@ public abstract class Loader<T extends Feature> {
             feature.setEnabled(enabledInConfig && passedCheck);
 
             if (!enabledInConfig) {
-                if (debug) log.warn("Disabled in configuration: " + feature.name());
+                if (debug) feature.log().warn("Disabled in configuration");
             } else if (!passedCheck) {
-                if (debug) log.warn("Failed check: " + feature.name());
+                if (debug) feature.log().warn("Failed check");
             } else if (!feature.isEnabled()) {
-                if (debug) log.warn("Disabled automatically: " + feature.name());
+                if (debug) feature.log().warn("Disabled automatically");
             } else {
-                log.info("Enabled " + feature.name());
+                feature.log().info("Feature is enabled");
             }
         }
     }
 
     /**
-     * Runs the setup() method for each feature (including disabled features).
-     * This allows the feature to run its own registrations, handlers, networking etc.
+     * Resolve all setup suppliers.
+     * This is used to perform registrations etc.
      */
     protected void setup() {
         sortFeaturesByPriority();
-        LinkedList<Register<T>> local = new LinkedList<>();
 
-        for (T feature : getFeatures()) {
-            try {
-                feature.setup();
-                feature.registration().ifPresent(register -> local.add((Register<T>) register));
-            } catch (Exception e) {
-                log().error("Registrations failed for " + feature.name() + ": " + e.getMessage());
-                throw new RuntimeException(e);
-            }
-        }
+        // All setup suppliers have been collected on feature instantiation.
+        // Sort setups by feature priority.
+        setups.sort(Comparator.comparingInt(s -> s.feature().priority()));
+        Collections.reverse(setups);
 
-        local.forEach(Register::onRegister);
-//        registrations.stream().filter(r -> r.feature().isEnabled()).forEach(Register::onEnabled);
-//        registrations.stream().filter(r -> !r.feature().isEnabled()).forEach(Register::onDisabled);
-
-        this.registrations.stream().filter(r -> r.feature().isEnabled()).forEach(Register::onEnabled);
-        this.registrations.stream().filter(r -> !r.feature().isEnabled()).forEach(Register::onDisabled);
+        // Here we resolve all setup suppliers according to feature priority.
+        // This performs registrations, prepares handlers etc.
+        setups.forEach(Setup::get);
     }
 
     /**
-     * Gets the network classes for ALL features (including disabled) organising by feature priority.
-     */
-    @Deprecated
-    protected void networks() {
-        sortFeaturesByPriority();
-        LinkedList<Network<T>> networkings = new LinkedList<>();
-
-        for (T feature : getFeatures()) {
-            try {
-                feature.networking().ifPresent(networking -> networkings.add((Network<T>) networking));
-            } catch (Exception e) {
-                log().error("Networks failed for " + feature.name() + ": " + e.getMessage());
-                throw new RuntimeException();
-            }
-        }
-
-        networkings.forEach(Network::onRegister);
-    }
-
-    /**
-     * All enabled features have their onEnabled() method executed.
-     * All disabled features have their onDisabled() method executed.
+     * All enabled setups and features have their onEnabled() method executed.
+     * All disabled setups and features have their onDisabled() method executed.
      */
     public void run() {
         if (features.isEmpty()) return;
 
-        for (T feature : getEnabledFeatures()) {
-            log.info("Running " + feature.name());
+        setups.forEach(Setup::run);
+
+        for (T feature : enabledFeatures()) {
+            feature.log().info("Running enabled tasks");
             feature.onEnabled();
         }
 
-        for (T feature : getDisabledFeatures()) {
-            log.info("Running disabled tasks for " + feature.name());
+        for (T feature : disabledFeatures()) {
+            feature.log().info("Running disabled tasks");
             feature.onDisabled();
         }
     }
 
     /**
      * Get a reference to this loader's log instance.
-     * Each loader feature can use this reference.
      */
-    public Log log() {
+    protected Log log() {
         return log;
     }
 
-    public void onRegisterComplete(Register<?> registration) {
-        registrations.add(registration);
+    /**
+     * A callback when a feature setup is instantiated.
+     * Note that setups are not resolved yet; we do that in the setup() loader step.
+     */
+    public void registerSetup(Setup<?> setup) {
+        setups.add(setup);
+
+        var feature = setup.feature();
+        var supplierName = setup.supplier().getClass().getSimpleName();
+        feature.log().debug("Registered unresolved setup " + supplierName);
     }
 
     protected void sortFeaturesByPriority() {

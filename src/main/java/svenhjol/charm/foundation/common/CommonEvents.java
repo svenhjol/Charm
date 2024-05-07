@@ -22,9 +22,9 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.api.event.*;
-import svenhjol.charm.feature.recipes.SortingRecipeManager;
 import svenhjol.charm.foundation.event.PlayerLoginCallback;
 import svenhjol.charm.foundation.event.PlayerTickCallback;
+import svenhjol.charm.foundation.recipe.SortingRecipeManager;
 
 import javax.annotation.Nullable;
 

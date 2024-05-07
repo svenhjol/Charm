@@ -4,11 +4,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.feature.advancements.common.Handlers;
 import svenhjol.charm.feature.advancements.common.Registers;
+import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.common.CommonFeature;
+import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.foundation.feature.Setup;
 
 public class Advancements extends CommonFeature {
-    public static Registers registers;
-    public static Handlers handlers;
+    public final Setup<Registers> registers = Setup.create(this, Registers::new);
+    public final Setup<Handlers> handlers = Setup.create(this, Handlers::new);
+
+    public Advancements(CommonLoader loader) {
+        super(loader);
+    }
 
     @Override
     public String description() {
@@ -22,21 +29,12 @@ public class Advancements extends CommonFeature {
         return 10;
     }
 
-    @Override
-    public void setup() {
-        handlers = new Handlers(this);
-        registers = new Registers(this);
-    }
-
     /**
      * Call by any mod to trigger the ActionPerformed advancement.
      * Deprecation: Create a feature setup Advancement and use the parent's trigger() method.
      */
     @Deprecated
     public static void trigger(ResourceLocation advancement, Player player) {
-        if (handlers == null) {
-            throw new RuntimeException("Advancement handlers not initialized");
-        }
-        Advancements.handlers.trigger(advancement, player);
+        Resolve.support(Handlers.class).trigger(advancement, player);
     }
 }

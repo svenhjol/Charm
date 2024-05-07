@@ -2,7 +2,7 @@ package svenhjol.charm.api.event;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.feature.hover_sorting.SortDirection;
+import svenhjol.charm.api.enums.SortDirection;
 
 import java.util.List;
 

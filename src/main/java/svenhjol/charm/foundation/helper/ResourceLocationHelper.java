@@ -2,7 +2,7 @@ package svenhjol.charm.foundation.helper;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Globals;
+import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.enums.Side;
 
@@ -25,14 +25,14 @@ public final class ResourceLocationHelper {
         var path = res.getPath();
 
         // If the resource is a minecraft resource or not a charm-based mod resource, allow it through.
-        if (namespace.equals("minecraft") || !Globals.has(Side.COMMON, namespace)) {
+        if (namespace.equals("minecraft") || !Resolve.has(Side.COMMON, namespace)) {
             return false;
         }
 
         var featureName = TextHelper.snakeToUpperCamel(path.split("/")[0]);
 
         // Remove for disabled charm features.
-        var loader = Globals.common(namespace);
+        var loader = Resolve.common(namespace);
         if (!loader.isEnabled(featureName)) {
             LOGGER.debug("Feature " + featureName + " not enabled for " + res);
             return true;
