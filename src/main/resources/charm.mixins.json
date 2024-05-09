@@ -4,6 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "${refmap_file}",
   "mixins": [
+    "atlases.CartographyTableMenuMixin",
+    "atlases.MapItemSavedDataMixin",
     "enums.boat_type_enum.BoatTypeMixin",
     "enums.note_block_enum.NoteBlockInstrumentMixin",
     "event.anvil_repair.AnvilMenuMixin",
@@ -26,6 +28,7 @@
     "feature.amethyst_note_block.NoteBlockMixin"
   ],
   "client": [
+    "atlases.CartographyTableScreenMixin",
     "event.mouse_scroll.MouseHandlerMixin",
     "event.player_tick_callback.LocalPlayerMixin",
     "event.render_block_item.BlockEntityWithoutLevelRendererMixin",
