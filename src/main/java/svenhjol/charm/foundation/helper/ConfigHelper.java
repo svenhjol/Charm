@@ -22,13 +22,16 @@ public final class ConfigHelper {
         return instance.isModLoaded(id);
     }
 
+    public static boolean isDevEnvironment() {
+        return FabricLoader.getInstance().isDevelopmentEnvironment();
+    }
+
     /**
      * Helper method to check if debug mode is enabled in Charm's config file.
      * In Fabric, running Charm in the dev environment will always return true.
      */
     public static boolean isDebugEnabled() {
-        var isDevEnvironment = FabricLoader.getInstance().isDevelopmentEnvironment();
-        if (isDevEnvironment) return true;
+        if (isDevEnvironment()) return true;
 
         if (!hasCheckedDebugConfig) {
             var toml = read(filename(Charm.ID, Side.COMMON));

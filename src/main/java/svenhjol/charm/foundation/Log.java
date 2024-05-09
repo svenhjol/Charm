@@ -39,6 +39,12 @@ public class Log {
         }
     }
 
+    public void dev(String message, Object... args) {
+        if (ConfigHelper.isDevEnvironment()) {
+            info("[Dev] +++ " + message, args);
+        }
+    }
+
     private String snakeToUpperCamel(String string) {
         return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, string);
     }

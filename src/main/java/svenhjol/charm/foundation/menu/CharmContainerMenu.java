@@ -8,7 +8,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 
 @SuppressWarnings("unused")
-public class CharmContainerMenu extends AbstractContainerMenu {
+public abstract class CharmContainerMenu extends AbstractContainerMenu {
     protected final Container container;
 
     protected CharmContainerMenu(MenuType<?> type, int id, Inventory playerInventory, Container container) {

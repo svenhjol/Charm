@@ -6,13 +6,13 @@ import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 import svenhjol.charm.foundation.enums.Side;
-import svenhjol.charm.foundation.feature.SetupRunner;
 import svenhjol.charm.foundation.server.ServerFeature;
 import svenhjol.charm.foundation.server.ServerLoader;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@SuppressWarnings("unchecked")
 public final class Resolve {
     private static final Log LOGGER = new Log(Charm.ID, "Resolve");
 
@@ -23,8 +23,6 @@ public final class Resolve {
     public static final Map<Class<? extends Feature>, CommonFeature> COMMON_FEATURES = new LinkedHashMap<>();
     public static final Map<Class<? extends Feature>, ClientFeature> CLIENT_FEATURES = new LinkedHashMap<>();
     public static final Map<Class<? extends Feature>, ServerFeature> SERVER_FEATURES = new LinkedHashMap<>();
-
-    public static final Map<Class<? extends SetupRunner>, SetupRunner> SUPPORT = new LinkedHashMap<>();
 
     public static boolean has(Side side, String id) {
         return switch (side) {
@@ -55,7 +53,6 @@ public final class Resolve {
         return SERVER_LOADERS.get(id);
     }
 
-    @SuppressWarnings("unchecked")
     public static <F extends Feature> F feature(Class<F> clazz) {
         var supertype = clazz.getSuperclass();
         F resolved;
@@ -77,15 +74,6 @@ public final class Resolve {
         return resolved;
     }
 
-    @SuppressWarnings("unchecked")
-    public static <S extends SetupRunner> S support(Class<S> clazz) {
-        var support = SUPPORT.get(clazz);
-        if (support == null) {
-            throw new RuntimeException("Could not resolve support fpr " + clazz);
-        }
-        return (S)support;
-    }
-
     public static <F extends Feature> void register(F feature) {
         var clazz = feature.getClass();
         var supertype = clazz.getSuperclass();
@@ -99,10 +87,5 @@ public final class Resolve {
         } else {
             throw new RuntimeException("Could not determine supertype for " + clazz);
         }
-    }
-
-    public static <S extends SetupRunner> void register(S support) {
-        var clazz = support.getClass();
-        SUPPORT.put(clazz, support);
     }
 }

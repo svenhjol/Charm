@@ -1,12 +1,12 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.foundation.feature.Advancement;
+import svenhjol.charm.foundation.feature.ConditionalRunner;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
-public abstract class Feature {
+public abstract class Feature implements ConditionalRunner {
     protected Loader<? extends Feature> loader;
     protected Log log;
     private boolean enabled = true;
@@ -15,33 +15,28 @@ public abstract class Feature {
     public Feature(Loader<? extends Feature> loader) {
         this.loader = loader;
         this.log = new Log(loader.id(), name());
-    }
-
-    /**
-     * Run tasks when the feature is enabled.
-     */
-    public void onEnabled() {
-        // no op
-    }
-
-    /**
-     * Run tasks when the feature is disabled.
-     */
-    public void onDisabled() {
-        // no op
+        this.log.dev("I'm alive");
     }
 
     public Log log() {
         return log;
     }
 
+    public String description() {
+        return loader().metadata(this)
+            .map(m -> m.description)
+            .orElse("");
+    }
+
+    public int priority() {
+        return loader().metadata(this)
+            .map(m -> m.priority)
+            .orElse(0);
+    }
+
     public abstract Loader<? extends Feature> loader();
 
     public abstract Registry registry();
-
-    public Advancement<? extends Feature> advancements() {
-        return null;
-    }
 
     public ResourceLocation id(String id) {
         return loader.id(id);
@@ -55,6 +50,7 @@ public abstract class Feature {
         return this.getClass().getSimpleName();
     }
 
+    @Override
     public boolean isEnabled() {
         return enabled && enabledInConfig;
     }
@@ -69,14 +65,6 @@ public abstract class Feature {
 
     public boolean isEnabledInConfig() {
         return enabledInConfig;
-    }
-
-    public int priority() {
-        return 0;
-    }
-
-    public String description() {
-        return "";
     }
 
     public List<BooleanSupplier> checks() {
