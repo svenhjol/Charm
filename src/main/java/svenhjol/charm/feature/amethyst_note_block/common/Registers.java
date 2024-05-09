@@ -4,15 +4,16 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
-import svenhjol.charm.foundation.feature.Register;
+import svenhjol.charm.foundation.feature.RegisterHolder;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
 import java.util.function.Supplier;
 
-public final class Registers extends Register<AmethystNoteBlock> {
+public final class Registers extends RegisterHolder<AmethystNoteBlock> {
     public Supplier<SoundEvent> sound;
 
-    public Registers() {
+    public Registers(AmethystNoteBlock feature) {
+        super(feature);
         sound = feature().registry().soundEvent("amethyst");
     }
 
@@ -32,10 +33,5 @@ public final class Registers extends Register<AmethystNoteBlock> {
                     holder,
                     NoteBlockInstrument.Type.BASE_BLOCK
                 ));
-    }
-
-    @Override
-    protected Class<AmethystNoteBlock> type() {
-        return AmethystNoteBlock.class;
     }
 }
