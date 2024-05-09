@@ -11,6 +11,7 @@ import svenhjol.charm.foundation.server.ServerLoader;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 @SuppressWarnings("unchecked")
 public final class Resolve {
@@ -72,6 +73,10 @@ public final class Resolve {
         }
 
         return resolved;
+    }
+
+    public static <F extends Feature> Supplier<F> defer(Class<F> clazz) {
+        return () -> Resolve.feature(clazz);
     }
 
     public static <F extends Feature> void register(F feature) {
