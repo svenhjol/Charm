@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.azalea_wood.common;
 
-import svenhjol.charm.Charm;
 import svenhjol.charm.api.iface.IConditionalRecipe;
 import svenhjol.charm.api.iface.IConditionalRecipeProvider;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
@@ -15,7 +14,7 @@ public final class DataProviders implements IConditionalRecipeProvider {
             new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return Resolve.common(Charm.ID).isEnabled(Woodcutting.class);
+                    return Resolve.featureEnabled(Woodcutting.class);
                 }
 
                 @Override

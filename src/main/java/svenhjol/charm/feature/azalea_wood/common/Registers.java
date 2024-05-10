@@ -30,7 +30,7 @@ public final class Registers extends RegisterHolder<AzaleaWood> {
         CustomWood.register(feature, new WoodDefinition());
         VariantWood.register(feature, material);
 
-        CharmApi.registerProvider(this);
+        CharmApi.registerProvider(feature);
         CharmApi.registerProvider(new DataProviders());
     }
 
