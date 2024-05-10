@@ -2,6 +2,7 @@ package svenhjol.charm;
 
 import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.variant_wood.VariantWoodClient;
+import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
 import svenhjol.charm.foundation.client.ClientFeature;
 
 import java.util.List;
@@ -28,8 +29,8 @@ public class CharmClient {
 //            SmoothGlowstoneClient.class,
 //            TotemOfPreservingClient.class,
 //            VariantMobTextures.class,
-            VariantWoodClient.class
-//            WoodcuttersClient.class
+            VariantWoodClient.class,
+            WoodcuttersClient.class
         );
     }
 }

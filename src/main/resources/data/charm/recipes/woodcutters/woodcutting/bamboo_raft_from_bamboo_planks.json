@@ -1,0 +1,10 @@
+{
+  "type": "charm:woodcutting",
+  "ingredient": {
+    "item": "minecraft:bamboo_planks"
+  },
+  "result": {
+    "id": "minecraft:bamboo_raft"
+  },
+  "count": 1
+}

@@ -1,0 +1,13 @@
+{
+  "template": {
+    "type": "charm:woodcutting",
+    "ingredient": {
+      "item": "minecraft:stripped_OVERWORLD_WOOD_log"
+    },
+    "result": {
+      "id": "minecraft:OVERWORLD_WOOD_planks",
+      "count": 4
+    }
+  },
+  "variants": "overworld_wood"
+}

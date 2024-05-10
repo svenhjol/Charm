@@ -1,0 +1,13 @@
+{
+  "template": {
+    "type": "charm:woodcutting",
+    "ingredient": {
+      "item": "minecraft:stripped_NETHER_WOOD_hyphae"
+    },
+    "result": {
+      "id": "minecraft:NETHER_WOOD_planks",
+      "count": 4
+    }
+  },
+  "variants": "nether_wood"
+}

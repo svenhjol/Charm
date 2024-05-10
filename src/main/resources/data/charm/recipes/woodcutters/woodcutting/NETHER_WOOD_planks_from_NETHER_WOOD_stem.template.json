@@ -1,0 +1,13 @@
+{
+  "template": {
+    "type": "charm:woodcutting",
+    "ingredient": {
+      "item": "minecraft:NETHER_WOOD_stem"
+    },
+    "result": {
+      "id": "minecraft:NETHER_WOOD_planks",
+      "count": 4
+    }
+  },
+  "variants": "nether_wood"
+}
