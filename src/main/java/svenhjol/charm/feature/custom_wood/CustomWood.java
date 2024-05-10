@@ -1,12 +1,16 @@
 package svenhjol.charm.feature.custom_wood;
 
-import svenhjol.charm.feature.custom_wood.common.Registers;
+import svenhjol.charm.api.iface.IVariantWoodMaterial;
 import svenhjol.charm.feature.custom_wood.common.CustomWoodDefinition;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.feature.custom_wood.common.Handlers;
+import svenhjol.charm.feature.custom_wood.common.Registers;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
+
+import java.util.Optional;
 
 @Feature(canBeDisabled = false, description = "Handles custom wood.")
 public class CustomWood extends CommonFeature {
@@ -27,5 +31,12 @@ public class CustomWood extends CommonFeature {
     @SuppressWarnings("unused")
     public static void register(CommonFeature feature, CustomWoodDefinition definition) {
         Resolve.feature(CustomWood.class).registers.register(feature, definition);
+    }
+
+    /**
+     * Helper method to get a custom wood definition for a material.
+     */
+    public static CustomWoodHolder holder(IVariantWoodMaterial material) {
+        return Optional.of(Resolve.feature(CustomWood.class).registers.holders.get(material)).orElseThrow();
     }
 }
