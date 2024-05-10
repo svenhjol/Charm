@@ -1,7 +1,6 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.foundation.enums.Side;
 import svenhjol.charm.foundation.feature.ConditionalRunner;
 import svenhjol.charm.foundation.feature.Metadata;
 import svenhjol.charm.foundation.helper.ConfigHelper;
@@ -191,24 +190,6 @@ public abstract class Loader<T extends Feature> {
         var upper = TextHelper.snakeToPascal(name);
         return features().stream().anyMatch(
             m -> m.name().equals(upper) && m.isEnabled());
-    }
-
-    /**
-     * Checks whether a loader contains a given feature and the feature is enabled.
-     * @param id ResourceLocation of feature, e.g. {namespace:"charm", path:"smooth_glowstone"}
-     * @return True if feature is present enabled in the specified loader.
-     */
-    @SuppressWarnings("unused")
-    public boolean isEnabled(ResourceLocation id) {
-        var namespace = id.getNamespace();
-        var path = id.getPath();
-
-        if (Resolve.has(Side.COMMON, namespace)) {
-            return Resolve.COMMON_LOADERS.get(namespace)
-                .isEnabled(TextHelper.snakeToUpperCamel(path));
-        }
-
-        return false;
     }
 
     public boolean has(String name) {

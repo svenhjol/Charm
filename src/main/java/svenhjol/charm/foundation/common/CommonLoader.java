@@ -23,9 +23,9 @@ public class CommonLoader extends Loader<CommonFeature> {
         var events = new CommonEvents(registry);
         var loader = new CommonLoader(id, config, registry, events);
 
+        Resolve.register(loader); // Make this loader available across all Charm mods.
         CommonEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
 
-        Resolve.COMMON_LOADERS.put(id, loader);
         return loader;
     }
 

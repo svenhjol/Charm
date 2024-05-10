@@ -26,9 +26,9 @@ public class ClientLoader extends Loader<ClientFeature> {
         var events = new ClientEvents(registry);
         var loader = new ClientLoader(id, config, registry, events);
 
+        Resolve.register(loader); // Make this loader available across all Charm mods.
         ClientEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
 
-        Resolve.CLIENT_LOADERS.put(id, loader);
         return loader;
     }
 

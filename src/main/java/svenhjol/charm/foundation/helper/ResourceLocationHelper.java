@@ -25,7 +25,7 @@ public final class ResourceLocationHelper {
         var path = res.getPath();
 
         // If the resource is a minecraft resource or not a charm-based mod resource, allow it through.
-        if (namespace.equals("minecraft") || !Resolve.has(Side.COMMON, namespace)) {
+        if (namespace.equals("minecraft") || !Resolve.hasLoader(Side.COMMON, namespace)) {
             return false;
         }
 

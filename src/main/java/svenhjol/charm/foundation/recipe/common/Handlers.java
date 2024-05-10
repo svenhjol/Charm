@@ -60,8 +60,8 @@ public final class Handlers {
             var recipes = byType.get(type);
             RecipeManager.LOGGER.debug("Recipe type " + type.toString() + " contains " + recipes.size() + " recipes.");
 
-            var charmonyRecipes = recipes.stream().filter(r -> Resolve.has(Side.COMMON, r.id().getNamespace()));
-            var otherRecipes = recipes.stream().filter(r -> !Resolve.has(Side.COMMON, r.id().getNamespace()));
+            var charmonyRecipes = recipes.stream().filter(r -> Resolve.hasLoader(Side.COMMON, r.id().getNamespace()));
+            var otherRecipes = recipes.stream().filter(r -> !Resolve.hasLoader(Side.COMMON, r.id().getNamespace()));
             var holders = new LinkedList<RecipeHolder<?>>();
 
             // Sort and filter the charmony recipes.
