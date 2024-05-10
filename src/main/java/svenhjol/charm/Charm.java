@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
+import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.variant_wood.VariantWood;
@@ -25,7 +26,7 @@ public class Charm {
             AmethystNoteBlock.class,
             Atlases.class,
             AutoRestock.class,
-//            AzaleaWood.class,
+            AzaleaWood.class,
 //            BatBuckets.class,
 //            Chairs.class,
 //            ClearItemFrames.class,
