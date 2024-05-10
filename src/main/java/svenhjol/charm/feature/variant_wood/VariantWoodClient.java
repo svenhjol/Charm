@@ -6,8 +6,9 @@ import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
+import svenhjol.charm.foundation.enums.Side;
 
-@Feature(canBeDisabled = false)
+@Feature(side = Side.CLIENT, canBeDisabled = false)
 public class VariantWoodClient extends ClientFeature {
     public final VariantWood common;
     public final Registers registers;

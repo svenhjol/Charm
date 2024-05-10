@@ -7,8 +7,9 @@ import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.foundation.enums.Side;
 
-@Feature(priority = 1, description = "Variant wood features such as barrels, chests and ladders.")
+@Feature(side = Side.COMMON, priority = 1, description = "Variant wood features such as barrels, chests and ladders.")
 public class VariantWood extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;

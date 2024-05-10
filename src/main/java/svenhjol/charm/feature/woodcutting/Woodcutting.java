@@ -4,8 +4,9 @@ import svenhjol.charm.feature.woodcutting.common.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.foundation.enums.Side;
 
-@Feature(description = "Registers the woodcutting recipe.")
+@Feature(side = Side.COMMON, description = "Registers the woodcutting recipe.")
 public class Woodcutting extends CommonFeature {
     public final Registers registers;
 

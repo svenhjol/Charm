@@ -8,8 +8,9 @@ import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.foundation.enums.Side;
 
-@Feature(description = "Storage for maps that automatically updates the displayed map as you explore.")
+@Feature(side = Side.COMMON, description = "Storage for maps that automatically updates the displayed map as you explore.")
 public class Atlases extends CommonFeature {
     public final Advancements advancements;
     public final Registers registers;

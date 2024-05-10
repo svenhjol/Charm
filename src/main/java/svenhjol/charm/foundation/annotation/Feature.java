@@ -1,5 +1,7 @@
 package svenhjol.charm.foundation.annotation;
 
+import svenhjol.charm.foundation.enums.Side;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -15,4 +17,6 @@ public @interface Feature {
     boolean enabledByDefault() default true;
 
     boolean canBeDisabled() default true;
+
+    Side side();
 }
