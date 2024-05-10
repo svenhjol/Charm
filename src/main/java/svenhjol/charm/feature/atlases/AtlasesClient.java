@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
-@Feature
+@Feature(canBeDisabled = false)
 public class AtlasesClient extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;

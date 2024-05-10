@@ -4,7 +4,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
-import svenhjol.charm.feature.woodcutting.WoodcuttingRecipe;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;

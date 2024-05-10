@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import svenhjol.charm.feature.woodcutters.common.Menu;
-import svenhjol.charm.feature.woodcutting.WoodcuttingRecipe;
+import svenhjol.charm.feature.woodcutting.common.WoodcuttingRecipe;
 
 import java.util.List;
 

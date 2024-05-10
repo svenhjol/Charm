@@ -16,9 +16,4 @@ public class ClientFeature extends Feature {
     public ClientRegistry registry() {
         return loader().registry();
     }
-
-    @Override
-    public boolean canBeDisabled() {
-        return false;
-    }
 }

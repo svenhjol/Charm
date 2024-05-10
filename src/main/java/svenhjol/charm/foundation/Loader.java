@@ -73,6 +73,8 @@ public abstract class Loader<T extends Feature> {
                 var metadata = new Metadata<Feature>(clazz);
                 metadata.description = annotation.description();
                 metadata.priority = annotation.priority();
+                metadata.enabledByDefault = annotation.enabledByDefault();
+                metadata.canBeDisabled = annotation.canBeDisabled();
 
                 this.metadata.put(clazz, metadata);
                 prioritised.computeIfAbsent(annotation.priority(), a -> new ArrayList<>()).add(clazz);

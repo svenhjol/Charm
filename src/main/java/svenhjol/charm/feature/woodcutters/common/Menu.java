@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
-import svenhjol.charm.feature.woodcutting.WoodcuttingRecipe;
+import svenhjol.charm.feature.woodcutting.common.WoodcuttingRecipe;
 import svenhjol.charm.foundation.Resolve;
 
 import java.util.List;

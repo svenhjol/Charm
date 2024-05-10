@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.woodcutting;
+package svenhjol.charm.feature.woodcutting.common;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -7,6 +7,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.Resolve;
 
 @SuppressWarnings("unused")

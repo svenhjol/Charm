@@ -34,6 +34,18 @@ public abstract class Feature implements ConditionalRunner {
             .orElse(0);
     }
 
+    public boolean canBeDisabled() {
+        return loader().metadata(this)
+            .map(m -> m.canBeDisabled)
+            .orElse(true);
+    }
+
+    public boolean isEnabledByDefault() {
+        return loader().metadata(this)
+            .map(m -> m.enabledByDefault)
+            .orElse(true);
+    }
+
     public abstract Loader<? extends Feature> loader();
 
     public abstract Registry registry();
@@ -53,14 +65,6 @@ public abstract class Feature implements ConditionalRunner {
     @Override
     public boolean isEnabled() {
         return enabled && enabledInConfig;
-    }
-
-    public boolean canBeDisabled() {
-        return true;
-    }
-
-    public boolean isEnabledByDefault() {
-        return true;
     }
 
     public boolean isEnabledInConfig() {

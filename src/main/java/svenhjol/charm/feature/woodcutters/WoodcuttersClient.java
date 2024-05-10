@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
-@Feature
+@Feature(canBeDisabled = false)
 public class WoodcuttersClient extends ClientFeature {
     public final Woodcutters common;
     public final Registers registers;

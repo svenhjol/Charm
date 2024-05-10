@@ -11,4 +11,8 @@ public @interface Feature {
     int priority() default 0;
 
     String description() default "";
+
+    boolean enabledByDefault() default true;
+
+    boolean canBeDisabled() default true;
 }
