@@ -92,6 +92,7 @@ public abstract class Loader<T extends Feature> {
                 try {
                     var feature = clazz.getDeclaredConstructor(type()).newInstance(this);
                     features.add(feature);
+                    Resolve.register(feature); // Register with global resolver.
                 } catch (Exception e) {
                     var cause = e.getCause();
                     var name = clazz.getSimpleName();
@@ -100,9 +101,6 @@ public abstract class Loader<T extends Feature> {
                 }
             }
         }
-
-        // Register all features with the global resolver.
-        features.forEach(Resolve::register);
     }
 
     protected abstract Class<? extends Loader<T>> type();
