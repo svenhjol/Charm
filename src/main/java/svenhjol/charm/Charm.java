@@ -5,6 +5,7 @@ import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
+import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.foundation.common.CommonFeature;
 
@@ -50,7 +51,7 @@ public class Charm {
 //            TotemOfPreserving.class,
 //            TotemsWorkFromInventory.class,
 //            VariantPistons.class,
-//            VanillaWoodVariants.class,
+            VanillaWoodVariants.class,
             VariantWood.class
 //            Woodcutters.class,
 //            Woodcutting.class
