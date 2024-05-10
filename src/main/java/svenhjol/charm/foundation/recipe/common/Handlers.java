@@ -1,4 +1,4 @@
-package svenhjol.charm.foundation.recipe;
+package svenhjol.charm.foundation.recipe.common;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -6,20 +6,18 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import svenhjol.charm.Charm;
 import svenhjol.charm.api.iface.IConditionalRecipe;
-import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.enums.Side;
 import svenhjol.charm.foundation.helper.ResourceLocationHelper;
+import svenhjol.charm.foundation.recipe.SortingRecipeManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class RecipeHandlers {
-    static final Log LOGGER = new Log(Charm.ID, "Recipes");
+public final class Handlers {
     static final List<IConditionalRecipe> CONDITIONS = new ArrayList<>();
     static final List<String> FUZZY_REMOVE = new ArrayList<>();
     static final List<String> EXACT_REMOVE = new ArrayList<>();
@@ -30,7 +28,7 @@ public final class RecipeHandlers {
     public static RecipeManager managerHolder;
 
     public static void handlePackReload(String reason) {
-        LOGGER.debug("Reloading Charm custom recipe filtering: " + reason);
+        SortingRecipeManager.LOGGER.debug("Reloading Charm custom recipe filtering: " + reason);
 
         EXACT_REMOVE.clear();
         FUZZY_REMOVE.clear();
@@ -55,13 +53,13 @@ public final class RecipeHandlers {
      * new: Multimap<RecipeType<?>, RecipeHolder<?>>
      */
     public static Multimap<RecipeType<?>, RecipeHolder<?>> sortAndFilter(Multimap<RecipeType<?>, RecipeHolder<?>> byType) {
-        LOGGER.debug("Preparing to sort and filter recipes.");
+        SortingRecipeManager.LOGGER.debug("Preparing to sort and filter recipes.");
 
         ImmutableMultimap.Builder<RecipeType<?>, RecipeHolder<?>> builder = ImmutableMultimap.builder();
 
         for (var type : byType.keySet()) {
             var recipes = byType.get(type);
-            LOGGER.debug("Recipe type " + type.toString() + " contains " + recipes.size() + " recipes.");
+            SortingRecipeManager.LOGGER.debug("Recipe type " + type.toString() + " contains " + recipes.size() + " recipes.");
 
             var charmonyRecipes = recipes.stream().filter(r -> Resolve.has(Side.COMMON, r.id().getNamespace()));
             var otherRecipes = recipes.stream().filter(r -> !Resolve.has(Side.COMMON, r.id().getNamespace()));
@@ -76,7 +74,7 @@ public final class RecipeHandlers {
             otherRecipes.forEach(holders::add);
 
             holders.forEach(holder -> builder.put(type, holder));
-            LOGGER.debug("Recipe type " + type + " reassembled with " + holders.size() + " recipes");
+            SortingRecipeManager.LOGGER.debug("Recipe type " + type + " reassembled with " + holders.size() + " recipes");
         }
 
         return builder.build();

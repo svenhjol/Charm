@@ -9,10 +9,13 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import svenhjol.charm.Charm;
+import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.recipe.common.Handlers;
 
 import java.util.Map;
 
 public class SortingRecipeManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
+    public static final Log LOGGER = new Log(Charm.ID, "Recipes");
     private static final String ID = "charmony_sorting_recipe_manager";
     private static final Gson GSON = (new GsonBuilder())
         .setPrettyPrinting()
@@ -27,12 +30,12 @@ public class SortingRecipeManager extends SimpleJsonResourceReloadListener imple
     
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        if (RecipeHandlers.managerHolder != null) {
-            RecipeHandlers.LOGGER.debug("Holding recipe manager reference: " + RecipeHandlers.managerHolder);
-            var byType = RecipeHandlers.managerHolder.byType;
+        if (Handlers.managerHolder != null) {
+            LOGGER.debug("Holding recipe manager reference: " + Handlers.managerHolder);
+            var byType = Handlers.managerHolder.byType;
 
             if (!byType.isEmpty()) {
-                RecipeHandlers.managerHolder.byType = RecipeHandlers.sortAndFilter(byType);
+                Handlers.managerHolder.byType = Handlers.sortAndFilter(byType);
             }
         }
     }

@@ -28,7 +28,11 @@
     "feature.atlases.MapItemSavedDataMixin",
     "feature.auto_restock.AnimalMixin",
     "feature.auto_restock.ComposterBlockMixin",
-    "feature.auto_restock.ParrotMixin"
+    "feature.auto_restock.ParrotMixin",
+    "registry.recipes.RecipeBookTypeMixin",
+    "registry.recipes.RecipeManagerMixin",
+    "registry.recipes.ReloadableServerResourcesMixin",
+    "registry.recipes.ServerPackSourceMixin"
   ],
   "client": [
     "event.mouse_scroll.MouseHandlerMixin",
@@ -42,7 +46,10 @@
     "feature.atlases.CartographyTableScreenMixin",
     "feature.variant_wood.SheetsMixin",
     "registry.client_tooltip_component.ClientTooltipComponentMixin",
-    "registry.particle_engine.ParticleEngineMixin"
+    "registry.particle_engine.ParticleEngineMixin",
+    "registry.recipes.ClientRecipeBookMixin",
+    "registry.recipes.RecipeBookCategoriesMixin",
+    "registry.recipes.RecipeBookLookupMixin"
   ],
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "injectors": {
