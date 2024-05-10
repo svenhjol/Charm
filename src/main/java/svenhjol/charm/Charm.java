@@ -7,6 +7,7 @@ import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.variant_wood.VariantWood;
+import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.List;
@@ -52,9 +53,9 @@ public class Charm {
 //            TotemsWorkFromInventory.class,
 //            VariantPistons.class,
             VanillaWoodVariants.class,
-            VariantWood.class
+            VariantWood.class,
 //            Woodcutters.class,
-//            Woodcutting.class
+            Woodcutting.class
         );
     }
 }
