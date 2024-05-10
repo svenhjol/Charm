@@ -4,8 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "${refmap_file}",
   "mixins": [
-    "atlases.CartographyTableMenuMixin",
-    "atlases.MapItemSavedDataMixin",
     "enums.boat_type_enum.BoatTypeMixin",
     "enums.note_block_enum.NoteBlockInstrumentMixin",
     "event.anvil_repair.AnvilMenuMixin",
@@ -25,10 +23,14 @@
     "feature.advancements.ServerAdvancementManagerMixin",
     "feature.advancements.ServerPackSourceMixin",
     "feature.amethyst_note_block.BlockBehaviourPropertiesMixin",
-    "feature.amethyst_note_block.NoteBlockMixin"
+    "feature.amethyst_note_block.NoteBlockMixin",
+    "feature.atlases.CartographyTableMenuMixin",
+    "feature.atlases.MapItemSavedDataMixin",
+    "feature.auto_restock.AnimalMixin",
+    "feature.auto_restock.ComposterBlockMixin",
+    "feature.auto_restock.ParrotMixin"
   ],
   "client": [
-    "atlases.CartographyTableScreenMixin",
     "event.mouse_scroll.MouseHandlerMixin",
     "event.player_tick_callback.LocalPlayerMixin",
     "event.render_block_item.BlockEntityWithoutLevelRendererMixin",
@@ -37,6 +39,8 @@
     "event.render_tooltip_callback.GuiGraphicsMixin",
     "event.render_tooltip_callback.ScreenMixin",
     "event.setup_screen_callback.ScreenMixin",
+    "feature.atlases.CartographyTableScreenMixin",
+    "feature.variant_wood.SheetsMixin",
     "registry.client_tooltip_component.ClientTooltipComponentMixin",
     "registry.particle_engine.ParticleEngineMixin"
   ],

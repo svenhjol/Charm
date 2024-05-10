@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.atlases;
+package svenhjol.charm.mixin.feature.atlases;
 
 import net.minecraft.client.gui.screens.inventory.CartographyTableScreen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,7 +29,7 @@ public class CartographyTableScreenMixin implements FeatureResolver<AtlasesClien
     }
 
     @Override
-    public Class<AtlasesClient> type() {
+    public Class<AtlasesClient> featureType() {
         return AtlasesClient.class;
     }
 }

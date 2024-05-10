@@ -4,6 +4,8 @@ import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.feature.advancements.Advancements;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.atlases.Atlases;
+import svenhjol.charm.feature.auto_restock.AutoRestock;
+import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.List;
@@ -19,8 +21,8 @@ public class Charm {
         return List.of(
             Advancements.class,
             AmethystNoteBlock.class,
-            Atlases.class
-//            AutoRestock.class,
+            Atlases.class,
+            AutoRestock.class,
 //            AzaleaWood.class,
 //            BatBuckets.class,
 //            Chairs.class,
@@ -49,7 +51,7 @@ public class Charm {
 //            TotemsWorkFromInventory.class,
 //            VariantPistons.class,
 //            VanillaWoodVariants.class,
-//            VariantWood.class,
+            VariantWood.class
 //            Woodcutters.class,
 //            Woodcutting.class
         );

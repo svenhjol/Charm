@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.atlases;
+package svenhjol.charm.mixin.feature.atlases;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.CartographyTableMenu;
@@ -48,7 +48,7 @@ public class CartographyTableMenuMixin implements FeatureResolver<Atlases> {
     }
 
     @Override
-    public Class<Atlases> type() {
+    public Class<Atlases> featureType() {
         return Atlases.class;
     }
 }
