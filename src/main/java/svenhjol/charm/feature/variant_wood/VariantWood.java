@@ -1,15 +1,15 @@
 package svenhjol.charm.feature.variant_wood;
 
 import svenhjol.charm.api.iface.IVariantMaterial;
-import svenhjol.charm.feature.variant_wood.common.*;
+import svenhjol.charm.feature.variant_wood.common.Handlers;
+import svenhjol.charm.feature.variant_wood.common.Registers;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.enums.Side;
 
-@Feature(side = Side.COMMON, priority = 1, description = "Variant wood features such as barrels, chests and ladders.")
+@Feature(priority = 1, description = "Variant wood features such as barrels, chests and ladders.")
 public class VariantWood extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;

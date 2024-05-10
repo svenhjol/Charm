@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.enums.Side;
 
-@Feature(side = Side.CLIENT, canBeDisabled = false)
+@Feature(canBeDisabled = false)
 public class WoodcuttersClient extends ClientFeature {
     public final Woodcutters common;
     public final Registers registers;

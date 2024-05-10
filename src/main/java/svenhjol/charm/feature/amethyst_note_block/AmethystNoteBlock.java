@@ -5,9 +5,8 @@ import svenhjol.charm.feature.amethyst_note_block.common.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.enums.Side;
 
-@Feature(side = Side.COMMON, description = "Place a block of amethyst under a note block to play its placement sound.")
+@Feature(description = "Place a block of amethyst under a note block to play its placement sound.")
 public class AmethystNoteBlock extends CommonFeature {
     public static final String NOTE_BLOCK_ID = "charm_amethyst";
 

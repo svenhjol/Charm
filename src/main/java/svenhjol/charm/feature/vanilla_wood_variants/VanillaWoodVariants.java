@@ -4,9 +4,8 @@ import svenhjol.charm.feature.vanilla_wood_variants.common.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.enums.Side;
 
-@Feature(side = Side.COMMON, description = "Barrels, bookcases, chests and ladders in all vanilla wood types.")
+@Feature(description = "Barrels, bookcases, chests and ladders in all vanilla wood types.")
 public class VanillaWoodVariants extends CommonFeature {
     public final Registers registers;
 
