@@ -103,16 +103,15 @@ public final class Resolve {
     public static <F extends Feature> void register(Loader<F> loader) {
         var id = loader.id();
         var clazz = loader.getClass();
-        var supertype = clazz.getSuperclass();
 
-        if (supertype.equals(CommonLoader.class)) {
+        if (clazz.equals(CommonLoader.class)) {
             COMMON_LOADERS.put(id, (CommonLoader) loader);
-        } else if (supertype.equals(ClientLoader.class)) {
+        } else if (clazz.equals(ClientLoader.class)) {
             CLIENT_LOADERS.put(id, (ClientLoader) loader);
-        } else if (supertype.equals(ServerLoader.class)) {
+        } else if (clazz.equals(ServerLoader.class)) {
             SERVER_LOADERS.put(id, (ServerLoader) loader);
         } else {
-            throw new RuntimeException("Could not determine supertype for " + clazz);
+            throw new RuntimeException("Could not determine class for " + clazz);
         }
     }
 
