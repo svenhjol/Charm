@@ -1,6 +1,7 @@
 package svenhjol.charm;
 
 import svenhjol.charm.feature.atlases.AtlasesClient;
+import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.variant_wood.VariantWoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
 import svenhjol.charm.foundation.client.ClientFeature;
@@ -19,7 +20,7 @@ public class CharmClient {
 //            ColoredGlintSmithingTemplatesClient.class,
 //            CopperPistonsClient.class,
 //            CoralSquidsClient.class,
-//            CustomWoodClient.class,
+            CustomWoodClient.class,
 //            ExtractableEnchantmentsClient.class,
 //            ExtraTooltips.class,
 //            HoverSortingClient.class,
