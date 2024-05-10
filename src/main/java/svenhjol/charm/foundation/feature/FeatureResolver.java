@@ -9,12 +9,12 @@ public interface FeatureResolver<F extends Feature> {
      * @return Feature
      */
     default F feature() {
-        return Resolve.feature(type());
+        return Resolve.feature(featureType());
     }
 
     /**
      * The feature class type.
      * @return Class type to provide IDE completion.
      */
-    Class<F> type();
+    Class<F> featureType();
 }
