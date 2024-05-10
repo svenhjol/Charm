@@ -9,14 +9,16 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import svenhjol.charm.Charm;
+import svenhjol.charm.api.iface.IConditionalRecipeProvider;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.helper.ApiHelper;
 import svenhjol.charm.foundation.recipe.common.Handlers;
 
 import java.util.Map;
 
-public class SortingRecipeManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
+public class RecipeManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
     public static final Log LOGGER = new Log(Charm.ID, "Recipes");
-    private static final String ID = "charmony_sorting_recipe_manager";
+    private static final String ID = "charm_recipe_manager";
     private static final Gson GSON = (new GsonBuilder())
         .setPrettyPrinting()
         .setLenient()
@@ -24,8 +26,11 @@ public class SortingRecipeManager extends SimpleJsonResourceReloadListener imple
         .excludeFieldsWithoutExposeAnnotation()
         .create();
 
-    public SortingRecipeManager() {
+    public RecipeManager() {
         super(GSON, ID);
+
+        ApiHelper.consume(IConditionalRecipeProvider.class,
+            provider -> Handlers.CONDITIONS.addAll(provider.getRecipeConditions()));
     }
     
     @Override
@@ -42,6 +47,6 @@ public class SortingRecipeManager extends SimpleJsonResourceReloadListener imple
 
     @Override
     public ResourceLocation getFabricId() {
-        return Charm.id("sorting_recipe_manager");
+        return Charm.id(ID);
     }
 }

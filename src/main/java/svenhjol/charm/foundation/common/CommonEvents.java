@@ -22,9 +22,10 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.api.event.*;
+import svenhjol.charm.foundation.advancement.AdvancementManager;
 import svenhjol.charm.foundation.event.PlayerLoginCallback;
 import svenhjol.charm.foundation.event.PlayerTickCallback;
-import svenhjol.charm.foundation.recipe.SortingRecipeManager;
+import svenhjol.charm.foundation.recipe.RecipeManager;
 
 import javax.annotation.Nullable;
 
@@ -45,7 +46,10 @@ public final class CommonEvents {
 
         // Add our custom recipe sorting handler - should only be added once!
         ResourceManagerHelper.get(PackType.SERVER_DATA)
-            .registerReloadListener(new SortingRecipeManager());
+            .registerReloadListener(new RecipeManager());
+
+        // Add our custom advancement handling.
+        AdvancementManager.instance();
 
         // These are global Fabric events that any mod/feature can observe.
         AttackEntityCallback.EVENT.register(CommonEvents::handleAttackEntity);
