@@ -79,8 +79,7 @@ public abstract class Loader<T extends Feature> {
                 prioritised.computeIfAbsent(annotation.priority(), a -> new ArrayList<>()).add(clazz);
             } else {
                 var name = clazz.getSimpleName();
-                var message = "Missing feature annotation for " + name;
-                logAndThrow(message);
+                throw new RuntimeException("Missing feature annotation for " + name);
             }
         }
 
@@ -97,8 +96,8 @@ public abstract class Loader<T extends Feature> {
                 } catch (Exception e) {
                     var cause = e.getCause();
                     var name = clazz.getSimpleName();
-                    var message = "Failed to initialize feature " + name + ": " + (cause != null ? cause.getMessage() : e.getMessage());
-                    logAndThrow(message);
+                    var message = (cause != null ? cause.getMessage() : e.getMessage());
+                    throw new RuntimeException("Failed to initialize feature " + name + ": " + message);
                 }
             }
         }
@@ -218,11 +217,6 @@ public abstract class Loader<T extends Feature> {
      */
     protected Log log() {
         return log;
-    }
-
-    protected void logAndThrow(String message) {
-        log().error(message);
-        throw new RuntimeException(message);
     }
 
     protected void sortFeaturesByPriority() {
