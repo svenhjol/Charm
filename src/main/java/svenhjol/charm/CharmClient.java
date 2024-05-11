@@ -4,6 +4,7 @@ import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
 import svenhjol.charm.feature.variant_wood.VariantWoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
@@ -31,7 +32,7 @@ public class CharmClient {
 //            KilnsClient.class,
 //            RecipesClient.class,
 //            SmoothGlowstoneClient.class,
-//            TotemOfPreservingClient.class,
+            TotemOfPreservingClient.class,
             VariantMobTextures.class,
             VariantWoodClient.class,
             WoodcuttersClient.class
