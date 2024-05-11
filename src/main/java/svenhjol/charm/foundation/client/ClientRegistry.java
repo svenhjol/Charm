@@ -65,15 +65,15 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <T extends BlockEntity> void blockEntityRenderer(Supplier<BlockEntityType<T>> supplier, Supplier<BlockEntityRendererProvider<T>> provider) {
-        loader.registerRunnable(() -> BlockEntityRenderers.register(supplier.get(), provider.get()));
+        loader.registerDeferred(() -> BlockEntityRenderers.register(supplier.get(), provider.get()));
     }
 
     public <T extends Block> void blockRenderType(Supplier<T> block, Supplier<RenderType> renderType) {
-        loader.registerRunnable(() -> BlockRenderLayerMap.INSTANCE.putBlock(block.get(), renderType.get()));
+        loader.registerDeferred(() -> BlockRenderLayerMap.INSTANCE.putBlock(block.get(), renderType.get()));
     }
 
     public <T extends Entity> void entityRenderer(Supplier<EntityType<T>> entity, Supplier<EntityRendererProvider<T>> provider) {
-        loader.registerRunnable(() -> EntityRendererRegistry.register(entity.get(), provider.get()));
+        loader.registerDeferred(() -> EntityRendererRegistry.register(entity.get(), provider.get()));
     }
 
     public ResourceLocation id(String path) {
@@ -92,7 +92,7 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
 
     public Supplier<String> key(String id, Supplier<KeyMapping> supplier) {
         Supplier<KeyMapping> mapping = () -> KeyBindingHelper.registerKeyBinding(supplier.get());
-        loader.registerRunnable(() -> keyMappings.put(id, mapping.get()));
+        loader.registerDeferred(() -> keyMappings.put(id, mapping.get()));
         return () -> id;
     }
 
@@ -101,22 +101,22 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <T extends AbstractContainerMenu, U extends Screen & MenuAccess<T>> void menuScreen(Supplier<MenuType<T>> menuType, Supplier<MenuScreens.ScreenConstructor<T, U>> screenConstructor) {
-        loader.registerRunnable(() -> MenuScreens.register(menuType.get(), screenConstructor.get()));
+        loader.registerDeferred(() -> MenuScreens.register(menuType.get(), screenConstructor.get()));
     }
 
     public Supplier<ModelLayerLocation> modelLayer(Supplier<ModelLayerLocation> location, Supplier<LayerDefinition> definition) {
-        loader.registerRunnable(() -> EntityModelLayerRegistry.registerModelLayer(location.get(), definition::get));
+        loader.registerDeferred(() -> EntityModelLayerRegistry.registerModelLayer(location.get(), definition::get));
         return location;
     }
 
     public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, BiConsumer<Player, T> handler) {
-        loader.registerRunnable(() -> ClientPlayNetworking.registerGlobalReceiver(type,
+        loader.registerDeferred(() -> ClientPlayNetworking.registerGlobalReceiver(type,
             (packet, context) -> context.client().execute(() -> handler.accept(context.player(), packet))));
     }
 
     public Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particle(Supplier<SimpleParticleType> particleType,
                                                                                             Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particleProvider) {
-        loader.registerRunnable(() -> PARTICLES.add(new DeferredParticle(particleType, particleProvider)));
+        loader.registerDeferred(() -> PARTICLES.add(new DeferredParticle(particleType, particleProvider)));
         return particleProvider;
     }
 
@@ -133,7 +133,7 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
         var searchCategory = EnumHelper.getValueOrDefault(() -> RecipeBookCategories.valueOf(upper + "_SEARCH"), RecipeBookCategories.CRAFTING_SEARCH);
         var mainCategory = EnumHelper.getValueOrDefault(() -> RecipeBookCategories.valueOf(upper), RecipeBookCategories.CRAFTING_MISC);
 
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             RECIPE_BOOK_MAIN_CATEGORY.put(recipeType.get(), mainCategory);
             RECIPE_BOOK_CATEGORY_BY_TYPE.put(recipeBookType.get(), List.of(searchCategory, mainCategory));
 
@@ -160,7 +160,7 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public void signMaterial(Supplier<WoodType> woodType) {
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             Sheets.SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.get().name())));
             Sheets.HANGING_SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/hanging/" + woodType.get().name())));
         });

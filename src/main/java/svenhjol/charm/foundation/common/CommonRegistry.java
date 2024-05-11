@@ -132,7 +132,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
             }
         }
 
-        loader.registerRunnable(() -> supplier.get().validBlocks = new HashSet<>(mutable));
+        loader.registerDeferred(() -> supplier.get().validBlocks = new HashSet<>(mutable));
     }
 
     public Register<BlockSetType> blockSetType(Supplier<IVariantWoodMaterial> material) {
@@ -147,7 +147,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <T extends CustomPacketPayload> void clientPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
-        loader.registerRunnable(() -> PayloadTypeRegistry.playC2S().register(type, codec));
+        loader.registerDeferred(() -> PayloadTypeRegistry.playC2S().register(type, codec));
     }
 
     public <T> Register<DataComponentType<T>> dataComponent(String id, Supplier<UnaryOperator<DataComponentType.Builder<T>>> dataComponent) {
@@ -158,7 +158,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <I extends ItemLike, D extends DispenseItemBehavior> void dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             var behavior = dispenserBehavior.get();
             DispenserBlock.registerBehavior(item.get(), behavior);
         });
@@ -178,16 +178,16 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <T extends LivingEntity> void entityAttributes(Supplier<EntityType<T>> entity, Supplier<AttributeSupplier.Builder> builder) {
-        loader.registerRunnable(() -> FabricDefaultAttributeRegistry.register(entity.get(), builder.get()));
+        loader.registerDeferred(() -> FabricDefaultAttributeRegistry.register(entity.get(), builder.get()));
     }
 
     public <T extends Mob> void entitySpawnPlacement(Supplier<EntityType<T>> entity, SpawnPlacementType placementType,
                                                      Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate) {
-        loader.registerRunnable(() -> SpawnPlacements.register(entity.get(), placementType, heightmapType, predicate));
+        loader.registerDeferred(() -> SpawnPlacements.register(entity.get(), placementType, heightmapType, predicate));
     }
 
     public <T extends IFuelProvider> void fuel(Supplier<T> provider) {
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             var item = provider.get();
             FuelRegistry.INSTANCE.add((ItemLike) item, item.fuelTime());
         });
@@ -202,7 +202,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <T extends IIgniteProvider> void ignite(Supplier<T> provider) {
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             var block = provider.get();
             ((FireBlock) Blocks.FIRE).setFlammable((Block)block, block.igniteChance(), block.burnChance());
         });
@@ -234,12 +234,12 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, BiConsumer<Player, T> handler) {
-        loader.registerRunnable(() -> ServerPlayNetworking.registerGlobalReceiver(type,
+        loader.registerDeferred(() -> ServerPlayNetworking.registerGlobalReceiver(type,
             (packet, context) -> context.player().server.execute(() -> handler.accept(context.player(), packet))));
     }
 
     public <T extends CustomPacketPayload> void serverPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
-        loader.registerRunnable(() -> PayloadTypeRegistry.playS2C().register(type, codec));
+        loader.registerDeferred(() -> PayloadTypeRegistry.playS2C().register(type, codec));
     }
 
     public Register<SimpleParticleType> particleType(String id, Supplier<SimpleParticleType> supplier) {
@@ -252,7 +252,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     public Register<PoiType> pointOfInterestType(String id, Supplier<PoiType> supplier) {
         var register = new Register<>(supplier);
 
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             var poiType = register.get();
             var poitKey = ResourceKey.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE.key(), id(id));
 
@@ -267,7 +267,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public void pointOfInterestBlockStates(Supplier<PoiType> poiType, Supplier<List<BlockState>> states) {
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             var resourceKey = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(poiType.get()).orElseThrow();
             var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(resourceKey);
             var blockStates = new ArrayList<>(holder.value().matchingStates());
@@ -288,7 +288,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public void runnable(Runnable runnable) {
-        loader.registerRunnable(runnable);
+        loader.registerDeferred(runnable);
     }
 
     public Register<RecipeBookType> recipeBookType(String id) {
@@ -299,7 +299,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
 //        Supplier<RecipeBookType> registered = () -> EnumHelper.getValueOrDefault(() -> RecipeBookType.valueOf(upper), RecipeBookType.CRAFTING);
 
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             var tagFields = new HashMap<>(RecipeBookSettings.TAG_FIELDS);
             tagFields.put(register.get(), Pair.of("is" + capitalized + "GuiOpen", "is" + capitalized + "FilteringCraftable"));
             RecipeBookSettings.TAG_FIELDS = tagFields;
@@ -366,7 +366,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <B extends Block, S extends Block> void strippable(Supplier<B> block, Supplier<S> strippedBlock) {
-        loader.registerRunnable(() -> {
+        loader.registerDeferred(() -> {
             AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
             AxeItem.STRIPPABLES.put(block.get(), strippedBlock.get());
         });
@@ -398,7 +398,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
         public Register(Supplier<R> supplier) {
             this.supplier = supplier;
-            loader.registerRunnable(this::get);
+            loader.registerDeferred(this::get);
         }
 
         public R get() {

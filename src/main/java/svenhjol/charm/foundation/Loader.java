@@ -10,11 +10,12 @@ import java.util.*;
 import java.util.function.BooleanSupplier;
 
 public abstract class Loader<T extends Feature> {
-    protected final List<Runnable> runnables = new LinkedList<>();
+    private final List<Runnable> deferred = new LinkedList<>();
+    private final Map<Class<? extends T>, Metadata<Feature>> metadata = new HashMap<>();
+    private final List<Conditional> conditionals = new LinkedList<>();
     protected final List<T> features = new LinkedList<>();
-    protected final Map<Class<? extends T>, Metadata<Feature>> metadata = new HashMap<>();
-    protected final List<Conditional> conditionals = new LinkedList<>();
-    protected String id;
+    private final String id;
+    private boolean deferredCompleted = false;
     protected Log log;
 
     protected Loader(String id) {
@@ -37,7 +38,7 @@ public abstract class Loader<T extends Feature> {
     }
 
     /**
-     * Instantiates and registers feature classes.
+     * Instantiates, registers and configures feature classes.
      */
     public void features(List<Class<? extends T>> classes) {
         if (classes.isEmpty()) {
@@ -48,8 +49,11 @@ public abstract class Loader<T extends Feature> {
             log().info("Loading " + size + " class" + (size > 1 ? "es" : "") + " for " + id);
         }
 
-        // Create objects for each feature class. Pass this loader to each of the objects.
+        // Instantiate features from each feature class.
         instantiate(classes);
+
+        // Call deferred runnables such as feature registration.
+        deferred();
 
         // Load configuration state for the features.
         configure();
@@ -102,14 +106,21 @@ public abstract class Loader<T extends Feature> {
                 }
             }
         }
+    }
 
-        // Features should now be resolvable.
-        // Use a for-i as runnables can be appended during the iterator.
-        // noinspection ForLoopReplaceableByForEach
-        for (int i = 0; i < runnables.size(); i++) {
-            var runnable = runnables.get(i);
+    /**
+     * Call after features are instantiated to run deferred tasks such as registration.
+     * Deferred can change in size as it is iterated so use an oldschool for-i loop.
+     */
+    @SuppressWarnings("ForLoopReplaceableByForEach")
+    protected void deferred() {
+        for (int i = 0; i < deferred.size(); i++) {
+            var runnable = deferred.get(i);
             runnable.run();
         }
+
+        deferred.clear();
+        deferredCompleted = true;
     }
 
     protected abstract Class<? extends Loader<T>> type();
@@ -150,10 +161,10 @@ public abstract class Loader<T extends Feature> {
     /**
      * All enabled runners and features have their onEnabled() method executed.
      * All disabled runners and features have their onDisabled() method executed.
+     * Conditionals can change in size as it is iterated so use an oldschool for-i loop.
      */
+    @SuppressWarnings("ForLoopReplaceableByForEach")
     public void run() {
-        // Use a for-i as conditionals can be appended during the iterator.
-        // noinspection ForLoopReplaceableByForEach
         for (int i = 0; i < conditionals.size(); i++) {
             var conditional = conditionals.get(i);
             Class<? extends Conditional> clazz = conditional.getClass();
@@ -181,8 +192,11 @@ public abstract class Loader<T extends Feature> {
         this.conditionals.add(runner);
     }
 
-    public void registerRunnable(Runnable runnable) {
-        this.runnables.add(runnable);
+    public void registerDeferred(Runnable deferred) {
+        if (deferredCompleted) {
+            throw new RuntimeException("Cannot add a deferred runnable at this stage!");
+        }
+        this.deferred.add(deferred);
     }
 
 
