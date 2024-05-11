@@ -5,8 +5,10 @@ import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
+import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
+import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
@@ -33,7 +35,7 @@ public class Charm {
 //            Collection.class,
 //            ColoredGlints.class,
 //            ColoredGlintSmithingTemplates.class,
-//            CopperPistons.class,
+            CopperPistons.class,
 //            CoralSquids.class,
 //            Core.class,
             CustomWood.class,
@@ -52,7 +54,7 @@ public class Charm {
 //            SmoothGlowstone.class,
 //            TotemOfPreserving.class,
 //            TotemsWorkFromInventory.class,
-//            VariantPistons.class,
+            VariantPistons.class,
             VanillaWoodVariants.class,
             VariantWood.class,
             Woodcutters.class,
