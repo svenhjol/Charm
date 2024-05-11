@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public final class Registers extends RegisterHolder<Atlases> {
     public final Supplier<DataComponentType<AtlasData>> atlasData;
     public final Supplier<DataComponentType<MapData>> mapData;
-    public final Supplier<net.minecraft.world.item.Item> item;
+    public final Supplier<Item> item;
     public final Supplier<MenuType<Menu>> menuType;
     public final Supplier<SoundEvent> openSound;
     public final Supplier<SoundEvent> closeSound;
