@@ -1,14 +1,14 @@
-package svenhjol.charm.feature.silence_microsoft;
+package svenhjol.charm.feature.silence_messages;
 
 import svenhjol.charm.foundation.annotation.Configurable;
+import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
+import svenhjol.charm.foundation.common.CommonLoader;
 
-public class SilenceMicrosoft extends CommonFeature {
-    @Override
-    public String description() {
-        return """
-            Disables the 'Chat messages can't be verified' nag when the server does not enforce secure profile.
-            Also disables realms, sessionserver and API connections when running in development environment.""";
+@Feature(description = "Disables some nag messages/notifications.")
+public class SilenceMessages extends CommonFeature {
+    public SilenceMessages(CommonLoader loader) {
+        super(loader);
     }
 
     @Configurable(name = "Disable chat message nag", description = """

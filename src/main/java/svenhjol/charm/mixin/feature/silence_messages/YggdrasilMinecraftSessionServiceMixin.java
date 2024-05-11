@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.feature.silence_microsoft;
+package svenhjol.charm.mixin.feature.silence_messages;
 
 import com.mojang.authlib.yggdrasil.ProfileResult;
 import com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService;
@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.silence_microsoft.CommonCallbacks;
+import svenhjol.charm.feature.silence_messages.common.Handlers;
 
 import java.util.UUID;
 
@@ -19,9 +19,8 @@ public class YggdrasilMinecraftSessionServiceMixin {
         remap = false
     )
     private void hookFetchProfileUncached(UUID profileId, boolean requireSecure, CallbackInfoReturnable<ProfileResult> cir) {
-        if (CommonCallbacks.disableDevEnvironmentConnections()) {
+        if (Handlers.disableDevEnvironmentConnections()) {
             cir.setReturnValue(null);
         }
     }
-
 }
