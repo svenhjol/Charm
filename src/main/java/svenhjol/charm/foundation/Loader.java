@@ -1,7 +1,7 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.foundation.feature.ConditionalRunner;
+import svenhjol.charm.foundation.feature.Conditional;
 import svenhjol.charm.foundation.feature.Metadata;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 import svenhjol.charm.foundation.helper.TextHelper;
@@ -10,10 +10,11 @@ import java.util.*;
 import java.util.function.BooleanSupplier;
 
 public abstract class Loader<T extends Feature> {
+    protected final List<Runnable> runnables = new LinkedList<>();
+    protected final List<T> features = new LinkedList<>();
+    protected final Map<Class<? extends T>, Metadata<Feature>> metadata = new HashMap<>();
+    protected final List<Conditional> conditionals = new LinkedList<>();
     protected String id;
-    protected List<T> features = new LinkedList<>();
-    protected Map<Class<? extends T>, Metadata<Feature>> metadata = new HashMap<>();
-    protected List<ConditionalRunner> runners = new LinkedList<>();
     protected Log log;
 
     protected Loader(String id) {
@@ -101,6 +102,14 @@ public abstract class Loader<T extends Feature> {
                 }
             }
         }
+
+        // Features should now be resolvable.
+        // Use a for-i as runnables can be appended during the iterator.
+        // noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < runnables.size(); i++) {
+            var runnable = runnables.get(i);
+            runnable.run();
+        }
     }
 
     protected abstract Class<? extends Loader<T>> type();
@@ -143,16 +152,19 @@ public abstract class Loader<T extends Feature> {
      * All disabled runners and features have their onDisabled() method executed.
      */
     public void run() {
-        runners.forEach(runner -> {
-            Class<? extends ConditionalRunner> clazz = runner.getClass();
-            if (runner.isEnabled()) {
+        // Use a for-i as conditionals can be appended during the iterator.
+        // noinspection ForLoopReplaceableByForEach
+        for (int i = 0; i < conditionals.size(); i++) {
+            var conditional = conditionals.get(i);
+            Class<? extends Conditional> clazz = conditional.getClass();
+            if (conditional.isEnabled()) {
                 log().debug("Running enabled conditional " + clazz);
-                runner.onEnabled();
+                conditional.onEnabled();
             } else {
                 log().debug("Running disabled conditional " + clazz);
-                runner.onDisabled();
+                conditional.onDisabled();
             }
-        });
+        }
 
         features.forEach(feature -> {
             if (feature.isEnabled()) {
@@ -165,9 +177,14 @@ public abstract class Loader<T extends Feature> {
         });
     }
 
-    public void registerRunner(ConditionalRunner runner) {
-        this.runners.add(runner);
+    public void registerConditional(Conditional runner) {
+        this.conditionals.add(runner);
     }
+
+    public void registerRunnable(Runnable runnable) {
+        this.runnables.add(runnable);
+    }
+
 
     /**
      * Checks if a feature is enabled in this loader by its class name.

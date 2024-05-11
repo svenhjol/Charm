@@ -1,6 +1,6 @@
 package svenhjol.charm.foundation.feature;
 
-public interface ConditionalRunner {
+public interface Conditional {
     /**
      * Run tasks when the associated class is enabled.
      */

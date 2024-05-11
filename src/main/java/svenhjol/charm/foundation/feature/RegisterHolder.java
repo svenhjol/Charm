@@ -2,10 +2,10 @@ package svenhjol.charm.foundation.feature;
 
 import svenhjol.charm.foundation.Feature;
 
-public abstract class RegisterHolder<F extends Feature> extends FeatureHolder<F> implements ConditionalRunner {
+public abstract class RegisterHolder<F extends Feature> extends FeatureHolder<F> implements Conditional {
     public RegisterHolder(F feature) {
         super(feature);
-        feature.loader().registerRunner(this);
+        feature.loader().registerConditional(this);
     }
 
     @Override

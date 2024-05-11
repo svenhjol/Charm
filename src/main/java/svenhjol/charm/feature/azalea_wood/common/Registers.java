@@ -15,20 +15,21 @@ import java.util.function.Supplier;
 public final class Registers extends RegisterHolder<AzaleaWood> {
     public final Supplier<BlockSetType> blockSetType;
     public final Supplier<WoodType> woodType;
-    public final IVariantWoodMaterial material;
+    public final Supplier<IVariantWoodMaterial> material;
 
     public Registers(AzaleaWood feature) {
         super(feature);
 
         var registry = feature.registry();
-        var material = Material.AZALEA;
 
-        this.material = material;
+        this.material = () -> Material.AZALEA;
         this.blockSetType = registry.blockSetType(material);
-        this.woodType = registry.woodType(material.getSerializedName(), material);
+        this.woodType = registry.woodType(material);
 
-        CustomWood.register(feature, new WoodDefinition());
-        VariantWood.register(feature, material);
+        registry.runnable(() -> {
+            CustomWood.register(feature, new WoodDefinition());
+            VariantWood.register(feature, material.get());
+        });
 
         CharmApi.registerProvider(feature);
         CharmApi.registerProvider(new DataProviders());

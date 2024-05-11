@@ -12,24 +12,16 @@ public class ClientLoader extends Loader<ClientFeature> {
     private final ClientRegistry registry;
     private final ClientEvents events;
 
-    protected ClientLoader(String id, ClientConfig config, ClientRegistry registry, ClientEvents events) {
+    protected ClientLoader(String id) {
         super(id);
         this.log = new Log(id, this);
-        this.config = config;
-        this.registry = registry;
-        this.events = events;
+        this.config = new ClientConfig(this);
+        this.registry = new ClientRegistry(this);
+        this.events = new ClientEvents(this);
     }
 
     public static ClientLoader create(String id) {
-        var config = new ClientConfig(id);
-        var registry = new ClientRegistry(id);
-        var events = new ClientEvents(registry);
-        var loader = new ClientLoader(id, config, registry, events);
-
-        Resolve.register(loader); // Make this loader available across all Charm mods.
-        ClientEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
-
-        return loader;
+        return Resolve.register(new ClientLoader(id));
     }
 
     @Override

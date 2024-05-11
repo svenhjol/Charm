@@ -14,9 +14,4 @@ public class Woodcutting extends CommonFeature {
 
         registers = new Registers(this);
     }
-
-    @Override
-    public boolean canBeDisabled() {
-        return false;
-    }
 }

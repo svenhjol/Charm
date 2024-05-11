@@ -85,7 +85,7 @@ public final class Resolve {
         return () -> Resolve.feature(clazz);
     }
 
-    public static <F extends Feature> void register(F feature) {
+    public static <F extends Feature> F register(F feature) {
         var clazz = feature.getClass();
         var supertype = clazz.getSuperclass();
 
@@ -98,9 +98,11 @@ public final class Resolve {
         } else {
             throw new RuntimeException("Could not determine supertype for " + clazz);
         }
+
+        return feature;
     }
 
-    public static <F extends Feature> void register(Loader<F> loader) {
+    public static <F extends Feature, L extends Loader<F>> L register(L loader) {
         var id = loader.id();
         var clazz = loader.getClass();
 
@@ -113,6 +115,8 @@ public final class Resolve {
         } else {
             throw new RuntimeException("Could not determine class for " + clazz);
         }
+
+        return loader;
     }
 
     private static <F extends Feature> Optional<F> tryGetFeature(Class<F> clazz) {

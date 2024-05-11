@@ -9,11 +9,11 @@ import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.variant_wood.block.entity.ChestBlockEntity;
 import svenhjol.charm.feature.variant_wood.block.entity.TrappedChestBlockEntity;
 import svenhjol.charm.foundation.common.CommonFeature;
+import svenhjol.charm.foundation.common.CommonRegistry;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public final class Registers extends RegisterHolder<VariantWood> {
@@ -23,8 +23,8 @@ public final class Registers extends RegisterHolder<VariantWood> {
     public final Map<IVariantMaterial, VariantChiseledBookshelf> chiseledBookshelves = new LinkedHashMap<>();
     public final Map<IVariantMaterial, VariantLadder> ladders = new LinkedHashMap<>();
     public final Map<IVariantMaterial, VariantTrappedChest> trappedChests = new LinkedHashMap<>();
-    public final Supplier<BlockEntityType<ChestBlockEntity>> chestBlockEntity;
-    public final Supplier<BlockEntityType<TrappedChestBlockEntity>> trappedChestBlockEntity;
+    public final CommonRegistry.Register<BlockEntityType<ChestBlockEntity>> chestBlockEntity;
+    public final CommonRegistry.Register<BlockEntityType<TrappedChestBlockEntity>> trappedChestBlockEntity;
 
     public Registers(VariantWood feature) {
         super(feature);

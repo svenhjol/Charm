@@ -40,7 +40,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.foundation.Log;
-import svenhjol.charm.foundation.Registry;
 import svenhjol.charm.foundation.deferred.DeferredParticle;
 import svenhjol.charm.foundation.helper.EnumHelper;
 
@@ -50,35 +49,35 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings("UnusedReturnValue")
-public final class ClientRegistry implements Registry {
+public final class ClientRegistry implements svenhjol.charm.foundation.Registry {
     private final Map<String, KeyMapping> keyMappings = new HashMap<>();
     private static final List<Pair<String, ItemLike>> RECIPE_BOOK_CATEGORY_ENUMS = new ArrayList<>();
     private static final Map<RecipeBookType, List<RecipeBookCategories>> RECIPE_BOOK_CATEGORY_BY_TYPE = new HashMap<>();
     private static final Map<RecipeType<?>, RecipeBookCategories> RECIPE_BOOK_MAIN_CATEGORY = new HashMap<>();
     private static final List<DeferredParticle> PARTICLES = new ArrayList<>();
 
-    private final String id;
+    private final ClientLoader loader;
     private final Log log;
 
-    public ClientRegistry(String id) {
-        this.id = id;
-        this.log = new Log(id, this);
+    public ClientRegistry(ClientLoader loader) {
+        this.loader = loader;
+        this.log = new Log(loader.id(), this);
     }
 
     public <T extends BlockEntity> void blockEntityRenderer(Supplier<BlockEntityType<T>> supplier, Supplier<BlockEntityRendererProvider<T>> provider) {
-        BlockEntityRenderers.register(supplier.get(), provider.get());
+        loader.registerRunnable(() -> BlockEntityRenderers.register(supplier.get(), provider.get()));
     }
 
     public <T extends Block> void blockRenderType(Supplier<T> block, Supplier<RenderType> renderType) {
-        BlockRenderLayerMap.INSTANCE.putBlock(block.get(), renderType.get());
+        loader.registerRunnable(() -> BlockRenderLayerMap.INSTANCE.putBlock(block.get(), renderType.get()));
     }
 
     public <T extends Entity> void entityRenderer(Supplier<EntityType<T>> entity, Supplier<EntityRendererProvider<T>> provider) {
-        EntityRendererRegistry.register(entity.get(), provider.get());
+        loader.registerRunnable(() -> EntityRendererRegistry.register(entity.get(), provider.get()));
     }
 
     public ResourceLocation id(String path) {
-        return new ResourceLocation(this.id, path);
+        return new ResourceLocation(loader.id(), path);
     }
 
     public <T extends ItemLike> void itemTab(Supplier<T> item, ResourceKey<CreativeModeTab> key, @Nullable ItemLike showAfter) {
@@ -92,9 +91,8 @@ public final class ClientRegistry implements Registry {
     }
 
     public Supplier<String> key(String id, Supplier<KeyMapping> supplier) {
-        log.debug("Registering key mapping " + id);
-        var mapping = KeyBindingHelper.registerKeyBinding(supplier.get());
-        keyMappings.put(id, mapping);
+        Supplier<KeyMapping> mapping = () -> KeyBindingHelper.registerKeyBinding(supplier.get());
+        loader.registerRunnable(() -> keyMappings.put(id, mapping.get()));
         return () -> id;
     }
 
@@ -103,24 +101,22 @@ public final class ClientRegistry implements Registry {
     }
 
     public <T extends AbstractContainerMenu, U extends Screen & MenuAccess<T>> void menuScreen(Supplier<MenuType<T>> menuType, Supplier<MenuScreens.ScreenConstructor<T, U>> screenConstructor) {
-        MenuScreens.register(menuType.get(), screenConstructor.get());
+        loader.registerRunnable(() -> MenuScreens.register(menuType.get(), screenConstructor.get()));
     }
 
     public Supplier<ModelLayerLocation> modelLayer(Supplier<ModelLayerLocation> location, Supplier<LayerDefinition> definition) {
-        log.debug("Registering model layer " + location.get());
-        EntityModelLayerRegistry.registerModelLayer(location.get(), definition::get);
+        loader.registerRunnable(() -> EntityModelLayerRegistry.registerModelLayer(location.get(), definition::get));
         return location;
     }
 
     public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, BiConsumer<Player, T> handler) {
-        log.debug("Registering packet receiver " + type.id());
-        ClientPlayNetworking.registerGlobalReceiver(type,
-            (packet, context) -> context.client().execute(() -> handler.accept(context.player(), packet)));
+        loader.registerRunnable(() -> ClientPlayNetworking.registerGlobalReceiver(type,
+            (packet, context) -> context.client().execute(() -> handler.accept(context.player(), packet))));
     }
 
     public Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particle(Supplier<SimpleParticleType> particleType,
                                                                                             Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particleProvider) {
-        PARTICLES.add(new DeferredParticle(particleType, particleProvider));
+        loader.registerRunnable(() -> PARTICLES.add(new DeferredParticle(particleType, particleProvider)));
         return particleProvider;
     }
 
@@ -137,12 +133,14 @@ public final class ClientRegistry implements Registry {
         var searchCategory = EnumHelper.getValueOrDefault(() -> RecipeBookCategories.valueOf(upper + "_SEARCH"), RecipeBookCategories.CRAFTING_SEARCH);
         var mainCategory = EnumHelper.getValueOrDefault(() -> RecipeBookCategories.valueOf(upper), RecipeBookCategories.CRAFTING_MISC);
 
-        RECIPE_BOOK_MAIN_CATEGORY.put(recipeType.get(), mainCategory);
-        RECIPE_BOOK_CATEGORY_BY_TYPE.put(recipeBookType.get(), List.of(searchCategory, mainCategory));
+        loader.registerRunnable(() -> {
+            RECIPE_BOOK_MAIN_CATEGORY.put(recipeType.get(), mainCategory);
+            RECIPE_BOOK_CATEGORY_BY_TYPE.put(recipeBookType.get(), List.of(searchCategory, mainCategory));
 
-        var aggregateCategories = new HashMap<>(RecipeBookCategories.AGGREGATE_CATEGORIES);
-        aggregateCategories.put(searchCategory, List.of(mainCategory));
-        RecipeBookCategories.AGGREGATE_CATEGORIES = aggregateCategories;
+            var aggregateCategories = new HashMap<>(RecipeBookCategories.AGGREGATE_CATEGORIES);
+            aggregateCategories.put(searchCategory, List.of(mainCategory));
+            RecipeBookCategories.AGGREGATE_CATEGORIES = aggregateCategories;
+        });
     }
 
     public void recipeBookCategoryEnum(String name, Supplier<? extends ItemLike> menuIcon) {
@@ -162,7 +160,9 @@ public final class ClientRegistry implements Registry {
     }
 
     public void signMaterial(Supplier<WoodType> woodType) {
-        Sheets.SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.get().name())));
-        Sheets.HANGING_SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/hanging/" + woodType.get().name())));
+        loader.registerRunnable(() -> {
+            Sheets.SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.get().name())));
+            Sheets.HANGING_SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/hanging/" + woodType.get().name())));
+        });
     }
 }

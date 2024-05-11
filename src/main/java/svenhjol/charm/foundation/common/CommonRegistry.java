@@ -73,15 +73,14 @@ import java.util.function.UnaryOperator;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public final class CommonRegistry implements svenhjol.charm.foundation.Registry {
-    private final String id;
+    private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
+    private final List<DeferredPotionMix> deferredPotionMixes = new ArrayList<>(); // Must be on the instance!
+    private final CommonLoader loader;
     private final Log log;
 
-    private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
-    private final List<DeferredPotionMix> deferredPotionMixes = new ArrayList<>();
-
-    public CommonRegistry(String id) {
-        this.id = id;
-        this.log = new Log(id, this);
+    public CommonRegistry(CommonLoader loader) {
+        this.loader = loader;
+        this.log = new Log(loader.id(), "CommonRegistry");
     }
 
     public <E extends Entity> void biomeSpawn(Predicate<Holder<Biome>> predicate, MobCategory category, Supplier<EntityType<E>> entity, int weight, int minGroupSize, int maxGroupSize) {
@@ -97,21 +96,28 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
             ctx -> ctx.getGenerationSettings().addFeature(step, feature));
     }
 
-    public <B extends Block> Supplier<B> block(String id, Supplier<B> supplier) {
-        log.debug("Registering block " + id);
-        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.BLOCK, id(id), supplier.get());
-        return () -> registered;
+    public <B extends Block> Register<B> block(String id, Supplier<B> supplier) {
+        return new Register<>(() -> Registry.register(BuiltInRegistries.BLOCK, id(id), supplier.get()));
+//        loader.registerRunnable(reg.supplier::get);
+//
+//
+//        Supplier<B> registered = () -> Registry.register(BuiltInRegistries.BLOCK, id(id), supplier.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
     @SuppressWarnings("DataFlowIssue")
-    public <T extends BlockEntity, U extends Block> Supplier<BlockEntityType<T>> blockEntity(String id, Supplier<BlockEntityType.BlockEntitySupplier<T>> builder, List<Supplier<U>> blocks) {
-        log.debug("Registering block entity " + id);
-        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(id),
-            BlockEntityType.Builder.of(builder.get(), blocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
-        return () -> registered;
+    public <T extends BlockEntity, U extends Block> Register<BlockEntityType<T>> blockEntity(String id, Supplier<BlockEntityType.BlockEntitySupplier<T>> builder, List<Supplier<U>> blocks) {
+        return new Register<>(() -> Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(id),
+            BlockEntityType.Builder.of(builder.get(), blocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null)));
+
+//        Supplier<BlockEntityType<T>> registered = () -> Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(id),
+//            BlockEntityType.Builder.of(builder.get(), blocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
-    public <T extends BlockEntity> Supplier<BlockEntityType<T>> blockEntity(String id, Supplier<BlockEntityType.BlockEntitySupplier<T>> builder) {
+    public <T extends BlockEntity> Register<BlockEntityType<T>> blockEntity(String id, Supplier<BlockEntityType.BlockEntitySupplier<T>> builder) {
         return blockEntity(id, builder, List.of());
     }
 
@@ -126,12 +132,14 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
             }
         }
 
-        supplier.get().validBlocks = new HashSet<>(mutable);
+        loader.registerRunnable(() -> supplier.get().validBlocks = new HashSet<>(mutable));
     }
 
-    public Supplier<BlockSetType> blockSetType(IVariantWoodMaterial material) {
-        var registered = BlockSetType.register(new BlockSetType(material.getSerializedName()));
-        return () -> registered;
+    public Register<BlockSetType> blockSetType(Supplier<IVariantWoodMaterial> material) {
+        return new Register<>(() -> BlockSetType.register(new BlockSetType(material.get().getSerializedName())));
+//        Supplier<BlockSetType> registered = () -> BlockSetType.register(new BlockSetType(material.get().getSerializedName()));
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
     public void brewingRecipe(Holder<Potion> input, Supplier<Item> reagent, Holder<Potion> output) {
@@ -139,24 +147,21 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <T extends CustomPacketPayload> void clientPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
-        log.debug("Registering packet sender " + type.id());
-        PayloadTypeRegistry.playC2S().register(type, codec);
+        loader.registerRunnable(() -> PayloadTypeRegistry.playC2S().register(type, codec));
     }
 
-    public <T> Supplier<DataComponentType<T>> dataComponent(
-        String id,
-        Supplier<UnaryOperator<DataComponentType.Builder<T>>> dataComponent
-    ) {
-        log.debug("Registering data component " + id);
-        var registered = DataComponents.register(id, dataComponent.get());
-        return () -> registered;
+    public <T> Register<DataComponentType<T>> dataComponent(String id, Supplier<UnaryOperator<DataComponentType.Builder<T>>> dataComponent) {
+        return new Register<>(() -> DataComponents.register(id, dataComponent.get()));
+//        Supplier<DataComponentType<T>> registered = () -> DataComponents.register(id, dataComponent.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
-    public <I extends ItemLike, D extends DispenseItemBehavior> Supplier<D> dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
-        var behavior = dispenserBehavior.get();
-        log.debug("Registering dispenser behavior " + behavior.toString());
-        DispenserBlock.registerBehavior(item.get(), behavior);
-        return dispenserBehavior;
+    public <I extends ItemLike, D extends DispenseItemBehavior> void dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
+        loader.registerRunnable(() -> {
+            var behavior = dispenserBehavior.get();
+            DispenserBlock.registerBehavior(item.get(), behavior);
+        });
     }
 
 //    public <T extends Enchantment> Supplier<T> enchantment(String id, Supplier<T> enchantment) {
@@ -165,120 +170,142 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 //        return () -> registered;
 //    }
 
-    public <T extends Entity> Supplier<EntityType<T>> entity(String id, Supplier<EntityType.Builder<T>> builder) {
-        log.debug("Registering entity " + id);
-        var registered = Registry.register(BuiltInRegistries.ENTITY_TYPE, id(id), builder.get().build(id(id).toString()));
-        return () -> registered;
+    public <T extends Entity> Register<EntityType<T>> entity(String id, Supplier<EntityType.Builder<T>> builder) {
+        return new Register<>(() -> Registry.register(BuiltInRegistries.ENTITY_TYPE, id(id), builder.get().build(id(id).toString())));
+//        Supplier<EntityType<T>> registered = () -> Registry.register(BuiltInRegistries.ENTITY_TYPE, id(id), builder.get().build(id(id).toString()));
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
     public <T extends LivingEntity> void entityAttributes(Supplier<EntityType<T>> entity, Supplier<AttributeSupplier.Builder> builder) {
-        FabricDefaultAttributeRegistry.register(entity.get(), builder.get());
+        loader.registerRunnable(() -> FabricDefaultAttributeRegistry.register(entity.get(), builder.get()));
     }
 
     public <T extends Mob> void entitySpawnPlacement(Supplier<EntityType<T>> entity, SpawnPlacementType placementType,
                                                      Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate) {
-        SpawnPlacements.register(entity.get(), placementType, heightmapType, predicate);
+        loader.registerRunnable(() -> SpawnPlacements.register(entity.get(), placementType, heightmapType, predicate));
     }
 
     public <T extends IFuelProvider> void fuel(Supplier<T> provider) {
-        var item = provider.get();
-        FuelRegistry.INSTANCE.add((ItemLike) item, item.fuelTime());
+        loader.registerRunnable(() -> {
+            var item = provider.get();
+            FuelRegistry.INSTANCE.add((ItemLike) item, item.fuelTime());
+        });
     }
 
     public String id() {
-        return this.id;
+        return this.loader.id();
     }
 
     public ResourceLocation id(String path) {
-        return new ResourceLocation(this.id, path);
+        return new ResourceLocation(this.loader.id(), path);
     }
-
 
     public <T extends IIgniteProvider> void ignite(Supplier<T> provider) {
-        var block = provider.get();
-        ((FireBlock) Blocks.FIRE).setFlammable((Block)block, block.igniteChance(), block.burnChance());
+        loader.registerRunnable(() -> {
+            var block = provider.get();
+            ((FireBlock) Blocks.FIRE).setFlammable((Block)block, block.igniteChance(), block.burnChance());
+        });
     }
 
-    public <I extends Item> Supplier<I> item(String id, Supplier<I> supplier) {
-        log.debug("Registering item " + id);
-        var registered = net.minecraft.core.Registry.register(BuiltInRegistries.ITEM, id(id), supplier.get());
-        return () -> registered;
+    public <I extends Item> Register<I> item(String id, Supplier<I> supplier) {
+        return new Register<>(() -> Registry.register(BuiltInRegistries.ITEM, id(id), supplier.get()));
+//        Supplier<I> registered = () -> Registry.register(BuiltInRegistries.ITEM, id(id), supplier.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
     public ResourceKey<LootTable> lootTable(String resource) {
         return ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(resource));
     }
 
-    public <T extends MenuType<U>, U extends AbstractContainerMenu> Supplier<T> menuType(String id, Supplier<T> supplier) {
-        log.debug("Registering menu type " + id);
-        var registered = Registry.register(BuiltInRegistries.MENU, id(id), supplier.get());
-        return () -> registered;
+    public <T extends MenuType<U>, U extends AbstractContainerMenu> Register<T> menuType(String id, Supplier<T> supplier) {
+        return new Register<>(() -> Registry.register(BuiltInRegistries.MENU, id(id), supplier.get()));
+//        Supplier<T> registered = () -> Registry.register(BuiltInRegistries.MENU, id(id), supplier.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
-    public Supplier<Holder<MobEffect>> mobEffect(String id, Supplier<MobEffect> supplier) {
-        log.debug("Registering mob effect " + id);
-        var registered = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, id(id), supplier.get());
-        return () -> registered;
+    public Register<Holder<MobEffect>> mobEffect(String id, Supplier<MobEffect> supplier) {
+        return new Register<>(() -> Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, id(id), supplier.get()));
+//        Supplier<Holder<MobEffect>> registered = () -> Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, id(id), supplier.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
     public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, BiConsumer<Player, T> handler) {
-        log.debug("Registering packet receiver " + type.id());
-        ServerPlayNetworking.registerGlobalReceiver(type,
-            (packet, context) -> context.player().server.execute(() -> handler.accept(context.player(), packet)));
+        loader.registerRunnable(() -> ServerPlayNetworking.registerGlobalReceiver(type,
+            (packet, context) -> context.player().server.execute(() -> handler.accept(context.player(), packet))));
     }
 
     public <T extends CustomPacketPayload> void serverPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
-        log.debug("Registering packet sender " + type.id());
-        PayloadTypeRegistry.playS2C().register(type, codec);
+        loader.registerRunnable(() -> PayloadTypeRegistry.playS2C().register(type, codec));
     }
 
-    public Supplier<SimpleParticleType> particleType(String id, Supplier<SimpleParticleType> supplier) {
-        log.debug("Registering particle type " + id);
-        var registered = Registry.register(BuiltInRegistries.PARTICLE_TYPE, id(id), supplier.get());
-        return () -> registered;
+    public Register<SimpleParticleType> particleType(String id, Supplier<SimpleParticleType> supplier) {
+        return new Register<>(() -> Registry.register(BuiltInRegistries.PARTICLE_TYPE, id(id), supplier.get()));
+//        Supplier<SimpleParticleType> registered = () -> Registry.register(BuiltInRegistries.PARTICLE_TYPE, id(id), supplier.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
-    public Supplier<PoiType> pointOfInterestType(String id, Supplier<PoiType> supplier) {
-        var poiType = supplier.get();
-        var poitKey = ResourceKey.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE.key(), id(id));
+    public Register<PoiType> pointOfInterestType(String id, Supplier<PoiType> supplier) {
+        var register = new Register<>(supplier);
 
-        Registry.register(BuiltInRegistries.POINT_OF_INTEREST_TYPE, poitKey, poiType);
+        loader.registerRunnable(() -> {
+            var poiType = register.get();
+            var poitKey = ResourceKey.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE.key(), id(id));
 
-        var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(poitKey);
-        var blockStates = holder.value().matchingStates();
-        PoiTypes.registerBlockStates(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(poitKey), blockStates);
+            Registry.register(BuiltInRegistries.POINT_OF_INTEREST_TYPE, poitKey, poiType);
 
-        return () -> poiType;
+            var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(poitKey);
+            var blockStates = holder.value().matchingStates();
+            PoiTypes.registerBlockStates(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(poitKey), blockStates);
+        });
+
+        return register;
     }
 
     public void pointOfInterestBlockStates(Supplier<PoiType> poiType, Supplier<List<BlockState>> states) {
-        var resourceKey = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(poiType.get()).orElseThrow();
-        var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(resourceKey);
-        var blockStates = new ArrayList<>(holder.value().matchingStates());
-        blockStates.addAll(states.get());
-
-        blockStates.forEach(state -> PoiTypes.TYPE_BY_STATE.put(state, holder));
+        loader.registerRunnable(() -> {
+            var resourceKey = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getResourceKey(poiType.get()).orElseThrow();
+            var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolderOrThrow(resourceKey);
+            var blockStates = new ArrayList<>(holder.value().matchingStates());
+            blockStates.addAll(states.get());
+            blockStates.forEach(state -> PoiTypes.TYPE_BY_STATE.put(state, holder));
+        });
     }
 
-    public Supplier<Holder<Potion>> potion(String id, Supplier<Potion> supplier) {
-        var registered = Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get());
-        return () -> registered;
+    public Register<Holder<Potion>> potion(String id, Supplier<Potion> supplier) {
+        return new Register<>(() -> Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get()));
+//        Supplier<Holder<Potion>> registered = () -> Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
     public List<DeferredPotionMix> potionMixes() {
         return deferredPotionMixes;
     }
 
-    public Supplier<RecipeBookType> recipeBookType(String id) {
+    public void runnable(Runnable runnable) {
+        loader.registerRunnable(runnable);
+    }
+
+    public Register<RecipeBookType> recipeBookType(String id) {
         var upper = id.toUpperCase(Locale.ROOT);
         var capitalized = TextHelper.capitalize(id.toLowerCase(Locale.ROOT));
 
-        RecipeBookType type = EnumHelper.getValueOrDefault(() -> RecipeBookType.valueOf(upper), RecipeBookType.CRAFTING);
-        var tagFields = new HashMap<>(RecipeBookSettings.TAG_FIELDS);
-        tagFields.put(type, Pair.of("is" + capitalized + "GuiOpen", "is" + capitalized + "FilteringCraftable"));
-        RecipeBookSettings.TAG_FIELDS = tagFields;
+        var register = new Register<>(() -> EnumHelper.getValueOrDefault(() -> RecipeBookType.valueOf(upper), RecipeBookType.CRAFTING));
 
-        return () -> type;
+//        Supplier<RecipeBookType> registered = () -> EnumHelper.getValueOrDefault(() -> RecipeBookType.valueOf(upper), RecipeBookType.CRAFTING);
+
+        loader.registerRunnable(() -> {
+            var tagFields = new HashMap<>(RecipeBookSettings.TAG_FIELDS);
+            tagFields.put(register.get(), Pair.of("is" + capitalized + "GuiOpen", "is" + capitalized + "FilteringCraftable"));
+            RecipeBookSettings.TAG_FIELDS = tagFields;
+        });
+
+        return register;
     }
 
     public void recipeBookTypeEnum(String name) {
@@ -289,26 +316,34 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return RECIPE_BOOK_TYPE_ENUMS;
     }
 
-    public <S extends RecipeSerializer<T>, T extends Recipe<?>> Supplier<S> recipeSerializer(String id, Supplier<S> serializer) {
-        log.debug("Registering recipe serializer " + id);
-        var registered = RecipeSerializer.register(id(id).toString(), serializer.get());
-        return () -> registered;
+    public <S extends RecipeSerializer<T>, T extends Recipe<?>> Register<S> recipeSerializer(String id, Supplier<S> supplier) {
+        return new Register<>(() -> {
+            log.debug("Recipe serializer " + id);
+            return RecipeSerializer.register(id(id).toString(), supplier.get());
+        });
+//        Supplier<S> registered = () -> RecipeSerializer.register(id(id).toString(), serializer.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
-    @SuppressWarnings("unchecked")
-    public <R extends Recipe<?>> Supplier<RecipeType<R>> recipeType(String id) {
-        log.debug("Registering recipe type " + id);
-        var registered = RecipeType.register(id(id).toString());
-        return () -> (RecipeType<R>) registered;
+    public <R extends Recipe<?>> Register<RecipeType<R>> recipeType(String id) {
+        return new Register<>(() -> {
+            log.debug("Recipe type " + id);
+            return RecipeType.register(id(id).toString());
+        });
+//        Supplier<RecipeType<R>> registered = () -> RecipeType.register(id(id).toString());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
-    public <T extends SoundEvent> Supplier<T> soundEvent(String id, Supplier<T> supplier) {
-        log.debug("Registering sound event " + id);
-        var registered = Registry.register(BuiltInRegistries.SOUND_EVENT, id(id), supplier.get());
-        return () -> registered;
+    public <T extends SoundEvent> Register<T> soundEvent(String id, Supplier<T> supplier) {
+        return new Register<>(() -> Registry.register(BuiltInRegistries.SOUND_EVENT, id(id), supplier.get()));
+//        Supplier<T> registered = () -> Registry.register(BuiltInRegistries.SOUND_EVENT, id(id), supplier.get());
+//        loader.registerRunnable(registered::get);
+//        return registered;
     }
 
-    public Supplier<SoundEvent> soundEvent(String id) {
+    public Register<SoundEvent> soundEvent(String id) {
         if (id.contains(":")) {
             var res = new ResourceLocation(id);
             return soundEvent(res.getPath(), () -> SoundEvent.createVariableRangeEvent(res));
@@ -317,44 +352,60 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public <I extends Item, E extends EntityType<? extends Mob>> Supplier<I> spawnEggItem(String id, Supplier<E> entity, int primaryColor, int secondaryColor, Item.Properties properties) {
-        var item = (Supplier<I>) item(id, () -> new SpawnEggItem(entity.get(), primaryColor, secondaryColor, properties));
+    public <I extends Item, E extends EntityType<? extends Mob>> Register<SpawnEggItem> spawnEggItem(String id, Supplier<E> entity, int primaryColor, int secondaryColor, Item.Properties properties) {
+        var item = item(id, () -> new SpawnEggItem(entity.get(), primaryColor, secondaryColor, properties));
         dispenserBehavior(item, DispenserHelper::getDefaultDispenseBehavior);
         return item;
     }
 
     @SuppressWarnings("unchecked")
-    public <B extends StairBlock & IIgniteProvider, I extends BlockItem> Pair<Supplier<B>, Supplier<I>> stairsBlock(String id, IVariantMaterial material, Supplier<BlockState> state) {
-        log.debug("Registering stairs block " + id);
+    public <B extends StairBlock & IIgniteProvider, I extends BlockItem> Pair<Register<B>, Register<I>> stairsBlock(String id, IVariantMaterial material, Supplier<BlockState> state) {
         var block = block(id, () -> new CharmStairBlock(material, state.get()));
         var item = item(id, () -> new CharmStairBlock.BlockItem(block));
-        return Pair.of((Supplier<B>)block, (Supplier<I>)item);
+        return Pair.of((Register<B>)block, (Register<I>)item);
     }
 
     public <B extends Block, S extends Block> void strippable(Supplier<B> block, Supplier<S> strippedBlock) {
-        // Make axe strippables map mutable.
-        AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
-        AxeItem.STRIPPABLES.put(block.get(), strippedBlock.get());
+        loader.registerRunnable(() -> {
+            AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
+            AxeItem.STRIPPABLES.put(block.get(), strippedBlock.get());
+        });
     }
 
-    @SuppressWarnings("unchecked")
-    public <W extends WallHangingSignBlock, S extends CeilingHangingSignBlock> Supplier<W> wallHangingSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
-        log.debug("Registering wall hanging sign block " + id);
-        var block = block(id, () -> new CharmWallHangingSignBlock(material, drops.get(), type));
-        return (Supplier<W>)block;
+    public <W extends WallHangingSignBlock, S extends CeilingHangingSignBlock> Register<CharmWallHangingSignBlock> wallHangingSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
+        return block(id, () -> new CharmWallHangingSignBlock(material, drops.get(), type));
     }
 
-    @SuppressWarnings("unchecked")
-    public <W extends WallSignBlock, S extends SignBlock> Supplier<W> wallSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
-        log.debug("Registering wall sign block " + id);
-        var block = block(id, () -> new CharmWallSignBlock(material, drops.get(), type));
-        return (Supplier<W>)block;
+    public <W extends WallSignBlock, S extends SignBlock> Register<CharmWallSignBlock> wallSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
+        return block(id, () -> new CharmWallSignBlock(material, drops.get(), type));
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends WoodType> Supplier<T> woodType(String id, IVariantWoodMaterial material) {
-        var registered = WoodType.register(new WoodType(id(id).toString().replace(":", "_"), material.blockSetType()));
-        return () -> (T)registered;
+    public Register<WoodType> woodType(Supplier<IVariantWoodMaterial> material) {
+        return new Register<>(() -> WoodType.register(new WoodType(
+            id(material.get().getSerializedName()).toString().replace(":", "_"),
+            material.get().blockSetType())));
+//        Supplier<WoodType> registered = () -> WoodType.register(new WoodType(
+//            id(material.get().getSerializedName()).toString().replace(":", "_"),
+//            material.get().blockSetType()));
+//
+//        loader.registerRunnable(registered::get);
+//        return registered;
+    }
+
+    public class Register<R> implements Supplier<R> {
+        private R instance;
+        private final Supplier<R> supplier;
+
+        public Register(Supplier<R> supplier) {
+            this.supplier = supplier;
+            loader.registerRunnable(this::get);
+        }
+
+        public R get() {
+            if (instance == null) {
+                instance = supplier.get();
+            }
+            return instance;
+        }
     }
 }

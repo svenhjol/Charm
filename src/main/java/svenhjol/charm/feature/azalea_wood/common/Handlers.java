@@ -18,7 +18,7 @@ public class Handlers extends FeatureHolder<AzaleaWood> {
 
     @SuppressWarnings({"unchecked", "unused"})
     public void levelLoad(MinecraftServer server, ServerLevel level) {
-        var holder = CustomWood.holder(feature().registers.material);
+        var holder = CustomWood.holder(feature().registers.material.get());
         var log = holder.log().orElseThrow();
 
         // Make naturally occurring azalea trees use Charm's azalea log.

@@ -21,7 +21,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import svenhjol.charm.Charm;
 import svenhjol.charm.api.event.*;
+import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.advancement.AdvancementManager;
 import svenhjol.charm.foundation.event.PlayerLoginCallback;
 import svenhjol.charm.foundation.event.PlayerTickCallback;
@@ -30,15 +32,21 @@ import svenhjol.charm.foundation.recipe.RecipeManager;
 import javax.annotation.Nullable;
 
 public final class CommonEvents {
+    private static final Log LOGGER = new Log(Charm.ID, "CommonEvents");
     private static boolean initialized = false;
 
+    private final CommonLoader loader;
     private final CommonRegistry registry;
 
-    public CommonEvents(CommonRegistry registry) {
-        this.registry = registry;
+    public CommonEvents(CommonLoader loader) {
+        this.loader = loader;
+        this.registry = loader.registry();
 
         // These are events that are specific to an instance of a mod and its registry.
         FabricBrewingRecipeRegistryBuilder.BUILD.register(this::handleBrewingRecipeRegister);
+
+        // Ensures global events are set up.
+        runOnce();
     }
 
     public static void runOnce() {
@@ -60,6 +68,7 @@ public final class CommonEvents {
         UseBlockCallback.EVENT.register(CommonEvents::handleUseBlock);
         UseEntityCallback.EVENT.register(CommonEvents::handleUseEntity);
 
+        LOGGER.debug("Called runOnce");
         initialized = true;
     }
 

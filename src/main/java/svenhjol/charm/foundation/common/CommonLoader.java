@@ -1,32 +1,24 @@
 package svenhjol.charm.foundation.common;
 
-import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.Loader;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.Resolve;
 
 public class CommonLoader extends Loader<CommonFeature> {
     private final CommonConfig config;
     private final CommonRegistry registry;
     private final CommonEvents events;
 
-    protected CommonLoader(String id, CommonConfig config, CommonRegistry registry, CommonEvents events) {
+    protected CommonLoader(String id) {
         super(id);
         this.log = new Log(id, this);
-        this.config = config;
-        this.registry = registry;
-        this.events = events;
+        this.config = new CommonConfig(this);
+        this.registry = new CommonRegistry(this);
+        this.events = new CommonEvents(this);
     }
 
     public static CommonLoader create(String id) {
-        var config = new CommonConfig(id);
-        var registry = new CommonRegistry(id);
-        var events = new CommonEvents(registry);
-        var loader = new CommonLoader(id, config, registry, events);
-
-        Resolve.register(loader); // Make this loader available across all Charm mods.
-        CommonEvents.runOnce(); // Safe to call multiple times; ensures global events are set up.
-
-        return loader;
+        return Resolve.register(new CommonLoader(id));
     }
 
     @Override

@@ -1,12 +1,12 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.foundation.feature.ConditionalRunner;
+import svenhjol.charm.foundation.feature.Conditional;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
 
-public abstract class Feature implements ConditionalRunner {
+public abstract class Feature implements Conditional {
     protected Loader<? extends Feature> loader;
     protected Log log;
     private boolean enabled = true;

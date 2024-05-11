@@ -29,13 +29,18 @@ public final class ClientEvents {
     private static final Log LOGGER = new Log(Charm.ID, "ClientEvents");
     private static boolean initialized = false;
 
+    private final ClientLoader loader;
     private final ClientRegistry registry;
 
-    public ClientEvents(ClientRegistry registry) {
-        this.registry = registry;
+    public ClientEvents(ClientLoader loader) {
+        this.loader = loader;
+        this.registry = loader.registry();
 
         // Spin up a dedicated listener for key presses.
         ClientTickEvents.END_CLIENT_TICK.register(this::handleKeyPresses);
+
+        // Ensures global events are set up.
+        runOnce();
     }
 
     public static void runOnce() {
@@ -48,6 +53,7 @@ public final class ClientEvents {
         RenderTooltipCallback.EVENT.register(ClientEvents::handleRenderTooltip);
         SetupScreenCallback.EVENT.register(ClientEvents::handleSetupScreen);
 
+        LOGGER.debug("Called runOnce");
         initialized = true;
     }
 
