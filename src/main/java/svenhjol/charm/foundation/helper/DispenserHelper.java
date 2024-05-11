@@ -10,7 +10,7 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-public class DispenserHelper {
+public final class DispenserHelper {
     /**
      * Copypasta from DispenseItemBehavior.
      * @see net.minecraft.core.dispenser.DispenseItemBehavior

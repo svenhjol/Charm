@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 import java.util.function.Predicate;
 
-public class InventoryTidyingHelper {
+public final class InventoryTidyingHelper {
     private static final Map<Predicate<ItemStack>, Comparator<ItemStack>> COMPARE = new HashMap<>();
 
     public static void init() {

@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 @SuppressWarnings("unused")
-public class MobHelper {
+public final class MobHelper {
     /**
      * Helper method to spawn a mob at a specific block position.
      * @param type Mob type.

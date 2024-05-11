@@ -5,7 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 
 @SuppressWarnings("unused")
-public class ClientEffectHelper {
+public final class ClientEffectHelper {
     public static void destroyTotem(BlockPos pos) {
         var minecraft = Minecraft.getInstance();
         if (minecraft.level == null || minecraft.player == null) return;

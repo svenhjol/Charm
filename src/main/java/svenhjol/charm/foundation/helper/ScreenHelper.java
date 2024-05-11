@@ -6,7 +6,7 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 
 @SuppressWarnings("unused")
-public class ScreenHelper {
+public final class ScreenHelper {
     public static <T extends GuiEventListener> T addRenderableWidget(Screen screen, T guiEventListener) {
         screen.renderables.add((Renderable) guiEventListener);
         screen.children.add(guiEventListener);

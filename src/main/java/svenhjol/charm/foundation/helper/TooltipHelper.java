@@ -2,8 +2,8 @@ package svenhjol.charm.foundation.helper;
 
 import net.minecraft.world.item.ItemStack;
 
-public class TooltipHelper {
-    protected static ThreadLocal<ItemStack> tooltipItemStackHolder = new ThreadLocal<>();
+public final class TooltipHelper {
+    public static final ThreadLocal<ItemStack> tooltipItemStackHolder = new ThreadLocal<>();
 
     public static ItemStack getTooltipItemStack() {
         var current = tooltipItemStackHolder.get();

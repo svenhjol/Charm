@@ -7,7 +7,7 @@ import net.minecraft.tags.TagKey;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TagHelper {
+public final class TagHelper {
     public static <T> List<T> getValues(Registry<T> registry, TagKey<T> tags) {
         List<T> items = new LinkedList<>();
 

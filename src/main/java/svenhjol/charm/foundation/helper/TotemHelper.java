@@ -5,8 +5,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-@SuppressWarnings("unused")
-public class TotemHelper {
+@SuppressWarnings({"unused", "UnusedReturnValue"})
+public final class TotemHelper {
     public static boolean destroy(Player player, ItemStack totem) {
         if (player.getAbilities().instabuild) {
             return false;

@@ -97,7 +97,7 @@ public abstract class Loader<T extends Feature> {
                     features.add(feature);
                     Resolve.register(feature); // Register with global resolver.
                 } catch (Exception e) {
-                    log.die(clazz.getSimpleName(), e);
+                    log.die(clazz.getSimpleName() + " failed to start", e);
                 }
             }
         }
