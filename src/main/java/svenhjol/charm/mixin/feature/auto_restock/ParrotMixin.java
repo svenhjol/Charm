@@ -29,7 +29,7 @@ public class ParrotMixin implements FeatureResolver<AutoRestock> {
     }
 
     @Override
-    public Class<AutoRestock> featureType() {
+    public Class<AutoRestock> typeForFeature() {
         return AutoRestock.class;
     }
 }

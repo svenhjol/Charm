@@ -29,7 +29,7 @@ public class CartographyTableScreenMixin implements FeatureResolver<AtlasesClien
     }
 
     @Override
-    public Class<AtlasesClient> featureType() {
+    public Class<AtlasesClient> typeForFeature() {
         return AtlasesClient.class;
     }
 }

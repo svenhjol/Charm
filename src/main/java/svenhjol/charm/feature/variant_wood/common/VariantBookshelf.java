@@ -27,7 +27,7 @@ public class VariantBookshelf implements FeatureResolver<VariantWood> {
     }
 
     @Override
-    public Class<VariantWood> featureType() {
+    public Class<VariantWood> typeForFeature() {
         return VariantWood.class;
     }
 }

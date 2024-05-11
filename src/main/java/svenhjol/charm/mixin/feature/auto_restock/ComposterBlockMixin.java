@@ -35,7 +35,7 @@ public class ComposterBlockMixin implements FeatureResolver<AutoRestock> {
     }
 
     @Override
-    public Class<AutoRestock> featureType() {
+    public Class<AutoRestock> typeForFeature() {
         return AutoRestock.class;
     }
 }

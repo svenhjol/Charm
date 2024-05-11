@@ -30,7 +30,7 @@ public class VariantChest implements FeatureResolver<VariantWood> {
     }
 
     @Override
-    public Class<VariantWood> featureType() {
+    public Class<VariantWood> typeForFeature() {
         return VariantWood.class;
     }
 }

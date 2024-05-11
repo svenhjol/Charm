@@ -46,7 +46,7 @@ public enum Material implements IVariantWoodMaterial, FeatureResolver<AzaleaWood
     }
 
     @Override
-    public Class<AzaleaWood> featureType() {
+    public Class<AzaleaWood> typeForFeature() {
         return AzaleaWood.class;
     }
 }

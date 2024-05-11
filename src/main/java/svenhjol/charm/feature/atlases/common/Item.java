@@ -31,7 +31,7 @@ public class Item extends CharmItem<Atlases> {
     }
 
     @Override
-    public Class<Atlases> featureType() {
+    public Class<Atlases> typeForFeature() {
         return Atlases.class;
     }
 }

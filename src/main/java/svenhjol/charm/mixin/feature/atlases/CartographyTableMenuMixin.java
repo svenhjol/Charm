@@ -48,7 +48,7 @@ public class CartographyTableMenuMixin implements FeatureResolver<Atlases> {
     }
 
     @Override
-    public Class<Atlases> featureType() {
+    public Class<Atlases> typeForFeature() {
         return Atlases.class;
     }
 }
