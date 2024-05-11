@@ -15,6 +15,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+/**
+ * Resolving loaders and features.
+ * To get a reference to a feature instance without a feature being passed, use the following options:
+ * - make the class implement FeatureResolver and return the class type via typeForFeature()
+ * - call the resolver directly using Resolve.feature()
+ * Be careful when using mixins and FeatureResolver. Mixins that target the same class will have
+ * inconsistent results when calling feature(). It's better to call the resolver directly
+ * from the mixin method, e.g. Resolve.feature(SomeFeature.class).somemethod().
+ */
 @SuppressWarnings("unchecked")
 public final class Resolve {
     private static final Log LOGGER = new Log(Charm.ID, "Resolve");

@@ -15,10 +15,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.foundation.Resolve;
 
 @Mixin(ComposterBlock.class)
-public class ComposterBlockMixin implements FeatureResolver<AutoRestock> {
+public class ComposterBlockMixin {
     /**
      * Allows auto restock of a composted item.
      */
@@ -31,11 +31,6 @@ public class ComposterBlockMixin implements FeatureResolver<AutoRestock> {
         locals = LocalCapture.CAPTURE_FAILHARD
     )
     public void hookOnUse(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
-        feature().handlers.addItemUsedStat(player, itemStack);
-    }
-
-    @Override
-    public Class<AutoRestock> typeForFeature() {
-        return AutoRestock.class;
+        Resolve.feature(AutoRestock.class).handlers.addItemUsedStat(player, itemStack);
     }
 }

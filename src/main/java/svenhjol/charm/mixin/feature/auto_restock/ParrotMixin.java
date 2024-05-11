@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.foundation.Resolve;
 
 @Mixin(Parrot.class)
-public class ParrotMixin implements FeatureResolver<AutoRestock> {
+public class ParrotMixin {
     /**
      * Allows auto restock of an item fed to a parrot.
      */
@@ -25,11 +25,6 @@ public class ParrotMixin implements FeatureResolver<AutoRestock> {
         )
     )
     private void hookMobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        feature().handlers.addItemUsedStat(player, player.getItemInHand(hand));
-    }
-
-    @Override
-    public Class<AutoRestock> typeForFeature() {
-        return AutoRestock.class;
+        Resolve.feature(AutoRestock.class).handlers.addItemUsedStat(player, player.getItemInHand(hand));
     }
 }

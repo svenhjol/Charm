@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.foundation.Resolve;
 
 /**
  * Scale atlases on cartography table.
  */
 @SuppressWarnings("UnreachableCode")
 @Mixin(CartographyTableMenu.class)
-public class CartographyTableMenuMixin implements FeatureResolver<Atlases> {
+public class CartographyTableMenuMixin {
     @Shadow @Final private ContainerLevelAccess access;
 
     @Shadow @Final private ResultContainer resultContainer;
@@ -30,7 +30,7 @@ public class CartographyTableMenuMixin implements FeatureResolver<Atlases> {
         at = @At("TAIL")
     )
     private void hookConstructor(int syncId, Inventory inventory, ContainerLevelAccess context, CallbackInfo ci) {
-        feature().handlers.setupAtlasUpscale(inventory, (CartographyTableMenu) (Object) this);
+        Resolve.feature(Atlases.class).handlers.setupAtlasUpscale(inventory, (CartographyTableMenu) (Object) this);
     }
 
     @Inject(
@@ -41,14 +41,9 @@ public class CartographyTableMenuMixin implements FeatureResolver<Atlases> {
     private void hookUpdateResult(ItemStack topStack, ItemStack bottomStack, ItemStack outputStack, CallbackInfo ci) {
         Level level = access.evaluate((w, b) -> w).orElse(null);
         if (level == null) return;
-        if (feature().handlers.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, level, resultContainer,
+        if (Resolve.feature(Atlases.class).handlers.makeAtlasUpscaleOutput(topStack, bottomStack, outputStack, level, resultContainer,
             (CartographyTableMenu) (Object) this)) {
             ci.cancel();
         }
-    }
-
-    @Override
-    public Class<Atlases> typeForFeature() {
-        return Atlases.class;
     }
 }

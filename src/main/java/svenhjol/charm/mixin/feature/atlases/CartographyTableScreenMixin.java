@@ -5,14 +5,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import svenhjol.charm.feature.atlases.AtlasesClient;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.foundation.Resolve;
 
 /**
  * Render the cartography table "scale" background when an atlas and an empty map are added to the slots.
  */
 @SuppressWarnings("UnreachableCode")
 @Mixin(CartographyTableScreen.class)
-public class CartographyTableScreenMixin implements FeatureResolver<AtlasesClient> {
+public class CartographyTableScreenMixin {
     @ModifyArg(
         method = "renderBg",
         at = @At(
@@ -22,14 +22,9 @@ public class CartographyTableScreenMixin implements FeatureResolver<AtlasesClien
         index = 4 // the boolean flag to render the "scale" background
     )
     private boolean hookDrawBackground(boolean value) {
-        if (feature().handlers.shouldDrawAtlasCopy((CartographyTableScreen) (Object) this)) {
+        if (Resolve.feature(AtlasesClient.class).handlers.shouldDrawAtlasCopy((CartographyTableScreen) (Object) this)) {
             return true;
         }
         return value;
-    }
-
-    @Override
-    public Class<AtlasesClient> typeForFeature() {
-        return AtlasesClient.class;
     }
 }

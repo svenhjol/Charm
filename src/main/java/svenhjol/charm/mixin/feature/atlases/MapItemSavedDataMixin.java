@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.foundation.Resolve;
 
 import java.util.function.Predicate;
 
@@ -15,7 +15,7 @@ import java.util.function.Predicate;
  * Redirects the normal player inventory contains method to also check for atlases containing maps.
  */
 @Mixin(MapItemSavedData.class)
-public class MapItemSavedDataMixin implements FeatureResolver<Atlases> {
+public class MapItemSavedDataMixin {
     @Redirect(
         method = "tickCarriedBy",
         at = @At(
@@ -24,11 +24,6 @@ public class MapItemSavedDataMixin implements FeatureResolver<Atlases> {
         )
     )
     private boolean hookContains(Inventory inventory, Predicate<ItemStack> predicate) {
-        return feature().handlers.doesAtlasContainMap(inventory, predicate);
-    }
-
-    @Override
-    public Class<Atlases> typeForFeature() {
-        return Atlases.class;
+        return Resolve.feature(Atlases.class).handlers.doesAtlasContainMap(inventory, predicate);
     }
 }
