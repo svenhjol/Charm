@@ -109,9 +109,9 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
         return location;
     }
 
-    public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, BiConsumer<Player, T> handler) {
+    public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, Supplier<BiConsumer<Player, T>> handler) {
         loader.registerDeferred(() -> ClientPlayNetworking.registerGlobalReceiver(type,
-            (packet, context) -> context.client().execute(() -> handler.accept(context.player(), packet))));
+            (packet, context) -> context.client().execute(() -> handler.get().accept(context.player(), packet))));
     }
 
     public Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particle(Supplier<SimpleParticleType> particleType,

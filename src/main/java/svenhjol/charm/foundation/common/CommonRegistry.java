@@ -245,11 +245,11 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         });
     }
 
-    public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, BiConsumer<Player, T> handler) {
+    public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, Supplier<BiConsumer<Player, T>> handler) {
         loader.registerDeferred(() -> {
             log("Packet receiver " + type.id());
             ServerPlayNetworking.registerGlobalReceiver(type,
-                (packet, context) -> context.player().server.execute(() -> handler.accept(context.player(), packet)));
+                (packet, context) -> context.player().server.execute(() -> handler.get().accept(context.player(), packet)));
         });
     }
 
