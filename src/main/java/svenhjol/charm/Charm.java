@@ -6,6 +6,7 @@ import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
+import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.silence_messages.SilenceMessages;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
@@ -41,7 +42,7 @@ public class Charm {
 //            ColoredGlintSmithingTemplates.class,
             CopperPistons.class,
 //            CoralSquids.class,
-//            Core.class,
+            Core.class,
             CustomWood.class,
 //            DeepslateDungeons.class,
 //            Diagnostics.class,
