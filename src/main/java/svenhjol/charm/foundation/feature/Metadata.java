@@ -9,8 +9,6 @@ public final class Metadata<T extends Feature> {
 
     public String description;
 
-    public boolean canBeDisabled;
-
     public boolean enabledByDefault;
 
     public int priority;

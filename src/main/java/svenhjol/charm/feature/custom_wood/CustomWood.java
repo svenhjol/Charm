@@ -12,7 +12,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 
 import java.util.Optional;
 
-@Feature(canBeDisabled = false, description = "Handles custom wood.")
+@Feature(description = "Handles custom wood.")
 public class CustomWood extends CommonFeature {
 
     public final Registers registers;
@@ -23,6 +23,11 @@ public class CustomWood extends CommonFeature {
 
         registers = new Registers(this);
         handlers = new Handlers(this);
+    }
+
+    @Override
+    public boolean canBeDisabled() {
+        return false;
     }
 
     /**

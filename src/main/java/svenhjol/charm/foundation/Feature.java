@@ -18,10 +18,6 @@ public abstract class Feature implements Conditional {
         this.log.dev("I'm alive");
     }
 
-    public Log log() {
-        return log;
-    }
-
     public String description() {
         return loader().metadata(this)
             .map(m -> m.description)
@@ -34,21 +30,23 @@ public abstract class Feature implements Conditional {
             .orElse(0);
     }
 
-    public boolean canBeDisabled() {
-        return loader().metadata(this)
-            .map(m -> m.canBeDisabled)
-            .orElse(true);
-    }
-
     public boolean isEnabledByDefault() {
         return loader().metadata(this)
             .map(m -> m.enabledByDefault)
             .orElse(true);
     }
 
+    public boolean canBeDisabled() {
+        return true;
+    }
+
     public abstract Loader<? extends Feature> loader();
 
     public abstract Registry registry();
+
+    public Log log() {
+        return log;
+    }
 
     public ResourceLocation id(String id) {
         return loader.id(id);

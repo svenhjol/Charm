@@ -13,6 +13,4 @@ public @interface Feature {
     String description() default "";
 
     boolean enabledByDefault() default true;
-
-    boolean canBeDisabled() default true;
 }

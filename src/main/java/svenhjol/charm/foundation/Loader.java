@@ -10,12 +10,12 @@ import java.util.*;
 import java.util.function.BooleanSupplier;
 
 public abstract class Loader<T extends Feature> {
-    private final List<Runnable> deferred = new LinkedList<>();
-    private final Map<Class<? extends T>, Metadata<Feature>> metadata = new HashMap<>();
-    private final List<Conditional> conditionals = new LinkedList<>();
+    protected final List<Runnable> deferred = new LinkedList<>();
+    protected final Map<Class<? extends T>, Metadata<Feature>> metadata = new HashMap<>();
+    protected final List<Conditional> conditionals = new LinkedList<>();
     protected final List<T> features = new LinkedList<>();
-    private final String id;
-    private boolean deferredCompleted = false;
+    protected final String id;
+    protected boolean deferredCompleted = false;
     protected Log log;
 
     protected Loader(String id) {
@@ -78,7 +78,6 @@ public abstract class Loader<T extends Feature> {
                 metadata.description = annotation.description();
                 metadata.priority = annotation.priority();
                 metadata.enabledByDefault = annotation.enabledByDefault();
-                metadata.canBeDisabled = annotation.canBeDisabled();
 
                 this.metadata.put(clazz, metadata);
                 prioritised.computeIfAbsent(annotation.priority(), a -> new ArrayList<>()).add(clazz);

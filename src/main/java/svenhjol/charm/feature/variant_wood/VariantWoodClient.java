@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
-@Feature(canBeDisabled = false)
+@Feature
 public class VariantWoodClient extends ClientFeature {
     public final VariantWood common;
     public final Registers registers;

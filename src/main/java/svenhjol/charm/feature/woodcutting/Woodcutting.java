@@ -5,7 +5,7 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
-@Feature(canBeDisabled = false, description = "Registers the woodcutting recipe.")
+@Feature(description = "Registers the woodcutting recipe.")
 public class Woodcutting extends CommonFeature {
     public final Registers registers;
 
@@ -13,5 +13,10 @@ public class Woodcutting extends CommonFeature {
         super(loader);
 
         registers = new Registers(this);
+    }
+
+    @Override
+    public boolean canBeDisabled() {
+        return false;
     }
 }
