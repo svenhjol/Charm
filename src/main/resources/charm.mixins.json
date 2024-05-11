@@ -29,6 +29,7 @@
     "feature.copper_pistons.PistonBaseBlockMixin",
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",
+    "feature.totems_work_from_inventory.LivingEntityMixin",
     "feature.variant_pistons.PistonBaseBlockMixin",
     "feature.variant_pistons.PistonHeadBlockMixin",
     "feature.variant_pistons.PistonMovingBlockEntityMixin",
