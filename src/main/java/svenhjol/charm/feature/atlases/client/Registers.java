@@ -34,9 +34,9 @@ public final class Registers extends RegisterHolder<AtlasesClient> {
 
         // Client packet receivers
         feature().registry().packetReceiver(Networking.S2CSwappedAtlasSlot.TYPE,
-            feature().handlers::handleSwappedSlot);
+            () -> feature().handlers::handleSwappedSlot);
         feature().registry().packetReceiver(Networking.S2CUpdateInventory.TYPE,
-            feature().handlers::handleUpdateInventory);
+            () -> feature().handlers::handleUpdateInventory);
     }
 
     @Override
