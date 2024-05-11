@@ -13,7 +13,6 @@ public final class Advancements extends AdvancementHolder<AmethystNoteBlock> {
 
     public void playedNoteBlock(Level level, BlockPos pos) {
         PlayerHelper.getPlayersInRange(level, pos, 4.0d).forEach(
-            player -> trigger("played_amethyst_note_block", player)
-        );
+            player -> trigger("played_amethyst_note_block", player));
     }
 }

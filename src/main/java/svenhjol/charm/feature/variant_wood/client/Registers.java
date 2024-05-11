@@ -15,24 +15,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public final class Registers extends RegisterHolder<VariantWoodClient> {
+    private final VariantWood common;
+
     public Registers(VariantWoodClient feature) {
         super(feature);
+        common = feature().common;
 
         // Bind the chest block entities to their custom renderers.
-        feature.registry().blockEntityRenderer(feature.common.registers.chestBlockEntity,
+        feature.registry().blockEntityRenderer(common.registers.chestBlockEntity,
             () -> BlockEntityRenderer::new);
-        feature.registry().blockEntityRenderer(feature.common.registers.trappedChestBlockEntity,
+        feature.registry().blockEntityRenderer(common.registers.trappedChestBlockEntity,
             () -> BlockEntityRenderer::new);
+
+
+        // Cut out transparent areas of the ladder.
+        common.registers.ladders.forEach(
+            (material, ladder) -> feature.registry().blockRenderType(ladder.block, RenderType::cutout));
     }
 
     @Override
     public void onEnabled() {
-        var commonRegisters = feature().common.registers;
         var registry = feature().registry();
 
         // Add items to the creative menu.
         if (VariantWood.variantBarrels) {
-            var barrels = new ArrayList<>(commonRegisters.barrels.values());
+            var barrels = new ArrayList<>(common.registers.barrels.values());
             Collections.reverse(barrels);
 
             for (VariantBarrel barrel : barrels) {
@@ -41,7 +48,7 @@ public final class Registers extends RegisterHolder<VariantWoodClient> {
         }
 
         if (VariantWood.variantBookshelves) {
-            var bookshelves = new ArrayList<>(commonRegisters.bookshelves.values());
+            var bookshelves = new ArrayList<>(common.registers.bookshelves.values());
             Collections.reverse(bookshelves);
 
             for (VariantBookshelf bookshelf : bookshelves) {
@@ -50,8 +57,8 @@ public final class Registers extends RegisterHolder<VariantWoodClient> {
         }
 
         if (VariantWood.variantChests) {
-            var chests = new ArrayList<>(commonRegisters.chests.values());
-            var trappedChests = new ArrayList<>(commonRegisters.trappedChests.values());
+            var chests = new ArrayList<>(common.registers.chests.values());
+            var trappedChests = new ArrayList<>(common.registers.trappedChests.values());
 
             Collections.reverse(chests);
             Collections.reverse(trappedChests);
@@ -65,7 +72,7 @@ public final class Registers extends RegisterHolder<VariantWoodClient> {
         }
 
         if (VariantWood.variantChiseledBookshelves) {
-            var chiseledBookshelves = new ArrayList<>(commonRegisters.chiseledBookshelves.values());
+            var chiseledBookshelves = new ArrayList<>(common.registers.chiseledBookshelves.values());
             Collections.reverse(chiseledBookshelves);
 
             for (VariantChiseledBookshelf chiseledBookshelf : chiseledBookshelves) {
@@ -74,7 +81,7 @@ public final class Registers extends RegisterHolder<VariantWoodClient> {
         }
 
         if (VariantWood.variantLadders) {
-            var ladders = new ArrayList<>(commonRegisters.ladders.values());
+            var ladders = new ArrayList<>(common.registers.ladders.values());
             Collections.reverse(ladders);
 
             for (VariantLadder ladder : ladders) {
@@ -85,7 +92,7 @@ public final class Registers extends RegisterHolder<VariantWoodClient> {
         // Without this event handler the chest texture will be invisible.
         BlockItemRenderEvent.INSTANCE.handle(feature().handlers::renderChestBlockItem);
 
-        commonRegisters.chests.forEach((material, chest) -> {
+        common.registers.chests.forEach((material, chest) -> {
             String[] bases = {"trapped", "normal"};
             ChestType[] chestTypes = {ChestType.SINGLE, ChestType.LEFT, ChestType.RIGHT};
 
@@ -99,9 +106,5 @@ public final class Registers extends RegisterHolder<VariantWoodClient> {
                 }
             }
         });
-
-        // Cut out transparent areas of the ladder.
-        commonRegisters.ladders.forEach(
-            (material, ladder) -> registry.blockRenderType(ladder.block, RenderType::cutout));
     }
 }
