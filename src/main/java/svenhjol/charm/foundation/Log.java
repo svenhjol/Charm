@@ -1,6 +1,7 @@
 package svenhjol.charm.foundation;
 
 import com.google.common.base.CaseFormat;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import svenhjol.charm.foundation.helper.ConfigHelper;
@@ -43,6 +44,23 @@ public class Log {
         if (ConfigHelper.isDevEnvironment()) {
             info("[Dev] +++ " + message, args);
         }
+    }
+
+    public void die(Throwable e) {
+        var cause = e.getCause();
+        var message = (cause != null ? cause.getMessage() : e.getMessage());
+        die(message, e);
+    }
+
+    public void die(String message, Throwable e) {
+        var stacktrace = ExceptionUtils.getStackTrace(e);
+        error(stacktrace);
+        die(message);
+    }
+
+    public void die(String message) {
+        error(message);
+        throw new RuntimeException(message);
     }
 
     private String snakeToUpperCamel(String string) {

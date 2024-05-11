@@ -82,8 +82,7 @@ public abstract class Loader<T extends Feature> {
                 this.metadata.put(clazz, metadata);
                 prioritised.computeIfAbsent(annotation.priority(), a -> new ArrayList<>()).add(clazz);
             } else {
-                var name = clazz.getSimpleName();
-                throw new RuntimeException("Missing feature annotation for " + name);
+                log.die("Missing feature annotation for " + clazz.getSimpleName());
             }
         }
 
@@ -98,10 +97,7 @@ public abstract class Loader<T extends Feature> {
                     features.add(feature);
                     Resolve.register(feature); // Register with global resolver.
                 } catch (Exception e) {
-                    var cause = e.getCause();
-                    var name = clazz.getSimpleName();
-                    var message = (cause != null ? cause.getMessage() : e.getMessage());
-                    throw new RuntimeException("Failed to initialize feature " + name + ": " + message);
+                    log.die(clazz.getSimpleName(), e);
                 }
             }
         }
@@ -193,7 +189,7 @@ public abstract class Loader<T extends Feature> {
 
     public void registerDeferred(Runnable deferred) {
         if (deferredCompleted) {
-            throw new RuntimeException("Cannot add a deferred runnable at this stage!");
+            log.die("Cannot add a deferred runnable at this stage!");
         }
         this.deferred.add(deferred);
     }
