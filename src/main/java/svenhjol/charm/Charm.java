@@ -7,6 +7,7 @@ import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
@@ -53,7 +54,7 @@ public class Charm {
 //            Recipes.class,
 //            ShulkerBoxDragDrop.class,
 //            SilenceMicrosoft.class,
-//            SmoothGlowstone.class,
+            SmoothGlowstone.class,
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
             VariantPistons.class,
