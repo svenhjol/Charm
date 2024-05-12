@@ -1,5 +1,7 @@
 package svenhjol.charm.enums;
 
+import svenhjol.charm.feature.azalea_wood.AzaleaWood;
+
 import java.util.List;
 
 public class BoatTypeEnums {
@@ -9,6 +11,6 @@ public class BoatTypeEnums {
      * Register all feature boat type enums here!
      */
     public static final List<String> BOAT_TYPE_ENUMS = List.of(
-//        AzaleaWood.BOAT_ID
+        AzaleaWood.BOAT_ID
     );
 }
