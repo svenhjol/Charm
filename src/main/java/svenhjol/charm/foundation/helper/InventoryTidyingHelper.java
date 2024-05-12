@@ -11,12 +11,6 @@ import java.util.function.Predicate;
 public final class InventoryTidyingHelper {
     private static final Map<Predicate<ItemStack>, Comparator<ItemStack>> COMPARE = new HashMap<>();
 
-    public static void init() {
-        COMPARE.clear();
-        COMPARE.put(clazzTest(BlockItem.class).negate(), anyCompare());
-        COMPARE.put(clazzTest(BlockItem.class), blockCompare());
-    }
-
     public static void sort(Container inventory, int startSlot, int endSlot) {
         var stacks = getInventoryStacks(inventory, startSlot, endSlot);
 
@@ -157,5 +151,10 @@ public final class InventoryTidyingHelper {
 
     private static Predicate<ItemStack> clazzTest(Class<? extends Item> clazz) {
         return stack -> !stack.isEmpty() && clazz.isInstance(stack.getItem());
+    }
+
+    static {
+        COMPARE.put(clazzTest(BlockItem.class).negate(), anyCompare());
+        COMPARE.put(clazzTest(BlockItem.class), blockCompare());
     }
 }

@@ -9,6 +9,7 @@ import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
+import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
 import svenhjol.charm.feature.silence_messages.SilenceMessages;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
@@ -51,7 +52,7 @@ public class Charm {
 //            ExtractableEnchantments.class,
 //            Firing.class,
             HoverSorting.class,
-//            InventoryTidying.class,
+            InventoryTidying.class,
 //            Kilns.class,
 //            PotionOfRadiance.class,
 //            Recipes.class,

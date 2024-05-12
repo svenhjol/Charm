@@ -5,6 +5,7 @@ import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.hover_sorting.HoverSortingClient;
+import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
@@ -30,7 +31,7 @@ public class CharmClient {
 //            ExtractableEnchantmentsClient.class,
 //            ExtraTooltips.class,
             HoverSortingClient.class,
-//            InventoryTidyingClient.class,
+            InventoryTidyingClient.class,
 //            KilnsClient.class,
 //            RecipesClient.class,
             SmoothGlowstoneClient.class,
