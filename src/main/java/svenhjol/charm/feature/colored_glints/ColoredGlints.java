@@ -30,7 +30,7 @@ public final class ColoredGlints extends CommonFeature {
 
     @Override
     public List<BooleanSupplier> checks() {
-        return List.of(() -> ConfigHelper.isModLoaded("optifabric"));
+        return List.of(() -> !ConfigHelper.isModLoaded("optifabric"));
     }
 
     /**
