@@ -5,7 +5,7 @@ import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.enums.Side;
 
 public final class Metadata<T extends Feature> {
-    public Class<? extends T> feature;
+    public final Class<? extends T> feature;
 
     public String description;
 

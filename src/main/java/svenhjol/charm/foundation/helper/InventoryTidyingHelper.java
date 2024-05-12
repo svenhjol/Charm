@@ -84,7 +84,7 @@ public final class InventoryTidyingHelper {
         stacks.sort(InventoryTidyingHelper::compare); // maybe improve this at some point in future
     }
 
-    public static boolean setInventory(Container inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
+    public static void setInventory(Container inventory, List<ItemStack> stacks, int startSlot, int endSlot) {
         for (var i = startSlot; i < endSlot; i++) {
             var j = i - startSlot;
             var stack = j >= stacks.size() ? ItemStack.EMPTY : stacks.get(j);
@@ -93,8 +93,6 @@ public final class InventoryTidyingHelper {
                 inventory.setItem(i, stack);
             }
         }
-
-        return true;
     }
 
     private static int compare(ItemStack stack1, ItemStack stack2) {
@@ -149,6 +147,7 @@ public final class InventoryTidyingHelper {
         });
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static Predicate<ItemStack> clazzTest(Class<? extends Item> clazz) {
         return stack -> !stack.isEmpty() && clazz.isInstance(stack.getItem());
     }

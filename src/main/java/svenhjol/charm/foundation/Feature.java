@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 public abstract class Feature implements Conditional {
-    protected Loader<? extends Feature> loader;
+    protected final Loader<? extends Feature> loader;
     protected Log log;
     private boolean enabled = true;
     private boolean enabledInConfig = true;
