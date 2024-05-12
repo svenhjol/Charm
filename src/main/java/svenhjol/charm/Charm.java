@@ -6,6 +6,7 @@ import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
+import svenhjol.charm.feature.campfires_boost_health.CampfiresBoostHealth;
 import svenhjol.charm.feature.chairs.Chairs;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFrames;
 import svenhjol.charm.feature.collection.Collection;
@@ -51,6 +52,7 @@ public final class Charm {
             AutoRestock.class,
             AzaleaWood.class,
             BatBuckets.class,
+            CampfiresBoostHealth.class,
             Chairs.class,
             ClearItemFrames.class,
             Collection.class,
