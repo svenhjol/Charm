@@ -18,19 +18,19 @@ public abstract class Feature implements Conditional {
         this.log.dev(name() + " is alive");
     }
 
-    public String description() {
+    public final String description() {
         return loader().metadata(this)
             .map(m -> m.description)
             .orElse("");
     }
 
-    public int priority() {
+    public final int priority() {
         return loader().metadata(this)
             .map(m -> m.priority)
             .orElse(0);
     }
 
-    public boolean isEnabledByDefault() {
+    public final boolean isEnabledByDefault() {
         return loader().metadata(this)
             .map(m -> m.enabledByDefault)
             .orElse(true);
