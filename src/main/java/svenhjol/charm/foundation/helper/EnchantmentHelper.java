@@ -2,6 +2,7 @@ package svenhjol.charm.foundation.helper;
 
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -10,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class EnchantmentHelper {
-    public static boolean hasEnchantment(ItemStack stack, Enchantment enchantment) {
+    public static boolean hasEnchantment(ItemStack stack, ResourceKey<Enchantment> enchantment) {
         if (stack.has(DataComponents.ENCHANTMENTS)) {
             var enchantments = stack.get(DataComponents.ENCHANTMENTS);
             if (enchantments == null) return false;
 
             for (Holder<Enchantment> holder : enchantments.keySet()) {
-                if (holder.value() == enchantment) {
+                if (holder.is(enchantment)) {
                     return true;
                 }
             }

@@ -25,6 +25,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.stats.RecipeBookSettings;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
@@ -40,6 +41,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.*;
@@ -81,6 +83,13 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     public CommonRegistry(CommonLoader loader) {
         this.loader = loader;
         this.log = new Log(loader.id(), "CommonRegistry");
+    }
+
+    public Register<Holder<Attribute>> attribute(String id, Supplier<Attribute> supplier) {
+        return new Register<>(() -> {
+            log("Attribute " + id);
+            return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, id(id), supplier.get());
+        });
     }
 
     public <E extends Entity> void biomeSpawn(Predicate<Holder<Biome>> predicate, MobCategory category, Supplier<EntityType<E>> entity, int weight, int minGroupSize, int maxGroupSize) {
@@ -166,11 +175,9 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         });
     }
 
-//    public <T extends Enchantment> Supplier<T> enchantment(String id, Supplier<T> enchantment) {
-//        log.debug("Registering enchantment " + id);
-//        var registered = Registry.register(BuiltInRegistries.ENCHANTMENT, id(id), enchantment.get());
-//        return () -> registered;
-//    }
+    public ResourceKey<Enchantment> enchantment(String name) {
+        return ResourceKey.create(Registries.ENCHANTMENT, id(name));
+    }
 
     public <T extends Entity> Register<EntityType<T>> entity(String id, Supplier<EntityType.Builder<T>> builder) {
         return new Register<>(() -> {
@@ -206,7 +213,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public ResourceLocation id(String path) {
-        return new ResourceLocation(this.loader.id(), path);
+        return loader.id(path);
     }
 
     public <T extends IIgniteProvider> void ignite(Supplier<T> provider) {
@@ -227,8 +234,8 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         log.debug("Registering " + TextHelper.uncapitalize(message));
     }
 
-    public ResourceKey<LootTable> lootTable(String resource) {
-        return ResourceKey.create(Registries.LOOT_TABLE, new ResourceLocation(resource));
+    public ResourceKey<LootTable> lootTable(String name) {
+        return ResourceKey.create(Registries.LOOT_TABLE, id(name));
     }
 
     public <T extends MenuType<U>, U extends AbstractContainerMenu> Register<T> menuType(String id, Supplier<T> supplier) {
