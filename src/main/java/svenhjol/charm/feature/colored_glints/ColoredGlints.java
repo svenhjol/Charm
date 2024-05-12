@@ -8,8 +8,11 @@ import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.foundation.helper.ConfigHelper;
 
 import javax.annotation.Nullable;
+import java.util.List;
+import java.util.function.BooleanSupplier;
 
 @Feature(description = """
     Customizable item enchantment colors. This feature is a helper for other Charm features and mods.
@@ -23,6 +26,11 @@ public class ColoredGlints extends CommonFeature {
 
         registers = new Registers(this);
         handlers = new Handlers(this);
+    }
+
+    @Override
+    public List<BooleanSupplier> checks() {
+        return List.of(() -> ConfigHelper.isModLoaded("optifabric"));
     }
 
     public static DyeColor get(@Nullable ItemStack stack) {
