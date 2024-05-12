@@ -270,6 +270,10 @@ public final class GenericTrades {
         return getCost(random, list.get(random.nextInt(list.size())), baseCount, extraCount);
     }
 
+    public static ItemCost getCost(ItemLike itemLike, int baseCost) {
+        return new ItemCost(itemLike, baseCost);
+    }
+
     public static ItemCost getCost(RandomSource random, ItemLike itemLike, int baseCount, int extraCount) {
         return new ItemCost(itemLike, baseCount + random.nextInt(extraCount + 1));
     }
