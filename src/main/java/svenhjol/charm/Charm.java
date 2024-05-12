@@ -9,6 +9,7 @@ import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
@@ -52,7 +53,7 @@ public class Charm {
 //            CoralSquids.class,
             Core.class,
             CustomWood.class,
-//            DeepslateDungeons.class,
+            DeepslateDungeons.class,
             Echolocation.class,
 //            ExtractableEnchantments.class,
             Firing.class,

@@ -29,6 +29,7 @@
     "feature.copper_pistons.PistonBaseBlockMixin",
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",
+    "feature.deepslate_dungeons.MonsterRoomFeatureMixin",
     "feature.silence_messages.YggdrasilMinecraftSessionServiceMixin",
     "feature.silence_messages.YggdrasilServicesKeyInfoMixin",
     "feature.silence_messages.YggdrasilUserApiServiceMixin",
