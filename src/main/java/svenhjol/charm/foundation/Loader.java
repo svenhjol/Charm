@@ -32,8 +32,12 @@ public abstract class Loader<T extends Feature> {
 
     /**
      * Make a ResourceLocation of modId:path.
+     * If there is already a namespace (e.g. minecraft) then don't prepend the modId.
      */
     public ResourceLocation id(String path) {
+        if (path.contains(":")) {
+            return new ResourceLocation(path);
+        }
         return new ResourceLocation(this.id, path);
     }
 
