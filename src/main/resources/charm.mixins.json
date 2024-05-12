@@ -68,6 +68,7 @@
     "feature.colored_glints.RenderTypeMixin",
     "feature.copper_pistons.PistonHeadRendererMixin",
     "feature.extractable_enchantments.GrindstoneScreenMixin",
+    "feature.show_repair_cost.AnvilScreenMixin",
     "feature.silence_messages.DisableToastMixin",
     "feature.silence_messages.RealmsAvailabilityMixin",
     "feature.unlimited_repair_cost.AnvilScreenMixin",

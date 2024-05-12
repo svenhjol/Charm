@@ -15,6 +15,7 @@ import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantmentsCl
 import svenhjol.charm.feature.hover_sorting.HoverSortingClient;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
 import svenhjol.charm.feature.kilns.KilnsClient;
+import svenhjol.charm.feature.show_repair_cost.ShowRepairCost;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
@@ -42,6 +43,7 @@ public final class CharmClient {
             HoverSortingClient.class,
             InventoryTidyingClient.class,
             KilnsClient.class,
+            ShowRepairCost.class,
             SmoothGlowstoneClient.class,
             TotemOfPreservingClient.class,
             VariantMobTextures.class,
