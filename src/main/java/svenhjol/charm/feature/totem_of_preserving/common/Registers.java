@@ -5,13 +5,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.api.event.AnvilUpdateEvent;
 import svenhjol.charm.api.event.PlayerInventoryDropEvent;
-import svenhjol.charm.api.iface.ITotemInventoryCheckProvider;
-import svenhjol.charm.api.iface.ITotemPreservingProvider;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 import svenhjol.charm.foundation.helper.ApiHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -22,8 +19,6 @@ public final class Registers extends RegisterHolder<TotemOfPreserving> {
     public final Supplier<BlockEntityType<BlockEntity>> blockEntity;
     public final Supplier<SoundEvent> releaseSound;
     public final Supplier<SoundEvent> storeSound;
-    public final List<ITotemPreservingProvider> preservingProviders = new ArrayList<>();
-    public final List<ITotemInventoryCheckProvider> inventoryCheckProviders = new ArrayList<>();
 
     public Registers(TotemOfPreserving feature) {
         super(feature);
@@ -43,14 +38,11 @@ public final class Registers extends RegisterHolder<TotemOfPreserving> {
         releaseSound = registry.soundEvent("totem_release_items");
         storeSound = registry.soundEvent("totem_store_items");
 
-        ApiHelper.registerProvider(new DataProviders(feature));
+        ApiHelper.registerProvider(new Providers(feature));
     }
 
     @Override
     public void onEnabled() {
-        ApiHelper.consume(ITotemPreservingProvider.class, preservingProviders::add);
-        ApiHelper.consume(ITotemInventoryCheckProvider.class, inventoryCheckProviders::add);
-
         PlayerInventoryDropEvent.INSTANCE.handle(feature().handlers::playerInventoryDrop);
         AnvilUpdateEvent.INSTANCE.handle(feature().handlers::anvilUpdate);
     }

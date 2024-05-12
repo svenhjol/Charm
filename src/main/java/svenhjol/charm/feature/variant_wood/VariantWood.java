@@ -2,6 +2,7 @@ package svenhjol.charm.feature.variant_wood;
 
 import svenhjol.charm.api.iface.IVariantMaterial;
 import svenhjol.charm.feature.variant_wood.common.Handlers;
+import svenhjol.charm.feature.variant_wood.common.Providers;
 import svenhjol.charm.feature.variant_wood.common.Registers;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.annotation.Configurable;
@@ -13,6 +14,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 public class VariantWood extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
+    public final Providers providers;
 
     @Configurable(name = "Variant barrels", description = "If true, enables barrels made from different kinds of wood.")
     public static boolean variantBarrels = true;
@@ -34,6 +36,7 @@ public class VariantWood extends CommonFeature {
 
         registers = new Registers(this);
         handlers = new Handlers(this);
+        providers = new Providers(this);
     }
 
     /**

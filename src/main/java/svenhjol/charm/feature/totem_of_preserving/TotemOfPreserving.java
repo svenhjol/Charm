@@ -2,6 +2,7 @@ package svenhjol.charm.feature.totem_of_preserving;
 
 import svenhjol.charm.feature.totem_of_preserving.common.Advancements;
 import svenhjol.charm.feature.totem_of_preserving.common.Handlers;
+import svenhjol.charm.feature.totem_of_preserving.common.Providers;
 import svenhjol.charm.feature.totem_of_preserving.common.Registers;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
@@ -13,6 +14,7 @@ public class TotemOfPreserving extends CommonFeature {
     public final Advancements advancements;
     public final Registers registers;
     public final Handlers handlers;
+    public final Providers providers;
 
     @Configurable(
         name = "Grave mode",
@@ -52,5 +54,6 @@ public class TotemOfPreserving extends CommonFeature {
         advancements = new Advancements(this);
         handlers = new Handlers(this);
         registers = new Registers(this);
+        providers = new Providers(this);
     }
 }

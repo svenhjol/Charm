@@ -5,19 +5,23 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.iface.*;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.foundation.feature.ProviderHolder;
+import svenhjol.charm.foundation.helper.ApiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public final class DataProviders extends FeatureHolder<TotemOfPreserving> implements
+public final class Providers extends ProviderHolder<TotemOfPreserving> implements
     ITotemPreservingProvider,
     ITotemInventoryCheckProvider,
     IConditionalRecipeProvider,
     IConditionalAdvancementProvider
 {
-    public DataProviders(TotemOfPreserving feature) {
+    public final List<ITotemPreservingProvider> preservingProviders = new ArrayList<>();
+    public final List<ITotemInventoryCheckProvider> inventoryCheckProviders = new ArrayList<>();
+
+    public Providers(TotemOfPreserving feature) {
         super(feature);
     }
 
@@ -99,5 +103,11 @@ public final class DataProviders extends FeatureHolder<TotemOfPreserving> implem
                 );
             }
         });
+    }
+
+    @Override
+    public void onEnabled() {
+        ApiHelper.consume(ITotemPreservingProvider.class, preservingProviders::add);
+        ApiHelper.consume(ITotemInventoryCheckProvider.class, inventoryCheckProviders::add);
     }
 }

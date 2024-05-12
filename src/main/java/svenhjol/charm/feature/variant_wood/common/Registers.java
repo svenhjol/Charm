@@ -2,7 +2,6 @@ package svenhjol.charm.feature.variant_wood.common;
 
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.api.event.EntityUseEvent;
 import svenhjol.charm.api.iface.IVariantMaterial;
 import svenhjol.charm.feature.variant_wood.VariantWood;
@@ -34,8 +33,6 @@ public final class Registers extends RegisterHolder<VariantWood> {
 
         chestBlockEntity = feature.registry().blockEntity("variant_chest", () -> ChestBlockEntity::new);
         trappedChestBlockEntity = feature.registry().blockEntity("variant_trapped_chest", () -> TrappedChestBlockEntity::new);
-
-        CharmApi.registerProvider(new DataProviders(feature));
     }
 
     public void register(CommonFeature feature, IVariantMaterial material) {

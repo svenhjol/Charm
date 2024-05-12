@@ -6,12 +6,17 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.iface.ITotemInventoryCheckProvider;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.foundation.feature.ProviderHolder;
+import svenhjol.charm.foundation.helper.ApiHelper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
-public final class DataProviders extends FeatureHolder<TotemsWorkFromInventory> implements ITotemInventoryCheckProvider {
-    public DataProviders(TotemsWorkFromInventory feature) {
+public final class Providers extends ProviderHolder<TotemsWorkFromInventory> implements ITotemInventoryCheckProvider {
+    public final List<ITotemInventoryCheckProvider> inventoryCheckProviders = new ArrayList<>();
+
+    public Providers(TotemsWorkFromInventory feature) {
         super(feature);
     }
 
@@ -36,5 +41,10 @@ public final class DataProviders extends FeatureHolder<TotemsWorkFromInventory> 
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public void onEnabled() {
+        ApiHelper.consume(ITotemInventoryCheckProvider.class, inventoryCheckProviders::add);
     }
 }

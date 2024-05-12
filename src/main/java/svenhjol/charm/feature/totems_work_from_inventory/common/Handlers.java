@@ -15,7 +15,7 @@ public final class Handlers extends FeatureHolder<TotemsWorkFromInventory> {
     public ItemStack tryUsingTotemOfUndying(LivingEntity entity) {
         if (entity instanceof Player player) {
             ItemStack found = null;
-            for (var provider : feature().registers.inventoryCheckProviders) {
+            for (var provider : feature().providers.inventoryCheckProviders) {
                 var item = provider.findTotemFromInventory(player, TotemType.UNDYING);
                 if (item.isPresent()) {
                     found = item.get();

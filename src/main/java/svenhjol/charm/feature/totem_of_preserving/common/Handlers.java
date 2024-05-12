@@ -114,7 +114,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
 
         // Get items to preserve.
         List<ItemStack> preserveItems = new ArrayList<>();
-        for (var provider : feature().registers.preservingProviders) {
+        for (var provider : feature().providers.preservingProviders) {
             preserveItems.addAll(provider
                 .getInventoryItemsForTotem(player)
                 .stream().filter(i -> !i.isEmpty())
@@ -143,7 +143,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
                     break;
                 }
             } else {
-                for (var provider : feature().registers.inventoryCheckProviders) {
+                for (var provider : feature().providers.inventoryCheckProviders) {
                     var item = provider.findTotemFromInventory(player, TotemType.PRESERVING);
 
                     if (item.isPresent()) {
@@ -188,7 +188,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
         }
 
         // Delete player inventory items.
-        for (var provider : feature().registers.preservingProviders) {
+        for (var provider : feature().providers.preservingProviders) {
             provider.deleteInventoryItems(player);
         }
 

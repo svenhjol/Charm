@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.smooth_glowstone.common;
 
-import svenhjol.charm.api.CharmApi;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
@@ -18,7 +17,5 @@ public final class Registers extends RegisterHolder<SmoothGlowstone> {
         block = feature.registry().block(BLOCK_ID, Block::new);
         blockItem = feature.registry().item(BLOCK_ID,
             () -> new Block.BlockItem(block.get()));
-
-        CharmApi.registerProvider(this);
     }
 }

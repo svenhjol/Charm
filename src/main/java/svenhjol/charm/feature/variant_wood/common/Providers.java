@@ -3,13 +3,13 @@ package svenhjol.charm.feature.variant_wood.common;
 import svenhjol.charm.api.iface.IConditionalRecipe;
 import svenhjol.charm.api.iface.IConditionalRecipeProvider;
 import svenhjol.charm.feature.variant_wood.VariantWood;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class DataProviders extends FeatureHolder<VariantWood> implements IConditionalRecipeProvider {
-    public DataProviders(VariantWood feature) {
+public final class Providers extends ProviderHolder<VariantWood> implements IConditionalRecipeProvider {
+    public Providers(VariantWood feature) {
         super(feature);
     }
 

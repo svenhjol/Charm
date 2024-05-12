@@ -8,7 +8,6 @@ import svenhjol.charm.api.event.PlayerLoginEvent;
 import svenhjol.charm.api.event.PlayerTickEvent;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
 
 import java.util.function.Supplier;
 
@@ -57,8 +56,6 @@ public final class Registers extends RegisterHolder<Atlases> {
             () -> feature().handlers::swappedSlot);
         registry.packetReceiver(Networking.C2STransferAtlas.TYPE,
             () -> feature().handlers::transferAtlas);
-
-        ApiHelper.registerProvider(new DataProviders(feature));
     }
 
     @Override

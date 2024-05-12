@@ -4,12 +4,12 @@ import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.api.iface.IWandererTrade;
 import svenhjol.charm.api.iface.IWandererTradeProvider;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 
-public final class DataProviders extends FeatureHolder<Atlases> implements IWandererTradeProvider {
-    public DataProviders(Atlases feature) {
+public final class Providers extends ProviderHolder<Atlases> implements IWandererTradeProvider {
+    public Providers(Atlases feature) {
         super(feature);
     }
 

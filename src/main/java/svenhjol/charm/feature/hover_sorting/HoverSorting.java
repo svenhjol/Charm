@@ -11,6 +11,7 @@ public class HoverSorting extends CommonFeature {
     public final Handlers handlers;
     public final Advancements advancements;
     public final Networking networking;
+    public final Providers providers;
 
     public HoverSorting(CommonLoader loader) {
         super(loader);
@@ -19,5 +20,6 @@ public class HoverSorting extends CommonFeature {
         handlers = new Handlers(this);
         advancements = new Advancements(this);
         networking = new Networking(this);
+        providers = new Providers(this);
     }
 }

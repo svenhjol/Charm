@@ -6,12 +6,12 @@ import svenhjol.charm.api.iface.IConditionalRecipeProvider;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.enums.Side;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 
-public final class DataProviders extends FeatureHolder<SmoothGlowstone> implements IConditionalRecipeProvider {
-    public DataProviders(SmoothGlowstone feature) {
+public final class Providers extends ProviderHolder<SmoothGlowstone> implements IConditionalRecipeProvider {
+    public Providers(SmoothGlowstone feature) {
         super(feature);
     }
 
