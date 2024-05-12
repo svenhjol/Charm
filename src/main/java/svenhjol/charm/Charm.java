@@ -7,6 +7,7 @@ import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.chairs.Chairs;
+import svenhjol.charm.feature.clear_item_frames.ClearItemFrames;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
@@ -47,7 +48,7 @@ public class Charm {
             AzaleaWood.class,
             BatBuckets.class,
             Chairs.class,
-//            ClearItemFrames.class,
+            ClearItemFrames.class,
 //            Collection.class,
 //            ColoredGlints.class,
 //            ColoredGlintSmithingTemplates.class,
