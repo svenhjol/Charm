@@ -15,7 +15,7 @@ public abstract class Feature implements Conditional {
     public Feature(Loader<? extends Feature> loader) {
         this.loader = loader;
         this.log = new Log(loader.id(), name());
-        this.log.dev("I'm alive");
+        this.log.dev(name() + " is alive");
     }
 
     public String description() {
@@ -50,10 +50,6 @@ public abstract class Feature implements Conditional {
 
     public ResourceLocation id(String id) {
         return loader.id(id);
-    }
-
-    public String modId() {
-        return loader.id();
     }
 
     public String name() {
