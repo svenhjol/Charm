@@ -11,12 +11,12 @@ import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.foundation.Resolve;
 
 @SuppressWarnings("unused")
-public class FiringRecipe extends AbstractCookingRecipe {
+public class Recipe extends AbstractCookingRecipe {
     private static final Firing FIRING = Resolve.feature(Firing.class);
     public Item icon = Items.AIR;
 
-    public FiringRecipe(String group, CookingBookCategory category, Ingredient input,
-                        ItemStack output, float experience, int cookTime) {
+    public Recipe(String group, CookingBookCategory category, Ingredient input,
+                  ItemStack output, float experience, int cookTime) {
         super(FIRING.registers.recipeType.get(), group, category, input, output, experience, cookTime);
     }
 

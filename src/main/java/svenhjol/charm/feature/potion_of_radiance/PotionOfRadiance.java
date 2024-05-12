@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Potion of Radiance gives the glowing effect. It is brewed using a torchflower.")
-public class PotionOfRadiance extends CommonFeature {
+public final class PotionOfRadiance extends CommonFeature {
     public final Registers registers;
 
     public PotionOfRadiance(CommonLoader loader) {

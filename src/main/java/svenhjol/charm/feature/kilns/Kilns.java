@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "A functional block that speeds up cooking of clay, glass, bricks and terracotta.")
-public class Kilns extends CommonFeature {
+public final class Kilns extends CommonFeature {
     public final Registers registers;
     public final Advancements advancements;
 

@@ -6,7 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 
-public class Log {
+@SuppressWarnings("unused")
+public final class Log {
     private final Logger log;
 
     public Log(String id) {

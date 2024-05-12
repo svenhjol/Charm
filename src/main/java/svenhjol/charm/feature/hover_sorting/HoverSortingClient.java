@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class HoverSortingClient extends ClientFeature {
+public final class HoverSortingClient extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;
 

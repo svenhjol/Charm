@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Storage for maps that automatically updates the displayed map as you explore.")
-public class Atlases extends CommonFeature {
+public final class Atlases extends CommonFeature {
     public final Advancements advancements;
     public final Registers registers;
     public final Handlers handlers;

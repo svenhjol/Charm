@@ -5,7 +5,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
 import svenhjol.charm.foundation.client.ClientLoader;
 
-public class ClientInitializer implements ClientModInitializer {
+public final class ClientInitializer implements ClientModInitializer {
     private static boolean initialized = false;
 
     @Override
@@ -17,7 +17,7 @@ public class ClientInitializer implements ClientModInitializer {
         if (initialized) return;
 
         var loader = ClientLoader.create(Charm.ID);
-        loader.features(CharmClient.features());
+        loader.setup(CharmClient.features());
         loader.run();
 
         initialized = true;

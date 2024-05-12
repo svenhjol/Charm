@@ -13,8 +13,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 import java.util.Optional;
 
 @Feature(description = "Handles custom wood.")
-public class CustomWood extends CommonFeature {
-
+public final class CustomWood extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
 

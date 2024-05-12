@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
-import svenhjol.charm.feature.woodcutting.common.WoodcuttingRecipe;
+import svenhjol.charm.feature.woodcutting.common.Recipe;
 import svenhjol.charm.foundation.Resolve;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class Menu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
     private final DataSlot selectedRecipeIndex;
     private final Level level;
-    private List<RecipeHolder<WoodcuttingRecipe>> recipes;
+    private List<RecipeHolder<Recipe>> recipes;
     private ItemStack inputStack;
     private long lastSoundTime;
     final Slot inputSlot;
@@ -101,7 +101,7 @@ public class Menu extends AbstractContainerMenu {
         return this.selectedRecipeIndex.get();
     }
 
-    public List<RecipeHolder<WoodcuttingRecipe>> getRecipes() {
+    public List<RecipeHolder<Recipe>> getRecipes() {
         return this.recipes;
     }
 

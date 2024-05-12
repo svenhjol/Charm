@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.advancement.common.ActionPerformed;
 import svenhjol.charm.foundation.advancement.common.Handlers;
 import svenhjol.charm.foundation.helper.ApiHelper;
 
-public class AdvancementManager {
+public final class AdvancementManager {
     public static final Log LOGGER = new Log(Charm.ID, "Advancements");
     public final ActionPerformed actionPerformed;
     private static AdvancementManager instance;

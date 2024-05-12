@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Button to automatically tidy inventories.")
-public class InventoryTidying extends CommonFeature {
+public final class InventoryTidying extends CommonFeature {
     public final Registers registers;
     public final Networking networking;
     public final Handlers handlers;

@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class BatBucketsClient extends ClientFeature {
+public final class BatBucketsClient extends ClientFeature {
     public final BatBuckets common;
     public final Registers registers;
 

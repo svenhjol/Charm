@@ -11,11 +11,11 @@ import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.Resolve;
 
 @SuppressWarnings("unused")
-public class WoodcuttingRecipe extends SingleItemRecipe {
+public class Recipe extends SingleItemRecipe {
    private static final Woodcutting WOODCUTTING = Resolve.feature(Woodcutting.class);
    public Item icon = Items.AIR;
 
-   public WoodcuttingRecipe(String group, Ingredient input, ItemStack output) {
+   public Recipe(String group, Ingredient input, ItemStack output) {
       super(WOODCUTTING.registers.recipeType.get(), WOODCUTTING.registers.recipeSerializer.get(), group, input, output);
    }
 

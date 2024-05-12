@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class ClearItemFramesClient extends ClientFeature {
+public final class ClearItemFramesClient extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final ClearItemFrames common;

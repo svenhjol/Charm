@@ -4,7 +4,7 @@ import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.advancement.common.Handlers;
 
-public class AdvancementHolder<F extends Feature> extends FeatureHolder<F>{
+public abstract class AdvancementHolder<F extends Feature> extends FeatureHolder<F>{
     public AdvancementHolder(F feature) {
         super(feature);
     }

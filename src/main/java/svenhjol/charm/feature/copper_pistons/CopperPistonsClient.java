@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class CopperPistonsClient extends ClientFeature {
+public final class CopperPistonsClient extends ClientFeature {
     public final CopperPistons common;
     public final Registers registers;
 

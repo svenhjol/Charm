@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Copper Pistons do not have quasi-connectivity.")
-public class CopperPistons extends CommonFeature {
+public final class CopperPistons extends CommonFeature {
     public final Registers registers;
 
     public CopperPistons(CommonLoader loader) {

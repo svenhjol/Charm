@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import svenhjol.charm.foundation.helper.ApiHelper;
 
 @SuppressWarnings({"SameParameterValue", "UnusedReturnValue", "unused"})
-public class CharmApi {
+public final class CharmApi {
     private static final Logger LOGGER = LogManager.getLogger("CharmApi");
 
     public static void registerProvider(Object provider) {

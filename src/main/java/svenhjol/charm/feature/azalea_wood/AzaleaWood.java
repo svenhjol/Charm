@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public class AzaleaWood extends CommonFeature {
+public final class AzaleaWood extends CommonFeature {
     public static final String BOAT_ID = "charm_azalea";
     public final Registers registers;
     public final Handlers handlers;

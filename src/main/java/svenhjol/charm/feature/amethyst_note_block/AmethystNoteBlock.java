@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Place a block of amethyst under a note block to play its placement sound.")
-public class AmethystNoteBlock extends CommonFeature {
+public final class AmethystNoteBlock extends CommonFeature {
     public static final String NOTE_BLOCK_ID = "charm_amethyst";
 
     public final Registers registers;

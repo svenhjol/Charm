@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Preserves your items on death.")
-public class TotemOfPreserving extends CommonFeature {
+public final class TotemOfPreserving extends CommonFeature {
     public final Advancements advancements;
     public final Registers registers;
     public final Handlers handlers;

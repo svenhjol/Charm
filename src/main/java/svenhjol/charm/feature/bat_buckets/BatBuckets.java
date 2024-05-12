@@ -11,7 +11,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 @Feature(description = """
     Right-click a bat with a bucket to capture it.
     Right-click again to release it and locate entities around you.""")
-public class BatBuckets extends CommonFeature {
+public final class BatBuckets extends CommonFeature {
     public final Advancements advancements;
     public final Registers registers;
     public final Handlers handlers;

@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature(priority = -10)
-public class CustomWoodClient extends ClientFeature {
+public final class CustomWoodClient extends ClientFeature {
     public final CustomWood common;
     public final Registers registers;
 

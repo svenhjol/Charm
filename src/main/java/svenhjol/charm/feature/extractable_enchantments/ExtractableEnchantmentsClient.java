@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class ExtractableEnchantmentsClient extends ClientFeature {
+public final class ExtractableEnchantmentsClient extends ClientFeature {
     public final ExtractableEnchantments common;
     public final Handlers handlers;
 

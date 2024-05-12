@@ -44,7 +44,7 @@ public abstract class Loader<T extends Feature> {
     /**
      * Instantiates, registers and configures feature classes.
      */
-    public void features(List<Class<? extends T>> classes) {
+    public void setup(List<Class<? extends T>> classes) {
         if (classes.isEmpty()) {
             log().info("No features to load for " + id);
             return;
@@ -67,7 +67,8 @@ public abstract class Loader<T extends Feature> {
     }
 
     /**
-     * Creates an instance of each feature and passes itself to the feature onInit() method.
+     * Creates an instance of each feature, passing the loader to the feature's constructor.
+     * Features are instantiated in order of their priority which is set in the feature annotation.
      */
     protected void instantiate(List<Class<? extends T>> classes) {
         // Determine priority order.
@@ -136,6 +137,7 @@ public abstract class Loader<T extends Feature> {
      * An opportunity for this loader to perform dependency checks of its features.
      */
     protected void checks() {
+        sortFeaturesByPriority();
         var debug = ConfigHelper.isDebugEnabled();
 
         for (T feature : features()) {
@@ -187,10 +189,21 @@ public abstract class Loader<T extends Feature> {
         });
     }
 
+    /**
+     * Adds a conditional runnable block to be called after the setup stage,
+     * when all features have been instantiated and registrations complete.
+     * The conditional queue is executed by the run() method.
+     */
     public void registerConditional(Conditional runner) {
         this.conditionals.add(runner);
     }
 
+    /**
+     * Add a runnable block to be called after feature instantation.
+     * Typically this is used to delay object registration until all
+     * features and their setup classes have had their constructors run.
+     * The deferred queue is executed by the deferred() method.
+     */
     public void registerDeferred(Runnable deferred) {
         if (deferredCompleted) {
             log.die("Cannot add a deferred runnable at this stage!");
@@ -221,23 +234,36 @@ public abstract class Loader<T extends Feature> {
             m -> m.name().equals(upper) && m.isEnabled());
     }
 
+    /**
+     * Returns true if a feature exists in this loader by its name.
+     * The given name is converted to PascalCase.
+     */
     public boolean has(String name) {
         var upper = TextHelper.snakeToPascal(name);
         return features().stream().anyMatch(
             m -> m.name().equals(upper));
     }
 
+    /**
+     * Gets a feature by its classname from this loader.
+     */
     public Optional<T> get(Class<? extends T> clazz) {
         return features.stream()
             .filter(m -> m.getClass().equals(clazz))
             .findFirst();
     }
 
+    /**
+     * Gets the metadata from this loader for a given feature.
+     */
     public Optional<Metadata<Feature>> metadata(Feature feature) {
         var md = metadata.get(feature.getClass());
         return md != null ? Optional.of(md) : Optional.empty();
     }
 
+    /**
+     * Get all features registered by this loader.
+     */
     public List<T> features() {
         return features;
     }

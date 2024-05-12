@@ -16,7 +16,7 @@ import java.util.function.BooleanSupplier;
 @Feature(description = """
     Allows the default enchantment glint color to be customized.
     An item with its own custom enchantment glint color will not be overridden by this feature.""")
-public class ColoredGlintsClient extends ClientFeature {
+public final class ColoredGlintsClient extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final ColoredGlints common;

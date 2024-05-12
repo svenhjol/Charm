@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature(description = "Adds hover tooltips for some items that have content.")
-public class ExtraTooltips extends ClientFeature {
+public final class ExtraTooltips extends ClientFeature {
     public final Handlers handlers;
     public final Registers registers;
 

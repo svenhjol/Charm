@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 @Feature(description = "Extract enchantments from any enchanted item onto an empty book using the grindstone.")
-public class ExtractableEnchantments extends CommonFeature {
+public final class ExtractableEnchantments extends CommonFeature {
     public final Advancements advancements;
     public final Handlers handlers;
     public final Registers registers;

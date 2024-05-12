@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Barrels, bookcases, chests and ladders in all vanilla wood types.")
-public class VanillaWoodVariants extends CommonFeature {
+public final class VanillaWoodVariants extends CommonFeature {
     public final Registers registers;
 
     public VanillaWoodVariants(CommonLoader loader) {

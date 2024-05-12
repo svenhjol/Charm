@@ -4,7 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.foundation.common.CommonLoader;
 
-public class CommonInitializer implements ModInitializer {
+public final class CommonInitializer implements ModInitializer {
     private static boolean initialized = false;
 
     @Override
@@ -16,7 +16,7 @@ public class CommonInitializer implements ModInitializer {
         if (initialized) return;
 
         var loader = CommonLoader.create(Charm.ID);
-        loader.features(Charm.features());
+        loader.setup(Charm.features());
         loader.run();
 
         initialized = true;

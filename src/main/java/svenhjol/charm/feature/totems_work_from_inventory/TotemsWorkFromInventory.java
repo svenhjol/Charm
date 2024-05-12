@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 @Feature(description = """
     A totem will work from anywhere in the player's inventory as well as held in the main or offhand.
     This includes the Totem of Preserving, if enabled.""")
-public class TotemsWorkFromInventory extends CommonFeature {
+public final class TotemsWorkFromInventory extends CommonFeature {
     public final Providers providers;
     public final Handlers handlers;
     public final Advancements advancements;

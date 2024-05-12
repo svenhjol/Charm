@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Scroll the mouse while hovering over a bundle or shulker box to cycle the order of its contents.")
-public class HoverSorting extends CommonFeature {
+public final class HoverSorting extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Advancements advancements;

@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature
-public class VariantPistons extends CommonFeature {
+public final class VariantPistons extends CommonFeature {
     public final Handlers handlers;
 
     public VariantPistons(CommonLoader loader) {

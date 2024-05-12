@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Disables some nag messages/notifications.")
-public class SilenceMessages extends CommonFeature {
+public final class SilenceMessages extends CommonFeature {
     public SilenceMessages(CommonLoader loader) {
         super(loader);
     }

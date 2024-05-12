@@ -11,7 +11,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
  * Inspired by Quark's SitInStairs module.
  */
 @Feature(description = "Right-click (with empty hand) on any stairs block to sit down.")
-public class Chairs extends CommonFeature {
+public final class Chairs extends CommonFeature {
     public final Advancements advancements;
     public final Registers registers;
     public final Handlers handlers;

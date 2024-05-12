@@ -11,7 +11,7 @@ import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
-public class Handlers extends FeatureHolder<AzaleaWood> {
+public final class Handlers extends FeatureHolder<AzaleaWood> {
     public Handlers(AzaleaWood feature) {
         super(feature);
     }

@@ -6,12 +6,12 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charm.foundation.feature.AdvancementHolder;
 
-public class Advancements extends AdvancementHolder<TotemsWorkFromInventory> {
+public final class Advancements extends AdvancementHolder<TotemsWorkFromInventory> {
     public Advancements(TotemsWorkFromInventory feature) {
         super(feature);
     }
 
-    public void usedTotemOfUndyingFromInventory(Player player) {
+    public void usedTotemFromInventory(Player player) {
         var mainHand = player.getItemInHand(InteractionHand.MAIN_HAND);
         var offHand = player.getItemInHand(InteractionHand.OFF_HAND);
 

@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.helper.ConfigHelper;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class MixinConfigPlugin extends svenhjol.charm.foundation.MixinConfigPlugin {
+public final class MixinConfigPlugin extends svenhjol.charm.foundation.MixinConfigPlugin {
     @Override
     protected String id() {
         return Charm.ID;

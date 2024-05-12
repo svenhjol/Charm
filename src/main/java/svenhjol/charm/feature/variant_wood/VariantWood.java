@@ -11,7 +11,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(priority = 1, description = "Variant wood features such as barrels, chests and ladders.")
-public class VariantWood extends CommonFeature {
+public final class VariantWood extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Providers providers;

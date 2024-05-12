@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class ChairsClient extends ClientFeature {
+public final class ChairsClient extends ClientFeature {
     public final Registers registers;
     public final Chairs common;
 

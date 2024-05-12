@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class Block extends AbstractFurnaceBlock implements FeatureResolver<Kilns> {
-    static final MapCodec<Block> CODEC = simpleCodec(Block::new);
+    private static final MapCodec<Block> CODEC = simpleCodec(Block::new);
 
     public Block() {
         this(Properties.of()

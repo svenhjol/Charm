@@ -31,6 +31,6 @@ public class BlockEntity extends AbstractFurnaceBlockEntity {
 
     @Override
     protected AbstractContainerMenu createMenu(int syncId, Inventory playerInventory) {
-        return new KilnMenu(syncId, playerInventory, this, dataAccess);
+        return new Menu(syncId, playerInventory, this, dataAccess);
     }
 }

@@ -24,7 +24,7 @@ public final class Handlers extends FeatureHolder<TotemsWorkFromInventory> {
             }
 
             if (found != null) {
-                feature().advancements.usedTotemOfUndyingFromInventory(player);
+                feature().advancements.usedTotemFromInventory(player);
                 return found;
             }
         }

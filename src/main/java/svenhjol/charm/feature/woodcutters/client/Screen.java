@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import svenhjol.charm.feature.woodcutters.common.Menu;
-import svenhjol.charm.feature.woodcutting.common.WoodcuttingRecipe;
+import svenhjol.charm.feature.woodcutting.common.Recipe;
 
 import java.util.List;
 
@@ -64,7 +64,7 @@ public class Screen extends AbstractContainerScreen<Menu> {
          int i = this.leftPos + 52;
          int j = this.topPos + 14;
          int k = this.startIndex + 12;
-         List<RecipeHolder<WoodcuttingRecipe>> list = (this.menu).getRecipes();
+         List<RecipeHolder<Recipe>> list = (this.menu).getRecipes();
 
          for (int l = this.startIndex; l < k && l < (this.menu).getNumRecipes(); ++l) {
             int m = l - this.startIndex;

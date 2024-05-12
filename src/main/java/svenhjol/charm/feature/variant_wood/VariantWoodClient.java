@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class VariantWoodClient extends ClientFeature {
+public final class VariantWoodClient extends ClientFeature {
     public final VariantWood common;
     public final Registers registers;
     public final Handlers handlers;

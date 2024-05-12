@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Add amethyst shards to item frames to make them invisible.")
-public class ClearItemFrames extends CommonFeature {
+public final class ClearItemFrames extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Networking networking;

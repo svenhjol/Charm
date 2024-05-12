@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 
 @Feature(priority = 100)
-public class Core extends CommonFeature {
+public final class Core extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Advancements advancements;

@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class InventoryTidyingClient extends ClientFeature {
+public final class InventoryTidyingClient extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Providers providers;

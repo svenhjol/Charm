@@ -16,7 +16,7 @@ import svenhjol.charm.foundation.recipe.common.Handlers;
 
 import java.util.Map;
 
-public class RecipeManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
+public final class RecipeManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
     public static final Log LOGGER = new Log(Charm.ID, "Recipes");
     private static final String ID = "charm_recipe_manager";
     private static final Gson GSON = (new GsonBuilder())

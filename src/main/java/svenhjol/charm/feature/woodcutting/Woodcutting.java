@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(priority = 5, description = "Registers the woodcutting recipe.")
-public class Woodcutting extends CommonFeature {
+public final class Woodcutting extends CommonFeature {
     public final Registers registers;
 
     public Woodcutting(CommonLoader loader) {

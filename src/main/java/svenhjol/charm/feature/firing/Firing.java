@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(priority = 5, description = "Registers the firing recipe.")
-public class Firing extends CommonFeature {
+public final class Firing extends CommonFeature {
     public final Registers registers;
 
     public Firing(CommonLoader loader) {

@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Tools with the Collection enchantment automatically pick up drops.")
-public class Collection extends CommonFeature {
+public final class Collection extends CommonFeature {
     public final Advancements advancements;
     public final Handlers handlers;
     public final Registers registers;

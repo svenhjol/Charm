@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature(description = "Mobs may spawn with different textures.")
-public class VariantMobTextures extends ClientFeature {
+public final class VariantMobTextures extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;
 

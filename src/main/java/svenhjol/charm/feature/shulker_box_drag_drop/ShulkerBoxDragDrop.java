@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Drag and drop items into a shulkerbox from within your inventory.")
-public class ShulkerBoxDragDrop extends CommonFeature {
+public final class ShulkerBoxDragDrop extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Advancements advancements;

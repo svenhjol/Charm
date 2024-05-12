@@ -37,7 +37,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.List;
 
-public class Charm {
+public final class Charm {
     public static final String ID = "charm";
 
     public static ResourceLocation id(String path) {

@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import svenhjol.charm.Charm;
 
 @SuppressWarnings("unused")
-public class Tags {
+public final class Tags {
     public static final TagKey<Block> BARRELS = TagKey.create(Registries.BLOCK,
         Charm.id("barrels"));
 

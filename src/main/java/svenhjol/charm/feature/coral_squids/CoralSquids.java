@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Coral Squids spawn near coral in warm oceans.")
-public class CoralSquids extends CommonFeature {
+public final class CoralSquids extends CommonFeature {
     public final Registers registers;
     public final Providers providers;
 

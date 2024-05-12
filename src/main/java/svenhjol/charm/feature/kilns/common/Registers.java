@@ -16,7 +16,7 @@ public final class Registers extends RegisterHolder<Kilns> {
     public static final String BLOCK_ID = "kiln";
     public final Supplier<Block> block;
     public final Supplier<BlockItem> blockItem;
-    public final Supplier<MenuType<KilnMenu>> menu;
+    public final Supplier<MenuType<Menu>> menu;
     public final Supplier<BlockEntityType<BlockEntity>> blockEntity;
     public final Supplier<RecipeBookType> recipeBookType;
     public final Supplier<SoundEvent> bakeSound;
@@ -33,7 +33,7 @@ public final class Registers extends RegisterHolder<Kilns> {
         blockEntity = registry.blockEntity(BLOCK_ID, () -> BlockEntity::new, List.of(block));
 
         recipeBookType = registry.recipeBookType(BLOCK_ID);
-        menu = registry.menuType(BLOCK_ID, () -> new MenuType<>(KilnMenu::new, FeatureFlags.VANILLA_SET));
+        menu = registry.menuType(BLOCK_ID, () -> new MenuType<>(Menu::new, FeatureFlags.VANILLA_SET));
 
         bakeSound = registry.soundEvent("kiln_bake");
     }

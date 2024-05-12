@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Smooth glowstone.")
-public class SmoothGlowstone extends CommonFeature {
+public final class SmoothGlowstone extends CommonFeature {
     public final Registers registers;
     public final Providers providers;
 

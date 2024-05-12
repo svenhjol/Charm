@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature
-public class TotemOfPreservingClient extends ClientFeature {
+public final class TotemOfPreservingClient extends ClientFeature {
     public final Registers registers;
     public final TotemOfPreserving common;
 
