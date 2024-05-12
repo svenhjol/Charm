@@ -10,6 +10,7 @@ import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
+import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
 import svenhjol.charm.feature.silence_messages.SilenceMessages;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
@@ -56,7 +57,7 @@ public class Charm {
 //            Kilns.class,
 //            PotionOfRadiance.class,
 //            Recipes.class,
-//            ShulkerBoxDragDrop.class,
+            ShulkerBoxDragDrop.class,
             SilenceMessages.class,
             SmoothGlowstone.class,
             TotemOfPreserving.class,
