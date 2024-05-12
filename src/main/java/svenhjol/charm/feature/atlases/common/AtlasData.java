@@ -15,10 +15,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public final class AtlasData {
-    private static final Supplier<Atlases> ATLASES = Resolve.defer(Atlases.class);
+    private static final Atlases ATLASES = Resolve.feature(Atlases.class);
 
     public static final Codec<AtlasData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("empty_maps")
@@ -73,11 +72,11 @@ public final class AtlasData {
     }
 
     public static boolean has(ItemStack stack) {
-        return stack.has(ATLASES.get().registers.atlasData.get());
+        return stack.has(ATLASES.registers.atlasData.get());
     }
 
     public static AtlasData get(ItemStack stack) {
-        return stack.get(ATLASES.get().registers.atlasData.get());
+        return stack.get(ATLASES.registers.atlasData.get());
     }
 
     public static Mutable getMutable(ItemStack stack) {
@@ -86,7 +85,7 @@ public final class AtlasData {
 
     public static ItemStack set(ItemStack stack, Mutable data) {
         var immutable = data.toImmutable();
-        stack.set(ATLASES.get().registers.atlasData.get(), immutable);
+        stack.set(ATLASES.registers.atlasData.get(), immutable);
         return stack;
     }
 

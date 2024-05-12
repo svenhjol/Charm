@@ -13,7 +13,6 @@ import svenhjol.charm.foundation.server.ServerLoader;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * Resolving loaders and features.
@@ -88,10 +87,6 @@ public final class Resolve {
     public static <F extends Feature> F feature(Class<F> clazz) {
         return tryGetFeature(clazz).orElseThrow(
             () -> new RuntimeException("Could not resolve feature for " + clazz));
-    }
-
-    public static <F extends Feature> Supplier<F> defer(Class<F> clazz) {
-        return () -> Resolve.feature(clazz);
     }
 
     public static <F extends Feature> F register(F feature) {

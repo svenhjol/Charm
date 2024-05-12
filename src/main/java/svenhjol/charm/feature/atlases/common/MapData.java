@@ -13,11 +13,9 @@ import net.minecraft.world.level.saveddata.maps.MapId;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.foundation.Resolve;
 
-import java.util.function.Supplier;
-
 @SuppressWarnings("unused")
 public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Level> dimension) {
-    private static final Supplier<Atlases> ATLASES = Resolve.defer(Atlases.class);
+    private static final Atlases ATLASES = Resolve.feature(Atlases.class);
 
     public static final Codec<MapData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.fieldOf("map")
@@ -57,11 +55,11 @@ public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Leve
     }
 
     public static boolean has(ItemStack stack) {
-        return stack.has(ATLASES.get().registers.mapData.get());
+        return stack.has(ATLASES.registers.mapData.get());
     }
 
     public static MapData get(ItemStack stack) {
-        return stack.get(ATLASES.get().registers.mapData.get());
+        return stack.get(ATLASES.registers.mapData.get());
     }
 
     public static Mutable getMutable(ItemStack stack) {
@@ -70,7 +68,7 @@ public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Leve
 
     public static ItemStack set(ItemStack stack, Mutable data) {
         var immutable = data.toImmutable();
-        stack.set(ATLASES.get().registers.mapData.get(), immutable);
+        stack.set(ATLASES.registers.mapData.get(), immutable);
         return stack;
     }
 
