@@ -63,6 +63,7 @@
     "feature.colored_glints.RenderBuffersMixin",
     "feature.colored_glints.RenderTypeMixin",
     "feature.copper_pistons.PistonHeadRendererMixin",
+    "feature.extractable_enchantments.GrindstoneScreenMixin",
     "feature.silence_messages.DisableToastMixin",
     "feature.silence_messages.RealmsAvailabilityMixin",
     "feature.variant_pistons.PistonHeadRendererMixin",

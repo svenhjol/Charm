@@ -15,7 +15,8 @@ public class MixinConfigPlugin extends svenhjol.charm.foundation.MixinConfigPlug
     @Override
     protected List<Predicate<String>> runtimeBlacklist() {
         return List.of(
-            feature -> feature.equals("ColoredGlints") && ConfigHelper.isModLoaded("optifabric")
+            feature -> feature.equals("ColoredGlints") && ConfigHelper.isModLoaded("optifabric"),
+            feature -> feature.equals("ExtractableEnchantments") && ConfigHelper.isModLoaded("grindenchantments")
         );
     }
 }

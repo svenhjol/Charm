@@ -16,6 +16,7 @@ import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.echolocation.Echolocation;
+import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
@@ -60,7 +61,7 @@ public class Charm {
             CustomWood.class,
             DeepslateDungeons.class,
             Echolocation.class,
-//            ExtractableEnchantments.class,
+            ExtractableEnchantments.class,
             Firing.class,
             HoverSorting.class,
             InventoryTidying.class,

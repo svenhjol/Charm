@@ -11,6 +11,7 @@ import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.extra_tooltips.ExtraTooltips;
+import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantmentsClient;
 import svenhjol.charm.feature.hover_sorting.HoverSortingClient;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
 import svenhjol.charm.feature.kilns.KilnsClient;
@@ -36,7 +37,7 @@ public class CharmClient {
             CopperPistonsClient.class,
             CoralSquidsClient.class,
             CustomWoodClient.class,
-//            ExtractableEnchantmentsClient.class,
+            ExtractableEnchantmentsClient.class,
             ExtraTooltips.class,
             HoverSortingClient.class,
             InventoryTidyingClient.class,
