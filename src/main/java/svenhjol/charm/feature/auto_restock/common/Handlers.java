@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.EnchantmentHelper;
+import svenhjol.charm.foundation.helper.EnchantmentsHelper;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -55,7 +55,7 @@ public final class Handlers extends FeatureHolder<AutoRestock> {
         for (int i = 9; i < Math.min(36, inventory.getContainerSize()); i++) {
             var possibleReplacement = inventory.getItem(i);
             if (stackData.item == possibleReplacement.getItem()
-                && EnchantmentHelper.containsSameEnchantments(possibleReplacement, stackData.enchantments)) {
+                && EnchantmentsHelper.containsSameEnchantments(possibleReplacement, stackData.enchantments)) {
                 player.setItemInHand(hand, possibleReplacement.copy());
                 inventory.removeItem(i, inventory.getMaxStackSize());
                 feature().advancements.restockedCurrentItem(player);
