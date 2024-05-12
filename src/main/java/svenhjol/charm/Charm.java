@@ -53,7 +53,6 @@ public class Charm {
             Core.class,
             CustomWood.class,
 //            DeepslateDungeons.class,
-//            Diagnostics.class,
             Echolocation.class,
 //            ExtractableEnchantments.class,
             Firing.class,

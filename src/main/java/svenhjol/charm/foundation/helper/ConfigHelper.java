@@ -35,7 +35,7 @@ public final class ConfigHelper {
 
         if (!hasCheckedDebugConfig) {
             var toml = read(filename(Charm.ID, Side.COMMON));
-            var key = "Diagnostics.\"" + DEBUG_MODE + "\"";
+            var key = "Core.\"" + DEBUG_MODE + "\"";
             if (toml.contains(key)) {
                 cachedDebugValue = toml.getBoolean(key);
             }
@@ -52,7 +52,7 @@ public final class ConfigHelper {
     public static boolean isCompatEnabled() {
         if (!hasCheckedCompatConfig) {
             var toml = read(filename(Charm.ID, Side.COMMON));
-            var key = "Diagnostics.\"" + COMPAT_MODE + "\"";
+            var key = "Core.\"" + COMPAT_MODE + "\"";
             if (toml.contains(key)) {
                 cachedCompatValue = toml.getBoolean(key);
             }
