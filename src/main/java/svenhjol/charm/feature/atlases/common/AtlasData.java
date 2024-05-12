@@ -148,7 +148,7 @@ public final class AtlasData {
 
         public Mutable setEmptyMaps(List<ItemStack> emptyMaps) {
             if (emptyMaps.isEmpty() || emptyMaps.size() > Atlases.EMPTY_MAP_SLOTS) {
-                throw new RuntimeException("Invalid emptyMaps size");
+                ATLASES.log().die("Invalid emptyMaps size");
             }
             this.emptyMaps = emptyMaps;
             return this;

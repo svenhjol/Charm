@@ -46,19 +46,19 @@ public class Log {
         }
     }
 
-    public void die(Throwable e) {
+    public void die(Throwable e) throws RuntimeException {
         var cause = e.getCause();
         var message = (cause != null ? cause.getMessage() : e.getMessage());
         die(message, e);
     }
 
-    public void die(String message, Throwable e) {
+    public void die(String message, Throwable e) throws RuntimeException {
         var stacktrace = ExceptionUtils.getStackTrace(e);
         error(stacktrace);
         die(message);
     }
 
-    public void die(String message) {
+    public void die(String message) throws RuntimeException {
         error(message);
         throw new RuntimeException(message);
     }

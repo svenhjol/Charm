@@ -100,7 +100,7 @@ public final class Resolve {
         } else if (supertype.equals(ServerFeature.class)) {
             SERVER_FEATURES.put(clazz, (ServerFeature) feature);
         } else {
-            throw new RuntimeException("Could not determine supertype for " + clazz);
+            LOGGER.die("Could not determine supertype for " + clazz);
         }
 
         return feature;
@@ -117,7 +117,7 @@ public final class Resolve {
         } else if (clazz.equals(ServerLoader.class)) {
             SERVER_LOADERS.put(id, (ServerLoader) loader);
         } else {
-            throw new RuntimeException("Could not determine class for " + clazz);
+            LOGGER.die("Could not determine class for " + clazz);
         }
 
         return loader;
@@ -125,7 +125,7 @@ public final class Resolve {
 
     private static <F extends Feature> Optional<F> tryGetFeature(Class<F> clazz) {
         var supertype = clazz.getSuperclass();
-        F resolved;
+        F resolved = null;
 
         if (supertype.equals(CommonFeature.class)) {
             if (!COMMON_FEATURES.containsKey(clazz)) {
@@ -143,9 +143,9 @@ public final class Resolve {
             }
             resolved = (F) SERVER_FEATURES.get(clazz);
         } else {
-            throw new RuntimeException("Could not determine supertype for " + clazz);
+            LOGGER.die("Could not determine supertype for " + clazz);
         }
 
-        return Optional.of(resolved);
+        return Optional.ofNullable(resolved);
     }
 }
