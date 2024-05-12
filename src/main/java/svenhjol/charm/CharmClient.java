@@ -34,7 +34,6 @@ public class CharmClient {
             HoverSortingClient.class,
             InventoryTidyingClient.class,
 //            KilnsClient.class,
-//            RecipesClient.class,
             SmoothGlowstoneClient.class,
             TotemOfPreservingClient.class,
             VariantMobTextures.class,
