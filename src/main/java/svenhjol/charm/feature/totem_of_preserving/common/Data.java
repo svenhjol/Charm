@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public record Data(List<ItemStack> items, String message) {
-    private static final Supplier<TotemOfPreserving> FEATURE = Resolve.defer(TotemOfPreserving.class);
+    private static final Supplier<TotemOfPreserving> TOTEM_OF_PRESERVING = Resolve.defer(TotemOfPreserving.class);
 
     public static final Codec<Data> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("items")
@@ -37,7 +37,7 @@ public record Data(List<ItemStack> items, String message) {
     }
 
     public static Data get(ItemStack stack) {
-        return stack.getOrDefault(FEATURE.get().registers.data.get(), EMPTY);
+        return stack.getOrDefault(TOTEM_OF_PRESERVING.get().registers.data.get(), EMPTY);
     }
 
     public static Mutable mutable(ItemStack stack) {
@@ -45,7 +45,7 @@ public record Data(List<ItemStack> items, String message) {
     }
 
     public static void set(ItemStack stack, Mutable mutable) {
-        stack.set(FEATURE.get().registers.data.get(), mutable.toImmutable());
+        stack.set(TOTEM_OF_PRESERVING.get().registers.data.get(), mutable.toImmutable());
     }
 
     public static class Mutable {

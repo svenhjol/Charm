@@ -37,7 +37,7 @@ import java.util.stream.Stream;
 
 @SuppressWarnings("unused")
 public class AtlasInventory implements MenuProvider, Container {
-    private static final Atlases FEATURE = Resolve.feature(Atlases.class);
+    private static final Atlases ATLASES = Resolve.feature(Atlases.class);
     private static final Map<UUID, AtlasInventory> SERVER_CACHE = new HashMap<>();
     private static final Map<UUID, AtlasInventory> CLIENT_CACHE = new HashMap<>();
     private final Table<ResourceKey<Level>, Index, MapInfo> mapInfos;
@@ -61,7 +61,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public static AtlasInventory find(Inventory inventory) {
         for (var hand : InteractionHand.values()) {
             var held = inventory.player.getItemInHand(hand);
-            if (held.getItem() == FEATURE.registers.item.get()) {
+            if (held.getItem() == ATLASES.registers.item.get()) {
                 return get(inventory.player.level(), held);
             }
         }
@@ -165,7 +165,7 @@ public class AtlasInventory implements MenuProvider, Container {
         }
 
         if (activeMap != null) {
-            FEATURE.networking.sendMapToClient(player, activeMap.map, false);
+            ATLASES.networking.sendMapToClient(player, activeMap.map, false);
         }
 
         return madeNewMap;
@@ -298,7 +298,7 @@ public class AtlasInventory implements MenuProvider, Container {
         var data = AtlasData.get(atlas);
         for (InteractionHand hand : InteractionHand.values()) {
             ItemStack heldItem = player.getItemInHand(hand);
-            if (heldItem.getItem() == FEATURE.registers.item.get()) {
+            if (heldItem.getItem() == ATLASES.registers.item.get()) {
                 return Objects.equals(data.getId(), AtlasData.get(heldItem).getId());
             }
         }
@@ -316,7 +316,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void startOpen(Player player) {
         isOpen = true;
         if (!player.level().isClientSide) {
-            player.playNotifySound(FEATURE.registers.openSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(ATLASES.registers.openSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
         }
     }
 
@@ -324,7 +324,7 @@ public class AtlasInventory implements MenuProvider, Container {
     public void stopOpen(Player player) {
         isOpen = false;
         if (!player.level().isClientSide) {
-            player.playNotifySound(FEATURE.registers.closeSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
+            player.playNotifySound(ATLASES.registers.closeSound.get(), SoundSource.BLOCKS, 0.4f, player.level().random.nextFloat() * 0.1F + 0.9F);
         }
     }
 

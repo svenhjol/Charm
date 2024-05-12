@@ -13,7 +13,7 @@ import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
 import svenhjol.charm.foundation.Resolve;
 
 public class Renderer {
-    private static final VariantMobTextures FEATURE = Resolve.feature(VariantMobTextures.class);
+    private static final VariantMobTextures VARIANT_MOB_TEXTURES = Resolve.feature(VariantMobTextures.class);
 
     @SuppressWarnings("unchecked")
     private static <T extends LivingEntity, M extends EntityModel<T>> void fillLayersFromOld(EntityRendererProvider.Context context, LivingEntityRenderer<T, M> renderer, EntityType<T> type) {
@@ -38,7 +38,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(Chicken entity) {
-            return FEATURE.handlers.chickenTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.chickenTexture(entity);
         }
     }
 
@@ -50,7 +50,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(Cow entity) {
-            return FEATURE.handlers.cowTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.cowTexture(entity);
         }
     }
 
@@ -62,7 +62,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(Dolphin entity) {
-            return FEATURE.handlers.dolphinTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.dolphinTexture(entity);
         }
     }
 
@@ -74,7 +74,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(Pig entity) {
-            return FEATURE.handlers.pigTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.pigTexture(entity);
         }
     }
 
@@ -86,7 +86,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(Sheep entity) {
-            return FEATURE.handlers.sheepTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.sheepTexture(entity);
         }
     }
 
@@ -98,7 +98,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(SnowGolem entity) {
-            return FEATURE.handlers.snowGolemTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.snowGolemTexture(entity);
         }
     }
 
@@ -110,7 +110,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(Squid entity) {
-            return FEATURE.handlers.squidTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.squidTexture(entity);
         }
     }
 
@@ -122,7 +122,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(Turtle entity) {
-            return FEATURE.handlers.turtleTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.turtleTexture(entity);
         }
     }
 
@@ -134,7 +134,7 @@ public class Renderer {
 
         @Override
         public ResourceLocation getTextureLocation(WanderingTrader entity) {
-            return FEATURE.handlers.wanderingTraderTexture(entity);
+            return VARIANT_MOB_TEXTURES.handlers.wanderingTraderTexture(entity);
         }
     }
 }

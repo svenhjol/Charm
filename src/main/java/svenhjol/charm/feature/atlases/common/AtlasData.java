@@ -18,7 +18,7 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 public final class AtlasData {
-    public static final Supplier<Atlases> FEATURE = Resolve.defer(Atlases.class);
+    private static final Supplier<Atlases> ATLASES = Resolve.defer(Atlases.class);
 
     public static final Codec<AtlasData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("empty_maps")
@@ -73,11 +73,11 @@ public final class AtlasData {
     }
 
     public static boolean has(ItemStack stack) {
-        return stack.has(FEATURE.get().registers.atlasData.get());
+        return stack.has(ATLASES.get().registers.atlasData.get());
     }
 
     public static AtlasData get(ItemStack stack) {
-        return stack.get(FEATURE.get().registers.atlasData.get());
+        return stack.get(ATLASES.get().registers.atlasData.get());
     }
 
     public static Mutable getMutable(ItemStack stack) {
@@ -86,7 +86,7 @@ public final class AtlasData {
 
     public static ItemStack set(ItemStack stack, Mutable data) {
         var immutable = data.toImmutable();
-        stack.set(FEATURE.get().registers.atlasData.get(), immutable);
+        stack.set(ATLASES.get().registers.atlasData.get(), immutable);
         return stack;
     }
 

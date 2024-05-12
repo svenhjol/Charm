@@ -14,11 +14,11 @@ import svenhjol.charm.foundation.Resolve;
 import java.util.function.Supplier;
 
 public class ChestBlock extends net.minecraft.world.level.block.ChestBlock implements ChestMaterial {
-    private static final VariantWood FEATURE = Resolve.feature(VariantWood.class);
+    private static final VariantWood VARIANT_WOOD = Resolve.feature(VariantWood.class);
     private final IVariantMaterial material;
 
     public ChestBlock(IVariantMaterial material) {
-        super(Properties.ofFullCopy(Blocks.CHEST), FEATURE.registers.chestBlockEntity::get);
+        super(Properties.ofFullCopy(Blocks.CHEST), VARIANT_WOOD.registers.chestBlockEntity::get);
         this.material = material;
     }
 

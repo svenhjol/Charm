@@ -12,7 +12,7 @@ import svenhjol.charm.foundation.menu.CharmContainerMenu;
 import java.util.Objects;
 
 public class Menu extends CharmContainerMenu {
-    private static final Atlases FEATURE = Resolve.feature(Atlases.class);
+    private static final Atlases ATLASES = Resolve.feature(Atlases.class);
     private final AtlasInventory inventory;
 
     public Menu(int syncId, Inventory playerInventory) {
@@ -20,7 +20,7 @@ public class Menu extends CharmContainerMenu {
     }
 
     public Menu(int syncId, Inventory playerInventory, AtlasInventory atlasInventory) {
-        super(FEATURE.registers.menuType.get(), syncId, playerInventory, atlasInventory);
+        super(ATLASES.registers.menuType.get(), syncId, playerInventory, atlasInventory);
         this.inventory = atlasInventory;
 
         // Container's inventory slots.
@@ -42,7 +42,7 @@ public class Menu extends CharmContainerMenu {
                 public boolean mayPickup(Player playerIn) {
                     var itemData = AtlasData.get(getItem());
                     var containerData = AtlasData.get(Menu.this.inventory.getAtlasItem());
-                    return getItem().getItem() != FEATURE.registers.item.get()
+                    return getItem().getItem() != ATLASES.registers.item.get()
                         || !Objects.equals(itemData.getId(), containerData.getId());
                 }
             });

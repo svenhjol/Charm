@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class BlockEntity extends net.minecraft.world.level.block.entity.BlockEntity {
-    private static final TotemOfPreserving FEATURE = Resolve.feature(TotemOfPreserving.class);
+    private static final TotemOfPreserving TOTEM_OF_PRESERVING = Resolve.feature(TotemOfPreserving.class);
     private static final String OWNER_TAG = "owner";
     private static final String MESSAGE_TAG = "message";
     private static final String DAMAGE_TAG = "damage";
@@ -28,7 +28,7 @@ public class BlockEntity extends net.minecraft.world.level.block.entity.BlockEnt
     private int damage = 0;
 
     public BlockEntity(BlockPos pos, BlockState state) {
-        super(FEATURE.registers.blockEntity.get(), pos, state);
+        super(TOTEM_OF_PRESERVING.registers.blockEntity.get(), pos, state);
     }
 
     public float getRotateTicks() {

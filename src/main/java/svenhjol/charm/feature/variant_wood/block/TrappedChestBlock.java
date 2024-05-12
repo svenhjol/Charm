@@ -21,11 +21,11 @@ import svenhjol.charm.foundation.Resolve;
 import java.util.function.Supplier;
 
 public class TrappedChestBlock extends ChestBlock implements ChestMaterial {
-    private static final VariantWood FEATURE = Resolve.feature(VariantWood.class);
+    private static final VariantWood VARIANT_WOOD = Resolve.feature(VariantWood.class);
     private final IVariantMaterial material;
 
     public TrappedChestBlock(IVariantMaterial material) {
-        super(Properties.ofFullCopy(Blocks.TRAPPED_CHEST), FEATURE.registers.trappedChestBlockEntity::get);
+        super(Properties.ofFullCopy(Blocks.TRAPPED_CHEST), VARIANT_WOOD.registers.trappedChestBlockEntity::get);
         this.material = material;
     }
 

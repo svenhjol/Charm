@@ -9,9 +9,9 @@ import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.foundation.Resolve;
 
 public class TrappedChestBlockEntity extends ChestBlockEntity {
-    private static final VariantWood FEATURE = Resolve.feature(VariantWood.class);
+    private static final VariantWood VARIANT_WOOD = Resolve.feature(VariantWood.class);
     public TrappedChestBlockEntity(BlockPos pos, BlockState state) {
-        this(FEATURE.registers.trappedChestBlockEntity.get(), pos, state);
+        this(VARIANT_WOOD.registers.trappedChestBlockEntity.get(), pos, state);
     }
 
     public TrappedChestBlockEntity(BlockEntityType<?> blockEntity, BlockPos pos, BlockState state) {
