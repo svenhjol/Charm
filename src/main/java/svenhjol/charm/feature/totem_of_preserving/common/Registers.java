@@ -7,7 +7,6 @@ import svenhjol.charm.api.event.AnvilUpdateEvent;
 import svenhjol.charm.api.event.PlayerInventoryDropEvent;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -37,8 +36,6 @@ public final class Registers extends RegisterHolder<TotemOfPreserving> {
 
         releaseSound = registry.soundEvent("totem_release_items");
         storeSound = registry.soundEvent("totem_store_items");
-
-        ApiHelper.registerProvider(new Providers(feature));
     }
 
     @Override
