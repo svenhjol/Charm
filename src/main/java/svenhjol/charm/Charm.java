@@ -5,9 +5,11 @@ import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
+import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
@@ -40,7 +42,7 @@ public class Charm {
             Atlases.class,
             AutoRestock.class,
             AzaleaWood.class,
-//            BatBuckets.class,
+            BatBuckets.class,
 //            Chairs.class,
 //            ClearItemFrames.class,
 //            Collection.class,
@@ -52,7 +54,7 @@ public class Charm {
             CustomWood.class,
 //            DeepslateDungeons.class,
 //            Diagnostics.class,
-//            Echolocation.class,
+            Echolocation.class,
 //            ExtractableEnchantments.class,
             Firing.class,
             HoverSorting.class,
