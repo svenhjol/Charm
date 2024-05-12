@@ -26,6 +26,8 @@
     "feature.auto_restock.AnimalMixin",
     "feature.auto_restock.ComposterBlockMixin",
     "feature.auto_restock.ParrotMixin",
+    "feature.collection.BlockMixin",
+    "feature.collection.ServerPlayerGameModeMixin",
     "feature.copper_pistons.PistonBaseBlockMixin",
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",
