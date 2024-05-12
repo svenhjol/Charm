@@ -26,6 +26,8 @@
     "feature.auto_restock.AnimalMixin",
     "feature.auto_restock.ComposterBlockMixin",
     "feature.auto_restock.ParrotMixin",
+    "feature.beekeepers.PoiTypesMixin",
+    "feature.beekeepers.VillagerMixin",
     "feature.campfires_boost_health.CampfireBlockEntityMixin",
     "feature.collection.BlockMixin",
     "feature.collection.ServerPlayerGameModeMixin",
