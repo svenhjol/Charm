@@ -12,8 +12,6 @@ import svenhjol.charm.foundation.feature.RegisterHolder;
 import java.util.function.Supplier;
 
 public final class Registers extends RegisterHolder<Woodcutters> {
-    public static final String BLOCK_ID = "woodcutter";
-
     public final Supplier<Block> block;
     public final Supplier<Block.BlockItem> blockItem;
     public final Supplier<MenuType<Menu>> menu;
@@ -28,19 +26,19 @@ public final class Registers extends RegisterHolder<Woodcutters> {
         // Register enum early.
         feature.registry().recipeBookTypeEnum("woodcutter");
 
-        block = registry.block(BLOCK_ID,
+        block = registry.block(Woodcutters.BLOCK_ID,
             () -> new Block(feature));
 
-        blockItem = registry.item(BLOCK_ID,
+        blockItem = registry.item(Woodcutters.BLOCK_ID,
             () -> new Block.BlockItem(block));
 
-        poiType = registry.pointOfInterestType(BLOCK_ID,
+        poiType = registry.pointOfInterestType(Woodcutters.BLOCK_ID,
             () -> new PoiType(ImmutableSet.copyOf(block.get().getStateDefinition().getPossibleStates()),
                 1, 1));
 
-        recipeBookType = registry.recipeBookType(BLOCK_ID);
+        recipeBookType = registry.recipeBookType(Woodcutters.BLOCK_ID);
 
-        menu = registry.menuType(BLOCK_ID,
+        menu = registry.menuType(Woodcutters.BLOCK_ID,
             () -> new MenuType<>(Menu::new, FeatureFlags.VANILLA_SET));
 
         useSound = registry.soundEvent("woodcutter_use");
