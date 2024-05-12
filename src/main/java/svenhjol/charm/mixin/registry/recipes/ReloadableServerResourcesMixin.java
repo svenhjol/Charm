@@ -15,7 +15,6 @@ import svenhjol.charm.foundation.recipe.common.Handlers;
 public class ReloadableServerResourcesMixin {
     /**
      * Capture reference to the recipe manager so that the SortingRecipeManager can process it when resources are reloaded.
-     * TODO: check threads? Don't know if the reload will always be able to access the holder.
      */
     @Inject(
         method = "<init>",
