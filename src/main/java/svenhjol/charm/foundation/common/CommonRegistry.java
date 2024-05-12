@@ -129,17 +129,18 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public <T extends BlockEntity> void blockEntityBlocks(Supplier<BlockEntityType<T>> supplier, List<Supplier<? extends Block>> blocks) {
-        var blockEntityBlocks = supplier.get().validBlocks;
-        List<Block> mutable = new ArrayList<>(blockEntityBlocks);
+        loader.registerDeferred(() -> {
+            var blockEntityBlocks = supplier.get().validBlocks;
+            List<Block> mutable = new ArrayList<>(blockEntityBlocks);
 
-        for (Supplier<? extends Block> blockSupplier : blocks) {
-            var block = blockSupplier.get();
-            if (!mutable.contains(block)) {
-                mutable.add(block);
+            for (Supplier<? extends Block> blockSupplier : blocks) {
+                var block = blockSupplier.get();
+                if (!mutable.contains(block)) {
+                    mutable.add(block);
+                }
             }
-        }
-
-        loader.registerDeferred(() -> supplier.get().validBlocks = new HashSet<>(mutable));
+            supplier.get().validBlocks = new HashSet<>(mutable);
+        });
     }
 
     public Register<BlockSetType> blockSetType(Supplier<IVariantWoodMaterial> material) {
