@@ -29,6 +29,7 @@ import svenhjol.charm.feature.silence_messages.SilenceMessages;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
+import svenhjol.charm.feature.unlimited_repair_cost.UnlimitedRepairCost;
 import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.variant_wood.VariantWood;
@@ -75,6 +76,7 @@ public final class Charm {
             SmoothGlowstone.class,
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
+            UnlimitedRepairCost.class,
             VanillaWoodVariants.class,
             VariantPistons.class,
             VariantWood.class,
