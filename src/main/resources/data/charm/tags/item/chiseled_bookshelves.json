@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "charm:chiseled_acacia_bookshelf",
+    "charm:chiseled_azalea_bookshelf",
+    "charm:chiseled_bamboo_bookshelf",
+    "charm:chiseled_birch_bookshelf",
+    "charm:chiseled_cherry_bookshelf",
+    "charm:chiseled_crimson_bookshelf",
+    "charm:chiseled_dark_oak_bookshelf",
+    "charm:chiseled_jungle_bookshelf",
+    "charm:chiseled_mangrove_bookshelf",
+    "charm:chiseled_oak_bookshelf",
+    "charm:chiseled_spruce_bookshelf",
+    "charm:chiseled_warped_bookshelf"
+  ]
+}
