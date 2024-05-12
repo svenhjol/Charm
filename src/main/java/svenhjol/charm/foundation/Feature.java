@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 
 public abstract class Feature implements Conditional {
-    protected final Loader<? extends Feature> loader;
-    protected Log log;
+    private final Loader<? extends Feature> loader;
+    private final Log log;
     private boolean enabled = true;
     private boolean enabledInConfig = true;
 
@@ -40,7 +40,9 @@ public abstract class Feature implements Conditional {
         return true;
     }
 
-    public abstract Loader<? extends Feature> loader();
+    public Loader<? extends Feature> loader() {
+        return loader;
+    }
 
     public abstract Registry registry();
 

@@ -9,7 +9,7 @@ public class ClientFeature extends Feature {
 
     @Override
     public ClientLoader loader() {
-        return (ClientLoader)loader;
+        return (ClientLoader)super.loader();
     }
 
     @Override

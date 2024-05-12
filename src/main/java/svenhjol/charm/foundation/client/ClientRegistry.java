@@ -80,6 +80,9 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
         return new ResourceLocation(loader.id(), path);
     }
 
+    /**
+     * May be run late. Use this to conditionally add and item to the creative menu if the feature is enabled.
+     */
     public <T extends ItemLike> void itemTab(Supplier<T> item, ResourceKey<CreativeModeTab> key, @Nullable ItemLike showAfter) {
         if (showAfter != null) {
             ItemGroupEvents.modifyEntriesEvent(key)

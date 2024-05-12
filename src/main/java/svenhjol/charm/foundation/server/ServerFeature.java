@@ -10,7 +10,7 @@ public class ServerFeature extends Feature {
 
     @Override
     public ServerLoader loader() {
-        return (ServerLoader)loader;
+        return (ServerLoader)super.loader();
     }
 
     @Override

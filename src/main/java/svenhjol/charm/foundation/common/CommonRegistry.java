@@ -1,6 +1,9 @@
 package svenhjol.charm.foundation.common;
 
+import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
@@ -9,6 +12,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -27,8 +31,11 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.behavior.GiveGiftToHero;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -72,6 +79,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+
+import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public final class CommonRegistry implements svenhjol.charm.foundation.Registry {
@@ -392,6 +401,44 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         });
     }
 
+    public void villagerGift(String id) {
+        loader.registerDeferred(() -> {
+            log("Villager gift " + id);
+            var res = id(id);
+            var lootTableName = res.getNamespace() + ":gameplay/hero_of_the_village/" + res.getPath() + "_gift";
+            var lootTable = lootTable(lootTableName);
+            var profession = BuiltInRegistries.VILLAGER_PROFESSION.getOptional(res).orElseThrow();
+            GiveGiftToHero.GIFTS.put(profession, lootTable);
+        });
+    }
+
+    public <B extends Block> Supplier<VillagerProfession> villagerProfession(String professionId, String poitId, List<Supplier<B>> jobSiteBlocks, Supplier<SoundEvent> workSound) {
+        return new Register<>(() -> {
+            log("Villager profession " + professionId + " with POIT " + poitId);
+            var poitKey = ResourceKey.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE.key(), id(poitId));
+            var registered = VillagerProfession.register(
+                id(professionId).toString(),
+                poitKey,
+                ImmutableSet.of(),
+                jobSiteBlocks.stream().map(Supplier::get).collect(ImmutableSet.toImmutableSet()),
+                workSound.get()
+            );
+            loader.registerDeferred(() -> TRADES.put(registered, new Int2ObjectOpenHashMap<>()));
+            return registered;
+        });
+    }
+
+    /**
+     * May be run late. Use this to conditionally add villager trades if the feature is enabled.
+     */
+    public void villagerTrade(Supplier<VillagerProfession> supplier, int tier, Supplier<ItemListing> trade) {
+        var profession = supplier.get();
+        var trades = getMutableTrades(profession);
+        log("Villager trade for profession " + profession.name());
+        trades.get(tier).add(trade.get());
+        reassembleTrades(profession, trades);
+    }
+
     public <W extends WallHangingSignBlock, S extends CeilingHangingSignBlock> Register<CharmWallHangingSignBlock> wallHangingSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
         return block(id, () -> new CharmWallHangingSignBlock(material, drops.get(), type));
     }
@@ -410,6 +457,29 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         });
     }
 
+    private Int2ObjectMap<List<ItemListing>> getMutableTrades(VillagerProfession profession) {
+        var fixedTrades = TRADES.get(profession);
+        Int2ObjectMap<List<ItemListing>> mutableTrades = new Int2ObjectOpenHashMap<>();
+
+        for (int i = 1; i <= 5; i++) {
+            mutableTrades.put(i, NonNullList.create());
+        }
+
+        fixedTrades.int2ObjectEntrySet().forEach(e
+            -> Arrays.stream(e.getValue())
+            .forEach(a -> mutableTrades.get(e.getIntKey()).add(a)));
+
+        return mutableTrades;
+    }
+
+    private void reassembleTrades(VillagerProfession profession, Int2ObjectMap<List<ItemListing>> trades) {
+        Int2ObjectMap<ItemListing[]> mappedTrades = new Int2ObjectOpenHashMap<>();
+        trades.int2ObjectEntrySet().forEach(e
+            -> mappedTrades.put(e.getIntKey(), e.getValue().toArray(new ItemListing[0])));
+
+        TRADES.put(profession, mappedTrades);
+    }
+
     public class Register<R> implements Supplier<R> {
         private final Supplier<R> supplier;
         private R instance;
@@ -425,5 +495,9 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
             }
             return instance;
         }
+    }
+
+    public static class Late {
+
     }
 }

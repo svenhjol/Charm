@@ -9,7 +9,7 @@ public class CommonFeature extends Feature {
 
     @Override
     public CommonLoader loader() {
-        return (CommonLoader)loader;
+        return (CommonLoader)super.loader();
     }
 
     @Override

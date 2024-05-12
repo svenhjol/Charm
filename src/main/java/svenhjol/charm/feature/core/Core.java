@@ -46,7 +46,7 @@ public final class Core extends CommonFeature {
     @Override
     public void onEnabled() {
         if (compat) {
-            log.warn("""
+            log().warn("""
             
             
             -----------------------------------------------------------------
