@@ -8,8 +8,10 @@ import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
+import svenhjol.charm.feature.kilns.Kilns;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
 import svenhjol.charm.feature.silence_messages.SilenceMessages;
@@ -52,10 +54,10 @@ public class Charm {
 //            Diagnostics.class,
 //            Echolocation.class,
 //            ExtractableEnchantments.class,
-//            Firing.class,
+            Firing.class,
             HoverSorting.class,
             InventoryTidying.class,
-//            Kilns.class,
+            Kilns.class,
             PotionOfRadiance.class,
             ShulkerBoxDragDrop.class,
             SilenceMessages.class,

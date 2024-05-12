@@ -7,6 +7,7 @@ import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.extra_tooltips.ExtraTooltips;
 import svenhjol.charm.feature.hover_sorting.HoverSortingClient;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
+import svenhjol.charm.feature.kilns.KilnsClient;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
@@ -33,7 +34,7 @@ public class CharmClient {
             ExtraTooltips.class,
             HoverSortingClient.class,
             InventoryTidyingClient.class,
-//            KilnsClient.class,
+            KilnsClient.class,
             SmoothGlowstoneClient.class,
             TotemOfPreservingClient.class,
             VariantMobTextures.class,

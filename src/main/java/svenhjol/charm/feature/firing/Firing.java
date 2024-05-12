@@ -1,15 +1,15 @@
-package svenhjol.charm.feature.woodcutting;
+package svenhjol.charm.feature.firing;
 
-import svenhjol.charm.feature.woodcutting.common.Registers;
+import svenhjol.charm.feature.firing.common.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
-@Feature(priority = 5, description = "Registers the woodcutting recipe.")
-public class Woodcutting extends CommonFeature {
+@Feature(priority = 5, description = "Registers the firing recipe.")
+public class Firing extends CommonFeature {
     public final Registers registers;
 
-    public Woodcutting(CommonLoader loader) {
+    public Firing(CommonLoader loader) {
         super(loader);
 
         registers = new Registers(this);
