@@ -5,7 +5,7 @@ import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.bat_buckets.BatBucketsClient;
 import svenhjol.charm.feature.chairs.ChairsClient;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFramesClient;
-import svenhjol.charm.feature.colored_glint_smithing_templates.ColoredGlintSmithingTemplatesClient;
+import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplatesClient;
 import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
@@ -32,7 +32,7 @@ public class CharmClient {
             BatBucketsClient.class,
             ChairsClient.class,
             ClearItemFramesClient.class,
-            ColoredGlintSmithingTemplatesClient.class,
+            ColoredGlintTemplatesClient.class,
             ColoredGlintsClient.class,
             CopperPistonsClient.class,
             CoralSquidsClient.class,

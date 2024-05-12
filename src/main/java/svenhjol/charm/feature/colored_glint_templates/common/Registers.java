@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.colored_glint_smithing_templates.common;
+package svenhjol.charm.feature.colored_glint_templates.common;
 
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.minecraft.resources.ResourceKey;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import svenhjol.charm.api.event.LootTableModifyEvent;
 import svenhjol.charm.api.event.SmithingTableEvents;
 import svenhjol.charm.api.event.SmithingTableEvents.SmithingTableInstance;
-import svenhjol.charm.feature.colored_glint_smithing_templates.ColoredGlintSmithingTemplates;
+import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplates;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
 import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.RegisterHolder;
@@ -25,14 +25,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-public final class Registers extends RegisterHolder<ColoredGlintSmithingTemplates> {
+public final class Registers extends RegisterHolder<ColoredGlintTemplates> {
     public final List<ResourceLocation> emptyDyes = new ArrayList<>();
     public final ResourceKey<LootTable> lootTable;
     public final Supplier<net.minecraft.world.item.Item> item;
 
     public static final String ITEM_ID = "colored_glint_smithing_template";
 
-    public Registers(ColoredGlintSmithingTemplates feature) {
+    public Registers(ColoredGlintTemplates feature) {
         super(feature);
         var registry = feature.registry();
 
@@ -46,7 +46,7 @@ public final class Registers extends RegisterHolder<ColoredGlintSmithingTemplate
         item = registry.item(ITEM_ID,
             Item::new);
 
-        lootTable = registry.lootTable(ColoredGlintSmithingTemplates.configurableLootTable);
+        lootTable = registry.lootTable(ColoredGlintTemplates.configurableLootTable);
     }
 
     @Override
@@ -62,7 +62,7 @@ public final class Registers extends RegisterHolder<ColoredGlintSmithingTemplate
         if (key == lootTable) {
             var builder = LootPool.lootPool();
 
-            if (RandomSource.create().nextDouble() < ColoredGlintSmithingTemplates.lootChance) {
+            if (RandomSource.create().nextDouble() < ColoredGlintTemplates.lootChance) {
                 builder.setRolls(ConstantValue.exactly(1));
             }
 

@@ -1,12 +1,12 @@
-package svenhjol.charm.feature.colored_glint_smithing_templates.client;
+package svenhjol.charm.feature.colored_glint_templates.client;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.feature.colored_glint_smithing_templates.ColoredGlintSmithingTemplatesClient;
+import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplatesClient;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
-public final class Registers extends RegisterHolder<ColoredGlintSmithingTemplatesClient> {
-    public Registers(ColoredGlintSmithingTemplatesClient feature) {
+public final class Registers extends RegisterHolder<ColoredGlintTemplatesClient> {
+    public Registers(ColoredGlintTemplatesClient feature) {
         super(feature);
     }
 

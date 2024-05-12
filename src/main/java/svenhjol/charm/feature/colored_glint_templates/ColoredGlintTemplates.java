@@ -1,14 +1,14 @@
-package svenhjol.charm.feature.colored_glint_smithing_templates;
+package svenhjol.charm.feature.colored_glint_templates;
 
-import svenhjol.charm.feature.colored_glint_smithing_templates.common.Advancements;
-import svenhjol.charm.feature.colored_glint_smithing_templates.common.Registers;
+import svenhjol.charm.feature.colored_glint_templates.common.Advancements;
+import svenhjol.charm.feature.colored_glint_templates.common.Registers;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Smithing template that changes the glint color of any enchanted item.")
-public class ColoredGlintSmithingTemplates extends CommonFeature {
+public final class ColoredGlintTemplates extends CommonFeature {
     public final Registers registers;
     public final Advancements advancements;
 
@@ -24,7 +24,7 @@ public class ColoredGlintSmithingTemplates extends CommonFeature {
     )
     public static double lootChance = 1.0d;
 
-    public ColoredGlintSmithingTemplates(CommonLoader loader) {
+    public ColoredGlintTemplates(CommonLoader loader) {
         super(loader);
 
         registers = new Registers(this);

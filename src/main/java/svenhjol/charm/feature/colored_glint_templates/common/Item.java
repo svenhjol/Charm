@@ -1,18 +1,18 @@
-package svenhjol.charm.feature.colored_glint_smithing_templates.common;
+package svenhjol.charm.feature.colored_glint_templates.common;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.SmithingTemplateItem;
-import svenhjol.charm.feature.colored_glint_smithing_templates.ColoredGlintSmithingTemplates;
+import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplates;
 import svenhjol.charm.foundation.Resolve;
 
 import java.util.List;
 
 public class Item extends SmithingTemplateItem {
-    private static final ColoredGlintSmithingTemplates COLORED_GLINT_SMITHING_TEMPLATES
-        = Resolve.feature(ColoredGlintSmithingTemplates.class);
+    private static final ColoredGlintTemplates COLORED_GLINT_SMITHING_TEMPLATES
+        = Resolve.feature(ColoredGlintTemplates.class);
     private static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
     private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
 
