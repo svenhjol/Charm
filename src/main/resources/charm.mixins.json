@@ -33,6 +33,7 @@
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",
     "feature.deepslate_dungeons.MonsterRoomFeatureMixin",
+    "feature.lumberjacks.VillagerMixin",
     "feature.silence_messages.YggdrasilMinecraftSessionServiceMixin",
     "feature.silence_messages.YggdrasilServicesKeyInfoMixin",
     "feature.silence_messages.YggdrasilUserApiServiceMixin",
@@ -49,7 +50,8 @@
     "registry.recipes.RecipeBookTypeMixin",
     "registry.recipes.RecipeManagerMixin",
     "registry.recipes.ReloadableServerResourcesMixin",
-    "registry.recipes.ServerPackSourceMixin"
+    "registry.recipes.ServerPackSourceMixin",
+    "registry.villager_name.VillagerMixin"
   ],
   "client": [
     "event.mouse_scroll.MouseHandlerMixin",

@@ -23,6 +23,7 @@ import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
 import svenhjol.charm.feature.kilns.Kilns;
+import svenhjol.charm.feature.lumberjacks.Lumberjacks;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
 import svenhjol.charm.feature.silence_messages.SilenceMessages;
@@ -70,6 +71,7 @@ public final class Charm {
             HoverSorting.class,
             InventoryTidying.class,
             Kilns.class,
+            Lumberjacks.class,
             PotionOfRadiance.class,
             ShulkerBoxDragDrop.class,
             SilenceMessages.class,
