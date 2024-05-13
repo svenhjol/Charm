@@ -77,6 +77,9 @@ mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Ma
 accessible field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
 mutable    field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
 
+# RevivePets
+accessible field net/minecraft/world/entity/animal/horse/AbstractHorse inventory Lnet/minecraft/world/SimpleContainer;
+
 # VariantMobs
 accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher renderers Ljava/util/Map;
 accessible field net/minecraft/client/renderer/entity/LivingEntityRenderer layers Ljava/util/List;
