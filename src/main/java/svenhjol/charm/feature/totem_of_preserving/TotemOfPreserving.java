@@ -20,7 +20,7 @@ public final class TotemOfPreserving extends CommonFeature {
         name = "Grave mode",
         description = """
             If true, a totem of preserving will always be created when you die.
-            "If false, you must be holding a totem of preserving to preserve your items on death."""
+            If false, you must be holding a totem of preserving to preserve your items on death."""
     )
     public static boolean graveMode = false;
 
