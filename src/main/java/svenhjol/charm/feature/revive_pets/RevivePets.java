@@ -22,7 +22,7 @@ public final class RevivePets extends CommonFeature {
             If true, named pets drop items from their loot table (such as leather from horses) when they die.
             This could be unwanted behavior as it can be used to dupe items by killing and resurrecting a pet repeatedly."""
     )
-    public static final boolean dropLootOnDeath = false;
+    public static boolean dropLootOnDeath = false;
 
     @Configurable(
         name = "Drop experience on death",
@@ -30,7 +30,7 @@ public final class RevivePets extends CommonFeature {
             If true, named pets drop experience when they die. This could be unwanted behavior as it can be used
             to receive an increasing amount experience by killing and resurrecting a pet repeatedly."""
     )
-    public static final boolean dropExperienceOnDeath = false;
+    public static boolean dropExperienceOnDeath = false;
 
     public RevivePets(CommonLoader loader) {
         super(loader);
