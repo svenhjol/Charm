@@ -33,6 +33,7 @@ accessible field net/minecraft/client/gui/screens/Screen narratables Ljava/util/
 accessible field net/minecraft/client/particle/Particle friction F
 accessible field net/minecraft/client/particle/Particle speedUpWhenYMotionIsBlocked Z
 accessible field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;
+accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 
 # Atlases
 accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setColorsDirty (II)V
