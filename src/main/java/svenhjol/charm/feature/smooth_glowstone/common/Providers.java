@@ -21,7 +21,7 @@ public final class Providers extends ProviderHolder<SmoothGlowstone> implements 
             new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return Resolve.featureEnabled(Side.COMMON, Charm.id("firing"));
+                    return Resolve.isEnabled(Side.COMMON, Charm.id("firing"));
                 }
 
                 @Override

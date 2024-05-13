@@ -20,7 +20,7 @@ public final class Providers extends ProviderHolder<AzaleaWood> implements ICond
             new IConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return Resolve.featureEnabled(Woodcutting.class);
+                    return Resolve.isEnabled(Woodcutting.class);
                 }
 
                 @Override
