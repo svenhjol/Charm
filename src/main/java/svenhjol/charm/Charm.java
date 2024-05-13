@@ -2,6 +2,7 @@ package svenhjol.charm;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
+import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
 import svenhjol.charm.feature.azalea_wood.AzaleaWood;
@@ -51,6 +52,7 @@ public final class Charm {
     public static List<Class<? extends CommonFeature>> features() {
         return List.of(
             AmethystNoteBlock.class,
+            ArcanePurpur.class,
             Atlases.class,
             AutoRestock.class,
             AzaleaWood.class,
