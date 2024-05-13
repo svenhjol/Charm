@@ -61,7 +61,7 @@ public final class Resolve {
     /**
      * Return true if a feature exists and is enabled.
      */
-    public static boolean featureEnabled(Side side, ResourceLocation id) {
+    public static boolean isEnabled(Side side, ResourceLocation id) {
         var namespace = id.getNamespace();
 
         var loader = switch (side) {
@@ -80,7 +80,7 @@ public final class Resolve {
     /**
      * Return true if a feature exists and is enabled.
      */
-    public static <F extends Feature> boolean featureEnabled(Class<F> clazz) {
+    public static <F extends Feature> boolean isEnabled(Class<F> clazz) {
         return tryGetFeature(clazz).map(Feature::isEnabled).orElse(false);
     }
 
