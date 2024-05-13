@@ -12,7 +12,7 @@ public class CustomStairs {
     public CustomStairs(CustomWoodHolder holder, CustomPlanks planks) {
         var id = holder.getMaterialName() + "_stairs";
 
-        var stairs = holder.ownerRegistry().stairsBlock(id, holder.getMaterial(),
+        var stairs = holder.ownerRegistry().stairsBlock(id, holder::getMaterial,
             () -> planks.block.get().defaultBlockState());
 
         // Stairs can set on fire.
