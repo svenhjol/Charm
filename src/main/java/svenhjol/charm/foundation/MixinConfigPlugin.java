@@ -47,16 +47,26 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-
         // Do the logic checking in onLoad. Fetching annotations here breaks everything.
         var simpleName = mixinClassName.substring(mixinPackage.length() + 1);
         var debug = ConfigHelper.isDebugEnabled();
         var split = simpleName.split("\\.");
         var baseName = split[0];
         var featureName = "";
+        var featureNameBuilder = new StringBuilder();
 
         if (baseName.equals("feature")) {
-            featureName = snakeToUpperCamel(split[1]);
+            for (int i = 1; i < split.length; i++) {
+                if (!split[i].contains("Mixin")) {
+                    featureNameBuilder.append(snakeToUpperCamel(split[i]));
+                    featureNameBuilder.append(".");
+                }
+            }
+
+            featureName = featureNameBuilder.toString();
+            if (featureName.endsWith(".")) {
+                featureName = featureName.substring(0, featureName.length() - 1);
+            }
         }
 
         // Collect a list of all mixins so we can write out a manifest later.
@@ -98,7 +108,7 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
             if (valid) {
                 LOGGER.info("Enabled mixin {}", mixinClassName);
             } else {
-                LOGGER.info("Disabled mixin {}", mixinClassName);
+                LOGGER.warn("Disabled mixin {}", mixinClassName);
             }
         }
 
