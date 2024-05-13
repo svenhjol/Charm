@@ -1,9 +1,11 @@
 package svenhjol.charm.foundation.common;
 
+import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
@@ -14,8 +16,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -61,11 +67,13 @@ public final class CommonEvents {
 
         // These are global Fabric events that any mod/feature can observe.
         AttackEntityCallback.EVENT.register(CommonEvents::handleAttackEntity);
+        ServerLivingEntityEvents.AFTER_DEATH.register(CommonEvents::handleDeathEvent);
         LootTableEvents.MODIFY.register(CommonEvents::handleLootTableModify);
         PlayerLoginCallback.EVENT.register(CommonEvents::handlePlayerLogin);
         PlayerTickCallback.EVENT.register(CommonEvents::handlePlayerTick);
         ServerWorldEvents.LOAD.register(CommonEvents::handleServerWorldLoad);
         UseBlockCallback.EVENT.register(CommonEvents::handleUseBlock);
+        UseItemCallback.EVENT.register(CommonEvents::handleUseItem);
         UseEntityCallback.EVENT.register(CommonEvents::handleUseEntity);
 
         LOGGER.debug("Called runOnce");
@@ -87,10 +95,13 @@ public final class CommonEvents {
         return EntityAttackEvent.INSTANCE.invoke(player, level, handle, entity, hitResult);
     }
 
+    private static void handleDeathEvent(LivingEntity entity, DamageSource damageSource) {
+        EntityKilledEvent.INSTANCE.invoke(entity, damageSource);
+    }
+
     private static void handleLootTableModify(ResourceKey<LootTable> key, LootTable.Builder builder, LootTableSource source) {
         LootTableModifyEvent.INSTANCE.invoke(key, source, builder);
     }
-
 
     private static void handlePlayerLogin(Player player) {
         PlayerLoginEvent.INSTANCE.invoke(player);
@@ -107,6 +118,10 @@ public final class CommonEvents {
     private static InteractionResult handleUseBlock(Player player, Level level, InteractionHand hand,
                                                     BlockHitResult hitResult) {
         return BlockUseEvent.INSTANCE.invoke(player, level, hand, hitResult);
+    }
+
+    private static InteractionResultHolder<ItemStack> handleUseItem(Player player, Level level, InteractionHand hand) {
+        return ItemUseEvent.INSTANCE.invoke(player, level, hand);
     }
 
     private static InteractionResult handleUseEntity(Player player, Level level, InteractionHand hand, Entity entity,
