@@ -2,13 +2,17 @@ package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.feature.Conditional;
+import svenhjol.charm.foundation.feature.Metadata;
+import svenhjol.charm.foundation.feature.SubFeature;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 public abstract class Feature implements Conditional {
     private final Loader<? extends Feature> loader;
     private final Log log;
+    private final Metadata metadata;
     private boolean enabled = true;
     private boolean enabledInConfig = true;
 
@@ -16,22 +20,27 @@ public abstract class Feature implements Conditional {
         this.loader = loader;
         this.log = new Log(loader.id(), name());
         this.log.dev(name() + " is alive");
+        this.metadata = Metadata.create(this);
+    }
+
+    public Optional<Metadata> metadata() {
+        return Optional.ofNullable(this.metadata);
     }
 
     public final String description() {
-        return loader().metadata(this)
+        return metadata()
             .map(m -> m.description)
             .orElse("");
     }
 
     public final int priority() {
-        return loader().metadata(this)
+        return metadata()
             .map(m -> m.priority)
             .orElse(0);
     }
 
     public final boolean isEnabledByDefault() {
-        return loader().metadata(this)
+        return metadata()
             .map(m -> m.enabledByDefault)
             .orElse(true);
     }
@@ -77,5 +86,9 @@ public abstract class Feature implements Conditional {
 
     public void setEnabledInConfig(boolean enabledInConfig) {
         this.enabledInConfig = enabledInConfig;
+    }
+
+    public List<? extends SubFeature<? extends Feature>> subFeatures() {
+        return List.of();
     }
 }

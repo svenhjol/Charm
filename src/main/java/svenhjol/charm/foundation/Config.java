@@ -6,6 +6,7 @@ import com.electronwill.nightconfig.toml.TomlWriter;
 import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.foundation.annotation.Configurable;
+import svenhjol.charm.foundation.feature.SubFeature;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 
 import java.lang.reflect.Field;
@@ -33,6 +34,10 @@ public abstract class Config {
         // Apply values from the config file to the features.
         for (var feature : features) {
             var featureName = feature.name();
+
+            if (feature instanceof SubFeature<?> subFeature) {
+                featureName = subFeature.parent().name() + "." + featureName;
+            }
 
             // Update the enabledInConfig property of each feature.
             if ((toml.isEmpty() || !featureExistsInConfig(toml, featureName)) && !feature.isEnabledByDefault()) {
@@ -91,7 +96,7 @@ public abstract class Config {
 
                             // Set the class property.
                             if (ConfigHelper.isDebugEnabled()) {
-                                log.info("In feature " + featureName + ": setting `" + fieldName + "` to `" + configValue + "`");
+                                log.debug("In feature " + featureName + ": setting `" + fieldName + "` to `" + configValue + "`");
                             }
                             field.set(null, configValue);
                         }
@@ -110,13 +115,37 @@ public abstract class Config {
         // This blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically.
         var config = TomlFormat.newConfig(LinkedHashMap::new);
 
+        // Make a map of subfeatures separately so the config formats in alphabetical order.
+        List<Feature> sortedByChildren = new LinkedList<>();
+        List<Feature> parents = new LinkedList<>();
+        Map<Feature, List<Feature>> childMap = new LinkedHashMap<>();
+
         for (var feature : features) {
-            var name = feature.name();
+            if (feature instanceof SubFeature<?> subFeature) {
+                childMap.computeIfAbsent(subFeature.parent(), a -> new ArrayList<>()).add(feature);
+            } else {
+                parents.add(feature);
+            }
+        }
+
+        for (var feature : parents) {
+            sortedByChildren.add(feature);
+            if (childMap.containsKey(feature)) {
+                sortedByChildren.addAll(childMap.get(feature));
+            }
+        }
+
+        for (var feature : sortedByChildren) {
+            var featureName = feature.name();
+
+            if (feature instanceof SubFeature<?> subFeature) {
+                featureName = subFeature.parent().name() + "." + featureName;
+            }
 
             if (feature.canBeDisabled()) {
-                var field = name + " enabled";
+                var field = "Enabled";
                 var description = feature.description();
-                var configName = name + "." + field;
+                var configName = featureName + "." + field;
 
                 config.setComment(configName, description);
                 config.add(configName, feature.isEnabledInConfig());
@@ -133,8 +162,8 @@ public abstract class Config {
                     var fieldDescription = annotation.description();
                     Object fieldValue = field.get(null);
 
-                    // set the key/value pair. The "." specifies that it is nested
-                    var featureConfigName = name + "." + fieldName;
+                    // Set the key/value pair. The "." specifies that it is nested
+                    var featureConfigName = featureName + "." + fieldName;
                     config.setComment(featureConfigName, fieldDescription);
                     config.add(featureConfigName, fieldValue);
 
@@ -190,20 +219,13 @@ public abstract class Config {
      * Even though it seems that it should be isFeatureEnabled and the NOT check removed,
      * this needs to be an explicitly disabled check so that early mixin loading works.
      */
-    public static boolean isFeatureDisabled(Toml toml, String featureName) {
-        var quoted = quotedFeatureEnabledName(featureName);
-        var featurePath = featureName + "." + quoted;
+    private boolean isFeatureDisabled(Toml toml, String featureName) {
+        var featurePath = featureName + ".Enabled";
         return toml.contains(featurePath) && !toml.getBoolean(featurePath);
     }
 
-    private static boolean featureExistsInConfig(Toml toml, String featureName) {
-        var quoted = quotedFeatureEnabledName(featureName);
-        var featurePath = featureName + "." + quoted;
+    private boolean featureExistsInConfig(Toml toml, String featureName) {
+        var featurePath = featureName + ".Enabled";
         return toml.contains(featurePath);
-    }
-
-    private static String quotedFeatureEnabledName(String featureName) {
-        var featureEnabled = featureName + " enabled";
-        return "\"" + featureEnabled + "\"";
     }
 }

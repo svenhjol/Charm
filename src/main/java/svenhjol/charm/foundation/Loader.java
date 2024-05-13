@@ -2,18 +2,16 @@ package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.feature.Conditional;
-import svenhjol.charm.foundation.feature.Metadata;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 import svenhjol.charm.foundation.helper.TextHelper;
 
 import java.util.*;
 import java.util.function.BooleanSupplier;
 
-public abstract class Loader<T extends Feature> {
+public abstract class Loader<F extends Feature> {
     protected final List<Runnable> deferred = new LinkedList<>();
-    protected final Map<Class<? extends T>, Metadata<Feature>> metadata = new HashMap<>();
     protected final List<Conditional> conditionals = new LinkedList<>();
-    protected final List<T> features = new LinkedList<>();
+    protected final List<F> features = new LinkedList<>();
     protected final String id;
     protected boolean deferredCompleted = false;
     protected Log log;
@@ -44,7 +42,7 @@ public abstract class Loader<T extends Feature> {
     /**
      * Instantiates, registers and configures feature classes.
      */
-    public void setup(List<Class<? extends T>> classes) {
+    public void setup(List<Class<? extends F>> classes) {
         if (classes.isEmpty()) {
             log().info("No features to load for " + id);
             return;
@@ -70,21 +68,14 @@ public abstract class Loader<T extends Feature> {
      * Creates an instance of each feature, passing the loader to the feature's constructor.
      * Features are instantiated in order of their priority which is set in the feature annotation.
      */
-    protected void instantiate(List<Class<? extends T>> classes) {
+    @SuppressWarnings("unchecked")
+    protected void instantiate(List<Class<? extends F>> classes) {
         // Determine priority order.
-        Map<Integer, ArrayList<Class<? extends T>>> prioritised = new TreeMap<>();
+        Map<Integer, ArrayList<Class<? extends F>>> prioritised = new TreeMap<>();
 
         for (var clazz : classes) {
             if (clazz.isAnnotationPresent(svenhjol.charm.foundation.annotation.Feature.class)) {
                 var annotation = clazz.getAnnotation(svenhjol.charm.foundation.annotation.Feature.class);
-
-                // Build the metadata about the feature.
-                var metadata = new Metadata<Feature>(clazz);
-                metadata.description = annotation.description();
-                metadata.priority = annotation.priority();
-                metadata.enabledByDefault = annotation.enabledByDefault();
-
-                this.metadata.put(clazz, metadata);
                 prioritised.computeIfAbsent(annotation.priority(), a -> new ArrayList<>()).add(clazz);
             } else {
                 log.die("Missing feature annotation for " + clazz.getSimpleName());
@@ -98,9 +89,13 @@ public abstract class Loader<T extends Feature> {
         for (int key : order) {
             for (var clazz : prioritised.get(key)) {
                 try {
-                    var feature = clazz.getDeclaredConstructor(type()).newInstance(this);
-                    features.add(feature);
-                    Resolve.register(feature); // Register with global resolver.
+                    F feature = clazz.getDeclaredConstructor(type()).newInstance(this);
+                    registerFeature(feature);
+
+                    // Also register all feature's subfeatures
+                    for (var subfeature : feature.subFeatures()) {
+                        registerFeature((F)subfeature);
+                    }
                 } catch (Exception e) {
                     log.die(clazz.getSimpleName() + " failed to start", e);
                 }
@@ -123,7 +118,7 @@ public abstract class Loader<T extends Feature> {
         deferredCompleted = true;
     }
 
-    protected abstract Class<? extends Loader<T>> type();
+    protected abstract Class<? extends Loader<F>> type();
 
     /**
      * Config differs across server, common and client.
@@ -140,7 +135,7 @@ public abstract class Loader<T extends Feature> {
         sortFeaturesByPriority();
         var debug = ConfigHelper.isDebugEnabled();
 
-        for (T feature : features()) {
+        for (F feature : features()) {
             var enabledInConfig = feature.isEnabledInConfig();
             var passedCheck = feature.isEnabled() && (feature.checks().isEmpty()
                 || feature.checks().stream().allMatch(BooleanSupplier::getAsBoolean));
@@ -211,6 +206,14 @@ public abstract class Loader<T extends Feature> {
         this.deferred.add(deferred);
     }
 
+    /**
+     * Internal callback to add a feature to the features list
+     * and register the feature with the global resolver.
+     */
+    protected void registerFeature(F feature) {
+        features.add(feature);
+        Resolve.register(feature);
+    }
 
     /**
      * Checks if a feature is enabled in this loader by its class name.
@@ -218,7 +221,7 @@ public abstract class Loader<T extends Feature> {
      * @return True if feature is enabled in this loader.
      */
     @SuppressWarnings("unused")
-    public boolean isEnabled(Class<? extends T> feature) {
+    public boolean isEnabled(Class<? extends F> feature) {
         return features().stream().anyMatch(
             m -> m.getClass().equals(feature) && m.isEnabled());
     }
@@ -247,24 +250,16 @@ public abstract class Loader<T extends Feature> {
     /**
      * Gets a feature by its classname from this loader.
      */
-    public Optional<T> get(Class<? extends T> clazz) {
+    public Optional<F> get(Class<? extends F> clazz) {
         return features.stream()
             .filter(m -> m.getClass().equals(clazz))
             .findFirst();
     }
 
     /**
-     * Gets the metadata from this loader for a given feature.
-     */
-    public Optional<Metadata<Feature>> metadata(Feature feature) {
-        var md = metadata.get(feature.getClass());
-        return md != null ? Optional.of(md) : Optional.empty();
-    }
-
-    /**
      * Get all features registered by this loader.
      */
-    public List<T> features() {
+    public List<F> features() {
         return features;
     }
 
