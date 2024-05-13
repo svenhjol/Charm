@@ -388,8 +388,8 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return item;
     }
 
-    public <B extends StairBlock & IIgniteProvider, I extends BlockItem> Pair<Register<CharmStairBlock>, Register<CharmStairBlock.BlockItem>> stairsBlock(String id, IVariantMaterial material, Supplier<BlockState> state) {
-        var block = block(id, () -> new CharmStairBlock(material, state.get()));
+    public <B extends StairBlock & IIgniteProvider, I extends BlockItem> Pair<Register<CharmStairBlock>, Register<CharmStairBlock.BlockItem>> stairsBlock(String id, Supplier<IVariantMaterial> material, Supplier<BlockState> state) {
+        var block = block(id, () -> new CharmStairBlock(material.get(), state.get()));
         var item = item(id, () -> new CharmStairBlock.BlockItem(block));
         return Pair.of(block, item);
     }
