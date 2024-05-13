@@ -2,10 +2,11 @@ package svenhjol.charm.foundation.feature;
 
 
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.enums.Side;
 
-public final class Metadata<T extends Feature> {
-    public final Class<? extends T> feature;
+public final class Metadata {
+    public Metadata() {}
+
+    public Class<? extends Feature> feature;
 
     public String description;
 
@@ -13,9 +14,24 @@ public final class Metadata<T extends Feature> {
 
     public int priority;
 
-    public Side side;
+    /**
+     * Helper to generate metadata from a feature.
+     */
+    public static Metadata create(Feature feature) {
+        Class<? extends Feature> clazz = feature.getClass();
 
-    public Metadata(Class<? extends T> clazz) {
-        this.feature = clazz;
+        if (!clazz.isAnnotationPresent(svenhjol.charm.foundation.annotation.Feature.class)) {
+            throw new RuntimeException("Missing feature annotation for " + feature.name());
+        }
+
+        var annotation = clazz.getAnnotation(svenhjol.charm.foundation.annotation.Feature.class);
+
+        var metadata = new Metadata();
+        metadata.feature = clazz;
+        metadata.description = annotation.description();
+        metadata.priority = annotation.priority();
+        metadata.enabledByDefault = annotation.enabledByDefault();
+
+        return metadata;
     }
 }
