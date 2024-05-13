@@ -4,6 +4,7 @@ import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Loader;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.foundation.common.CommonResolver;
 
 import java.util.Comparator;
 
@@ -30,19 +31,13 @@ public class ClientLoader extends Loader<ClientFeature> {
     }
 
     /**
-     * Update the enabled status of all client features to common features with the same name.
+     * Update client feature enabled status according to linked common feature's status.
      */
     @Override
     protected void checks() {
-        var commonLoader = Resolve.common(this.id());
-
         for (ClientFeature feature : features()) {
-            var featureName = feature.name();
-            if (commonLoader.has(featureName)) {
-                // If there's a common feature matching the feature name,
-                // match the enabled state of the client and common features.
-                var commonFeatureIsEnabled = commonLoader.isEnabled(featureName);
-                feature.setEnabled(feature.isEnabled() && commonFeatureIsEnabled);
+            if (feature instanceof CommonResolver<?> resolver) {
+                feature.setEnabled(resolver.common().isEnabled());
             }
         }
 
