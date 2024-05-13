@@ -66,8 +66,7 @@ public final class ConfigHelper {
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isFeatureEnabled(String filename, String featureName) {
         var toml = read(filename);
-        var quoted = quotedFeatureEnabledName(featureName);
-        var path = featureName + "." + quoted;
+        var path = featureName + ".Enabled";
 
         if (toml.contains(path)) {
             return toml.getBoolean(path);
@@ -102,10 +101,5 @@ public final class ConfigHelper {
 
     static Path configPath(String filename) {
         return Paths.get(configDir() + "/" + filename + ".toml");
-    }
-
-    static String quotedFeatureEnabledName(String featureName) {
-        var featureEnabled = featureName + " enabled";
-        return "\"" + featureEnabled + "\"";
     }
 }
