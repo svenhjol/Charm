@@ -1,6 +1,7 @@
 package svenhjol.charm.foundation.common;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -71,6 +72,8 @@ public final class CommonEvents {
         LootTableEvents.MODIFY.register(CommonEvents::handleLootTableModify);
         PlayerLoginCallback.EVENT.register(CommonEvents::handlePlayerLogin);
         PlayerTickCallback.EVENT.register(CommonEvents::handlePlayerTick);
+        ServerEntityEvents.ENTITY_LOAD.register(CommonEvents::handleServerEntityLoad);
+        ServerEntityEvents.ENTITY_UNLOAD.register(CommonEvents::handleServerEntityUnload);
         ServerWorldEvents.LOAD.register(CommonEvents::handleServerWorldLoad);
         UseBlockCallback.EVENT.register(CommonEvents::handleUseBlock);
         UseItemCallback.EVENT.register(CommonEvents::handleUseItem);
@@ -109,6 +112,14 @@ public final class CommonEvents {
 
     private static void handlePlayerTick(Player player) {
         PlayerTickEvent.INSTANCE.invoke(player);
+    }
+
+    private static void handleServerEntityLoad(Entity entity, ServerLevel serverLevel) {
+        EntityJoinEvent.INSTANCE.invoke(entity, serverLevel);
+    }
+
+    private static void handleServerEntityUnload(Entity entity, Level level) {
+        EntityLeaveEvent.INSTANCE.invoke(entity, level);
     }
 
     private static void handleServerWorldLoad(MinecraftServer server, ServerLevel level) {
