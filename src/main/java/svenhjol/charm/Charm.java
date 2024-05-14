@@ -22,6 +22,7 @@ import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
+import svenhjol.charm.feature.grindable_horse_armor.GrindableHorseArmor;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
 import svenhjol.charm.feature.kilns.Kilns;
@@ -74,6 +75,7 @@ public final class Charm {
             Echolocation.class,
             ExtractableEnchantments.class,
             Firing.class,
+            GrindableHorseArmor.class,
             HoverSorting.class,
             InventoryTidying.class,
             Kilns.class,
