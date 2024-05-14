@@ -29,6 +29,7 @@
     "feature.beekeepers.PoiTypesMixin",
     "feature.beekeepers.VillagerMixin",
     "feature.campfires_boost_health.CampfireBlockEntityMixin",
+    "feature.chorus_teleport.ChorusFruitItemMixin",
     "feature.collection.BlockMixin",
     "feature.collection.ServerPlayerGameModeMixin",
     "feature.copper_pistons.PistonBaseBlockMixin",

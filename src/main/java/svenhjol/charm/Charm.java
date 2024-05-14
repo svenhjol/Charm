@@ -10,6 +10,7 @@ import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.beekeepers.Beekeepers;
 import svenhjol.charm.feature.campfires_boost_health.CampfiresBoostHealth;
 import svenhjol.charm.feature.chairs.Chairs;
+import svenhjol.charm.feature.chorus_teleport.ChorusTeleport;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFrames;
 import svenhjol.charm.feature.collection.Collection;
 import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplates;
@@ -63,6 +64,7 @@ public final class Charm {
             Beekeepers.class,
             CampfiresBoostHealth.class,
             Chairs.class,
+            ChorusTeleport.class,
             ClearItemFrames.class,
             Collection.class,
             ColoredGlintTemplates.class,
