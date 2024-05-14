@@ -10,6 +10,7 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
+// TODO: move this to custom_wood
 @Feature(priority = 1, description = "Variant wood features such as barrels, chests and ladders.")
 public final class VariantWood extends CommonFeature {
     public final Registers registers;

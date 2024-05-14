@@ -7,6 +7,7 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
+// TODO: move this to custom_wood
 @Feature
 public final class VariantWoodClient extends ClientFeature {
     public final VariantWood common;
