@@ -11,6 +11,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.function.Supplier;
 
+// TODO: move all static stuff to custom wood handler class.
 @SuppressWarnings("unused")
 public class CustomWoodHelper {
     static final Map<Boat.Type, Supplier<BoatItem>> BOAT_ITEM = new HashMap<>();
