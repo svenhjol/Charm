@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
+import svenhjol.charm.feature.extra_note_blocks.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.foundation.Resolve;
 
 @Mixin(NoteBlock.class)
@@ -34,7 +34,7 @@ public class NoteBlockMixin {
         var instrument = state.getValue(INSTRUMENT);
         var name = instrument.getSerializedName();
         if (name.equals(AmethystNoteBlock.NOTE_BLOCK_ID)) {
-            Resolve.feature(AmethystNoteBlock.class).advancements.playedNoteBlock(level, pos);
+            Resolve.feature(AmethystNoteBlock.class).advancements.playedAmethystNoteBlock(level, pos);
         }
     }
 }

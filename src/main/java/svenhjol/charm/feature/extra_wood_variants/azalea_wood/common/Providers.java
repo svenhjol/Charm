@@ -1,8 +1,8 @@
-package svenhjol.charm.feature.azalea_wood.common;
+package svenhjol.charm.feature.extra_wood_variants.azalea_wood.common;
 
 import svenhjol.charm.api.iface.IConditionalRecipe;
 import svenhjol.charm.api.iface.IConditionalRecipeProvider;
-import svenhjol.charm.feature.azalea_wood.AzaleaWood;
+import svenhjol.charm.feature.extra_wood_variants.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.feature.ProviderHolder;

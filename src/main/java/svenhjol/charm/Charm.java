@@ -1,11 +1,9 @@
 package svenhjol.charm;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.feature.amethyst_note_block.AmethystNoteBlock;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.auto_restock.AutoRestock;
-import svenhjol.charm.feature.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.beekeepers.Beekeepers;
 import svenhjol.charm.feature.campfires_boost_health.CampfiresBoostHealth;
@@ -21,6 +19,8 @@ import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.echolocation.Echolocation;
+import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocks;
+import svenhjol.charm.feature.extra_wood_variants.ExtraWoodVariants;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.grindable_horse_armor.GrindableHorseArmor;
@@ -55,11 +55,9 @@ public final class Charm {
 
     public static List<Class<? extends CommonFeature>> features() {
         return List.of(
-            AmethystNoteBlock.class,
             ArcanePurpur.class,
             Atlases.class,
             AutoRestock.class,
-            AzaleaWood.class,
             BatBuckets.class,
             Beekeepers.class,
             CampfiresBoostHealth.class,
@@ -75,6 +73,8 @@ public final class Charm {
             CustomWood.class,
             DeepslateDungeons.class,
             Echolocation.class,
+            ExtraNoteBlocks.class,
+            ExtraWoodVariants.class,
             ExtractableEnchantments.class,
             Firing.class,
             GrindableHorseArmor.class,
@@ -82,8 +82,8 @@ public final class Charm {
             InventoryTidying.class,
             Kilns.class,
             Lumberjacks.class,
-            RevivePets.class,
             PotionOfRadiance.class,
+            RevivePets.class,
             ShulkerBoxDragDrop.class,
             SilenceMessages.class,
             SmoothGlowstone.class,

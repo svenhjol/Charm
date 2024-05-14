@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.azalea_wood.common;
+package svenhjol.charm.feature.extra_wood_variants.azalea_wood.common;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.features.TreeFeatures;
@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import svenhjol.charm.feature.azalea_wood.AzaleaWood;
+import svenhjol.charm.feature.extra_wood_variants.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 

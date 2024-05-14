@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.enums.note_block_enum;
+package svenhjol.charm.mixin.feature.extra_note_blocks;
 
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.enums.NoteBlockEnums;
+import svenhjol.charm.feature.extra_note_blocks.common.Handlers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class NoteBlockInstrumentMixin {
     private static NoteBlockInstrument[] $VALUES;
 
     static {
-        for (var noteBlockEnum : NoteBlockEnums.NOTE_BLOCK_ENUMS) {
+        for (var noteBlockEnum : Handlers.NOTE_BLOCK_ENUMS) {
             addVariant(noteBlockEnum.toUpperCase(), noteBlockEnum.toLowerCase(), SoundEvents.NOTE_BLOCK_HARP, NoteBlockInstrument.Type.BASE_BLOCK);
         }
     }

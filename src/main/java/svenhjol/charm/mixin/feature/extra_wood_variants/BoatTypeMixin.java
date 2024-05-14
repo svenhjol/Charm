@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.enums.boat_type_enum;
+package svenhjol.charm.mixin.feature.extra_wood_variants;
 
 import net.minecraft.util.ByIdMap;
 import net.minecraft.util.StringRepresentable;
@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.enums.BoatTypeEnums;
+import svenhjol.charm.feature.extra_wood_variants.common.Handlers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ public class BoatTypeMixin {
     private static Boat.Type[] $VALUES;
 
     static {
-        for (var boatTypeEnum : BoatTypeEnums.BOAT_TYPE_ENUMS) {
+        for (var boatTypeEnum : Handlers.BOAT_TYPE_ENUMS) {
             addVariant(boatTypeEnum.toUpperCase(Locale.ROOT), Blocks.OAK_PLANKS, boatTypeEnum.toLowerCase(Locale.ROOT));
         }
     }

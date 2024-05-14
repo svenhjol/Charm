@@ -1,10 +1,10 @@
-package svenhjol.charm.feature.azalea_wood.common;
+package svenhjol.charm.feature.extra_wood_variants.azalea_wood.common;
 
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.event.LevelLoadEvent;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
-import svenhjol.charm.feature.azalea_wood.AzaleaWood;
+import svenhjol.charm.feature.extra_wood_variants.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.foundation.feature.RegisterHolder;

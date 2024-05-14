@@ -2,7 +2,6 @@ package svenhjol.charm;
 
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpurClient;
 import svenhjol.charm.feature.atlases.AtlasesClient;
-import svenhjol.charm.feature.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.bat_buckets.BatBucketsClient;
 import svenhjol.charm.feature.chairs.ChairsClient;
 import svenhjol.charm.feature.clear_item_frames.ClearItemFramesClient;
@@ -11,7 +10,9 @@ import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
+import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocksClient;
 import svenhjol.charm.feature.extra_tooltips.ExtraTooltips;
+import svenhjol.charm.feature.extra_wood_variants.ExtraWoodVariantsClient;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantmentsClient;
 import svenhjol.charm.feature.hover_sorting.HoverSortingClient;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
@@ -32,7 +33,6 @@ public final class CharmClient {
         return List.of(
             ArcanePurpurClient.class,
             AtlasesClient.class,
-            AzaleaWoodClient.class,
             BatBucketsClient.class,
             ChairsClient.class,
             ClearItemFramesClient.class,
@@ -41,7 +41,9 @@ public final class CharmClient {
             CopperPistonsClient.class,
             CoralSquidsClient.class,
             CustomWoodClient.class,
+            ExtraNoteBlocksClient.class,
             ExtraTooltips.class,
+            ExtraWoodVariantsClient.class,
             ExtractableEnchantmentsClient.class,
             HoverSortingClient.class,
             InventoryTidyingClient.class,

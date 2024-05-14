@@ -4,8 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "${refmap_file}",
   "mixins": [
-    "enums.boat_type_enum.BoatTypeMixin",
-    "enums.note_block_enum.NoteBlockInstrumentMixin",
     "event.anvil_repair.AnvilMenuMixin",
     "event.anvil_update.AnvilMenuMixin",
     "event.grindstone.GrindstoneMenuInputMixin",
@@ -36,6 +34,8 @@
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",
     "feature.deepslate_dungeons.MonsterRoomFeatureMixin",
+    "feature.extra_note_blocks.NoteBlockInstrumentMixin",
+    "feature.extra_wood_variants.BoatTypeMixin",
     "feature.lumberjacks.VillagerMixin",
     "feature.revive_pets.LivingEntityMixin",
     "feature.revive_pets.NameTagItemMixin",
