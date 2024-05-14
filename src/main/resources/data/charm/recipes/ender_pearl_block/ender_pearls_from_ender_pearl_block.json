@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "charm:ender_pearl_block"
+    }
+  ],
+  "result": {
+    "id": "minecraft:ender_pearl",
+    "count": 9
+  }
+}

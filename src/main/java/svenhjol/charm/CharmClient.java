@@ -18,6 +18,7 @@ import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
 import svenhjol.charm.feature.kilns.KilnsClient;
 import svenhjol.charm.feature.show_repair_cost.ShowRepairCost;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
+import svenhjol.charm.feature.storage_blocks.StorageBlocksClient;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
 import svenhjol.charm.feature.variant_wood.VariantWoodClient;
@@ -47,6 +48,7 @@ public final class CharmClient {
             KilnsClient.class,
             ShowRepairCost.class,
             SmoothGlowstoneClient.class,
+            StorageBlocksClient.class,
             TotemOfPreservingClient.class,
             VariantMobTextures.class,
             VariantWoodClient.class,

@@ -31,6 +31,7 @@ import svenhjol.charm.feature.revive_pets.RevivePets;
 import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
 import svenhjol.charm.feature.silence_messages.SilenceMessages;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
+import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charm.feature.unlimited_repair_cost.UnlimitedRepairCost;
@@ -82,6 +83,7 @@ public final class Charm {
             ShulkerBoxDragDrop.class,
             SilenceMessages.class,
             SmoothGlowstone.class,
+            StorageBlocks.class,
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
             UnlimitedRepairCost.class,
