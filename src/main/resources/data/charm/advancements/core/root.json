@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "id": "minecraft:chest"
+      "id": "charm:azalea_chest"
     },
     "title": {
       "translate": "advancements.charm.root.title"
