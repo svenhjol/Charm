@@ -41,9 +41,21 @@ public final class Log {
         }
     }
 
+    public void warnIfDebug(String message, Object... args) {
+        if (ConfigHelper.isDebugEnabled()) {
+            warn("[Debug] " + message, args);
+        }
+    }
+
     public void dev(String message, Object... args) {
         if (ConfigHelper.isDevEnvironment()) {
-            info("[Dev] +++ " + message, args);
+            info("[Dev] " + message, args);
+        }
+    }
+
+    public void warnIfDev(String message, Object... args) {
+        if (ConfigHelper.isDevEnvironment()) {
+            warn("[Dev] " + message, args);
         }
     }
 

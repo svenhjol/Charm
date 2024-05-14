@@ -2,7 +2,7 @@ package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.feature.Conditional;
-import svenhjol.charm.foundation.helper.ConfigHelper;
+import svenhjol.charm.foundation.feature.SubFeature;
 import svenhjol.charm.foundation.helper.TextHelper;
 
 import java.util.*;
@@ -133,24 +133,33 @@ public abstract class Loader<F extends Feature> {
      */
     protected void checks() {
         sortFeaturesByPriority();
-        var debug = ConfigHelper.isDebugEnabled();
 
         for (F feature : features()) {
             var enabledInConfig = feature.isEnabledInConfig();
-            var passedCheck = feature.isEnabled() && (feature.checks().isEmpty()
-                || feature.checks().stream().allMatch(BooleanSupplier::getAsBoolean));
-
-            feature.setEnabled(enabledInConfig && passedCheck);
-
             if (!enabledInConfig) {
-                if (debug) feature.log().warn("Disabled in configuration");
-            } else if (!passedCheck) {
-                if (debug) feature.log().warn("Failed check");
-            } else if (!feature.isEnabled()) {
-                if (debug) feature.log().warn("Disabled automatically");
-            } else {
-                feature.log().info("Feature is enabled");
+                feature.log().warnIfDebug("Feature is disabled in the configuration");
+                continue;
             }
+
+            if (!feature.isEnabled()) {
+                feature.log().warnIfDebug("Feature is automatically disabled");
+                continue;
+            }
+
+            var passedCheck = feature.isEnabled()
+                && (feature.checks().isEmpty() || feature.checks().stream().allMatch(BooleanSupplier::getAsBoolean));
+            if (!passedCheck) {
+                feature.log().warnIfDebug("Feature checks did not pass");
+                continue;
+            }
+
+            if (feature instanceof SubFeature<?> subFeature
+                && !subFeature.parent().isEnabled()) {
+                feature.log().warnIfDebug("Feature's parent is disabled");
+                continue;
+            }
+
+            feature.log().debug("Feature is enabled");
         }
     }
 
