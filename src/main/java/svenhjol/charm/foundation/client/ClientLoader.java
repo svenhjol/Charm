@@ -4,7 +4,6 @@ import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.Loader;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.common.CommonResolver;
 
 import java.util.Comparator;
 
@@ -28,20 +27,6 @@ public class ClientLoader extends Loader<ClientFeature> {
     @Override
     protected Class<? extends Loader<ClientFeature>> type() {
         return ClientLoader.class;
-    }
-
-    /**
-     * Update client feature enabled status according to linked common feature's status.
-     */
-    @Override
-    protected void checks() {
-        for (ClientFeature feature : features()) {
-            if (feature instanceof CommonResolver<?> resolver) {
-                feature.setEnabled(resolver.common().isEnabled());
-            }
-        }
-
-        super.checks();
     }
 
     @Override

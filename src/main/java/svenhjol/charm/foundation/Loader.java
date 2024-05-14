@@ -1,6 +1,7 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.foundation.common.CommonResolver;
 import svenhjol.charm.foundation.feature.Conditional;
 import svenhjol.charm.foundation.feature.SubFeature;
 import svenhjol.charm.foundation.helper.TextHelper;
@@ -138,6 +139,7 @@ public abstract class Loader<F extends Feature> {
             var enabledInConfig = feature.isEnabledInConfig();
             if (!enabledInConfig) {
                 feature.log().warnIfDebug("Feature is disabled in the configuration");
+                feature.setEnabled(false);
                 continue;
             }
 
@@ -146,16 +148,23 @@ public abstract class Loader<F extends Feature> {
                 continue;
             }
 
-            var passedCheck = feature.isEnabled()
-                && (feature.checks().isEmpty() || feature.checks().stream().allMatch(BooleanSupplier::getAsBoolean));
-            if (!passedCheck) {
+            if (!feature.checks().isEmpty() && !feature.checks().stream().allMatch(BooleanSupplier::getAsBoolean)) {
                 feature.log().warnIfDebug("Feature checks did not pass");
+                feature.setEnabled(false);
+                continue;
+            }
+
+            if (feature instanceof CommonResolver<?> resolver
+                && !resolver.common().isEnabled()) {
+                feature.log().warnIfDebug("Feature's related common feature is disabled");
+                feature.setEnabled(false);
                 continue;
             }
 
             if (feature instanceof SubFeature<?> subFeature
                 && !subFeature.parent().isEnabled()) {
                 feature.log().warnIfDebug("Feature's parent is disabled");
+                feature.setEnabled(false);
                 continue;
             }
 
