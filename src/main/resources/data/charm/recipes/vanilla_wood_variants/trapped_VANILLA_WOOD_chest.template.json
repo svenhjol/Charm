@@ -1,7 +1,6 @@
 {
   "template": {
     "type": "minecraft:crafting_shapeless",
-    "category": "redstone",
     "ingredients": [
       {
         "item": "charm:VANILLA_WOOD_chest"

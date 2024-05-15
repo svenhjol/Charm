@@ -1,6 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "category": "misc",
   "key": {
     "#": {
       "item": "minecraft:diamond"
@@ -20,6 +19,5 @@
   "result": {
     "count": 2,
     "id": "charm:colored_glint_smithing_template"
-  },
-  "show_notification": true
+  }
 }

@@ -1,7 +1,6 @@
 {
   "template": {
     "type": "minecraft:crafting_shaped",
-    "category": "misc",
     "key": {
       "#": {
         "item": "minecraft:VANILLA_WOOD_planks"
@@ -14,8 +13,7 @@
     ],
     "result": {
       "id": "charm:VANILLA_WOOD_chest"
-    },
-    "show_notification": true
+    }
   },
   "variants": "vanilla_wood"
 }

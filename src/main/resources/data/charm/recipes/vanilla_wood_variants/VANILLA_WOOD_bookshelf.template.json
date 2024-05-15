@@ -1,7 +1,6 @@
 {
   "template": {
     "type": "minecraft:crafting_shaped",
-    "category": "building",
     "key": {
       "#": {
         "item": "minecraft:VANILLA_WOOD_planks"
@@ -17,8 +16,7 @@
     ],
     "result": {
       "id": "charm:VANILLA_WOOD_bookshelf"
-    },
-    "show_notification": true
+    }
   },
   "variants": "vanilla_wood"
 }
