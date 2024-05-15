@@ -31,7 +31,7 @@ import svenhjol.charm.feature.lumberjacks.Lumberjacks;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.revive_pets.RevivePets;
 import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
-import svenhjol.charm.feature.silence_messages.SilenceMessages;
+import svenhjol.charm.feature.silence.Silence;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
@@ -85,7 +85,7 @@ public final class Charm {
             PotionOfRadiance.class,
             RevivePets.class,
             ShulkerBoxDragDrop.class,
-            SilenceMessages.class,
+            Silence.class,
             SmoothGlowstone.class,
             StorageBlocks.class,
             TotemOfPreserving.class,
