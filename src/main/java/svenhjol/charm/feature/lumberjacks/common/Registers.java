@@ -6,7 +6,6 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.feature.lumberjacks.Lumberjacks;
-import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.Tags;
@@ -38,10 +37,6 @@ public final class Registers extends RegisterHolder<Lumberjacks> {
     public void onEnabled() {
         var registry = feature().registry();
 
-        var useVariantBarrels = VariantWood.variantBarrels;
-        var usevariantBookshelves = VariantWood.variantBookshelves;
-        var useVariantLadders = VariantWood.variantLadders;
-
         // Tier 1
         registry.villagerTrade(profession, 1, () -> new GenericTrades.EmeraldsForTag<>(
             Tags.OVERWORLD_STRIPPED_LOGS, 8, 1, 1, 0, 2, 20));
@@ -52,7 +47,7 @@ public final class Registers extends RegisterHolder<Lumberjacks> {
         registry.villagerTrade(profession, 3, () -> new Trades.SaplingsForEmeralds(
             List.of(Items.OAK_SAPLING, Items.BIRCH_SAPLING, Items.SPRUCE_SAPLING), 1, 0, 2,  20));
 
-        if (useVariantLadders) {
+        if (Lumberjacks.variantLadders) {
             registry.villagerTrade(profession, 1, () -> new GenericTrades.TagForEmeralds<>(
                 Tags.LADDERS, 1, 1, 2, 20));
         } else {
@@ -90,7 +85,7 @@ public final class Registers extends RegisterHolder<Lumberjacks> {
             BlockTags.WOODEN_DOORS, 2, 1, 1, 0, 10, 20));
 
         // Tier 4
-        if (useVariantBarrels) {
+        if (Lumberjacks.variantBarrels) {
             registry.villagerTrade(profession, 4, () -> new GenericTrades.TagForEmeralds<>(
                 Tags.BARRELS, 4, 1, 1, 0, 15, 20));
         } else {
@@ -98,7 +93,7 @@ public final class Registers extends RegisterHolder<Lumberjacks> {
                 Items.BARREL, 4, 1, 15, 20));
         }
 
-        if (usevariantBookshelves) {
+        if (Lumberjacks.variantBookshelves) {
             registry.villagerTrade(profession, 4, () -> new GenericTrades.TagForEmeralds<>(
                 Tags.CHISELED_BOOKSHELVES, 4, 1, 1, 0, 15, 20));
         } else {

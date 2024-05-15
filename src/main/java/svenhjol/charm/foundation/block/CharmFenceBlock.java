@@ -9,23 +9,23 @@ import svenhjol.charm.api.iface.IVariantMaterial;
 import java.util.function.Supplier;
 
 public class CharmFenceBlock extends FenceBlock implements IIgniteProvider {
-    protected final IVariantMaterial variantMaterial;
+    protected final IVariantMaterial material;
 
     public CharmFenceBlock(IVariantMaterial material) {
         super(material.blockProperties()
             .strength(2.0F, 3.0F));
 
-        this.variantMaterial = material;
+        this.material = material;
     }
 
     @Override
     public int igniteChance() {
-        return variantMaterial.isFlammable() ? 5 : 0;
+        return material.isFlammable() ? 5 : 0;
     }
 
     @Override
     public int burnChance() {
-        return variantMaterial.isFlammable() ? 20 : 0;
+        return material.isFlammable() ? 20 : 0;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

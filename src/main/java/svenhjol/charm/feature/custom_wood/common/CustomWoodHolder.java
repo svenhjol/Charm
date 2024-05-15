@@ -4,6 +4,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonRegistry;
 
@@ -15,14 +16,21 @@ import java.util.function.Supplier;
  */
 @SuppressWarnings("unused")
 public class CustomWoodHolder {
+    private final CustomWood feature;
     private final CommonFeature owner;
     private final IVariantWoodMaterial material;
+
+    private CustomBarrel barrel;
     private CustomBoat boat;
+    private CustomBookshelf bookshelf;
     private CustomButton button;
+    private CustomChest chest;
+    private CustomChiseledBookshelf chiseledBookshelf;
     private CustomDoor door;
     private CustomFence fence;
     private CustomGate gate;
     private CustomHangingSign hangingSign;
+    private CustomLadder ladder;
     private CustomLeaves leaves;
     private CustomLogBlock log;
     private CustomPlanks planks;
@@ -32,14 +40,32 @@ public class CustomWoodHolder {
     private CustomSlab slab;
     private CustomStairs stairs;
     private CustomTrapdoor trapdoor;
+    private CustomTrappedChest trappedChest;
     private CustomWoodBlock wood;
 
-    public CustomWoodHolder(CommonFeature owner, CustomWoodDefinition definition) {
+    public CustomWoodHolder(CustomWood feature, CommonFeature owner, CustomWoodDefinition definition) {
+        this.feature = feature;
         this.owner = owner;
-        this.material = definition.getMaterial();
+        this.material = definition.material();
+
+        if (definition.barrel()) {
+            barrel = new CustomBarrel(this);
+        }
 
         if (definition.boat()) {
             boat = new CustomBoat(this);
+        }
+
+        if (definition.bookshelf()) {
+            bookshelf = new CustomBookshelf(this);
+        }
+
+        if (definition.chest()) {
+            chest = new CustomChest(this);
+        }
+
+        if (definition.chiseledBookshelf()) {
+            chiseledBookshelf = new CustomChiseledBookshelf(this);
         }
 
         if (definition.button()) {
@@ -60,6 +86,10 @@ public class CustomWoodHolder {
 
         if (definition.hangingSign()) {
             hangingSign = new CustomHangingSign(this);
+        }
+
+        if (definition.ladder()) {
+            ladder = new CustomLadder(this);
         }
 
         if (definition.leaves()) {
@@ -98,6 +128,10 @@ public class CustomWoodHolder {
             trapdoor = new CustomTrapdoor(this);
         }
 
+        if (definition.trappedChest()) {
+            trappedChest = new CustomTrappedChest(this);
+        }
+
         if (definition.wood()) {
             wood = new CustomWoodBlock(this);
         }
@@ -105,6 +139,10 @@ public class CustomWoodHolder {
 
     public void addCreativeTabItem(String name, Supplier<? extends Item> item) {
         CustomWoodHelper.addCreativeTabItem(ownerId(), name, item);
+    }
+
+    public CustomWood feature() {
+        return feature;
     }
 
     public CommonFeature owner() {
@@ -135,12 +173,28 @@ public class CustomWoodHolder {
         return ownerRegistry().id();
     }
 
+    public Optional<CustomBarrel> barrel() {
+        return Optional.ofNullable(barrel);
+    }
+
     public Optional<CustomBoat> boat() {
         return Optional.ofNullable(boat);
     }
 
+    public Optional<CustomBookshelf> bookshelf() {
+        return Optional.ofNullable(bookshelf);
+    }
+
     public Optional<CustomButton> button() {
         return Optional.ofNullable(button);
+    }
+
+    public Optional<CustomChest> chest() {
+        return Optional.ofNullable(chest);
+    }
+
+    public Optional<CustomChiseledBookshelf> chiseledBookshelf() {
+        return Optional.ofNullable(chiseledBookshelf);
     }
 
     public Optional<CustomDoor> door() {
@@ -157,6 +211,10 @@ public class CustomWoodHolder {
 
     public Optional<CustomHangingSign> hangingSign() {
         return Optional.ofNullable(hangingSign);
+    }
+
+    public Optional<CustomLadder> ladder() {
+        return Optional.ofNullable(ladder);
     }
 
     public Optional<CustomLeaves> leaves() {
@@ -193,6 +251,10 @@ public class CustomWoodHolder {
 
     public Optional<CustomTrapdoor> trapdoor() {
         return Optional.ofNullable(trapdoor);
+    }
+
+    public Optional<CustomTrappedChest> trappedChest() {
+        return Optional.ofNullable(trappedChest);
     }
 
     public Optional<CustomWoodBlock> wood() {

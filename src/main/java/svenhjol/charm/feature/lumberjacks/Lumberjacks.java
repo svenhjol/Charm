@@ -4,6 +4,7 @@ import svenhjol.charm.feature.lumberjacks.common.Advancements;
 import svenhjol.charm.feature.lumberjacks.common.Registers;
 import svenhjol.charm.feature.lumberjacks.common.Trades;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
+import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
@@ -18,6 +19,30 @@ public final class Lumberjacks extends CommonFeature {
     public final Registers registers;
     public final Advancements advancements;
     public final Trades trades;
+
+    @Configurable(
+        name = "Use variant barrels in trades",
+        description = """
+            If true, lumberjacks will provide variant barrels in their trades.
+            If false, lumberjacks will trade the vanilla barrel."""
+    )
+    public static boolean variantBarrels = true;
+
+    @Configurable(
+        name = "Use variant bookshelves in trades",
+        description = """
+            If true, lumberjacks will provide variant bookshelves in their trades.
+            If false, lumberjacks will trade the vanilla bookshelf."""
+    )
+    public static boolean variantBookshelves = true;
+
+    @Configurable(
+        name = "Use variant ladders in trades",
+        description = """
+            If true, lumberjacks will provide variant ladders in their trades.
+            If false, lumberjacks will trade the vanilla ladder."""
+    )
+    public static boolean variantLadders = true;
 
     public Lumberjacks(CommonLoader loader) {
         super(loader);

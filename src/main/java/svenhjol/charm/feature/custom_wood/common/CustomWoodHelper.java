@@ -17,16 +17,22 @@ public class CustomWoodHelper {
     static final Map<Boat.Type, Supplier<BoatItem>> BOAT_ITEM = new HashMap<>();
     static final Map<Boat.Type, Supplier<BoatItem>> CHEST_BOAT_ITEM = new HashMap<>();
     static final Map<Boat.Type, ResourceLocation> BOAT_PLANKS = new HashMap<>();
-    static final Map<String, Map<String, Supplier<? extends Item>>> CREATIVE_TAB_ITEMS = new HashMap<>();
+    static final Map<String, Map<String, List<Supplier<? extends Item>>>> CREATIVE_TAB_ITEMS = new HashMap<>();
     static final List<Supplier<CharmSignItem>> SIGN_ITEMS = new ArrayList<>();
     static final List<Supplier<CharmHangingSignItem>> HANGING_SIGN_ITEMS = new ArrayList<>();
+
+    public static final String BARRELS = "barrels";
     public static final String BOATS = "boats";
+    public static final String BOOKSHELVES = "bookshelves";
+    public static final String CHESTS = "chests";
     public static final String CHEST_BOATS = "chest_boats";
+    public static final String CHISELED_BOOKSHELVES = "chiseled_bookshelves";
     public static final String BUTTONS = "buttons";
     public static final String DOORS = "doors";
     public static final String FENCES = "fences";
     public static final String GATES = "gates";
     public static final String HANGING_SIGNS = "hanging_signs";
+    public static final String LADDERS = "ladders";
     public static final String LEAVES = "leaves";
     public static final String LOGS = "logs";
     public static final String PLANKS = "planks";
@@ -38,6 +44,7 @@ public class CustomWoodHelper {
     public static final String STRIPPED_LOGS = "stripped_logs";
     public static final String STRIPPED_WOODS = "stripped_wood";
     public static final String TRAPDOORS = "trapdoors";
+    public static final String TRAPPED_CHESTS = "trapped_chests";
     public static final String WOODS = "woods";
     public static final List<String> BUILDING_BLOCKS = List.of(
         BUTTONS, DOORS, FENCES, GATES, LOGS, PLANKS, PRESSURE_PLATES,
@@ -45,10 +52,11 @@ public class CustomWoodHelper {
     );
 
     public static void addCreativeTabItem(String modId, String group, Supplier<? extends Item> item) {
-        CREATIVE_TAB_ITEMS.computeIfAbsent(modId, m -> new LinkedHashMap<>()).put(group, item);
+        CREATIVE_TAB_ITEMS.computeIfAbsent(modId, m -> new LinkedHashMap<>())
+            .computeIfAbsent(group, a -> new LinkedList<>()).add(item);
     }
 
-    public static Map<String, Map<String, Supplier<? extends Item>>> getCreativeTabItems() {
+    public static Map<String, Map<String, List<Supplier<? extends Item>>>> getCreativeTabItems() {
         return CREATIVE_TAB_ITEMS;
     }
 

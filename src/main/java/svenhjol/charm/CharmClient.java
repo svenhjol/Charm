@@ -13,7 +13,7 @@ import svenhjol.charm.feature.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.endermite_powder.EndermitePowderClient;
 import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocksClient;
 import svenhjol.charm.feature.extra_tooltips.ExtraTooltips;
-import svenhjol.charm.feature.extra_wood_variants.ExtraWoodVariantsClient;
+import svenhjol.charm.feature.extra_wood.ExtraWoodClient;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantmentsClient;
 import svenhjol.charm.feature.hover_sorting.HoverSortingClient;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidyingClient;
@@ -23,7 +23,6 @@ import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
 import svenhjol.charm.feature.storage_blocks.StorageBlocksClient;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.variant_mob_textures.VariantMobTextures;
-import svenhjol.charm.feature.variant_wood.VariantWoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
 import svenhjol.charm.foundation.client.ClientFeature;
 
@@ -45,7 +44,7 @@ public final class CharmClient {
             EndermitePowderClient.class,
             ExtraNoteBlocksClient.class,
             ExtraTooltips.class,
-            ExtraWoodVariantsClient.class,
+            ExtraWoodClient.class,
             ExtractableEnchantmentsClient.class,
             HoverSortingClient.class,
             InventoryTidyingClient.class,
@@ -55,7 +54,6 @@ public final class CharmClient {
             StorageBlocksClient.class,
             TotemOfPreservingClient.class,
             VariantMobTextures.class,
-            VariantWoodClient.class,
             WoodcuttersClient.class
         );
     }

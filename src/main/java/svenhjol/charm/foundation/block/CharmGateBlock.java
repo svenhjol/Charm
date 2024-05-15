@@ -10,23 +10,23 @@ import svenhjol.charm.api.iface.IVariantWoodMaterial;
 import java.util.function.Supplier;
 
 public class CharmGateBlock extends FenceGateBlock implements IIgniteProvider {
-    protected final IVariantMaterial variantMaterial;
+    protected final IVariantMaterial material;
 
     public CharmGateBlock(IVariantWoodMaterial material) {
         super(material.woodType(), material.blockProperties()
             .strength(2.0F, 3.0F));
 
-        this.variantMaterial = material;
+        this.material = material;
     }
 
     @Override
     public int igniteChance() {
-        return variantMaterial.isFlammable() ? 5 : 0;
+        return material.isFlammable() ? 5 : 0;
     }
 
     @Override
     public int burnChance() {
-        return variantMaterial.isFlammable() ? 20 : 0;
+        return material.isFlammable() ? 20 : 0;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

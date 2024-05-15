@@ -33,8 +33,8 @@ public final class CustomWood extends CommonFeature {
      * Helper method for other features to register custom wood types.
      */
     @SuppressWarnings("unused")
-    public static void register(CommonFeature feature, CustomWoodDefinition definition) {
-        Resolve.feature(CustomWood.class).registers.register(feature, definition);
+    public static void register(CommonFeature owner, CustomWoodDefinition definition) {
+        Resolve.feature(CustomWood.class).registers.register(owner, definition);
     }
 
     /**

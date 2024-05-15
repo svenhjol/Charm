@@ -21,7 +21,8 @@ import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
 import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocks;
-import svenhjol.charm.feature.extra_wood_variants.ExtraWoodVariants;
+import svenhjol.charm.feature.extra_wood.ExtraWood;
+import svenhjol.charm.feature.extra_wood.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.grindable_horse_armor.GrindableHorseArmor;
@@ -38,9 +39,7 @@ import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charm.feature.unlimited_repair_cost.UnlimitedRepairCost;
-import svenhjol.charm.feature.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.variant_pistons.VariantPistons;
-import svenhjol.charm.feature.variant_wood.VariantWood;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.common.CommonFeature;
@@ -76,7 +75,7 @@ public final class Charm {
             Echolocation.class,
             EndermitePowder.class,
             ExtraNoteBlocks.class,
-            ExtraWoodVariants.class,
+            ExtraWood.class,
             ExtractableEnchantments.class,
             Firing.class,
             GrindableHorseArmor.class,
@@ -95,7 +94,6 @@ public final class Charm {
             UnlimitedRepairCost.class,
             VanillaWoodVariants.class,
             VariantPistons.class,
-            VariantWood.class,
             Woodcutters.class,
             Woodcutting.class
         );
