@@ -2,8 +2,8 @@ package svenhjol.charm.foundation.helper;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.enums.Side;
 
 import java.util.List;
@@ -29,11 +29,12 @@ public final class ResourceLocationHelper {
             return false;
         }
 
-        var featureName = TextHelper.snakeToUpperCamel(path.split("/")[0]);
+        var featureName = path.split("/")[0];
+        var niceFeatureName = TextHelper.snakeToUpperCamel(featureName);
 
         // Remove for disabled charm features.
-        if (!Resolve.isEnabled(Side.COMMON, id)) {
-            LOGGER.debug("Feature " + featureName + " not enabled for " + id);
+        if (!Resolve.isEnabled(Side.COMMON, new ResourceLocation(namespace, featureName))) {
+            LOGGER.debug("Feature " + niceFeatureName + " not enabled for " + id);
             return true;
         }
 
