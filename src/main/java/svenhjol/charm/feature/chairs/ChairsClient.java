@@ -1,20 +1,23 @@
 package svenhjol.charm.feature.chairs;
 
 import svenhjol.charm.feature.chairs.client.Registers;
-import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
+import svenhjol.charm.foundation.common.CommonResolver;
 
 @Feature
-public final class ChairsClient extends ClientFeature {
+public final class ChairsClient extends ClientFeature implements CommonResolver<Chairs> {
     public final Registers registers;
-    public final Chairs common;
 
     public ChairsClient(ClientLoader loader) {
         super(loader);
 
-        common = Resolve.feature(Chairs.class);
         registers = new Registers(this);
+    }
+
+    @Override
+    public Class<Chairs> typeForCommon() {
+        return Chairs.class;
     }
 }

@@ -13,19 +13,24 @@ public final class Registers extends RegisterHolder<WoodcuttersClient> {
         super(feature);
         var woodcutting = Resolve.feature(Woodcutting.class);
         var registry = feature.registry();
+        var common = feature.common();
 
         registry.recipeBookCategoryEnum("woodcutter_search", () -> Items.COMPASS);
-        registry.recipeBookCategoryEnum("woodcutter", feature().common.registers.block);
+        registry.recipeBookCategoryEnum("woodcutter", common.registers.block);
 
-        registry.menuScreen(feature().common.registers.menu, () -> Screen::new);
-        registry.recipeBookCategory("woodcutter", woodcutting.registers.recipeType, feature().common.registers.recipeBookType);
+        registry.menuScreen(common.registers.menu, () -> Screen::new);
+        registry.recipeBookCategory("woodcutter", woodcutting.registers.recipeType, common.registers.recipeBookType);
 
         // The woodcutter block should render transparent areas cut out.
-        registry.blockRenderType(feature().common.registers.block, RenderType::cutout);
+        registry.blockRenderType(common.registers.block, RenderType::cutout);
     }
 
     @Override
     public void onEnabled() {
-        feature().registry().itemTab(feature().common.registers.block, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.STONECUTTER);
+        feature().registry().itemTab(
+            feature().common().registers.block,
+            CreativeModeTabs.FUNCTIONAL_BLOCKS,
+            Items.STONECUTTER
+        );
     }
 }

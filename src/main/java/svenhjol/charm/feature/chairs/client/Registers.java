@@ -7,7 +7,7 @@ public final class Registers extends RegisterHolder<ChairsClient> {
     public Registers(ChairsClient feature) {
         super(feature);
 
-        feature.registry().entityRenderer(feature.common.registers.entity,
+        feature.registry().entityRenderer(feature.common().registers.entity,
             () -> EntityRenderer::new);
     }
 }

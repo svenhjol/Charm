@@ -7,6 +7,7 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.atlases.common.AtlasInventory;
 import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.mixin.feature.atlases.CartographyTableScreenMixin;
 
 public final class Handlers extends FeatureHolder<AtlasesClient> {
     int swappedSlot = -1;
@@ -22,7 +23,7 @@ public final class Handlers extends FeatureHolder<AtlasesClient> {
      * @return True if the cartography table contains a map or an atlas.
      */
     public boolean shouldDrawAtlasCopy(CartographyTableScreen screen) {
-        return screen.getMenu().getSlot(0).getItem().getItem() == feature().common.registers.item.get()
+        return screen.getMenu().getSlot(0).getItem().getItem() == feature().common().registers.item.get()
             && screen.getMenu().getSlot(1).getItem().getItem() == Items.MAP;
     }
 

@@ -13,7 +13,7 @@ public final class Registers extends RegisterHolder<BatBucketsClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common.registers.bucketItem,
+            feature().common().registers.bucketItem,
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.TADPOLE_BUCKET
         );

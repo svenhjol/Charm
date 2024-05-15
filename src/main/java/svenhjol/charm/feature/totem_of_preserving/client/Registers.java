@@ -12,18 +12,18 @@ public final class Registers extends RegisterHolder<TotemOfPreservingClient> {
         var registry = feature.registry();
 
         registry.blockEntityRenderer(
-            feature().common.registers.blockEntity,
+            feature().common().registers.blockEntity,
             () -> BlockEntityRenderer::new);
 
         registry.blockRenderType(
-            feature().common.registers.block,
+            feature().common().registers.block,
             RenderType::cutout);
     }
 
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common.registers.item,
+            feature().common().registers.item,
             CreativeModeTabs.COMBAT,
             Items.TOTEM_OF_UNDYING
         );

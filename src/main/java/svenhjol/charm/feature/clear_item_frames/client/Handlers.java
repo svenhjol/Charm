@@ -35,7 +35,7 @@ public final class Handlers extends FeatureHolder<ClearItemFramesClient> {
     }
 
     public void createParticle(Level level, BlockPos pos) {
-        var particleType = feature().common.registers.particleType.get();
+        var particleType = feature().common().registers.particleType.get();
 
         float[] col = DyeColor.PURPLE.getTextureDiffuseColors();
         var x = (double) pos.getX() + 0.5d;

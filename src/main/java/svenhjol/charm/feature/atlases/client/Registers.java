@@ -26,7 +26,7 @@ public final class Registers extends RegisterHolder<AtlasesClient> {
     public Registers(AtlasesClient feature) {
         super(feature);
 
-        feature().registry().menuScreen(feature().common.registers.menuType,
+        feature().registry().menuScreen(feature().common().registers.menuType,
             () -> AtlasScreen::new);
 
         openAtlasKey = feature().registry().key("open_atlas",
@@ -42,7 +42,7 @@ public final class Registers extends RegisterHolder<AtlasesClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common.registers.item,
+            feature().common().registers.item,
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.MAP
         );
@@ -58,7 +58,7 @@ public final class Registers extends RegisterHolder<AtlasesClient> {
     }
 
     private InteractionResult handleRenderHeldItem(float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack itemStack, float equipProgress, PoseStack poseStack, MultiBufferSource multiBufferSource, int light) {
-        if (itemStack.getItem() == feature().common.registers.item.get()) {
+        if (itemStack.getItem() == feature().common().registers.item.get()) {
             if (renderer == null) {
                 renderer = new AtlasRenderer();
             }

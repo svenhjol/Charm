@@ -15,7 +15,7 @@ public final class Registers extends RegisterHolder<ClearItemFramesClient> {
         super(feature);
         var registry = feature.registry();
 
-        particle = registry.particle(feature().common.registers.particleType,
+        particle = registry.particle(feature().common().registers.particleType,
             () -> Particle::new);
 
         registry.packetReceiver(Networking.AddAmethyst.TYPE,

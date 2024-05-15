@@ -16,7 +16,7 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
         super(feature);
         var registry = feature.registry();
 
-        feature.common.registers.holders.forEach(
+        feature.common().registers.holders.forEach(
             (material, holder) -> {
                 var materialName = holder.getMaterialName();
                 var woodType = holder.woodType();

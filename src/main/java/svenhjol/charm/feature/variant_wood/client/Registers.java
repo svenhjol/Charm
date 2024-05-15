@@ -15,27 +15,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public final class Registers extends RegisterHolder<VariantWoodClient> {
-    private final VariantWood common;
 
     public Registers(VariantWoodClient feature) {
         super(feature);
-        common = feature().common;
 
         // Bind the chest block entities to their custom renderers.
-        feature.registry().blockEntityRenderer(common.registers.chestBlockEntity,
+        feature.registry().blockEntityRenderer(feature().common().registers.chestBlockEntity,
             () -> BlockEntityRenderer::new);
-        feature.registry().blockEntityRenderer(common.registers.trappedChestBlockEntity,
+        feature.registry().blockEntityRenderer(feature().common().registers.trappedChestBlockEntity,
             () -> BlockEntityRenderer::new);
 
 
         // Cut out transparent areas of the ladder.
-        common.registers.ladders.forEach(
+        feature().common().registers.ladders.forEach(
             (material, ladder) -> feature.registry().blockRenderType(ladder.block, RenderType::cutout));
     }
 
     @Override
     public void onEnabled() {
         var registry = feature().registry();
+        var common = feature().common();
 
         // Add items to the creative menu.
         if (VariantWood.variantBarrels) {

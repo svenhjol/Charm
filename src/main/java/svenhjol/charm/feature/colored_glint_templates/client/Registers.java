@@ -13,7 +13,7 @@ public final class Registers extends RegisterHolder<ColoredGlintTemplatesClient>
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common.registers.item,
+            feature().common().registers.item,
             CreativeModeTabs.INGREDIENTS,
             Items.SPIRE_ARMOR_TRIM_SMITHING_TEMPLATE
         );
