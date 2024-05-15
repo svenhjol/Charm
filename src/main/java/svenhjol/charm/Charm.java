@@ -19,6 +19,7 @@ import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.custom_wood.CustomWood;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.echolocation.Echolocation;
+import svenhjol.charm.feature.endermite_powder.EndermitePowder;
 import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocks;
 import svenhjol.charm.feature.extra_wood_variants.ExtraWoodVariants;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
@@ -73,6 +74,7 @@ public final class Charm {
             CustomWood.class,
             DeepslateDungeons.class,
             Echolocation.class,
+            EndermitePowder.class,
             ExtraNoteBlocks.class,
             ExtraWoodVariants.class,
             ExtractableEnchantments.class,
