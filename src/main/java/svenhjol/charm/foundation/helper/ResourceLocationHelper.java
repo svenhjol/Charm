@@ -16,13 +16,13 @@ public final class ResourceLocationHelper {
      * - NOT a minecraft resource
      * - a Charm mod (match on namespace)
      * - an enabled feature (match on path)
-     * @param res Resource to check.
+     * @param id Resource to check.
      * @return True if resource is an enabled Charmony feature.
      */
     @SuppressWarnings("unused")
-    public static boolean isDisabledCharmonyFeature(ResourceLocation res) {
-        var namespace = res.getNamespace();
-        var path = res.getPath();
+    public static boolean isDisabledCharmonyFeature(ResourceLocation id) {
+        var namespace = id.getNamespace();
+        var path = id.getPath();
 
         // If the resource is a minecraft resource or not a charm-based mod resource, allow it through.
         if (namespace.equals("minecraft") || !Resolve.hasLoader(Side.COMMON, namespace)) {
@@ -32,9 +32,8 @@ public final class ResourceLocationHelper {
         var featureName = TextHelper.snakeToUpperCamel(path.split("/")[0]);
 
         // Remove for disabled charm features.
-        var loader = Resolve.common(namespace);
-        if (!loader.isEnabled(featureName)) {
-            LOGGER.debug("Feature " + featureName + " not enabled for " + res);
+        if (!Resolve.isEnabled(Side.COMMON, id)) {
+            LOGGER.debug("Feature " + featureName + " not enabled for " + id);
             return true;
         }
 

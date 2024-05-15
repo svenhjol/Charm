@@ -25,6 +25,7 @@ import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.event.AnvilUpdateEvent;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.foundation.enums.Side;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 import svenhjol.charm.foundation.helper.ClientEffectHelper;
 import svenhjol.charm.foundation.helper.TotemHelper;
@@ -109,7 +110,6 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
 
         var found = ItemStack.EMPTY;
         var damage = 0; // Track how much damage the totem has taken
-        var loader = Resolve.common(Charm.ID);
         var serverPlayer = (ServerPlayer)player;
 
         // Get items to preserve.
@@ -123,7 +123,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
 
         // When not in grave mode, look through inventory items for the first empty totem of preserving.
         if (!TotemOfPreserving.graveMode) {
-            var totemWorksFromInventory = loader.isEnabled("totems_work_from_inventory");
+            var totemWorksFromInventory = Resolve.isEnabled(Side.COMMON, Charm.id("totems_work_from_inventory"));
 
             if (!totemWorksFromInventory) {
                 for (var held : player.getHandSlots()) {

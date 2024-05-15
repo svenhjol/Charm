@@ -43,21 +43,6 @@ public final class Resolve {
         };
     }
 
-    public static CommonLoader common(String id) {
-        return Optional.ofNullable(COMMON_LOADERS.get(id)).orElseThrow(
-            () -> new RuntimeException("No registered common loader for mod " + id));
-    }
-
-    public static ClientLoader client(String id) {
-        return Optional.ofNullable(CLIENT_LOADERS.get(id)).orElseThrow(
-            () -> new RuntimeException("No registered client loader for mod " + id));
-    }
-
-    public static ServerLoader server(String id) {
-        return Optional.ofNullable(SERVER_LOADERS.get(id)).orElseThrow(
-            () -> new RuntimeException("No registered server loader for mod " + id));
-    }
-
     /**
      * Return true if a feature exists and is enabled.
      */

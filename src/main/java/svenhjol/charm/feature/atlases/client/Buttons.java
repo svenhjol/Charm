@@ -2,7 +2,6 @@ package svenhjol.charm.feature.atlases.client;
 
 import net.minecraft.client.gui.components.WidgetSprites;
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Resolve;
 
 public class Buttons {
     static final WidgetSprites UP_BUTTON = makeButton("up");
@@ -14,11 +13,9 @@ public class Buttons {
     static final WidgetSprites ZOOM_OUT_BUTTON = makeButton("zoom_out");
 
     private static WidgetSprites makeButton(String name) {
-        var instance = Resolve.client(Charm.ID);
-
         return new WidgetSprites(
-            instance.id("widget/atlases/" + name + "_button"),
-            instance.id("widget/atlases/" + name + "_button_disabled"),
-            instance.id("widget/atlases/" + name + "_button_highlighted"));
+            Charm.id("widget/atlases/" + name + "_button"),
+            Charm.id("widget/atlases/" + name + "_button_disabled"),
+            Charm.id("widget/atlases/" + name + "_button_highlighted"));
     }
 }
