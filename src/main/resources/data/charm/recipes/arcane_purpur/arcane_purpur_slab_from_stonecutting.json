@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "charm:arcane_purpur_block"
+  },
+  "result": {
+    "id": "charm:arcane_purpur_slab",
+    "count": 2
+  }
+}
