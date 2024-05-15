@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Eating a chorus fruit within range of a chiseled arcane purpur block teleports the player to the block.")
-public class ChorusTeleport extends CommonFeature {
+public final class ChorusTeleport extends CommonFeature {
     public final Advancements advancements;
     public final Handlers handlers;
 

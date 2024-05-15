@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
     Arcane Purpur is a decorative block made from Purpur and Endermite Powder.
     If the ChorusTeleport feature is enabled, a Chiseled Arcane Purpur block
     allows teleportation when a chorus fruit is eaten within range of the block.""")
-public class ArcanePurpur extends CommonFeature {
+public final class ArcanePurpur extends CommonFeature {
     public final Registers registers;
 
     public ArcanePurpur(CommonLoader loader) {

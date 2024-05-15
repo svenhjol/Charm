@@ -8,7 +8,7 @@ import svenhjol.charm.api.iface.IVariantMaterial;
 
 import java.util.Locale;
 
-public enum ArcanePurpurMaterial implements IVariantMaterial {
+public enum Material implements IVariantMaterial {
     ARCANE_PURPUR(SoundType.STONE),
     ARCANE_PURPUR_GLYPH(SoundType.STONE),
     CHISELED_ARCANE_PURPUR(SoundType.STONE),
@@ -16,7 +16,7 @@ public enum ArcanePurpurMaterial implements IVariantMaterial {
 
     final SoundType soundType;
 
-    ArcanePurpurMaterial(SoundType soundType) {
+    Material(SoundType soundType) {
         this.soundType = soundType;
     }
 

@@ -35,7 +35,7 @@ public final class Registers extends RegisterHolder<ArcanePurpur> {
         super(feature);
         var registry = feature().registry();
 
-        material = () -> ArcanePurpurMaterial.ARCANE_PURPUR;
+        material = () -> Material.ARCANE_PURPUR;
 
         block = registry.block(BLOCK_ID,
             ArcanePurpurBlock::new);

@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.feature.FeatureHolder;
 import java.util.List;
 import java.util.Locale;
 
-public class Handlers extends FeatureHolder<ExtraNoteBlocks> {
+public final class Handlers extends FeatureHolder<ExtraNoteBlocks> {
     public Handlers(ExtraNoteBlocks feature) {
         super(feature);
     }

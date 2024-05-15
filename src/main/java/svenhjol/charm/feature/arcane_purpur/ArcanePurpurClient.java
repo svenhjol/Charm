@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
 
 @Feature
-public class ArcanePurpurClient extends ClientFeature implements CommonResolver<ArcanePurpur> {
+public final class ArcanePurpurClient extends ClientFeature implements CommonResolver<ArcanePurpur> {
     public final Registers registers;
 
     public ArcanePurpurClient(ClientLoader loader) {
