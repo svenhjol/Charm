@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
@@ -134,8 +135,9 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
     }
 
     @Override
-    protected void dropCustomDeathLoot(DamageSource source, boolean allowDrops) {
-        super.dropCustomDeathLoot(source, allowDrops);
+    // protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean allowDrops) { // For 24w20a
+    protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean allowDrops) {
+        super.dropCustomDeathLoot(level, source, allowDrops);
         if (random.nextFloat() < CoralSquids.dropChance) {
             this.spawnAtLocation(getVariant().getDrop());
         }
