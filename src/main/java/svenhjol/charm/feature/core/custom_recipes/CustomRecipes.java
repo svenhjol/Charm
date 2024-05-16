@@ -24,6 +24,11 @@ public final class CustomRecipes extends CommonFeature implements SubFeature<Cor
     }
 
     @Override
+    public boolean canBeDisabled() {
+        return false;
+    }
+
+    @Override
     public Class<Core> typeForParent() {
         return Core.class;
     }

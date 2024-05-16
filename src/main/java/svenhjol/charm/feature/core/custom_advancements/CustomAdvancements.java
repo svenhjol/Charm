@@ -24,6 +24,11 @@ public final class CustomAdvancements extends CommonFeature implements SubFeatur
     }
 
     @Override
+    public boolean canBeDisabled() {
+        return false;
+    }
+
+    @Override
     public Class<Core> typeForParent() {
         return Core.class;
     }
