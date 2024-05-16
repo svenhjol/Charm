@@ -1,8 +1,10 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmBarrelBlock;
 
 import java.util.List;
@@ -32,6 +34,6 @@ public class CustomBarrel {
             () -> block.get().getStateDefinition().getPossibleStates());
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomWoodHelper.BARRELS, item);
+        holder.addCreativeTabItem(CustomType.BARREL, item);
     }
 }

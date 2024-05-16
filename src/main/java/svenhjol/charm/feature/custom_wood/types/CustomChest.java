@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmChestBlock;
 
 import java.util.List;
@@ -25,6 +27,6 @@ public class CustomChest {
         registry.blockEntityBlocks(feature.registers.chestBlockEntity, List.of(block));
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomWoodHelper.CHESTS, item);
+        holder.addCreativeTabItem(CustomType.CHEST, item);
     }
 }

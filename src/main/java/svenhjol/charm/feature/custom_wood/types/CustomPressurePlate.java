@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmWoodenPressurePlateBlock;
 
 import java.util.function.Supplier;
@@ -14,6 +16,6 @@ public class CustomPressurePlate {
         block = holder.ownerRegistry().block(id, () -> new CharmWoodenPressurePlateBlock(holder.getMaterial()));
         item = holder.ownerRegistry().item(id, () -> new CharmWoodenPressurePlateBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomWoodHelper.PRESSURE_PLATES, item);
+        holder.addCreativeTabItem(CustomType.PRESSURE_PLATE, item);
     }
 }

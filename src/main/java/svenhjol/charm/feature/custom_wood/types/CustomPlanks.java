@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmPlanksBlock;
 
 import java.util.function.Supplier;
@@ -14,6 +16,6 @@ public class CustomPlanks {
         item = holder.ownerRegistry().item(id, () -> new CharmPlanksBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Planks can set on fire.
-        holder.addCreativeTabItem(CustomWoodHelper.PLANKS, item);
+        holder.addCreativeTabItem(CustomType.PLANKS, item);
     }
 }

@@ -1,6 +1,8 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmStandingSignBlock;
 import svenhjol.charm.foundation.block.CharmWallSignBlock;
 import svenhjol.charm.foundation.item.CharmSignItem;
@@ -26,11 +28,11 @@ public class CustomSign {
         item = registry.item(signId, () -> new CharmSignItem(material, standingBlock, wallBlock));
 
         // This is needed so we can set the correct blocks to signs later on in the registration.
-        CustomWoodHelper.addSignItem(item);
+        holder.feature().handlers.addSignItem(item);
 
         // Associate with the sign block entity.
         registry.blockEntityBlocks(() -> BlockEntityType.SIGN, List.of(standingBlock, wallBlock));
 
-        holder.addCreativeTabItem(CustomWoodHelper.SIGNS, item);
+        holder.addCreativeTabItem(CustomType.SIGN, item);
     }
 }

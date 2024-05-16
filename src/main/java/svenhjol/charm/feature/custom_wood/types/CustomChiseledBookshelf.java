@@ -1,6 +1,8 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmChiseledBookshelfBlock;
 
 import java.util.List;
@@ -25,6 +27,6 @@ public class CustomChiseledBookshelf {
         registry.blockEntityBlocks(() -> BlockEntityType.CHISELED_BOOKSHELF, List.of(block));
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomWoodHelper.CHISELED_BOOKSHELVES, item);
+        holder.addCreativeTabItem(CustomType.CHISELED_BOOKSHELF, item);
     }
 }

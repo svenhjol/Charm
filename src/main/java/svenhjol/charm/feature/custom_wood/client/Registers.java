@@ -10,7 +10,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.api.event.BlockItemRenderEvent;
 import svenhjol.charm.feature.custom_wood.CustomWoodClient;
-import svenhjol.charm.feature.custom_wood.common.CustomWoodHelper;
+import svenhjol.charm.feature.custom_wood.common.CustomType;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.List;
@@ -85,49 +85,49 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
         BlockItemRenderEvent.INSTANCE.handle(feature().handlers::renderChestBlockItem);
 
         // Build the creative menu.
-        CustomWoodHelper.getCreativeTabItems().forEach(
+        feature().common().handlers.getCreativeTabItems().forEach(
             (mod, map) -> {
-                CustomWoodHelper.BUILDING_BLOCKS.forEach(
+                CustomType.BUILDING_BLOCKS.forEach(
                     name -> Optional.ofNullable(map.get(name)).ifPresent(
                         items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.BUILDING_BLOCKS, Items.ACACIA_BUTTON))));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.BARRELS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.BARREL)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.BARREL)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.BOATS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.BOAT)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.TOOLS_AND_UTILITIES, Items.ACACIA_BOAT)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.BOOKSHELVES)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.BOOKSHELF)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.BOOKSHELF)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.CHESTS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.CHEST)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.CHEST)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.CHEST_BOATS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.CHEST_BOAT)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.TOOLS_AND_UTILITIES, Items.ACACIA_CHEST_BOAT)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.CHISELED_BOOKSHELVES)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.CHISELED_BOOKSHELF)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.CHISELED_BOOKSHELF)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.HANGING_SIGNS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.HANGING_SIGN)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.ACACIA_HANGING_SIGN)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.LEAVES)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.LEAVES)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.NATURAL_BLOCKS, Items.ACACIA_LEAVES)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.LADDERS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.LADDER)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.NATURAL_BLOCKS, Items.LADDER)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.LOGS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.LOG)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.NATURAL_BLOCKS, Items.ACACIA_LOG)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.SAPLINGS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.SAPLING)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.NATURAL_BLOCKS, Items.ACACIA_SAPLING)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.SIGNS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.SIGN)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.ACACIA_SIGN)));
 
-                Optional.ofNullable(map.get(CustomWoodHelper.TRAPPED_CHESTS)).ifPresent(
+                Optional.ofNullable(map.get(CustomType.TRAPPED_CHEST)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.TRAPPED_CHEST)));
             });
     }

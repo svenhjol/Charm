@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmLeavesBlock;
 
 import java.util.function.Supplier;
@@ -15,6 +17,6 @@ public class CustomLeaves {
         item = holder.ownerRegistry().item(id, () -> new CharmLeavesBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Leaves can set on fire.
-        holder.addCreativeTabItem(CustomWoodHelper.LEAVES, item);
+        holder.addCreativeTabItem(CustomType.LEAVES, item);
     }
 }

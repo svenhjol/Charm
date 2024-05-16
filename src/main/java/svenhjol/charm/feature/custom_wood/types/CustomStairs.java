@@ -1,7 +1,9 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.StairBlock;
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 
 import java.util.function.Supplier;
 
@@ -22,6 +24,6 @@ public class CustomStairs {
         block = stairs.getFirst();
         item = stairs.getSecond();
 
-        holder.addCreativeTabItem(CustomWoodHelper.STAIRS, item);
+        holder.addCreativeTabItem(CustomType.STAIRS, item);
     }
 }

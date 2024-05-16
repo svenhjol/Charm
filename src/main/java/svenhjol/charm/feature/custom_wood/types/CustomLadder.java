@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmLadderBlock;
 
 import java.util.function.Supplier;
@@ -20,6 +22,6 @@ public class CustomLadder {
         registry.fuel(item);
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomWoodHelper.LADDERS, item);
+        holder.addCreativeTabItem(CustomType.LADDER, item);
     }
 }

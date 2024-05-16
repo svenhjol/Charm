@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmLogBlock;
 
 import java.util.function.Supplier;
@@ -29,7 +31,7 @@ public class CustomWoodBlock {
         // Wood can be stripped.
         registry.strippable(block, strippedBlock);
 
-        holder.addCreativeTabItem(CustomWoodHelper.WOODS, item);
-        holder.addCreativeTabItem(CustomWoodHelper.STRIPPED_WOODS, strippedItem);
+        holder.addCreativeTabItem(CustomType.WOOD, item);
+        holder.addCreativeTabItem(CustomType.STRIPPED_WOOD, strippedItem);
     }
 }

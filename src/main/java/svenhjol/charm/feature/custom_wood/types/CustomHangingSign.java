@@ -1,6 +1,8 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmCeilingHangingSignBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
 import svenhjol.charm.foundation.item.CharmHangingSignItem;
@@ -26,11 +28,11 @@ public class CustomHangingSign {
         item = registry.item(hangingId, () -> new CharmHangingSignItem(material, hangingBlock, wallBlock));
 
         // This is needed so we can set the correct blocks to hanging signs later on in the registration.
-        CustomWoodHelper.addHangingSignItem(item);
+        holder.feature().handlers.addHangingSignItem(item);
 
         // Associate with the hanging sign block entity.
         registry.blockEntityBlocks(() -> BlockEntityType.HANGING_SIGN, List.of(hangingBlock, wallBlock));
 
-        holder.addCreativeTabItem(CustomWoodHelper.HANGING_SIGNS, item);
+        holder.addCreativeTabItem(CustomType.HANGING_SIGN, item);
     }
 }

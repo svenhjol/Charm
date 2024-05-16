@@ -19,8 +19,6 @@ accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 mutable    field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 accessible field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
 mutable    field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
-accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
-mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
 accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstrument soundEvent Lnet/minecraft/core/Holder;
 mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument soundEvent Lnet/minecraft/core/Holder;
 accessible field net/minecraft/world/entity/vehicle/Boat$Type CODEC Lnet/minecraft/util/StringRepresentable$EnumCodec;
@@ -57,6 +55,9 @@ accessible field net/minecraft/world/item/BlockItem block Lnet/minecraft/world/l
 mutable    field net/minecraft/world/item/BlockItem block Lnet/minecraft/world/level/block/Block;
 accessible field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
 mutable    field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
+accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
+mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
+
 
 # ExtraTooltips and HoverSorting
 accessible field net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity itemStacks Lnet/minecraft/core/NonNullList;

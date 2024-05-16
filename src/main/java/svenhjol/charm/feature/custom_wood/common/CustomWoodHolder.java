@@ -5,6 +5,7 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
 import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.custom_wood.types.*;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonRegistry;
 
@@ -48,97 +49,36 @@ public class CustomWoodHolder {
         this.owner = owner;
         this.material = definition.material();
 
-        if (definition.barrel()) {
-            barrel = new CustomBarrel(this);
-        }
-
-        if (definition.boat()) {
-            boat = new CustomBoat(this);
-        }
-
-        if (definition.bookshelf()) {
-            bookshelf = new CustomBookshelf(this);
-        }
-
-        if (definition.chest()) {
-            chest = new CustomChest(this);
-        }
-
-        if (definition.chiseledBookshelf()) {
-            chiseledBookshelf = new CustomChiseledBookshelf(this);
-        }
-
-        if (definition.button()) {
-            button = new CustomButton(this);
-        }
-
-        if (definition.door()) {
-            door = new CustomDoor(this);
-        }
-
-        if (definition.fence()) {
-            fence = new CustomFence(this);
-        }
-
-        if (definition.gate()) {
-            gate = new CustomGate(this);
-        }
-
-        if (definition.hangingSign()) {
-            hangingSign = new CustomHangingSign(this);
-        }
-
-        if (definition.ladder()) {
-            ladder = new CustomLadder(this);
-        }
-
-        if (definition.leaves()) {
-            leaves = new CustomLeaves(this);
-        }
-
-        if (definition.log()) {
-            log = new CustomLogBlock(this);
-        }
-
-        if (definition.planks()) {
-            planks = new CustomPlanks(this);
-        }
-
-        if (definition.pressurePlate()) {
-            pressurePlate = new CustomPressurePlate(this);
-        }
-
-        if (definition.sapling()) {
-            sapling = new CustomSapling(this, 0f);
-        }
-
-        if (definition.sign()) {
-            sign = new CustomSign(this);
-        }
-
-        if (definition.slab()) {
-            slab = new CustomSlab(this);
-        }
-
-        if (definition.stairs()) {
-            planks().ifPresent(planks -> stairs = new CustomStairs(this, planks));
-        }
-
-        if (definition.trapdoor()) {
-            trapdoor = new CustomTrapdoor(this);
-        }
-
-        if (definition.trappedChest()) {
-            trappedChest = new CustomTrappedChest(this);
-        }
-
-        if (definition.wood()) {
-            wood = new CustomWoodBlock(this);
-        }
+        definition.types().forEach(type -> {
+            switch (type) {
+                case BARREL -> barrel = new CustomBarrel(this);
+                case BOAT -> boat = new CustomBoat(this);
+                case BOOKSHELF -> bookshelf = new CustomBookshelf(this);
+                case BUTTON -> button = new CustomButton(this);
+                case CHEST -> chest = new CustomChest(this);
+                case CHISELED_BOOKSHELF -> chiseledBookshelf = new CustomChiseledBookshelf(this);
+                case DOOR -> door = new CustomDoor(this);
+                case FENCE -> fence = new CustomFence(this);
+                case GATE -> gate = new CustomGate(this);
+                case HANGING_SIGN -> hangingSign = new CustomHangingSign(this);
+                case LADDER -> ladder = new CustomLadder(this);
+                case LEAVES -> leaves = new CustomLeaves(this);
+                case LOG -> log = new CustomLogBlock(this);
+                case PLANKS -> planks = new CustomPlanks(this);
+                case PRESSURE_PLATE -> pressurePlate = new CustomPressurePlate(this);
+                case SAPLING -> sapling = new CustomSapling(this);
+                case SIGN -> sign = new CustomSign(this);
+                case SLAB -> slab = new CustomSlab(this);
+                case STAIRS -> planks().ifPresent(planks -> stairs = new CustomStairs(this, planks));
+                case TRAPDOOR -> trapdoor = new CustomTrapdoor(this);
+                case TRAPPED_CHEST -> trappedChest = new CustomTrappedChest(this);
+                case WOOD -> wood = new CustomWoodBlock(this);
+            }
+        });
     }
 
-    public void addCreativeTabItem(String name, Supplier<? extends Item> item) {
-        CustomWoodHelper.addCreativeTabItem(ownerId(), name, item);
+    public void addCreativeTabItem(CustomType customType, Supplier<? extends Item> item) {
+        feature().handlers.addCreativeTabItem(ownerId(), customType, item);
     }
 
     public CustomWood feature() {

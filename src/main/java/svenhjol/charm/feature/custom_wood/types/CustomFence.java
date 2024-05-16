@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmFenceBlock;
 
 import java.util.function.Supplier;
@@ -14,6 +16,6 @@ public class CustomFence {
         item = holder.ownerRegistry().item(id, () -> new CharmFenceBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Fences can set on fire.
-        holder.addCreativeTabItem(CustomWoodHelper.FENCES, item);
+        holder.addCreativeTabItem(CustomType.FENCE, item);
     }
 }

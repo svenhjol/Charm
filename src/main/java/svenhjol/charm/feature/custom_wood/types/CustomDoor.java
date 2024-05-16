@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmWoodenDoorBlock;
 
 import java.util.function.Supplier;
@@ -14,6 +16,6 @@ public class CustomDoor {
         block = holder.ownerRegistry().block(id, () -> new CharmWoodenDoorBlock(holder.getMaterial()));
         item = holder.ownerRegistry().item(id, () -> new CharmWoodenDoorBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomWoodHelper.DOORS, item);
+        holder.addCreativeTabItem(CustomType.DOOR, item);
     }
 }

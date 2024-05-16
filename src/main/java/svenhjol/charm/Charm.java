@@ -22,7 +22,6 @@ import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
 import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocks;
 import svenhjol.charm.feature.extra_wood.ExtraWood;
-import svenhjol.charm.feature.extra_wood.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.grindable_horse_armor.GrindableHorseArmor;
@@ -92,7 +91,6 @@ public final class Charm {
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
             UnlimitedRepairCost.class,
-            VanillaWoodVariants.class,
             VariantPistons.class,
             Woodcutters.class,
             Woodcutting.class

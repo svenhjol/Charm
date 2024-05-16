@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmWoodenButtonBlock;
 
 import java.util.function.Supplier;
@@ -14,6 +16,6 @@ public class CustomButton {
         block = holder.ownerRegistry().block(id, () -> new CharmWoodenButtonBlock(holder.getMaterial()));
         item = holder.ownerRegistry().item(id, () -> new CharmWoodenButtonBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomWoodHelper.BUTTONS, item);
+        holder.addCreativeTabItem(CustomType.BUTTON, item);
     }
 }

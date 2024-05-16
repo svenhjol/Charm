@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmWoodenTrapdoorBlock;
 
 import java.util.function.Supplier;
@@ -13,6 +15,6 @@ public class CustomTrapdoor {
         block = holder.ownerRegistry().block(id, () -> new CharmWoodenTrapdoorBlock(holder.getMaterial()));
         item = holder.ownerRegistry().item(id, () -> new CharmWoodenTrapdoorBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomWoodHelper.TRAPDOORS, item);
+        holder.addCreativeTabItem(CustomType.TRAPDOOR, item);
     }
 }

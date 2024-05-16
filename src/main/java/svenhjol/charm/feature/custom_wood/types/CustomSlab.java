@@ -1,5 +1,7 @@
-package svenhjol.charm.feature.custom_wood.common;
+package svenhjol.charm.feature.custom_wood.types;
 
+import svenhjol.charm.feature.custom_wood.common.CustomType;
+import svenhjol.charm.feature.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.foundation.block.CharmSlabBlock;
 
 import java.util.function.Supplier;
@@ -15,6 +17,6 @@ public class CustomSlab {
         item = holder.ownerRegistry().item(id, () -> new CharmSlabBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Slabs can set on fire.
-        holder.addCreativeTabItem(CustomWoodHelper.SLABS, item);
+        holder.addCreativeTabItem(CustomType.SLAB, item);
     }
 }
