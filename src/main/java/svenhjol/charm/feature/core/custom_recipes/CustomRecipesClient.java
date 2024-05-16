@@ -5,10 +5,10 @@ import svenhjol.charm.feature.core.custom_recipes.client.Handlers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(priority = 90)
-public final class CustomRecipesClient extends ClientFeature implements SubFeature<CoreClient> {
+public final class CustomRecipesClient extends ClientFeature implements ChildFeature<CoreClient> {
     public final Handlers handlers;
 
     public CustomRecipesClient(ClientLoader loader) {

@@ -10,12 +10,12 @@ import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 import java.util.Optional;
 
 @Feature(description = "Handles custom wood.")
-public final class CustomWood extends CommonFeature implements SubFeature<Core> {
+public final class CustomWood extends CommonFeature implements ChildFeature<Core> {
     public final Registers registers;
     public final Handlers handlers;
 

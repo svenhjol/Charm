@@ -6,7 +6,7 @@ import svenhjol.charm.feature.storage_blocks.sugar_block.SugarBlock;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public final class StorageBlocks extends CommonFeature {
     }
 
     @Override
-    public List<SubFeature<StorageBlocks>> subFeatures() {
+    public List<ChildFeature<StorageBlocks>> children() {
         return List.of(
             new EnderPearlBlock(loader()),
             new GunpowderBlock(loader()),

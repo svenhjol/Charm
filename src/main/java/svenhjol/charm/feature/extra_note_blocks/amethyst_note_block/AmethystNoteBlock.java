@@ -6,10 +6,10 @@ import svenhjol.charm.feature.extra_note_blocks.amethyst_note_block.common.Regis
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(description = "Place a block of amethyst under a note block to play its placement sound.")
-public final class AmethystNoteBlock extends CommonFeature implements SubFeature<ExtraNoteBlocks> {
+public final class AmethystNoteBlock extends CommonFeature implements ChildFeature<ExtraNoteBlocks> {
     public static final String NOTE_BLOCK_ID = "charm_amethyst";
 
     public final Registers registers;

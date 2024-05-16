@@ -6,11 +6,11 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature
 public final class EnderPearlBlockClient extends ClientFeature
-    implements SubFeature<StorageBlocksClient>, CommonResolver<EnderPearlBlock> {
+    implements ChildFeature<StorageBlocksClient>, CommonResolver<EnderPearlBlock> {
     public final Registers registers;
 
     public EnderPearlBlockClient(ClientLoader loader) {

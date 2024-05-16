@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public final class StorageBlocksClient extends ClientFeature implements CommonRe
     }
 
     @Override
-    public List<SubFeature<StorageBlocksClient>> subFeatures() {
+    public List<ChildFeature<StorageBlocksClient>> children() {
         return List.of(
             new EnderPearlBlockClient(loader()),
             new GunpowderBlockClient(loader()),

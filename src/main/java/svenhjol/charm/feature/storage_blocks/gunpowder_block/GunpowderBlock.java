@@ -6,12 +6,12 @@ import svenhjol.charm.feature.storage_blocks.gunpowder_block.common.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(description = """
     Combine gunpowder to make a gunpowder block.
     Gunpowder blocks are affected by gravity and dissolve in lava.""")
-public final class GunpowderBlock extends CommonFeature implements SubFeature<StorageBlocks> {
+public final class GunpowderBlock extends CommonFeature implements ChildFeature<StorageBlocks> {
     public final Registers registers;
     public final Advancements advancements;
 

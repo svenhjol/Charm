@@ -3,7 +3,7 @@ package svenhjol.charm.foundation;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.feature.Conditional;
 import svenhjol.charm.foundation.feature.Metadata;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 import java.util.List;
 import java.util.Optional;
@@ -88,7 +88,7 @@ public abstract class Feature implements Conditional {
         this.enabledInConfig = enabledInConfig;
     }
 
-    public List<? extends SubFeature<? extends Feature>> subFeatures() {
+    public List<? extends ChildFeature<? extends Feature>> children() {
         return List.of();
     }
 }

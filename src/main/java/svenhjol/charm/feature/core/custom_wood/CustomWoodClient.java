@@ -7,10 +7,10 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(priority = -10)
-public final class CustomWoodClient extends ClientFeature implements SubFeature<CoreClient>, CommonResolver<CustomWood> {
+public final class CustomWoodClient extends ClientFeature implements ChildFeature<CoreClient>, CommonResolver<CustomWood> {
     public final Registers registers;
     public final Handlers handlers;
 

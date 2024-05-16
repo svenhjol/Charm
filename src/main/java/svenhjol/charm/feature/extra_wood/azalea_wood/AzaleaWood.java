@@ -7,10 +7,10 @@ import svenhjol.charm.feature.extra_wood.azalea_wood.common.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(description = "Azalea wood is obtainable from naturally occurring azalea trees or by growing azalea saplings.")
-public final class AzaleaWood extends CommonFeature implements SubFeature<ExtraWood> {
+public final class AzaleaWood extends CommonFeature implements ChildFeature<ExtraWood> {
     public static final String BOAT_ID = "charm_azalea";
     public final Registers registers;
     public final Handlers handlers;

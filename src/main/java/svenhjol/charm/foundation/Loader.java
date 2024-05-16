@@ -3,7 +3,7 @@ package svenhjol.charm.foundation;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.common.CommonResolver;
 import svenhjol.charm.foundation.feature.Conditional;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 import svenhjol.charm.foundation.helper.TextHelper;
 
 import java.util.*;
@@ -98,9 +98,9 @@ public abstract class Loader<F extends Feature> {
                     F feature = clazz.getDeclaredConstructor(type()).newInstance(this);
                     registerFeature(feature);
 
-                    // Also register all feature's subfeatures
-                    for (var subfeature : feature.subFeatures()) {
-                        registerFeature((F)subfeature);
+                    // Also register all feature's chilren
+                    for (var child : feature.children()) {
+                        registerFeature((F)child);
                     }
                 } catch (Exception e) {
                     log.die(clazz.getSimpleName() + " failed to start", e);
@@ -166,8 +166,8 @@ public abstract class Loader<F extends Feature> {
                 continue;
             }
 
-            if (feature instanceof SubFeature<?> subFeature
-                && !subFeature.parent().isEnabled()) {
+            if (feature instanceof ChildFeature<?> childFeature
+                && !childFeature.parent().isEnabled()) {
                 feature.log().warnIfDebug("Feature's parent is disabled");
                 feature.setEnabled(false);
                 continue;

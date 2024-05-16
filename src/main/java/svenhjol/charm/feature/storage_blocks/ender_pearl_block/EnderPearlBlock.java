@@ -8,10 +8,10 @@ import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(description = "Combine ender pearls to make an ender pearl block.")
-public final class EnderPearlBlock extends CommonFeature implements SubFeature<StorageBlocks> {
+public final class EnderPearlBlock extends CommonFeature implements ChildFeature<StorageBlocks> {
     public final Advancements advancements;
     public final Handlers handlers;
     public final Registers registers;

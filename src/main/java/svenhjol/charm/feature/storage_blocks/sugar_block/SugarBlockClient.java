@@ -6,10 +6,10 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature
-public final class SugarBlockClient extends ClientFeature implements SubFeature<StorageBlocksClient>, CommonResolver<SugarBlock> {
+public final class SugarBlockClient extends ClientFeature implements ChildFeature<StorageBlocksClient>, CommonResolver<SugarBlock> {
     public final Registers registers;
 
     public SugarBlockClient(ClientLoader loader) {

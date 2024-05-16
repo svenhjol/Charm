@@ -6,10 +6,10 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature
-public final class GunpowderBlockClient extends ClientFeature implements CommonResolver<GunpowderBlock>, SubFeature<StorageBlocksClient> {
+public final class GunpowderBlockClient extends ClientFeature implements CommonResolver<GunpowderBlock>, ChildFeature<StorageBlocksClient> {
     public final Registers registers;
 
     public GunpowderBlockClient(ClientLoader loader) {

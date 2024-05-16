@@ -7,10 +7,10 @@ import svenhjol.charm.feature.core.custom_advancements.common.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(priority = 80)
-public final class CustomAdvancements extends CommonFeature implements SubFeature<Core> {
+public final class CustomAdvancements extends CommonFeature implements ChildFeature<Core> {
     public final Registers registers;
     public final Providers providers;
     public final Handlers handlers;

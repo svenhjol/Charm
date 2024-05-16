@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public final class Core extends CommonFeature {
     }
 
     @Override
-    public List<? extends SubFeature<? extends svenhjol.charm.foundation.Feature>> subFeatures() {
+    public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
         return List.of(
             new CustomWood(loader()),
             new CustomRecipes(loader()),

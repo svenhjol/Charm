@@ -6,10 +6,10 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature
-public final class AzaleaWoodClient extends ClientFeature implements SubFeature<ExtraWoodClient>, CommonResolver<AzaleaWood> {
+public final class AzaleaWoodClient extends ClientFeature implements ChildFeature<ExtraWoodClient>, CommonResolver<AzaleaWood> {
     public final Registers registers;
 
     public AzaleaWoodClient(ClientLoader loader) {

@@ -6,7 +6,7 @@ import com.electronwill.nightconfig.toml.TomlWriter;
 import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.feature.SubFeature;
+import svenhjol.charm.foundation.feature.ChildFeature;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 
 import java.lang.reflect.Field;
@@ -35,8 +35,8 @@ public abstract class Config {
         for (var feature : features) {
             var featureName = feature.name();
 
-            if (feature instanceof SubFeature<?> subFeature) {
-                featureName = subFeature.parent().name() + "." + featureName;
+            if (feature instanceof ChildFeature<?> childFeature) {
+                featureName = childFeature.parent().name() + "." + featureName;
             }
 
             // Update the enabledInConfig property of each feature.
@@ -115,14 +115,14 @@ public abstract class Config {
         // This blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically.
         var config = TomlFormat.newConfig(LinkedHashMap::new);
 
-        // Make a map of subfeatures separately so the config formats in alphabetical order.
+        // Make a map of children separately so the config formats in alphabetical order.
         List<Feature> sortedByChildren = new LinkedList<>();
         List<Feature> parents = new LinkedList<>();
         Map<Feature, List<Feature>> childMap = new LinkedHashMap<>();
 
         for (var feature : features) {
-            if (feature instanceof SubFeature<?> subFeature) {
-                childMap.computeIfAbsent(subFeature.parent(), a -> new ArrayList<>()).add(feature);
+            if (feature instanceof ChildFeature<?> childFeature) {
+                childMap.computeIfAbsent(childFeature.parent(), a -> new ArrayList<>()).add(feature);
             } else {
                 parents.add(feature);
             }
@@ -138,8 +138,8 @@ public abstract class Config {
         for (var feature : sortedByChildren) {
             var featureName = feature.name();
 
-            if (feature instanceof SubFeature<?> subFeature) {
-                featureName = subFeature.parent().name() + "." + featureName;
+            if (feature instanceof ChildFeature<?> childFeature) {
+                featureName = childFeature.parent().name() + "." + featureName;
             }
 
             if (feature.canBeDisabled()) {
