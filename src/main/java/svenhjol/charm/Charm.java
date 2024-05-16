@@ -14,6 +14,7 @@ import svenhjol.charm.feature.collection.Collection;
 import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplates;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
+import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanterns;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
@@ -66,6 +67,7 @@ public final class Charm {
             ColoredGlintTemplates.class,
             ColoredGlints.class,
             CopperPistons.class,
+            CoralSeaLanterns.class,
             CoralSquids.class,
             Core.class,
             DeepslateDungeons.class,

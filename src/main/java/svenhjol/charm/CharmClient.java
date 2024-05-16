@@ -8,6 +8,7 @@ import svenhjol.charm.feature.clear_item_frames.ClearItemFramesClient;
 import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplatesClient;
 import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
+import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanternsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.core.CoreClient;
 import svenhjol.charm.feature.endermite_powder.EndermitePowderClient;
@@ -39,6 +40,7 @@ public final class CharmClient {
             ColoredGlintTemplatesClient.class,
             ColoredGlintsClient.class,
             CopperPistonsClient.class,
+            CoralSeaLanternsClient.class,
             CoralSquidsClient.class,
             CoreClient.class,
             EndermitePowderClient.class,

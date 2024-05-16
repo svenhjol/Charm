@@ -1,0 +1,23 @@
+{
+  "template": {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "SCS",
+      "CCC",
+      "SCS"
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:CORAL_coral"
+      },
+      "C": {
+        "item": "minecraft:prismarine_crystals"
+      }
+    },
+    "result": {
+      "id": "charm:CORAL_sea_lantern",
+      "count": 1
+    }
+  },
+  "variants": "coral"
+}
