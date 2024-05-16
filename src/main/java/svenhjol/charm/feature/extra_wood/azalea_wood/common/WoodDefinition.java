@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.extra_wood.azalea_wood.common;
 
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
-import svenhjol.charm.feature.custom_wood.common.CustomType;
-import svenhjol.charm.feature.custom_wood.common.CustomWoodDefinition;
+import svenhjol.charm.feature.core.custom_wood.common.CustomType;
+import svenhjol.charm.feature.core.custom_wood.common.CustomWoodDefinition;
 
 import java.util.List;
 

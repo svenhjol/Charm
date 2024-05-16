@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.extra_wood.vanilla_wood_variants.common;
 
-import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.extra_wood.vanilla_wood_variants.VanillaWoodVariants;
 import svenhjol.charm.foundation.enums.VanillaWood;
 import svenhjol.charm.foundation.feature.RegisterHolder;

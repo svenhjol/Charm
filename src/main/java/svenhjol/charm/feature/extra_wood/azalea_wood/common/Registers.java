@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.event.LevelLoadEvent;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
-import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.extra_wood.azalea_wood.AzaleaWood;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 

@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.api.iface.IFuelProvider;
 import svenhjol.charm.api.iface.IVariantMaterial;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
-import svenhjol.charm.feature.custom_wood.CustomWood;
+import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.foundation.Resolve;
 
 import java.util.function.Supplier;

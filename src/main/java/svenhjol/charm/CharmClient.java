@@ -9,7 +9,7 @@ import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplatesClien
 import svenhjol.charm.feature.colored_glints.ColoredGlintsClient;
 import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
-import svenhjol.charm.feature.custom_wood.CustomWoodClient;
+import svenhjol.charm.feature.core.CoreClient;
 import svenhjol.charm.feature.endermite_powder.EndermitePowderClient;
 import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocksClient;
 import svenhjol.charm.feature.extra_tooltips.ExtraTooltips;
@@ -40,7 +40,7 @@ public final class CharmClient {
             ColoredGlintsClient.class,
             CopperPistonsClient.class,
             CoralSquidsClient.class,
-            CustomWoodClient.class,
+            CoreClient.class,
             EndermitePowderClient.class,
             ExtraNoteBlocksClient.class,
             ExtraTooltips.class,

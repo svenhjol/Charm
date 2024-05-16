@@ -74,7 +74,7 @@
     "feature.colored_glints.RenderBuffersMixin",
     "feature.colored_glints.RenderTypeMixin",
     "feature.copper_pistons.PistonHeadRendererMixin",
-    "feature.custom_wood.SheetsMixin",
+    "feature.core.custom_wood.SheetsMixin",
     "feature.extractable_enchantments.GrindstoneScreenMixin",
     "feature.show_repair_cost.AnvilScreenMixin",
     "feature.silence.ClientTelemetryManagerMixin",
