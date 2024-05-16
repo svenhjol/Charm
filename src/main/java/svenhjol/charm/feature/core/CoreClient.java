@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.core;
 
 import svenhjol.charm.feature.core.custom_wood.CustomWoodClient;
+import svenhjol.charm.feature.core.recipes.RecipesClient;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
@@ -17,7 +18,8 @@ public class CoreClient extends ClientFeature {
     @Override
     public List<? extends SubFeature<? extends svenhjol.charm.foundation.Feature>> subFeatures() {
         return List.of(
-            new CustomWoodClient(loader())
+            new CustomWoodClient(loader()),
+            new RecipesClient(loader())
         );
     }
 }

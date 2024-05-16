@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.registry.recipes;
+package svenhjol.charm.mixin.feature.core.recipes;
 
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.RecipeBookCategories;
@@ -7,7 +7,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.foundation.recipe.client.Handlers;
+import svenhjol.charm.feature.core.recipes.RecipesClient;
+import svenhjol.charm.foundation.Resolve;
 
 @Mixin(ClientRecipeBook.class)
 public class ClientRecipeBookMixin {
@@ -20,7 +21,7 @@ public class ClientRecipeBookMixin {
         cancellable = true
     )
     private static void hookGetCategory(RecipeHolder<?> recipeHolder, CallbackInfoReturnable<RecipeBookCategories> cir) {
-        var opt = Handlers.getCustomRecipeCategory(recipeHolder);
+        var opt = Resolve.feature(RecipesClient.class).handlers.customRecipeCategory(recipeHolder);
         opt.ifPresent(cir::setReturnValue);
     }
 }

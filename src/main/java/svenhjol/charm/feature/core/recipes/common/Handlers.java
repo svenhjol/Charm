@@ -1,44 +1,48 @@
-package svenhjol.charm.foundation.recipe.common;
+package svenhjol.charm.feature.core.recipes.common;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import svenhjol.charm.api.iface.IConditionalRecipe;
+import svenhjol.charm.feature.core.recipes.Recipes;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.enums.Side;
+import svenhjol.charm.foundation.feature.FeatureHolder;
 import svenhjol.charm.foundation.helper.ResourceLocationHelper;
-import svenhjol.charm.foundation.recipe.RecipeManager;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class Handlers {
-    public static final List<IConditionalRecipe> CONDITIONS = new ArrayList<>();
-    private static final List<String> FUZZY_REMOVE = new ArrayList<>();
-    private static final List<String> EXACT_REMOVE = new ArrayList<>();
+public final class Handlers extends FeatureHolder<Recipes> {
+    private final List<String> fuzzyRemove = new ArrayList<>();
+    private final List<String> exactRemove = new ArrayList<>();
 
     /**
      * Holds a reference to the global RecipeManager.
      */
-    public static net.minecraft.world.item.crafting.RecipeManager managerHolder;
+    public RecipeManager managerHolder;
 
-    public static void handlePackReload(String reason) {
-        RecipeManager.LOGGER.debug("Reloading Charm custom recipe filtering: " + reason);
+    public Handlers(Recipes feature) {
+        super(feature);
+    }
 
-        EXACT_REMOVE.clear();
-        FUZZY_REMOVE.clear();
+    public void packReload(String reason) {
+        feature().log().debug("Reloading Charm custom recipe filtering: " + reason);
 
-        for (var condition : CONDITIONS) {
+        exactRemove.clear();
+        fuzzyRemove.clear();
+
+        for (var condition : feature().providers.conditions) {
             if (condition.test()) continue;
             condition.recipes().forEach(remove -> {
                 if (remove.contains("*") || !remove.contains(":")) {
-                    FUZZY_REMOVE.add(remove);
+                    fuzzyRemove.add(remove);
                 } else {
-                    EXACT_REMOVE.add(remove);
+                    exactRemove.add(remove);
                 }
             });
         }
@@ -47,18 +51,18 @@ public final class Handlers {
     /**
      * Called by sorting recipe manager.
      *
-     * @see RecipeManager
+     * @see RecipeSorter
      * original: Map<RecipeType<?>, Map<ResourceLocation, RecipeHolder<?>>>
      * new: Multimap<RecipeType<?>, RecipeHolder<?>>
      */
-    public static Multimap<RecipeType<?>, RecipeHolder<?>> sortAndFilter(Multimap<RecipeType<?>, RecipeHolder<?>> byType) {
-        RecipeManager.LOGGER.debug("Preparing to sort and filter recipes.");
+    public Multimap<RecipeType<?>, RecipeHolder<?>> sortAndFilter(Multimap<RecipeType<?>, RecipeHolder<?>> byType) {
+        feature().log().debug("Preparing to sort and filter recipes.");
 
         ImmutableMultimap.Builder<RecipeType<?>, RecipeHolder<?>> builder = ImmutableMultimap.builder();
 
         for (var type : byType.keySet()) {
             var recipes = byType.get(type);
-            RecipeManager.LOGGER.debug("Recipe type " + type.toString() + " contains " + recipes.size() + " recipes.");
+            feature().log().debug("Recipe type " + type.toString() + " contains " + recipes.size() + " recipes.");
 
             var charmonyRecipes = recipes.stream().filter(r -> Resolve.hasLoader(Side.COMMON, r.id().getNamespace()));
             var otherRecipes = recipes.stream().filter(r -> !Resolve.hasLoader(Side.COMMON, r.id().getNamespace()));
@@ -73,14 +77,14 @@ public final class Handlers {
             otherRecipes.forEach(holders::add);
 
             holders.forEach(holder -> builder.put(type, holder));
-            RecipeManager.LOGGER.debug("Recipe type " + type + " reassembled with " + holders.size() + " recipes");
+            feature().log().debug("Recipe type " + type + " reassembled with " + holders.size() + " recipes");
         }
 
         return builder.build();
     }
 
-    public static boolean shouldRemove(ResourceLocation id) {
+    public boolean shouldRemove(ResourceLocation id) {
         return ResourceLocationHelper.isDisabledCharmonyFeature(id)
-            || ResourceLocationHelper.match(id, EXACT_REMOVE, FUZZY_REMOVE);
+            || ResourceLocationHelper.match(id, exactRemove, fuzzyRemove);
     }
 }

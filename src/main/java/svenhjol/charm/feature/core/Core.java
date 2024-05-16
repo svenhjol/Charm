@@ -4,6 +4,7 @@ import svenhjol.charm.feature.core.common.Advancements;
 import svenhjol.charm.feature.core.common.Handlers;
 import svenhjol.charm.feature.core.common.Registers;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
+import svenhjol.charm.feature.core.recipes.Recipes;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
@@ -50,7 +51,8 @@ public final class Core extends CommonFeature {
     @Override
     public List<? extends SubFeature<? extends svenhjol.charm.foundation.Feature>> subFeatures() {
         return List.of(
-            new CustomWood(loader())
+            new CustomWood(loader()),
+            new Recipes(loader())
         );
     }
 

@@ -33,6 +33,10 @@
     "feature.copper_pistons.PistonBaseBlockMixin",
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",
+    "feature.core.recipes.RecipeBookTypeMixin",
+    "feature.core.recipes.RecipeManagerMixin",
+    "feature.core.recipes.ReloadableServerResourcesMixin",
+    "feature.core.recipes.ServerPackSourceMixin",
     "feature.deepslate_dungeons.MonsterRoomFeatureMixin",
     "feature.extra_note_blocks.NoteBlockInstrumentMixin",
     "feature.extra_wood.BoatTypeMixin",
@@ -52,10 +56,6 @@
     "registry.advancements.AdvancementTreeMixin",
     "registry.advancements.ServerAdvancementManagerMixin",
     "registry.advancements.ServerPackSourceMixin",
-    "registry.recipes.RecipeBookTypeMixin",
-    "registry.recipes.RecipeManagerMixin",
-    "registry.recipes.ReloadableServerResourcesMixin",
-    "registry.recipes.ServerPackSourceMixin",
     "registry.villager_name.VillagerMixin"
   ],
   "client": [
@@ -75,6 +75,9 @@
     "feature.colored_glints.RenderTypeMixin",
     "feature.copper_pistons.PistonHeadRendererMixin",
     "feature.core.custom_wood.SheetsMixin",
+    "feature.core.recipes.ClientRecipeBookMixin",
+    "feature.core.recipes.RecipeBookCategoriesMixin",
+    "feature.core.recipes.RecipeBookLookupMixin",
     "feature.extractable_enchantments.GrindstoneScreenMixin",
     "feature.show_repair_cost.AnvilScreenMixin",
     "feature.silence.ClientTelemetryManagerMixin",
@@ -83,10 +86,7 @@
     "feature.unlimited_repair_cost.AnvilScreenMixin",
     "feature.variant_pistons.PistonHeadRendererMixin",
     "registry.client_tooltip_component.ClientTooltipComponentMixin",
-    "registry.particle_engine.ParticleEngineMixin",
-    "registry.recipes.ClientRecipeBookMixin",
-    "registry.recipes.RecipeBookCategoriesMixin",
-    "registry.recipes.RecipeBookLookupMixin"
+    "registry.particle_engine.ParticleEngineMixin"
   ],
   "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
   "injectors": {

@@ -1,4 +1,4 @@
-package svenhjol.charm.foundation.recipe;
+package svenhjol.charm.feature.core.recipes.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,15 +9,12 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import svenhjol.charm.Charm;
-import svenhjol.charm.api.iface.IConditionalRecipeProvider;
-import svenhjol.charm.foundation.Log;
-import svenhjol.charm.foundation.helper.ApiHelper;
-import svenhjol.charm.foundation.recipe.common.Handlers;
+import svenhjol.charm.feature.core.recipes.Recipes;
+import svenhjol.charm.foundation.feature.FeatureResolver;
 
 import java.util.Map;
 
-public final class RecipeManager extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener {
-    public static final Log LOGGER = new Log(Charm.ID, "Recipes");
+public final class RecipeSorter extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener, FeatureResolver<Recipes> {
     private static final String ID = "charm_recipe_manager";
     private static final Gson GSON = (new GsonBuilder())
         .setPrettyPrinting()
@@ -26,21 +23,20 @@ public final class RecipeManager extends SimpleJsonResourceReloadListener implem
         .excludeFieldsWithoutExposeAnnotation()
         .create();
 
-    public RecipeManager() {
+    public RecipeSorter() {
         super(GSON, ID);
-
-        ApiHelper.consume(IConditionalRecipeProvider.class,
-            provider -> Handlers.CONDITIONS.addAll(provider.getRecipeConditions()));
     }
     
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        if (Handlers.managerHolder != null) {
-            LOGGER.debug("Holding recipe manager reference: " + Handlers.managerHolder);
-            var byType = Handlers.managerHolder.byType;
+        var manager = feature().handlers.managerHolder;
+
+        if (manager != null) {
+            feature().log().debug("Holding recipe manager reference: " + manager);
+            var byType = manager.byType;
 
             if (!byType.isEmpty()) {
-                Handlers.managerHolder.byType = Handlers.sortAndFilter(byType);
+                manager.byType = feature().handlers.sortAndFilter(byType);
             }
         }
     }
@@ -48,5 +44,10 @@ public final class RecipeManager extends SimpleJsonResourceReloadListener implem
     @Override
     public ResourceLocation getFabricId() {
         return Charm.id(ID);
+    }
+
+    @Override
+    public Class<Recipes> typeForFeature() {
+        return Recipes.class;
     }
 }

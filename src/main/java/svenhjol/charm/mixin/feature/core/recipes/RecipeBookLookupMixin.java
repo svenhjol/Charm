@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.registry.recipes;
+package svenhjol.charm.mixin.feature.core.recipes;
 
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.inventory.RecipeBookType;

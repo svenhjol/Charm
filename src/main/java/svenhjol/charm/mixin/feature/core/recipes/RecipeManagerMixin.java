@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.registry.recipes;
+package svenhjol.charm.mixin.feature.core.recipes;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -8,7 +8,8 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.RecipeManager;
 import org.spongepowered.asm.mixin.Mixin;
-import svenhjol.charm.foundation.recipe.common.Handlers;
+import svenhjol.charm.feature.core.recipes.Recipes;
+import svenhjol.charm.foundation.Resolve;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +22,11 @@ public abstract class RecipeManagerMixin extends SimpleJsonResourceReloadListene
 
     @Override
     protected Map<ResourceLocation, JsonElement> prepare(ResourceManager resourceManager, ProfilerFiller profilerFiller) {
+        var handlers = Resolve.feature(Recipes.class).handlers;
         var map = super.prepare(resourceManager, profilerFiller);
         var copy = new HashMap<>(map);
         map.forEach((key, val) -> {
-            if (Handlers.shouldRemove(key)) {
+            if (handlers.shouldRemove(key)) {
                 copy.remove(key);
             }
         });

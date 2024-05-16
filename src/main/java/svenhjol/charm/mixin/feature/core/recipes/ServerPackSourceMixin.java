@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.registry.recipes;
+package svenhjol.charm.mixin.feature.core.recipes;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.repository.Pack;
@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.foundation.recipe.common.Handlers;
+import svenhjol.charm.feature.core.recipes.Recipes;
+import svenhjol.charm.foundation.Resolve;
 
 @Mixin(ServerPacksSource.class)
 public class ServerPackSourceMixin {
@@ -18,7 +19,7 @@ public class ServerPackSourceMixin {
         at = @At("HEAD")
     )
     private static void hookCreatePackRepository(LevelStorageSource.LevelStorageAccess levelStorageAccess, CallbackInfoReturnable<PackRepository> cir) {
-        Handlers.handlePackReload("createPackRepository");
+        Resolve.feature(Recipes.class).handlers.packReload("createPackRepository");
     }
 
     @Inject(
@@ -26,6 +27,6 @@ public class ServerPackSourceMixin {
         at = @At("HEAD")
     )
     private void hookCreateBuiltinPack(String string, Pack.ResourcesSupplier resourcesSupplier, Component component, CallbackInfoReturnable<Pack> cir) {
-        Handlers.handlePackReload("createBuiltinPack");
+        Resolve.feature(Recipes.class).handlers.packReload("createBuiltinPack");
     }
 }

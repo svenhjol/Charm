@@ -10,11 +10,9 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -34,7 +32,6 @@ import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.advancement.AdvancementManager;
 import svenhjol.charm.foundation.event.PlayerLoginCallback;
 import svenhjol.charm.foundation.event.PlayerTickCallback;
-import svenhjol.charm.foundation.recipe.RecipeManager;
 
 import javax.annotation.Nullable;
 
@@ -58,10 +55,6 @@ public final class CommonEvents {
 
     public static void runOnce() {
         if (initialized) return;
-
-        // Add our custom recipe sorting handler - should only be added once!
-        ResourceManagerHelper.get(PackType.SERVER_DATA)
-            .registerReloadListener(new RecipeManager());
 
         // Add our custom advancement handling.
         AdvancementManager.instance();
