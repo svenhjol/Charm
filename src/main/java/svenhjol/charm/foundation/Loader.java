@@ -12,6 +12,7 @@ import java.util.function.BooleanSupplier;
 public abstract class Loader<F extends Feature> {
     protected final List<Runnable> deferred = new LinkedList<>();
     protected final List<Conditional> conditionals = new LinkedList<>();
+    protected final List<Class<F>> instantiated = new LinkedList<>();
     protected final List<F> features = new LinkedList<>();
     protected final String id;
     protected boolean deferredCompleted = false;
@@ -90,6 +91,10 @@ public abstract class Loader<F extends Feature> {
         for (int key : order) {
             for (var clazz : prioritised.get(key)) {
                 try {
+                    if (instantiated.contains(clazz)) {
+                        log.die("Cannot register a feature twice: " + clazz.getSimpleName());
+                    }
+
                     F feature = clazz.getDeclaredConstructor(type()).newInstance(this);
                     registerFeature(feature);
 
@@ -228,8 +233,10 @@ public abstract class Loader<F extends Feature> {
      * Internal callback to add a feature to the features list
      * and register the feature with the global resolver.
      */
+    @SuppressWarnings("unchecked")
     protected void registerFeature(F feature) {
         features.add(feature);
+        instantiated.add((Class<F>) feature.getClass());
         Resolve.register(feature);
     }
 
