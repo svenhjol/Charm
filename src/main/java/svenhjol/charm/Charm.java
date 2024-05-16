@@ -29,6 +29,7 @@ import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.feature.inventory_tidying.InventoryTidying;
 import svenhjol.charm.feature.kilns.Kilns;
 import svenhjol.charm.feature.lumberjacks.Lumberjacks;
+import svenhjol.charm.feature.mooblooms.Mooblooms;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.revive_pets.RevivePets;
 import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
@@ -82,6 +83,7 @@ public final class Charm {
             InventoryTidying.class,
             Kilns.class,
             Lumberjacks.class,
+            Mooblooms.class,
             PotionOfRadiance.class,
             RevivePets.class,
             ShulkerBoxDragDrop.class,
