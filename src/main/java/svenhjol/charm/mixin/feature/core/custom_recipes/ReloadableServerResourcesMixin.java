@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.feature.core.recipes;
+package svenhjol.charm.mixin.feature.core.custom_recipes;
 
 import net.minecraft.commands.Commands;
 import net.minecraft.core.RegistryAccess;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.core.recipes.Recipes;
+import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
 import svenhjol.charm.foundation.Resolve;
 
 @SuppressWarnings("UnreachableCode")
@@ -23,6 +23,6 @@ public class ReloadableServerResourcesMixin {
     )
     private void hookInit(RegistryAccess.Frozen frozen, FeatureFlagSet featureFlagSet, Commands.CommandSelection commandSelection, int i, CallbackInfo ci) {
         var manager = (ReloadableServerResources) (Object) this;
-        Resolve.feature(Recipes.class).handlers.managerHolder = manager.getRecipeManager();
+        Resolve.feature(CustomRecipes.class).handlers.managerHolder = manager.getRecipeManager();
     }
 }

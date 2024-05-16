@@ -29,7 +29,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.event.*;
 import svenhjol.charm.foundation.Log;
-import svenhjol.charm.foundation.advancement.AdvancementManager;
 import svenhjol.charm.foundation.event.PlayerLoginCallback;
 import svenhjol.charm.foundation.event.PlayerTickCallback;
 
@@ -55,9 +54,6 @@ public final class CommonEvents {
 
     public static void runOnce() {
         if (initialized) return;
-
-        // Add our custom advancement handling.
-        AdvancementManager.instance();
 
         // These are global Fabric events that any mod/feature can observe.
         AttackEntityCallback.EVENT.register(CommonEvents::handleAttackEntity);

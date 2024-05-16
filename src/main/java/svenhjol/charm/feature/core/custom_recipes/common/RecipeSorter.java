@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.core.recipes.common;
+package svenhjol.charm.feature.core.custom_recipes.common;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,12 +9,12 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import svenhjol.charm.Charm;
-import svenhjol.charm.feature.core.recipes.Recipes;
+import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
 import svenhjol.charm.foundation.feature.FeatureResolver;
 
 import java.util.Map;
 
-public final class RecipeSorter extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener, FeatureResolver<Recipes> {
+public final class RecipeSorter extends SimpleJsonResourceReloadListener implements IdentifiableResourceReloadListener, FeatureResolver<CustomRecipes> {
     private static final String ID = "charm_recipe_manager";
     private static final Gson GSON = (new GsonBuilder())
         .setPrettyPrinting()
@@ -47,7 +47,7 @@ public final class RecipeSorter extends SimpleJsonResourceReloadListener impleme
     }
 
     @Override
-    public Class<Recipes> typeForFeature() {
-        return Recipes.class;
+    public Class<CustomRecipes> typeForFeature() {
+        return CustomRecipes.class;
     }
 }

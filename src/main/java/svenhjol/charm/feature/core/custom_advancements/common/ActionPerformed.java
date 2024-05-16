@@ -1,4 +1,4 @@
-package svenhjol.charm.foundation.advancement.common;
+package svenhjol.charm.feature.core.custom_advancements.common;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

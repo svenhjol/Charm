@@ -1,8 +1,9 @@
 package svenhjol.charm.foundation.feature;
 
 import net.minecraft.world.entity.player.Player;
+import svenhjol.charm.feature.core.custom_advancements.CustomAdvancements;
 import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.advancement.common.Handlers;
+import svenhjol.charm.foundation.Resolve;
 
 public abstract class AdvancementHolder<F extends Feature> extends FeatureHolder<F>{
     public AdvancementHolder(F feature) {
@@ -11,6 +12,6 @@ public abstract class AdvancementHolder<F extends Feature> extends FeatureHolder
 
     protected void trigger(String id, Player player) {
         var res = feature().id(id);
-        Handlers.trigger(res, player);
+        Resolve.feature(CustomAdvancements.class).handlers.trigger(res, player);
     }
 }

@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.core.recipes.common;
+package svenhjol.charm.feature.core.custom_recipes.common;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import svenhjol.charm.feature.core.recipes.Recipes;
+import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.enums.Side;
 import svenhjol.charm.foundation.feature.FeatureHolder;
@@ -17,7 +17,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class Handlers extends FeatureHolder<Recipes> {
+public final class Handlers extends FeatureHolder<CustomRecipes> {
     private final List<String> fuzzyRemove = new ArrayList<>();
     private final List<String> exactRemove = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public final class Handlers extends FeatureHolder<Recipes> {
      */
     public RecipeManager managerHolder;
 
-    public Handlers(Recipes feature) {
+    public Handlers(CustomRecipes feature) {
         super(feature);
     }
 
