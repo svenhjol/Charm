@@ -19,6 +19,7 @@ import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.echolocation.Echolocation;
+import svenhjol.charm.feature.enchantable_animal_armor.EnchantableAnimalArmor;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
 import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocks;
 import svenhjol.charm.feature.extra_wood.ExtraWood;
@@ -73,6 +74,7 @@ public final class Charm {
             Core.class,
             DeepslateDungeons.class,
             Echolocation.class,
+            EnchantableAnimalArmor.class,
             EndermitePowder.class,
             ExtraNoteBlocks.class,
             ExtraWood.class,

@@ -4,6 +4,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -55,6 +56,12 @@ public final class Tags {
 
     public static final TagKey<Block> NETHER_PORTAL_FRAMES = TagKey.create(Registries.BLOCK,
         Charm.id("nether_portal_frames"));
+
+    public static final TagKey<Enchantment> ON_HORSE_ARMOR = TagKey.create(Registries.ENCHANTMENT,
+        Charm.id("on_horse_armor"));
+
+    public static final TagKey<Enchantment> ON_WOLF_ARMOR = TagKey.create(Registries.ENCHANTMENT,
+        Charm.id("on_wolf_armor"));
 
     public static final TagKey<Block> OVERWORLD_STRIPPED_LOGS = TagKey.create(Registries.BLOCK,
         Charm.id("overworld_stripped_logs"));

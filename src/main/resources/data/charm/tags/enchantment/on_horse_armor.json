@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:protection",
+    "minecraft:fire_protection",
+    "minecraft:blast_protection",
+    "minecraft:projectile_protection",
+    "minecraft:thorns",
+    "minecraft:frost_walker",
+    "minecraft:feather_falling",
+    "minecraft:respiration",
+    "minecraft:soul_speed"
+  ]
+}
