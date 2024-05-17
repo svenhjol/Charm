@@ -107,4 +107,7 @@ public final class Tags {
 
     public static final TagKey<Biome> SPAWNS_SUNFLOWER_MOOBLOOMS = TagKey.create(Registries.BIOME,
         Charm.id("spawns_sunflower_mooblooms"));
+
+    public static final TagKey<Item> VILLAGER_LOVED = TagKey.create(Registries.ITEM,
+        Charm.id("villager_loved"));
 }

@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/mobs",
+  "display": {
+    "icon": {
+      "id": "minecraft:emerald_block"
+    },
+    "title": {
+      "translate": "advancements.charm.attract_a_villager.title"
+    },
+    "description": {
+      "translate": "advancements.charm.attract_a_villager.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "attract_a_villager": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:attract_a_villager"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "attract_a_villager"
+    ]
+  ]
+}
