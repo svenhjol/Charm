@@ -78,7 +78,7 @@ public class CustomWoodHolder {
     }
 
     public void addCreativeTabItem(CustomType customType, Supplier<? extends Item> item) {
-        feature().handlers.addCreativeTabItem(ownerId(), customType, item);
+        feature().registers.addCreativeTabItem(ownerId(), customType, item);
     }
 
     public CustomWood feature() {

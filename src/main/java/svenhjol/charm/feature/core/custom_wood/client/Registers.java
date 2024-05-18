@@ -85,7 +85,7 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
         BlockItemRenderEvent.INSTANCE.handle(feature().handlers::renderChestBlockItem);
 
         // Build the creative menu.
-        feature().common().handlers.getCreativeTabItems().forEach(
+        feature().common().registers.getCreativeTabItems().forEach(
             (mod, map) -> {
                 CustomType.BUILDING_BLOCKS.forEach(
                     name -> Optional.ofNullable(map.get(name)).ifPresent(

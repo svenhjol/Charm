@@ -1,8 +1,14 @@
 package svenhjol.charm.feature.extra_wood.azalea_wood.common;
 
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.features.TreeFeatures;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.event.LevelLoadEvent;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import svenhjol.charm.api.iface.IVariantWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.extra_wood.azalea_wood.AzaleaWood;
@@ -28,8 +34,18 @@ public final class Registers extends RegisterHolder<AzaleaWood> {
         });
     }
 
+    @SuppressWarnings({"unchecked", "unused"})
     @Override
-    public void onEnabled() {
-        LevelLoadEvent.INSTANCE.handle(feature().handlers::levelLoad);
+    public void onWorldLoaded(MinecraftServer server, ServerLevel level) {
+        var holder = CustomWood.holder(feature().registers.material.get());
+        var log = holder.log().orElseThrow();
+
+        // Make naturally occurring azalea trees use Charm's azalea log.
+        var configuredFeatures = server.registryAccess().registry(Registries.CONFIGURED_FEATURE).orElseThrow();
+        ConfiguredFeature<?, ?> feature
+            = configuredFeatures.getOrThrow(TreeFeatures.AZALEA_TREE);
+
+        ((ConfiguredFeature<TreeConfiguration, ?>)feature).config().trunkProvider
+            = new SimpleStateProvider(log.block.get().defaultBlockState());
     }
 }

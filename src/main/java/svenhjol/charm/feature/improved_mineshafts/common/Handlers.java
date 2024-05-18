@@ -1,16 +1,13 @@
 package svenhjol.charm.feature.improved_mineshafts.common;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.vehicle.*;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.RailBlock;
+import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
@@ -18,32 +15,14 @@ import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces;
 import net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.MineShaftCorridor;
 import net.minecraft.world.level.levelgen.structure.structures.MineshaftStructure;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import svenhjol.charm.feature.improved_mineshafts.ImprovedMineshafts;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class Handlers extends FeatureHolder<ImprovedMineshafts> {
     public Handlers(ImprovedMineshafts feature) {
         super(feature);
-    }
-
-    public void levelLoad(MinecraftServer server, ServerLevel level) {
-        if (level.dimension() == Level.OVERWORLD) {
-            // Do this only once.
-            var builder = new LootParams.Builder(level);
-            var registers = feature().registers;
-
-            registers.blocksForFloor.addAll(parseLootTable(server, builder, registers.floorBlockLoot));
-            registers.blocksForPile.addAll(parseLootTable(server, builder, registers.pileBlockLoot));
-            registers.blocksForCeiling.addAll(parseLootTable(server, builder, registers.ceilingBlockLoot));
-            registers.blocksForRoom.addAll(parseLootTable(server, builder, registers.roomBlockLoot));
-            registers.decorationsForRoom.addAll(parseLootTable(server, builder, registers.roomDecorationLoot));
-        }
     }
 
     public void generatePiece(StructurePiece piece, WorldGenLevel level, RandomSource random, BoundingBox box) {
@@ -202,31 +181,5 @@ public final class Handlers extends FeatureHolder<ImprovedMineshafts> {
         }
 
         return blocks.get(random.nextInt(blocks.size()));
-    }
-
-    private List<BlockState> parseLootTable(MinecraftServer server, LootParams.Builder builder, ResourceKey<LootTable> tableName) {
-        var lootTable = server.reloadableRegistries().getLootTable(tableName);
-        var items = lootTable.getRandomItems(builder.create(LootContextParamSets.EMPTY));
-        List<BlockState> states = new ArrayList<>();
-
-        for (ItemStack stack : items) {
-            BlockState state = getBlockStateFromItemStack(stack);
-            states.add(state);
-        }
-
-        return states;
-    }
-
-    private BlockState getBlockStateFromItemStack(ItemStack stack) {
-        var block = Block.byItem(stack.getItem());
-        var state = block.defaultBlockState();
-        var data = stack.get(DataComponents.BLOCK_STATE);
-
-        if (data != null) {
-            var newState = data.apply(state);
-            return newState;
-        }
-
-        return state;
     }
 }

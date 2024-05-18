@@ -25,11 +25,11 @@ public class CustomBoat {
         boat = holder.ownerRegistry().item(materialName + "_boat", () -> new BoatItem(false, boatType, new Item.Properties().stacksTo(1)));
         chestBoat = holder.ownerRegistry().item(materialName + "_chest_boat", () -> new BoatItem(true, boatType, new Item.Properties().stacksTo(1)));
 
-        holder.feature().handlers.setItemForBoat(boatType, boat);
-        holder.feature().handlers.setItemForChestBoat(boatType, chestBoat);
+        holder.feature().registers.setItemForBoat(boatType, boat);
+        holder.feature().registers.setItemForChestBoat(boatType, chestBoat);
 
         // It's too early to set the planks for the boat, so defer them here.
-        holder.feature().handlers.setPlanksForBoat(boatType, new ResourceLocation(modId, materialName + "_planks"));
+        holder.feature().registers.setPlanksForBoat(boatType, new ResourceLocation(modId, materialName + "_planks"));
 
         // Add default boat and chest boat dispenser behavior.
         holder.ownerRegistry().dispenserBehavior(boat, () -> new BoatDispenseItemBehavior(boatType));

@@ -28,7 +28,7 @@ public class CustomSign {
         item = registry.item(signId, () -> new CharmSignItem(material, standingBlock, wallBlock));
 
         // This is needed so we can set the correct blocks to signs later on in the registration.
-        holder.feature().handlers.addSignItem(item);
+        holder.feature().registers.addSignItem(item);
 
         // Associate with the sign block entity.
         registry.blockEntityBlocks(() -> BlockEntityType.SIGN, List.of(standingBlock, wallBlock));

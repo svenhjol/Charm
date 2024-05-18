@@ -1,9 +1,15 @@
 package svenhjol.charm.feature.improved_mineshafts.common;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
-import svenhjol.charm.api.event.LevelLoadEvent;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import svenhjol.charm.feature.improved_mineshafts.ImprovedMineshafts;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
@@ -39,7 +45,44 @@ public final class Registers extends RegisterHolder<ImprovedMineshafts> {
     }
 
     @Override
-    public void onEnabled() {
-        LevelLoadEvent.INSTANCE.handle(feature().handlers::levelLoad);
+    public void onWorldLoaded(MinecraftServer server, ServerLevel level) {
+        var builder = new LootParams.Builder(level);
+
+        blocksForCeiling.clear();
+        blocksForRoom.clear();
+        blocksForPile.clear();
+        blocksForFloor.clear();
+        decorationsForRoom.clear();
+
+        blocksForFloor.addAll(parseLootTable(server, builder, floorBlockLoot));
+        blocksForPile.addAll(parseLootTable(server, builder, pileBlockLoot));
+        blocksForCeiling.addAll(parseLootTable(server, builder, ceilingBlockLoot));
+        blocksForRoom.addAll(parseLootTable(server, builder, roomBlockLoot));
+        decorationsForRoom.addAll(parseLootTable(server, builder, roomDecorationLoot));
+    }
+
+    private List<BlockState> parseLootTable(MinecraftServer server, LootParams.Builder builder, ResourceKey<LootTable> tableName) {
+        var lootTable = server.reloadableRegistries().getLootTable(tableName);
+        var items = lootTable.getRandomItems(builder.create(LootContextParamSets.EMPTY));
+        List<BlockState> states = new ArrayList<>();
+
+        for (ItemStack stack : items) {
+            BlockState state = getBlockStateFromItemStack(stack);
+            states.add(state);
+        }
+
+        return states;
+    }
+
+    private BlockState getBlockStateFromItemStack(ItemStack stack) {
+        var block = Block.byItem(stack.getItem());
+        var state = block.defaultBlockState();
+        var data = stack.get(DataComponents.BLOCK_STATE);
+
+        if (data != null) {
+            return data.apply(state);
+        }
+
+        return state;
     }
 }

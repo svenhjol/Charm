@@ -1,15 +1,10 @@
 package svenhjol.charm.feature.enchantable_animal_armor.common;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import svenhjol.charm.feature.enchantable_animal_armor.EnchantableAnimalArmor;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.TagHelper;
 
 public final class Handlers extends FeatureHolder<EnchantableAnimalArmor> {
     public Handlers(EnchantableAnimalArmor feature) {
@@ -36,20 +31,5 @@ public final class Handlers extends FeatureHolder<EnchantableAnimalArmor> {
         return stack.getItem() instanceof AnimalArmorItem armor
             && armor.getBodyType() == AnimalArmorItem.BodyType.CANINE
             && feature().registers.horseArmorEnchantments.contains(enchantment);
-    }
-
-    /**
-     * Called when the world loads to fetch the tag contents and populate them.
-     */
-    public void levelLoad(MinecraftServer server, ServerLevel level) {
-        var registry = level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
-
-        // Load horse armor from the tag and cache it in our registry.
-        feature().registers.horseArmorEnchantments.clear();
-        feature().registers.horseArmorEnchantments.addAll(TagHelper.getValues(registry, Tags.ON_HORSE_ARMOR));
-
-        // Load wolf armor from the tag and cache it in our registry.
-        feature().registers.wolfArmorEnchantments.clear();
-        feature().registers.wolfArmorEnchantments.addAll(TagHelper.getValues(registry, Tags.ON_WOLF_ARMOR));
     }
 }

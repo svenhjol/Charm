@@ -28,7 +28,7 @@ public class CustomHangingSign {
         item = registry.item(hangingId, () -> new CharmHangingSignItem(material, hangingBlock, wallBlock));
 
         // This is needed so we can set the correct blocks to hanging signs later on in the registration.
-        holder.feature().handlers.addHangingSignItem(item);
+        holder.feature().registers.addHangingSignItem(item);
 
         // Associate with the hanging sign block entity.
         registry.blockEntityBlocks(() -> BlockEntityType.HANGING_SIGN, List.of(hangingBlock, wallBlock));

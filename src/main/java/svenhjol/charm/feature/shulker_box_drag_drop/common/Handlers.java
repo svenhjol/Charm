@@ -2,11 +2,7 @@ package svenhjol.charm.feature.shulker_box_drag_drop.common;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -16,8 +12,6 @@ import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
@@ -25,31 +19,16 @@ import svenhjol.charm.api.event.ItemDragDropEvent;
 import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 import svenhjol.charm.foundation.helper.InventoryTidyingHelper;
-import svenhjol.charm.foundation.helper.TagHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class Handlers extends FeatureHolder<ShulkerBoxDragDrop> {
-    public final List<ItemLike> blacklist = new ArrayList<>();
 
     public Handlers(ShulkerBoxDragDrop feature) {
         super(feature);
     }
 
-    public void levelLoad(MinecraftServer server, ServerLevel level) {
-        // Do not allow shulkerboxes to be added to shulkerboxes.
-        // We do this at world init because otherwise the tags are not resolved.
-        if (level.dimension() == Level.OVERWORLD) {
-            for (var block : TagHelper.getValues(BuiltInRegistries.BLOCK, BlockTags.SHULKER_BOXES)) {
-                if (!blacklist.contains(block)) {
-                    blacklist.add(block);
-                }
-            }
-        }
-    }
-
     public InteractionResult itemDragDrop(ItemDragDropEvent.StackType direction, ItemStack source, ItemStack dest, Slot slot, ClickAction clickAction, Player player, SlotAccess slotAccess) {
+        var registers = feature().registers;
+
         if (clickAction != ClickAction.SECONDARY || !slot.allowModification(player)) {
             return InteractionResult.PASS;
         }
@@ -63,7 +42,7 @@ public final class Handlers extends FeatureHolder<ShulkerBoxDragDrop> {
             // Check if the source item is not in the blacklist.
             var blockItem = source.getItem();
             var block = Block.byItem(blockItem);
-            if (blacklist.contains(blockItem) || blacklist.contains(block)) {
+            if (registers.blacklist.contains(blockItem) || registers.blacklist.contains(block)) {
                 return InteractionResult.PASS;
             }
 

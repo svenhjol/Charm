@@ -1,16 +1,12 @@
 package svenhjol.charm.feature.hover_sorting.common;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.ItemContainerContents;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import svenhjol.charm.api.enums.SortDirection;
@@ -18,7 +14,6 @@ import svenhjol.charm.api.event.ItemHoverSortEvent;
 import svenhjol.charm.feature.hover_sorting.HoverSorting;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 import svenhjol.charm.foundation.helper.InventoryTidyingHelper;
-import svenhjol.charm.foundation.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -66,31 +61,6 @@ public final class Handlers extends FeatureHolder<HoverSorting> {
 
                 feature().advancements.triggerSortedItems(player);
             }
-        }
-    }
-
-    public void levelLoad(MinecraftServer server, ServerLevel level) {
-        if (level.dimension() == Level.OVERWORLD) {
-            var registryAccess = level.registryAccess();
-            List<ItemLike> holder = new ArrayList<>();
-
-            registers.cachedBlockTags.forEach(
-                blockTagKey -> holder.addAll(TagHelper.getValues(registryAccess
-                    .registryOrThrow(blockTagKey.registry()), blockTagKey)));
-
-            registers.cachedItemTags.forEach(
-                itemTagKey -> holder.addAll(TagHelper.getValues(registryAccess
-                    .registryOrThrow(itemTagKey.registry()), itemTagKey)));
-
-            holder.addAll(registers.cachedSortables);
-
-            // Clear all sortables and add collected items back to it.
-            registers.sortables.clear();
-            holder.forEach(item -> {
-                if (!registers.sortables.contains(item)) {
-                    registers.sortables.add(item);
-                }
-            });
         }
     }
 
