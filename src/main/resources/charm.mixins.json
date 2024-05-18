@@ -45,6 +45,7 @@
     "feature.enchantable_animal_armor.MobMixin",
     "feature.extra_note_blocks.NoteBlockInstrumentMixin",
     "feature.extra_wood.BoatTypeMixin",
+    "feature.improved_mineshafts.MineshaftPiecesMixin",
     "feature.lumberjacks.VillagerMixin",
     "feature.revive_pets.LivingEntityMixin",
     "feature.revive_pets.NameTagItemMixin",
