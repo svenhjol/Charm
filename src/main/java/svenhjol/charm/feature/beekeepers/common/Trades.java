@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
 import svenhjol.charm.feature.beekeepers.Beekeepers;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 import svenhjol.charm.foundation.helper.EnchantmentsHelper;
 import svenhjol.charm.foundation.helper.TagHelper;

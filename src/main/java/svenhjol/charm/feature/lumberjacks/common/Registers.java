@@ -5,10 +5,10 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charm.feature.core.custom_wood.common.Tags;
 import svenhjol.charm.feature.lumberjacks.Lumberjacks;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 import svenhjol.charm.foundation.villages.GenericTrades;
 
@@ -17,6 +17,7 @@ import java.util.function.Supplier;
 
 public final class Registers extends RegisterHolder<Lumberjacks> {
     private static final Woodcutters WOODCUTTERS = Resolve.feature(Woodcutters.class);
+
     public final Supplier<VillagerProfession> profession;
     public final Supplier<SoundEvent> workSound;
 

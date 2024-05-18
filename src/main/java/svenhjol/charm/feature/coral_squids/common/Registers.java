@@ -7,7 +7,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;

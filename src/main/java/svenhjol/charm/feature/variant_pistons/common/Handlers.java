@@ -4,7 +4,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.feature.variant_pistons.VariantPistons;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<VariantPistons> {

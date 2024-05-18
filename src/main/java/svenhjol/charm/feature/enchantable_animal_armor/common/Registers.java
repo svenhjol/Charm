@@ -5,7 +5,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.enchantment.Enchantment;
 import svenhjol.charm.feature.enchantable_animal_armor.EnchantableAnimalArmor;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 import svenhjol.charm.foundation.helper.TagHelper;
 

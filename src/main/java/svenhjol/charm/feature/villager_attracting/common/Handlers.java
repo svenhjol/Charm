@@ -10,7 +10,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.feature.villager_attracting.VillagerAttracting;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.function.Predicate;

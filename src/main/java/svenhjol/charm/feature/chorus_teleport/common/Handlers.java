@@ -9,7 +9,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.chorus_teleport.ChorusTeleport;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.Collections;

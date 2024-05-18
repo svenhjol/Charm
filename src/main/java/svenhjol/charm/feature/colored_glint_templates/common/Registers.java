@@ -17,7 +17,7 @@ import svenhjol.charm.api.event.SmithingTableEvents;
 import svenhjol.charm.api.event.SmithingTableEvents.SmithingTableInstance;
 import svenhjol.charm.feature.colored_glint_templates.ColoredGlintTemplates;
 import svenhjol.charm.feature.colored_glints.ColoredGlints;
-import svenhjol.charm.foundation.Tags;
+import svenhjol.charm.feature.colored_glints.common.Tags;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.ArrayList;

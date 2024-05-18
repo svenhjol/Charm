@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.LevelAccessor;
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Tags;
 
 import java.util.List;
 

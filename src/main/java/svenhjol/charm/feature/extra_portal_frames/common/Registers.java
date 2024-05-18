@@ -2,7 +2,6 @@ package svenhjol.charm.feature.extra_portal_frames.common;
 
 import net.minecraft.world.level.portal.PortalShape;
 import svenhjol.charm.feature.extra_portal_frames.ExtraPortalFrames;
-import svenhjol.charm.foundation.Tags;
 import svenhjol.charm.foundation.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<ExtraPortalFrames> {
