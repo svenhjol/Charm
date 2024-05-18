@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.variant_pistons.common;
+package svenhjol.charm.feature.core.custom_pistons.common;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;

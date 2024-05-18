@@ -42,7 +42,6 @@ import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charm.feature.unlimited_repair_cost.UnlimitedRepairCost;
-import svenhjol.charm.feature.variant_pistons.VariantPistons;
 import svenhjol.charm.feature.villager_attracting.VillagerAttracting;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
@@ -100,7 +99,6 @@ public final class Charm {
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
             UnlimitedRepairCost.class,
-            VariantPistons.class,
             VillagerAttracting.class,
             Woodcutters.class,
             Woodcutting.class

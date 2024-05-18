@@ -18,8 +18,8 @@ public final class CoreClient extends ClientFeature {
     @Override
     public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
         return List.of(
-            new CustomWoodClient(loader()),
-            new CustomRecipesClient(loader())
+            new CustomRecipesClient(loader()),
+            new CustomWoodClient(loader())
         );
     }
 }

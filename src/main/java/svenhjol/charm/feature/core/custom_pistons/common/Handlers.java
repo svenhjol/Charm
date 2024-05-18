@@ -1,13 +1,13 @@
-package svenhjol.charm.feature.variant_pistons.common;
+package svenhjol.charm.feature.core.custom_pistons.common;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.feature.variant_pistons.VariantPistons;
+import svenhjol.charm.feature.core.custom_pistons.CustomPistons;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
-public final class Handlers extends FeatureHolder<VariantPistons> {
-    public Handlers(VariantPistons feature) {
+public final class Handlers extends FeatureHolder<CustomPistons> {
+    public Handlers(CustomPistons feature) {
         super(feature);
     }
 
@@ -16,19 +16,19 @@ public final class Handlers extends FeatureHolder<VariantPistons> {
         boolean found = false;
 
         if (defaultState.is(Blocks.MOVING_PISTON)) {
-            feature().log().debug("found in moving_pistons tag: " + block);
+            feature().log().dev("found in moving_pistons tag: " + block);
             found = state.is(Tags.MOVING_PISTONS);
         }
         if (defaultState.is(Blocks.PISTON)) {
-            feature().log().debug("found in pistons tag: " + block);
+            feature().log().dev("found in pistons tag: " + block);
             found = state.is(Tags.PISTONS);
         }
         if (defaultState.is(Blocks.STICKY_PISTON)) {
-            feature().log().debug("found in sticky_pistons tag: " + block);
+            feature().log().dev("found in sticky_pistons tag: " + block);
             found = state.is(Tags.STICKY_PISTONS);
         }
         if (defaultState.is(Blocks.PISTON_HEAD)) {
-            feature().log().debug("found in piston_heads tag: " + block);
+            feature().log().dev("found in piston_heads tag: " + block);
             found = state.is(Tags.PISTON_HEADS);
         }
 

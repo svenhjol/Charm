@@ -4,6 +4,7 @@ import svenhjol.charm.feature.core.common.Advancements;
 import svenhjol.charm.feature.core.common.Handlers;
 import svenhjol.charm.feature.core.common.Registers;
 import svenhjol.charm.feature.core.custom_advancements.CustomAdvancements;
+import svenhjol.charm.feature.core.custom_pistons.CustomPistons;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.foundation.annotation.Configurable;
@@ -52,9 +53,10 @@ public final class Core extends CommonFeature {
     @Override
     public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
         return List.of(
-            new CustomWood(loader()),
+            new CustomAdvancements(loader()),
+            new CustomPistons(loader()),
             new CustomRecipes(loader()),
-            new CustomAdvancements(loader())
+            new CustomWood(loader())
         );
     }
 

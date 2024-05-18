@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.feature.variant_pistons;
+package svenhjol.charm.mixin.feature.core.custom_pistons;
 
 import net.minecraft.client.renderer.blockentity.PistonHeadRenderer;
 import net.minecraft.world.level.block.Block;
@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.feature.variant_pistons.VariantPistons;
+import svenhjol.charm.feature.core.custom_pistons.CustomPistons;
 import svenhjol.charm.foundation.Resolve;
 
 @Mixin(PistonHeadRenderer.class)
@@ -19,6 +19,6 @@ public class PistonHeadRendererMixin {
         )
     )
     private boolean redirectBlockStateChecks(BlockState state, Block block) {
-        return Resolve.feature(VariantPistons.class).handlers.alsoCheckTags(state, block);
+        return Resolve.feature(CustomPistons.class).handlers.alsoCheckTags(state, block);
     }
 }

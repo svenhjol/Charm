@@ -36,6 +36,9 @@
     "feature.core.custom_advancements.AdvancementTreeMixin",
     "feature.core.custom_advancements.ServerAdvancementManagerMixin",
     "feature.core.custom_advancements.ServerPackSourceMixin",
+    "feature.core.custom_pistons.PistonBaseBlockMixin",
+    "feature.core.custom_pistons.PistonHeadBlockMixin",
+    "feature.core.custom_pistons.PistonMovingBlockEntityMixin",
     "feature.core.custom_recipes.RecipeBookTypeMixin",
     "feature.core.custom_recipes.RecipeManagerMixin",
     "feature.core.custom_recipes.ReloadableServerResourcesMixin",
@@ -56,9 +59,6 @@
     "feature.totem_of_preserving.LevelMixin",
     "feature.totems_work_from_inventory.LivingEntityMixin",
     "feature.unlimited_repair_cost.AnvilMenuMixin",
-    "feature.variant_pistons.PistonBaseBlockMixin",
-    "feature.variant_pistons.PistonHeadBlockMixin",
-    "feature.variant_pistons.PistonMovingBlockEntityMixin",
     "registry.villager_name.VillagerMixin"
   ],
   "client": [
@@ -77,6 +77,7 @@
     "feature.colored_glints.RenderBuffersMixin",
     "feature.colored_glints.RenderTypeMixin",
     "feature.copper_pistons.PistonHeadRendererMixin",
+    "feature.core.custom_pistons.PistonHeadRendererMixin",
     "feature.core.custom_recipes.ClientRecipeBookMixin",
     "feature.core.custom_recipes.RecipeBookCategoriesMixin",
     "feature.core.custom_recipes.RecipeBookLookupMixin",
@@ -90,7 +91,6 @@
     "feature.silence.DisableToastMixin",
     "feature.silence.RealmsAvailabilityMixin",
     "feature.unlimited_repair_cost.AnvilScreenMixin",
-    "feature.variant_pistons.PistonHeadRendererMixin",
     "registry.client_tooltip_component.ClientTooltipComponentMixin",
     "registry.particle_engine.ParticleEngineMixin"
   ],
