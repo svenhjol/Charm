@@ -16,9 +16,6 @@ public final class Tags {
     public static final TagKey<Block> NEARBY_WORKSTATIONS = TagKey.create(Registries.BLOCK,
         Charm.id("nearby_workstations"));
 
-    public static final TagKey<Block> PIGS_FIND_MUSHROOMS = TagKey.create(Registries.BLOCK,
-        Charm.id("pigs_find_mushrooms"));
-
     public static final TagKey<Item> REPAIRABLE_USING_SCRAP = TagKey.create(Registries.ITEM,
         Charm.id("repairable_using_scrap"));
 

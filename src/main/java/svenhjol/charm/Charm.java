@@ -23,6 +23,7 @@ import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
 import svenhjol.charm.feature.note_blocks.NoteBlocks;
 import svenhjol.charm.feature.nether_portal_blocks.NetherPortalBlocks;
+import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
 import svenhjol.charm.feature.wood.Wood;
 import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchanting;
 import svenhjol.charm.feature.firing.Firing;
@@ -90,6 +91,7 @@ public final class Charm {
             Kilns.class,
             Lumberjacks.class,
             Mooblooms.class,
+            PigsFindMushrooms.class,
             PotionOfRadiance.class,
             AnimalReviving.class,
             ShulkerBoxDragDrop.class,

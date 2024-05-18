@@ -198,7 +198,7 @@
     "sounds": [
       {
         "name": "charm:pig_sniffing",
-        "volume": 0.8
+        "volume": 0.72
       }
     ],
     "subtitle": "subtitles.charm.entity.pig.sniffing"
