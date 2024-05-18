@@ -5,7 +5,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature(description = "Removes the dark outer overlay when zooming in with the spyglass.")
-public class NoSpyglassScope extends ClientFeature {
+public final class NoSpyglassScope extends ClientFeature {
     public NoSpyglassScope(ClientLoader loader) {
         super(loader);
     }

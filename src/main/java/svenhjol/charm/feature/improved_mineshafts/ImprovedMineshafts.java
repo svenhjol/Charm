@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 import java.util.List;
 
 @Feature(description = "Adds decoration and more ores to mineshafts.")
-public class ImprovedMineshafts extends CommonFeature {
+public final class ImprovedMineshafts extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
 
