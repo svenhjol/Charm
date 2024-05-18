@@ -22,6 +22,7 @@ import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.enchantable_animal_armor.EnchantableAnimalArmor;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
 import svenhjol.charm.feature.extra_note_blocks.ExtraNoteBlocks;
+import svenhjol.charm.feature.extra_portal_frames.ExtraPortalFrames;
 import svenhjol.charm.feature.extra_wood.ExtraWood;
 import svenhjol.charm.feature.extractable_enchantments.ExtractableEnchantments;
 import svenhjol.charm.feature.firing.Firing;
@@ -78,6 +79,7 @@ public final class Charm {
             EnchantableAnimalArmor.class,
             EndermitePowder.class,
             ExtraNoteBlocks.class,
+            ExtraPortalFrames.class,
             ExtraWood.class,
             ExtractableEnchantments.class,
             Firing.class,

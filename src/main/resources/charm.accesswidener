@@ -58,6 +58,9 @@ mutable    field net/minecraft/world/level/block/Block item Lnet/minecraft/world
 accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
 mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
 
+# ExtraPortalFrames
+accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
 
 # ExtraTooltips and HoverSorting
 accessible field net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity itemStacks Lnet/minecraft/core/NonNullList;
