@@ -8,15 +8,15 @@ import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.api.iface.IFuelProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class CharmBarrelBlock extends BarrelBlock {
-    private final IVariantMaterial material;
+    private final CustomMaterial material;
 
-    public CharmBarrelBlock(IVariantMaterial material) {
+    public CharmBarrelBlock(CustomMaterial material) {
         super(Properties.ofFullCopy(Blocks.BARREL));
         this.material = material;
 
@@ -32,12 +32,12 @@ public class CharmBarrelBlock extends BarrelBlock {
         return new BarrelBlockEntity(pos, state);
     }
 
-    public IVariantMaterial getMaterial() {
+    public CustomMaterial getMaterial() {
         return material;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
-        private final IVariantMaterial material;
+        private final CustomMaterial material;
 
         public BlockItem(Supplier<CharmBarrelBlock> block) {
             super(block.get(), new Properties());

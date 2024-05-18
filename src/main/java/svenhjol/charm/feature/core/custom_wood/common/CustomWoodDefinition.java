@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.core.custom_wood.common;
 
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface CustomWoodDefinition {
-    IVariantWoodMaterial material();
+    CustomWoodMaterial material();
 
     List<CustomType> types();
 }

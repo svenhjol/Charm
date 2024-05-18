@@ -4,11 +4,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.Locale;
 
-public enum Material implements IVariantMaterial {
+public enum Material implements CustomMaterial {
     ARCANE_PURPUR(SoundType.STONE),
     ARCANE_PURPUR_GLYPH(SoundType.STONE),
     CHISELED_ARCANE_PURPUR(SoundType.STONE),

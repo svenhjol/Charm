@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.arcane_purpur.common;
 
 import net.minecraft.world.item.BlockItem;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
 import svenhjol.charm.feature.arcane_purpur.block.*;
 import svenhjol.charm.foundation.block.CharmStairBlock;
@@ -17,7 +17,7 @@ public final class Registers extends RegisterHolder<ArcanePurpur> {
     public static final String CHISELED_BLOCK_ID = "chiseled_arcane_purpur_block";
     public static final String CHISELED_GLYPH_BLOCK_ID = "chiseled_arcane_purpur_glyph_block";
 
-    public final Supplier<IVariantMaterial> material;
+    public final Supplier<CustomMaterial> material;
     public final Supplier<ArcanePurpurBlock> block;
     public final Supplier<BlockItem> blockItem;
     public final Supplier<ArcanePurpurSlab> slab;

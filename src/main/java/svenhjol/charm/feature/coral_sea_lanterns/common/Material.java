@@ -2,11 +2,11 @@ package svenhjol.charm.feature.coral_sea_lanterns.common;
 
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.Locale;
 
-public enum Material implements IVariantMaterial {
+public enum Material implements CustomMaterial {
     BRAIN(MapColor.COLOR_PINK),
     BUBBLE(MapColor.COLOR_PURPLE),
     FIRE(MapColor.COLOR_RED),

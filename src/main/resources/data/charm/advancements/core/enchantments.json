@@ -2,8 +2,7 @@
   "parent": "charm:core/smithing",
   "display": {
     "icon": {
-      "id": "minecraft:enchanted_book",
-      "nbt": "{charm_colored_glint:\"orange\"}"
+      "id": "minecraft:enchanted_book"
     },
     "title": {
       "translate": "advancements.charm.enchantments.title"

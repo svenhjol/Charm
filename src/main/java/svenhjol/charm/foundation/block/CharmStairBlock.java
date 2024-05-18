@@ -5,26 +5,26 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.api.iface.IIgniteProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmStairBlock extends StairBlock implements IIgniteProvider {
-    protected final IVariantMaterial variantMaterial;
+    protected final CustomMaterial material;
 
-    public CharmStairBlock(IVariantMaterial material, BlockState state) {
+    public CharmStairBlock(CustomMaterial material, BlockState state) {
         super(state, material.blockProperties());
-        this.variantMaterial = material;
+        this.material = material;
     }
 
     @Override
     public int igniteChance() {
-        return variantMaterial.isFlammable() ? 5 : 0;
+        return material.isFlammable() ? 5 : 0;
     }
 
     @Override
     public int burnChance() {
-        return variantMaterial.isFlammable() ? 20 : 0;
+        return material.isFlammable() ? 20 : 0;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

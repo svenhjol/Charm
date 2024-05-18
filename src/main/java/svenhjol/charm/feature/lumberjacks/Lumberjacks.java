@@ -21,28 +21,28 @@ public final class Lumberjacks extends CommonFeature {
     public final Trades trades;
 
     @Configurable(
-        name = "Use variant barrels in trades",
+        name = "Use custom barrels in trades",
         description = """
-            If true, lumberjacks will provide variant barrels in their trades.
+            If true, lumberjacks will provide custom barrels in their trades.
             If false, lumberjacks will trade the vanilla barrel."""
     )
-    public static boolean variantBarrels = true;
+    public static boolean customBarrels = true;
 
     @Configurable(
-        name = "Use variant bookshelves in trades",
+        name = "Use custom bookshelves in trades",
         description = """
-            If true, lumberjacks will provide variant bookshelves in their trades.
+            If true, lumberjacks will provide custom bookshelves in their trades.
             If false, lumberjacks will trade the vanilla bookshelf."""
     )
-    public static boolean variantBookshelves = true;
+    public static boolean customBookshelves = true;
 
     @Configurable(
-        name = "Use variant ladders in trades",
+        name = "Use custom ladders in trades",
         description = """
-            If true, lumberjacks will provide variant ladders in their trades.
+            If true, lumberjacks will provide custom ladders in their trades.
             If false, lumberjacks will trade the vanilla ladder."""
     )
-    public static boolean variantLadders = true;
+    public static boolean customLadders = true;
 
     public Lumberjacks(CommonLoader loader) {
         super(loader);

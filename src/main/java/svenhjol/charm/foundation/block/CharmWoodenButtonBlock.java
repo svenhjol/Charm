@@ -2,12 +2,12 @@ package svenhjol.charm.foundation.block;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.ButtonBlock;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmWoodenButtonBlock extends ButtonBlock {
-    public CharmWoodenButtonBlock(IVariantWoodMaterial material) {
+    public CharmWoodenButtonBlock(CustomWoodMaterial material) {
         super(material.blockSetType(),
             30,
             material.blockProperties()

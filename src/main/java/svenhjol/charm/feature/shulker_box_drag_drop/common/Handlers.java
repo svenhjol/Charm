@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.api.event.ItemDragDropEvent;
 import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
 import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.InventoryTidyingHelper;
+import svenhjol.charm.foundation.helper.ItemTidyingHelper;
 
 public final class Handlers extends FeatureHolder<ShulkerBoxDragDrop> {
 
@@ -76,7 +76,7 @@ public final class Handlers extends FeatureHolder<ShulkerBoxDragDrop> {
 
                     var out = stack.copy();
                     container.setItem(index, ItemStack.EMPTY);
-                    InventoryTidyingHelper.mergeStacks(container); // merge to remove empty slots
+                    ItemTidyingHelper.mergeStacks(container); // merge to remove empty slots
                     if (slot.safeInsert(out).isEmpty()) {
                         playRemoveOneSound(player);
                     }

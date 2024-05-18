@@ -48,7 +48,7 @@ public final class Registers extends RegisterHolder<Lumberjacks> {
         registry.villagerTrade(profession, 3, () -> new Trades.SaplingsForEmeralds(
             List.of(Items.OAK_SAPLING, Items.BIRCH_SAPLING, Items.SPRUCE_SAPLING), 1, 0, 2,  20));
 
-        if (Lumberjacks.variantLadders) {
+        if (Lumberjacks.customLadders) {
             registry.villagerTrade(profession, 1, () -> new GenericTrades.TagForEmeralds<>(
                 Tags.LADDERS, 1, 1, 2, 20));
         } else {
@@ -86,7 +86,7 @@ public final class Registers extends RegisterHolder<Lumberjacks> {
             BlockTags.WOODEN_DOORS, 2, 1, 1, 0, 10, 20));
 
         // Tier 4
-        if (Lumberjacks.variantBarrels) {
+        if (Lumberjacks.customBarrels) {
             registry.villagerTrade(profession, 4, () -> new GenericTrades.TagForEmeralds<>(
                 Tags.BARRELS, 4, 1, 1, 0, 15, 20));
         } else {
@@ -94,7 +94,7 @@ public final class Registers extends RegisterHolder<Lumberjacks> {
                 Items.BARREL, 4, 1, 15, 20));
         }
 
-        if (Lumberjacks.variantBookshelves) {
+        if (Lumberjacks.customBookshelves) {
             registry.villagerTrade(profession, 4, () -> new GenericTrades.TagForEmeralds<>(
                 Tags.CHISELED_BOOKSHELVES, 4, 1, 1, 0, 15, 20));
         } else {

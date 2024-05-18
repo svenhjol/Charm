@@ -2,12 +2,12 @@ package svenhjol.charm.foundation.block;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.DoorBlock;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmWoodenDoorBlock extends DoorBlock {
-    public CharmWoodenDoorBlock(IVariantWoodMaterial material) {
+    public CharmWoodenDoorBlock(CustomWoodMaterial material) {
         super(material.blockSetType(), material.blockProperties()
             .strength(3.0F)
             .noOcclusion());

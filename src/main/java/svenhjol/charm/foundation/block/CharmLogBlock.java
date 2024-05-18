@@ -4,28 +4,28 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import svenhjol.charm.api.iface.IIgniteProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmLogBlock extends RotatedPillarBlock implements IIgniteProvider {
-    protected final IVariantMaterial variantMaterial;
+    protected final CustomMaterial material;
 
-    public CharmLogBlock(IVariantMaterial material) {
+    public CharmLogBlock(CustomMaterial material) {
         super(material.blockProperties()
             .strength(2.0F));
 
-        this.variantMaterial = material;
+        this.material = material;
     }
 
     @Override
     public int igniteChance() {
-        return variantMaterial.isFlammable() ? 5 : 0;
+        return material.isFlammable() ? 5 : 0;
     }
 
     @Override
     public int burnChance() {
-        return variantMaterial.isFlammable() ? 5 : 0;
+        return material.isFlammable() ? 5 : 0;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

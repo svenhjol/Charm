@@ -2,14 +2,14 @@ package svenhjol.charm.foundation.block;
 
 import net.minecraft.world.level.block.SoundType;
 import svenhjol.charm.api.iface.IFuelProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmChiseledBookshelfBlock extends net.minecraft.world.level.block.ChiseledBookShelfBlock {
-    private final IVariantMaterial material;
+    private final CustomMaterial material;
 
-    public CharmChiseledBookshelfBlock(IVariantMaterial material) {
+    public CharmChiseledBookshelfBlock(CustomMaterial material) {
         super(material.blockProperties()
             .strength(1.5F)
             .sound(SoundType.CHISELED_BOOKSHELF));
@@ -17,12 +17,12 @@ public class CharmChiseledBookshelfBlock extends net.minecraft.world.level.block
         this.material = material;
     }
 
-    public IVariantMaterial getMaterial() {
+    public CustomMaterial getMaterial() {
         return material;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
-        IVariantMaterial material;
+        CustomMaterial material;
 
         public BlockItem(Supplier<CharmChiseledBookshelfBlock> block) {
             super(block.get(), new Properties());

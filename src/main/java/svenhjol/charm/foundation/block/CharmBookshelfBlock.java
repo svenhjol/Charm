@@ -4,19 +4,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.api.iface.IFuelProvider;
 import svenhjol.charm.api.iface.IIgniteProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmBookshelfBlock extends Block implements IIgniteProvider {
-    private final IVariantMaterial material;
+    private final CustomMaterial material;
 
-    public CharmBookshelfBlock(IVariantMaterial material) {
+    public CharmBookshelfBlock(CustomMaterial material) {
         super(Properties.ofFullCopy(Blocks.BOOKSHELF));
         this.material = material;
     }
 
-    public IVariantMaterial getMaterial() {
+    public CustomMaterial getMaterial() {
         return material;
     }
 
@@ -31,7 +31,7 @@ public class CharmBookshelfBlock extends Block implements IIgniteProvider {
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
-        private final IVariantMaterial material;
+        private final CustomMaterial material;
 
         public BlockItem(Supplier<CharmBookshelfBlock> block) {
             super(block.get(), new Properties());

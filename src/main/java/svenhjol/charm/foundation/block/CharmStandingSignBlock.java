@@ -2,14 +2,14 @@ package svenhjol.charm.foundation.block;
 
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 
 public class CharmStandingSignBlock extends StandingSignBlock {
-    protected final IVariantWoodMaterial variantMaterial;
+    protected final CustomWoodMaterial material;
 
-    public CharmStandingSignBlock(IVariantWoodMaterial material, WoodType woodType) {
+    public CharmStandingSignBlock(CustomWoodMaterial material, WoodType woodType) {
         super(woodType, material.blockProperties().strength(1.0F).noCollission());
 
-        this.variantMaterial = material;
+        this.material = material;
     }
 }

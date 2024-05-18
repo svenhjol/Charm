@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.TrappedChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.api.iface.IFuelProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.foundation.Resolve;
@@ -22,9 +22,9 @@ import java.util.function.Supplier;
 
 public class CharmTrappedChestBlock extends ChestBlock implements VariantMaterialHolder {
     private static final CustomWood CUSTOM_WOOD = Resolve.feature(CustomWood.class);
-    private final IVariantMaterial material;
+    private final CustomMaterial material;
 
-    public CharmTrappedChestBlock(IVariantMaterial material) {
+    public CharmTrappedChestBlock(CustomMaterial material) {
         super(Properties.ofFullCopy(Blocks.TRAPPED_CHEST), CUSTOM_WOOD.registers.trappedChestBlockEntity::get);
         this.material = material;
     }
@@ -67,12 +67,12 @@ public class CharmTrappedChestBlock extends ChestBlock implements VariantMateria
     }
 
     @Override
-    public IVariantMaterial getMaterial() {
+    public CustomMaterial getMaterial() {
         return material;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
-        private final IVariantMaterial material;
+        private final CustomMaterial material;
 
         public BlockItem(Supplier<CharmTrappedChestBlock> block) {
             super(block.get(), new Properties());

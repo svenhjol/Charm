@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.core.custom_wood;
 
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.core.custom_wood.common.CustomWoodDefinition;
 import svenhjol.charm.feature.core.custom_wood.common.CustomWoodHolder;
@@ -42,7 +42,7 @@ public final class CustomWood extends CommonFeature implements ChildFeature<Core
     /**
      * Helper method to get a custom wood definition for a material.
      */
-    public static CustomWoodHolder holder(IVariantWoodMaterial material) {
+    public static CustomWoodHolder holder(CustomWoodMaterial material) {
         return Optional.of(Resolve.feature(CustomWood.class).registers.holders.get(material)).orElseThrow();
     }
 

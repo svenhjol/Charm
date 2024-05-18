@@ -5,14 +5,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.SoundType;
 import svenhjol.charm.api.iface.IIgniteProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmLeavesBlock extends LeavesBlock implements IIgniteProvider {
-    protected final IVariantMaterial variantMaterial;
+    protected final CustomMaterial material;
 
-    public CharmLeavesBlock(IVariantMaterial material) {
+    public CharmLeavesBlock(CustomMaterial material) {
         super(Properties.of()
             .strength(0.2F)
             .randomTicks()
@@ -22,17 +22,17 @@ public class CharmLeavesBlock extends LeavesBlock implements IIgniteProvider {
             .isSuffocating((state, world, pos) -> false)
             .isViewBlocking((state, world, pos) -> false));
 
-        this.variantMaterial = material;
+        this.material = material;
     }
 
     @Override
     public int igniteChance() {
-        return variantMaterial.isFlammable() ? 30 : 0;
+        return material.isFlammable() ? 30 : 0;
     }
 
     @Override
     public int burnChance() {
-        return variantMaterial.isFlammable() ? 60 : 0;
+        return material.isFlammable() ? 60 : 0;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

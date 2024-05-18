@@ -3,7 +3,7 @@ package svenhjol.charm.feature.core.custom_wood.common;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.foundation.Resolve;
@@ -14,7 +14,7 @@ public class ChestBlockEntity extends net.minecraft.world.level.block.entity.Che
     private static final CustomWood CUSTOM_WOOD = Resolve.feature(CustomWood.class);
 
     @Nullable
-    private IVariantMaterial material = null;
+    private CustomMaterial material = null;
 
     public ChestBlockEntity(BlockPos pos, BlockState state) {
         this(CUSTOM_WOOD.registers.chestBlockEntity.get(), pos, state);
@@ -25,7 +25,7 @@ public class ChestBlockEntity extends net.minecraft.world.level.block.entity.Che
     }
 
     @Nullable
-    public IVariantMaterial getMaterial() {
+    public CustomMaterial getMaterial() {
         if (material == null && level != null && getBlockState().getBlock() instanceof VariantMaterialHolder holder) {
             return holder.getMaterial();
         }
@@ -33,7 +33,7 @@ public class ChestBlockEntity extends net.minecraft.world.level.block.entity.Che
         return material;
     }
 
-    public void setMaterial(IVariantMaterial material) {
+    public void setMaterial(CustomMaterial material) {
         this.material = material;
     }
 }

@@ -33,20 +33,17 @@ accessible field net/minecraft/client/particle/Particle speedUpWhenYMotionIsBloc
 accessible field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 
+# AnimalReviving
+accessible field net/minecraft/world/entity/animal/horse/AbstractHorse inventory Lnet/minecraft/world/SimpleContainer;
+
 # Atlases
 accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setColorsDirty (II)V
 
-# ColoredGlints
-accessible class net/minecraft/client/renderer/RenderType$CompositeState
-accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
-accessible field net/minecraft/client/renderer/RenderType ARMOR_GLINT Lnet/minecraft/client/renderer/RenderType;
-accessible field net/minecraft/client/renderer/RenderType ARMOR_ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
-accessible field net/minecraft/client/renderer/RenderType GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
-accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
-accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
-accessible field net/minecraft/client/renderer/RenderType GLINT Lnet/minecraft/client/renderer/RenderType;
-
 # CustomWood
+accessible method net/minecraft/world/level/block/state/BlockBehaviour$Properties <init> ()V
+accessible method net/minecraft/world/entity/animal/horse/AbstractHorse createInventory ()V
+accessible field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
+mutable    field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
 accessible field net/minecraft/world/entity/vehicle/Boat$Type planks Lnet/minecraft/world/level/block/Block;
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type planks Lnet/minecraft/world/level/block/Block;
 accessible field net/minecraft/world/item/StandingAndWallBlockItem wallBlock Lnet/minecraft/world/level/block/Block;
@@ -58,20 +55,26 @@ mutable    field net/minecraft/world/level/block/Block item Lnet/minecraft/world
 accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
 mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
 
-# ExtraPortalFrames
-accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
-mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+# GlintColoring
+accessible class net/minecraft/client/renderer/RenderType$CompositeState
+accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
+accessible field net/minecraft/client/renderer/RenderType ARMOR_GLINT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType ARMOR_ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
+accessible field net/minecraft/client/renderer/RenderType GLINT Lnet/minecraft/client/renderer/RenderType;
 
-# ExtraTooltips and HoverSorting
+# ItemSorting and TooltipImprovements
 accessible field net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity itemStacks Lnet/minecraft/core/NonNullList;
 mutable    field net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity itemStacks Lnet/minecraft/core/NonNullList;
 
-# HoverSorting and InventoryTidying
+# ItemSorting and ItemTidying
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
 
-# ImprovedMineshafts
+# MineshaftImprovements
 accessible method net/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftCorridor hasSturdyNeighbours (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIII)Z
 accessible method net/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftPiece isSupportingBox (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIII)Z
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece placeBlock (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/block/state/BlockState;IIILnet/minecraft/world/level/levelgen/structure/BoundingBox;)V
@@ -80,9 +83,19 @@ accessible method net/minecraft/world/level/levelgen/structure/StructurePiece ge
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldZ (II)I
 accessible field net/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftPiece type Lnet/minecraft/world/level/levelgen/structure/structures/MineshaftStructure$Type;
 
+# MobTextures
+accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher renderers Ljava/util/Map;
+accessible field net/minecraft/client/renderer/entity/LivingEntityRenderer layers Ljava/util/List;
+accessible field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
+mutable    field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
+
 # Mooblooms
 accessible method net/minecraft/world/entity/animal/Bee pathfindRandomlyTowards (Lnet/minecraft/core/BlockPos;)V
 accessible method net/minecraft/world/entity/animal/Bee setHasNectar (Z)V
+
+# NetherPortalBlocks
+accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
 
 # Recipes
 ### RecipeBookCategories AGGREGATE_CATEGORIES non-final map so we can add new categories.
@@ -94,21 +107,6 @@ mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Ma
 ### RecipeManager byType mutable to sort and filter recipes.
 accessible field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
 mutable    field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
-
-# RevivePets
-accessible field net/minecraft/world/entity/animal/horse/AbstractHorse inventory Lnet/minecraft/world/SimpleContainer;
-
-# VariantMobs
-accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher renderers Ljava/util/Map;
-accessible field net/minecraft/client/renderer/entity/LivingEntityRenderer layers Ljava/util/List;
-accessible field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
-mutable    field net/minecraft/client/renderer/entity/layers/RenderLayer renderer Lnet/minecraft/client/renderer/entity/RenderLayerParent;
-
-# VariantWood
-accessible method net/minecraft/world/level/block/state/BlockBehaviour$Properties <init> ()V
-accessible method net/minecraft/world/entity/animal/horse/AbstractHorse createInventory ()V
-accessible field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
-mutable    field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
 
 # Woodcutting
 accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Factory;)V

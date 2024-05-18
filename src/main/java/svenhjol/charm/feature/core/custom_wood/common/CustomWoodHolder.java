@@ -3,7 +3,7 @@ package svenhjol.charm.feature.core.custom_wood.common;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.core.custom_wood.types.*;
 import svenhjol.charm.foundation.common.CommonFeature;
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 public class CustomWoodHolder {
     private final CustomWood feature;
     private final CommonFeature owner;
-    private final IVariantWoodMaterial material;
+    private final CustomWoodMaterial material;
 
     private CustomBarrel barrel;
     private CustomBoat boat;
@@ -93,7 +93,7 @@ public class CustomWoodHolder {
         return owner().registry();
     }
 
-    public IVariantWoodMaterial getMaterial() {
+    public CustomWoodMaterial getMaterial() {
         return material;
     }
 

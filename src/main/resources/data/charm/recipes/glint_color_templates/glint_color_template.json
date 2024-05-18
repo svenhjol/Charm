@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "minecraft:diamond"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "S": {
+      "item": "charm:glint_color_template"
+    }
+  },
+  "pattern": [
+    "#S#",
+    "#O#",
+    "###"
+  ],
+  "result": {
+    "count": 2,
+    "id": "charm:glint_color_template"
+  }
+}

@@ -4,14 +4,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FenceBlock;
 import svenhjol.charm.api.iface.IIgniteProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmFenceBlock extends FenceBlock implements IIgniteProvider {
-    protected final IVariantMaterial material;
+    protected final CustomMaterial material;
 
-    public CharmFenceBlock(IVariantMaterial material) {
+    public CharmFenceBlock(CustomMaterial material) {
         super(material.blockProperties()
             .strength(2.0F, 3.0F));
 

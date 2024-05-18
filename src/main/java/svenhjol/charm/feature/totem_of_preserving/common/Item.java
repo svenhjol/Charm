@@ -10,7 +10,7 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.api.enums.EventResult;
-import svenhjol.charm.feature.colored_glints.ColoredGlints;
+import svenhjol.charm.feature.glint_coloring.GlintColoring;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totem_of_preserving.client.Tooltip;
 import svenhjol.charm.foundation.item.CharmItem;
@@ -33,7 +33,7 @@ public class Item extends CharmItem<TotemOfPreserving> {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        return ColoredGlints.has(stack);
+        return GlintColoring.has(stack);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Item extends CharmItem<TotemOfPreserving> {
     }
 
     public static void setGlint(ItemStack totem) {
-        ColoredGlints.apply(totem, DyeColor.CYAN);
+        GlintColoring.apply(totem, DyeColor.CYAN);
     }
 
     @Override

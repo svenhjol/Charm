@@ -3,11 +3,11 @@ package svenhjol.charm.foundation.block;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 
 @SuppressWarnings("unused")
 public class CharmWallHangingSignBlock extends WallHangingSignBlock {
-    public <B extends Block> CharmWallHangingSignBlock(IVariantWoodMaterial material, B drops, WoodType woodType) {
+    public <B extends Block> CharmWallHangingSignBlock(CustomWoodMaterial material, B drops, WoodType woodType) {
         super(woodType, material.blockProperties()
             .strength(1.0F)
             .noCollission()

@@ -5,21 +5,21 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.TreeGrower;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmSaplingBlock extends SaplingBlock {
-    protected final IVariantMaterial variantMaterial;
+    protected final CustomMaterial material;
 
-    public CharmSaplingBlock(IVariantMaterial material, TreeGrower generator) {
+    public CharmSaplingBlock(CustomMaterial material, TreeGrower generator) {
         super(generator, Properties.of()
             .noCollission()
             .randomTicks()
             .instabreak()
             .sound(SoundType.GRASS));
 
-        this.variantMaterial = material;
+        this.material = material;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

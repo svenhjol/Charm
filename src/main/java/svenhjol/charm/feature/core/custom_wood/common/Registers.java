@@ -9,7 +9,7 @@ import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.api.event.EntityUseEvent;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonRegistry.Register;
@@ -29,7 +29,7 @@ public final class Registers extends RegisterHolder<CustomWood> {
     public final List<Supplier<CharmHangingSignItem>> hangingSignItems = new ArrayList<>();
     public final Register<BlockEntityType<ChestBlockEntity>> chestBlockEntity;
     public final Register<BlockEntityType<TrappedChestBlockEntity>> trappedChestBlockEntity;
-    public final Map<IVariantWoodMaterial, CustomWoodHolder> holders = new HashMap<>();
+    public final Map<CustomWoodMaterial, CustomWoodHolder> holders = new HashMap<>();
 
     public Registers(CustomWood feature) {
         super(feature);

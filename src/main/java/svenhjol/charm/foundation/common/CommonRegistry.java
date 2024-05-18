@@ -63,8 +63,8 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.storage.loot.LootTable;
 import svenhjol.charm.api.iface.IFuelProvider;
 import svenhjol.charm.api.iface.IIgniteProvider;
-import svenhjol.charm.api.iface.IVariantMaterial;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.block.CharmStairBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
@@ -152,7 +152,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         });
     }
 
-    public Register<BlockSetType> blockSetType(Supplier<IVariantWoodMaterial> material) {
+    public Register<BlockSetType> blockSetType(Supplier<CustomWoodMaterial> material) {
         return new Register<>(() -> {
             var materialName = material.get().getSerializedName();
             log("Block set type " + materialName);
@@ -388,7 +388,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return item;
     }
 
-    public <B extends StairBlock & IIgniteProvider, I extends BlockItem> Pair<Register<CharmStairBlock>, Register<CharmStairBlock.BlockItem>> stairsBlock(String id, Supplier<IVariantMaterial> material, Supplier<BlockState> state) {
+    public <B extends StairBlock & IIgniteProvider, I extends BlockItem> Pair<Register<CharmStairBlock>, Register<CharmStairBlock.BlockItem>> stairsBlock(String id, Supplier<CustomMaterial> material, Supplier<BlockState> state) {
         var block = block(id, () -> new CharmStairBlock(material.get(), state.get()));
         var item = item(id, () -> new CharmStairBlock.BlockItem(block));
         return Pair.of(block, item);
@@ -439,15 +439,15 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         reassembleTrades(profession, trades);
     }
 
-    public <W extends WallHangingSignBlock, S extends CeilingHangingSignBlock> Register<CharmWallHangingSignBlock> wallHangingSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
+    public <W extends WallHangingSignBlock, S extends CeilingHangingSignBlock> Register<CharmWallHangingSignBlock> wallHangingSignBlock(String id, CustomWoodMaterial material, Supplier<S> drops, WoodType type) {
         return block(id, () -> new CharmWallHangingSignBlock(material, drops.get(), type));
     }
 
-    public <W extends WallSignBlock, S extends SignBlock> Register<CharmWallSignBlock> wallSignBlock(String id, IVariantWoodMaterial material, Supplier<S> drops, WoodType type) {
+    public <W extends WallSignBlock, S extends SignBlock> Register<CharmWallSignBlock> wallSignBlock(String id, CustomWoodMaterial material, Supplier<S> drops, WoodType type) {
         return block(id, () -> new CharmWallSignBlock(material, drops.get(), type));
     }
 
-    public Register<WoodType> woodType(Supplier<IVariantWoodMaterial> material) {
+    public Register<WoodType> woodType(Supplier<CustomWoodMaterial> material) {
         return new Register<>(() -> {
             var materialName = material.get().getSerializedName();
             log("Wood type " + materialName);

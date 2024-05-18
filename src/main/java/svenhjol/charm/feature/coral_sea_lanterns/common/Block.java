@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.coral_sea_lanterns.common;
 
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanterns;
 import svenhjol.charm.foundation.block.CharmBlock;
 
 import java.util.function.Supplier;
 
 public class Block extends CharmBlock<CoralSeaLanterns> {
-    public Block(IVariantMaterial material) {
+    public Block(CustomMaterial material) {
         super(Properties.of()
             .strength(0.3F)
             .sound(material.soundType())

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Feature(priority = 1, description = """
     Adds more item blocks.
-    Disabling this feature will disable all storage block features.""")
+    Disabling this feature will disable all of Charm's storage block features.""")
 public final class StorageBlocks extends CommonFeature {
     public StorageBlocks(CommonLoader loader) {
         super(loader);

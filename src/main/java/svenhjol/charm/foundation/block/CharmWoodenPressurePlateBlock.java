@@ -3,20 +3,20 @@ package svenhjol.charm.foundation.block;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
-import svenhjol.charm.api.iface.IVariantMaterial;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 
 import java.util.function.Supplier;
 
 public class CharmWoodenPressurePlateBlock extends PressurePlateBlock {
-    protected final IVariantMaterial variantMaterial;
+    protected final CustomMaterial material;
 
-    public CharmWoodenPressurePlateBlock(IVariantWoodMaterial material) {
+    public CharmWoodenPressurePlateBlock(CustomWoodMaterial material) {
         super(material.blockSetType(), material.blockProperties()
             .strength(0.5F)
             .noCollission());
 
-        this.variantMaterial = material;
+        this.material = material;
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

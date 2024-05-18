@@ -3,7 +3,7 @@ package svenhjol.charm.foundation.enums;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.IVariantWoodMaterial;
+import svenhjol.charm.api.iface.CustomWoodMaterial;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.Locale;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public enum VanillaWood implements IVariantWoodMaterial {
+public enum VanillaWood implements CustomWoodMaterial {
     ACACIA(() -> BlockSetType.ACACIA, () -> WoodType.ACACIA, true),
     BAMBOO(() -> BlockSetType.BAMBOO, () -> WoodType.BAMBOO, true),
     BIRCH(() -> BlockSetType.BIRCH, () -> WoodType.BIRCH, true),
@@ -60,12 +60,12 @@ public enum VanillaWood implements IVariantWoodMaterial {
         return woodType.get();
     }
 
-    public static List<IVariantWoodMaterial> getTypes() {
+    public static List<CustomWoodMaterial> getTypes() {
         return Arrays.stream(values())
             .collect(Collectors.toList());
     }
 
-    public static List<IVariantWoodMaterial> getTypesWithout(IVariantWoodMaterial... types) {
+    public static List<CustomWoodMaterial> getTypesWithout(CustomWoodMaterial... types) {
         var typesList = new ArrayList<>(Arrays.asList(types));
         return Arrays.stream(values()).filter(t -> !typesList.contains(t))
             .collect(Collectors.toList());

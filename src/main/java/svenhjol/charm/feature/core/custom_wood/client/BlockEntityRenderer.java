@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import svenhjol.charm.api.iface.IVariantMaterial;
+import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.feature.core.custom_wood.common.ChestBlockEntity;
 import svenhjol.charm.feature.core.custom_wood.common.TrappedChestBlockEntity;
 
@@ -17,14 +17,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BlockEntityRenderer<T extends ChestBlockEntity & LidBlockEntity> extends ChestRenderer<T> {
-    private static final Map<IVariantMaterial, Map<ChestType, Material>> NORMAL_TEXTURES = new HashMap<>();
-    private static final Map<IVariantMaterial, Map<ChestType, Material>> TRAPPED_TEXTURES = new HashMap<>();
+    private static final Map<CustomMaterial, Map<ChestType, Material>> NORMAL_TEXTURES = new HashMap<>();
+    private static final Map<CustomMaterial, Map<ChestType, Material>> TRAPPED_TEXTURES = new HashMap<>();
 
     public BlockEntityRenderer(BlockEntityRendererProvider.Context dispatcher) {
         super(dispatcher);
     }
 
-    public static void addTexture(IVariantMaterial material, ChestType chestType, ResourceLocation id, boolean trapped) {
+    public static void addTexture(CustomMaterial material, ChestType chestType, ResourceLocation id, boolean trapped) {
         var textures = trapped
             ? BlockEntityRenderer.TRAPPED_TEXTURES
             : BlockEntityRenderer.NORMAL_TEXTURES;
