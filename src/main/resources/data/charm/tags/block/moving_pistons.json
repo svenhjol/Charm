@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "values": [
     "minecraft:moving_piston",
     "charm:moving_copper_piston"
