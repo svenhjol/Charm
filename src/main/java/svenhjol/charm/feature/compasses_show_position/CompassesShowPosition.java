@@ -1,14 +1,14 @@
-package svenhjol.charm.feature.compass_shows_position;
+package svenhjol.charm.feature.compasses_show_position;
 
-import svenhjol.charm.feature.compass_shows_position.client.Handlers;
-import svenhjol.charm.feature.compass_shows_position.client.Registers;
+import svenhjol.charm.feature.compasses_show_position.client.Handlers;
+import svenhjol.charm.feature.compasses_show_position.client.Registers;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature(description = "Shows cardinal directions, XYZ coordinates and current biome when holding a compass.")
-public class CompassShowsPosition extends ClientFeature {
+public class CompassesShowPosition extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;
 
@@ -61,7 +61,7 @@ public class CompassShowsPosition extends ClientFeature {
     )
     public static boolean compactView = false;
 
-    public CompassShowsPosition(ClientLoader loader) {
+    public CompassesShowPosition(ClientLoader loader) {
         super(loader);
 
         registers = new Registers(this);

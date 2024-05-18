@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.compass_shows_position.client;
+package svenhjol.charm.feature.compasses_show_position.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.DeltaTracker;
@@ -7,11 +7,11 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.feature.compass_shows_position.CompassShowsPosition;
+import svenhjol.charm.feature.compasses_show_position.CompassesShowPosition;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
-public final class Handlers extends FeatureHolder<CompassShowsPosition> {
-    public Handlers(CompassShowsPosition feature) {
+public final class Handlers extends FeatureHolder<CompassesShowPosition> {
+    public Handlers(CompassesShowPosition feature) {
         super(feature);
     }
 
@@ -21,14 +21,14 @@ public final class Handlers extends FeatureHolder<CompassShowsPosition> {
         if (minecraft == null || minecraft.player == null) return;
         var player = minecraft.player;
 
-        if (!CompassShowsPosition.alwaysShow) {
+        if (!CompassesShowPosition.alwaysShow) {
             // Only render hud if player is holding a compass.
             if (player.getOffhandItem().getItem() != Items.COMPASS && player.getMainHandItem().getItem() != Items.COMPASS) {
                 return;
             }
         }
 
-        if (CompassShowsPosition.onlyShowWhenSneaking && !player.isCrouching()) {
+        if (CompassesShowPosition.onlyShowWhenSneaking && !player.isCrouching()) {
             return;
         }
 
@@ -43,7 +43,7 @@ public final class Handlers extends FeatureHolder<CompassShowsPosition> {
 
         String coords;
 
-        if (CompassShowsPosition.onlyXZ) {
+        if (CompassesShowPosition.onlyXZ) {
             coords = I18n.get("gui.charm.coords_only_xz", pos.getX(), pos.getZ());
         } else {
             coords = I18n.get("gui.charm.coords", pos.getX(), pos.getY(), pos.getZ());
@@ -56,7 +56,7 @@ public final class Handlers extends FeatureHolder<CompassShowsPosition> {
         var facingColor = 0xFFEEDD;
         float midX;
 
-        if (CompassShowsPosition.compactView) {
+        if (CompassesShowPosition.compactView) {
             midX = window.getGuiScaledWidth() / 9.0F;
             y = 10;
             lineHeight = 9;
@@ -66,17 +66,17 @@ public final class Handlers extends FeatureHolder<CompassShowsPosition> {
             lineHeight = 12;
         }
 
-        if (CompassShowsPosition.showFacing) {
+        if (CompassesShowPosition.showFacing) {
             renderText(guiGraphics, font, facing, midX, y, -facingLength / 2, 0, facingColor | alpha);
             y += lineHeight;
         }
 
-        if (CompassShowsPosition.showCoords) {
+        if (CompassesShowPosition.showCoords) {
             renderText(guiGraphics, font, coords, midX, y, -coordsLength / 2, 0, coordsColor | alpha);
             y += lineHeight;
         }
 
-        if (CompassShowsPosition.showBiome) {
+        if (CompassesShowPosition.showBiome) {
             var biomeRes = player.level().getBiome(pos).unwrap().map(key -> key != null ? key.location() : null, unknown -> null);
             if (biomeRes != null) {
                 var biomeName = I18n.get("biome." + biomeRes.getNamespace() + "." + biomeRes.getPath());
@@ -95,7 +95,7 @@ public final class Handlers extends FeatureHolder<CompassShowsPosition> {
         pose.pushPose();
         pose.translate(translateX, translateY, 0.0);
 
-        if (CompassShowsPosition.compactView) {
+        if (CompassesShowPosition.compactView) {
             var scaleFactor = 0.75f;
             useX = -32; // Align all text to the left when in compact mode
             pose.scale(scaleFactor, scaleFactor, scaleFactor);
