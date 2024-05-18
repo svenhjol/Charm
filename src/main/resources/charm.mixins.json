@@ -83,6 +83,7 @@
     "feature.enchantable_animal_armor.HorseArmorLayerMixin",
     "feature.enchantable_animal_armor.WolfArmorLayerMixin",
     "feature.extractable_enchantments.GrindstoneScreenMixin",
+    "feature.no_spyglass_scope.GuiMixin",
     "feature.show_repair_cost.AnvilScreenMixin",
     "feature.silence.ClientTelemetryManagerMixin",
     "feature.silence.DisableToastMixin",
