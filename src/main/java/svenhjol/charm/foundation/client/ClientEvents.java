@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -48,6 +50,7 @@ public final class ClientEvents {
 
         ClientEntityEvents.ENTITY_LOAD.register(ClientEvents::handleClientEntityLoad);
         ClientLifecycleEvents.CLIENT_STARTED.register(ClientEvents::handleClientStarted);
+        HudRenderCallback.EVENT.register(ClientEvents::handleHudRender);
         RenderHeldItemCallback.EVENT.register(ClientEvents::handleRenderHeldItem);
         RenderScreenCallback.EVENT.register(ClientEvents::handleRenderScreen);
         RenderTooltipCallback.EVENT.register(ClientEvents::handleRenderTooltip);
@@ -63,6 +66,11 @@ public final class ClientEvents {
 
     private static void handleClientStarted(Minecraft client) {
         ClientStartEvent.INSTANCE.invoke(client);
+    }
+
+    private static void handleHudRender(GuiGraphics guiGraphics, DeltaTracker tickDelta) {
+        HudRenderEvent.INSTANCE.getHandlers().forEach(
+            handler -> handler.run(guiGraphics, tickDelta));
     }
 
     private static InteractionResult handleRenderHeldItem(float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack stack, float equipProgress, PoseStack poseStack, MultiBufferSource bufferSource, int light) {

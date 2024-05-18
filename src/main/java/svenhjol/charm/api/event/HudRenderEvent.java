@@ -1,5 +1,6 @@
 package svenhjol.charm.api.event;
 
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 
 @SuppressWarnings("unused")
@@ -10,6 +11,6 @@ public class HudRenderEvent extends CharmEvent<HudRenderEvent.Handler> {
 
     @FunctionalInterface
     public interface Handler {
-        void run(GuiGraphics guiGraphics, float tickDelta);
+        void run(GuiGraphics guiGraphics, DeltaTracker deltaTracker);
     }
 }
