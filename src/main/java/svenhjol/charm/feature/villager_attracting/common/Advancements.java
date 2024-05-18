@@ -9,7 +9,7 @@ public final class Advancements extends AdvancementHolder<VillagerAttracting> {
         super(feature);
     }
 
-    public void attractVillager(ServerPlayer player) {
-        trigger("attract_a_villager", player);
+    public void attractedVillager(ServerPlayer player) {
+        trigger("attracted_villager", player);
     }
 }

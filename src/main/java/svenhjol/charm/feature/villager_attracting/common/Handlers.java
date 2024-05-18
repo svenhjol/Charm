@@ -42,7 +42,7 @@ public final class Handlers extends FeatureHolder<VillagerAttracting> {
 
             // Do advancement trigger.
             if (!villagers.isEmpty()) {
-                feature().advancements.attractVillager((ServerPlayer) player);
+                feature().advancements.attractedVillager((ServerPlayer) player);
             }
         }
     }
