@@ -11,7 +11,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 @Feature(description = """
     Pigs have a chance to find mushrooms from certain blocks. By default mushrooms are unearthed from mycelium and podzol blocks.
     The item tag 'pigs_find_mushrooms' can be used to configure the blocks in which mushrooms can be unearthed by a pig.""")
-public class PigsFindMushrooms extends CommonFeature {
+public final class PigsFindMushrooms extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Advancements advancements;
