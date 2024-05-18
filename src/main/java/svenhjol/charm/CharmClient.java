@@ -4,7 +4,7 @@ import svenhjol.charm.feature.arcane_purpur.ArcanePurpurClient;
 import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.bat_buckets.BatBucketsClient;
 import svenhjol.charm.feature.chairs.ChairsClient;
-import svenhjol.charm.feature.compass_overlay.CompassOverlay;
+import svenhjol.charm.feature.compass_shows_position.CompassShowsPosition;
 import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanternsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
@@ -40,7 +40,7 @@ public final class CharmClient {
             AtlasesClient.class,
             BatBucketsClient.class,
             ChairsClient.class,
-            CompassOverlay.class,
+            CompassShowsPosition.class,
             ItemFrameHidingClient.class,
             GlintColorTemplatesClient.class,
             GlintColoringClient.class,
