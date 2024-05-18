@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XX"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:smooth_basalt"
+    }
+  },
+  "result": {
+    "id": "charm:player_pressure_plate",
+    "count": 1
+  }
+}

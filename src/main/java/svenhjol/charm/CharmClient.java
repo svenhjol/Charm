@@ -13,6 +13,7 @@ import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.core.CoreClient;
 import svenhjol.charm.feature.endermite_powder.EndermitePowderClient;
 import svenhjol.charm.feature.note_blocks.NoteBlocksClient;
+import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlatesClient;
 import svenhjol.charm.feature.tooltip_improvements.TooltipImprovements;
 import svenhjol.charm.feature.wood.WoodClient;
 import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchantingClient;
@@ -54,9 +55,10 @@ public final class CharmClient {
             ItemTidyingClient.class,
             KilnsClient.class,
             MoobloomsClient.class,
-            SpyglassScopeHiding.class,
+            PlayerPressurePlatesClient.class,
             RepairCostVisible.class,
             SmoothGlowstoneClient.class,
+            SpyglassScopeHiding.class,
             StorageBlocksClient.class,
             TotemOfPreservingClient.class,
             MobTextures.class,

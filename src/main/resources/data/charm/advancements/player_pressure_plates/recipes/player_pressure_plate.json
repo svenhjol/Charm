@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "charm:player_pressure_plates/player_pressure_plate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_smooth_basalt": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:smooth_basalt"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_smooth_basalt",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "charm:player_pressure_plates/player_pressure_plate"
+    ]
+  }
+}
