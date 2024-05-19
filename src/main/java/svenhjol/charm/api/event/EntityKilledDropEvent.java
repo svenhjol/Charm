@@ -10,9 +10,9 @@ public class EntityKilledDropEvent extends CharmEvent<EntityKilledDropEvent.Hand
     
     private EntityKilledDropEvent() {}
     
-    public InteractionResult invoke(LivingEntity entity, DamageSource source, int lootingLevel) {
+    public InteractionResult invoke(LivingEntity entity, DamageSource source) {
         for (var handler : getHandlers()) {
-            var result = handler.run(entity, source, lootingLevel);
+            var result = handler.run(entity, source);
             
             if (result != InteractionResult.PASS) {
                 return result;
@@ -24,6 +24,6 @@ public class EntityKilledDropEvent extends CharmEvent<EntityKilledDropEvent.Hand
     
     @FunctionalInterface
     public interface Handler {
-        InteractionResult run(LivingEntity entity, DamageSource source, int lootingLevel);
+        InteractionResult run(LivingEntity entity, DamageSource source);
     }
 }
