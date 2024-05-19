@@ -6,6 +6,7 @@
   "mixins": [
     "event.anvil_repair.AnvilMenuMixin",
     "event.anvil_update.AnvilMenuMixin",
+    "event.apply_beacon_effects.BeaconBlockEntityMixin",
     "event.entity_drop.LivingEntityMixin",
     "event.entity_tick_callback.LivingEntityMixin",
     "event.grindstone.GrindstoneMenuInputMixin",
@@ -27,7 +28,7 @@
     "feature.atlases.MapItemSavedDataMixin",
     "feature.beekeepers.PoiTypesMixin",
     "feature.beekeepers.VillagerMixin",
-    "feature.campfires_boost_health.CampfireBlockEntityMixin",
+    "feature.campfires_heal_players.CampfireBlockEntityMixin",
     "feature.chorus_teleport.ChorusFruitItemMixin",
     "feature.collection.BlockMixin",
     "feature.collection.ServerPlayerGameModeMixin",
