@@ -41,7 +41,7 @@ public final class Handlers extends FeatureHolder<ItemHoverSorting> {
             var newContents = new BundleContents(contents);
 
             stack.set(DataComponents.BUNDLE_CONTENTS, newContents);
-            feature().advancements.hoverSortedItems(player);
+            feature().advancements.sortedItemsWhileHovering(player);
         }
     }
 
@@ -59,7 +59,7 @@ public final class Handlers extends FeatureHolder<ItemHoverSorting> {
                 var itemContainerContents = ItemContainerContents.fromItems(stacks);
                 stack.set(DataComponents.CONTAINER, itemContainerContents);
 
-                feature().advancements.hoverSortedItems(player);
+                feature().advancements.sortedItemsWhileHovering(player);
             }
         }
     }

@@ -13,6 +13,7 @@ accessible method net/minecraft/core/component/DataComponents register (Ljava/la
 accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlockStates (Lnet/minecraft/core/Holder;Ljava/util/Set;)V
 accessible method net/minecraft/world/entity/npc/VillagerProfession register (Ljava/lang/String;Lnet/minecraft/resources/ResourceKey;Lcom/google/common/collect/ImmutableSet;Lcom/google/common/collect/ImmutableSet;Lnet/minecraft/sounds/SoundEvent;)Lnet/minecraft/world/entity/npc/VillagerProfession;
 accessible method net/minecraft/client/particle/Particle setAlpha (F)V
+accessible method net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase asState ()Lnet/minecraft/world/level/block/state/BlockState;
 ### Fields
 accessible field net/minecraft/world/entity/ai/village/poi/PoiTypes TYPE_BY_STATE Ljava/util/Map;
 accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;

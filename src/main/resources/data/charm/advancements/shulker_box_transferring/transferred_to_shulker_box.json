@@ -1,0 +1,31 @@
+{
+  "parent": "charm:item_hover_sorting/sorted_items_while_hovering",
+  "display": {
+    "icon": {
+      "id": "minecraft:magenta_shulker_box"
+    },
+    "title": {
+      "translate": "advancements.charm.transferred_to_shulker_box.title"
+    },
+    "description": {
+      "translate": "advancements.charm.transferred_to_shulker_box.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "transferred_to_shulker_box": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:transferred_to_shulker_box"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "transferred_to_shulker_box"
+    ]
+  ]
+}

@@ -3,5 +3,4 @@
 Dev tasks:
 - advancement trigger methods and lang keys should match name of advancement
 - rename API interfaces, clean up unneeded
-- ShulkerBoxDragDrop -> ShulkerBoxTransferring
-- ChorusTeleport functionality move into ArcanePurpur
+- move any heavy interaction logic out of item/block and into handlers
