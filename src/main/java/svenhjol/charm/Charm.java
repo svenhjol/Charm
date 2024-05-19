@@ -18,6 +18,7 @@ import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanterns;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
+import svenhjol.charm.feature.doors_open_together.DoorsOpenTogether;
 import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
 import svenhjol.charm.feature.firing.Firing;
@@ -80,6 +81,7 @@ public final class Charm {
             CoralSquids.class,
             Core.class,
             DeepslateDungeons.class,
+            DoorsOpenTogether.class,
             Echolocation.class,
             EndermitePowder.class,
             Firing.class,
