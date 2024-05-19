@@ -45,6 +45,7 @@ import svenhjol.charm.feature.shulker_box_transferring.ShulkerBoxTransferring;
 import svenhjol.charm.feature.silence.Silence;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charm.feature.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
 import svenhjol.charm.feature.torchflowers_emit_light.TorchflowersEmitLight;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
@@ -109,6 +110,7 @@ public final class Charm {
             Silence.class,
             SmoothGlowstone.class,
             StorageBlocks.class,
+            SuspiciousEffectsLastLonger.class,
             TorchflowersEmitLight.class,
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
