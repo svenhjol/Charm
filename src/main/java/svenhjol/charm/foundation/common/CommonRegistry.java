@@ -30,7 +30,9 @@ import net.minecraft.stats.RecipeBookSettings;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.minecraft.world.entity.ai.behavior.GiveGiftToHero;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
@@ -61,10 +63,10 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.storage.loot.LootTable;
-import svenhjol.charm.api.iface.IFuelProvider;
-import svenhjol.charm.api.iface.IIgniteProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.api.iface.IFuelProvider;
+import svenhjol.charm.api.iface.IIgniteProvider;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.block.CharmStairBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
@@ -196,9 +198,32 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         });
     }
 
+    public <T extends LivingEntity> void entityAttribute(Supplier<EntityType<T>> entitySupplier, Supplier<Holder<Attribute>> attributeSupplier) {
+        loader.registerDeferred(() -> {
+            // Unwrap suppliers
+            var entity = entitySupplier.get();
+            var attribute = attributeSupplier.get();
+
+            log("Entity attribute " + attribute.getRegisteredName() + " for entity type " + entity.getDescriptionId());
+            makeAttributeInstancesMutable(entity); // MUST do this so that we can add custom attributes.
+
+            var attributes = DefaultAttributes.getSupplier(entity);
+            if (attributes.hasAttribute(attribute)) {
+                log.error("Entity type " + entity.getDescriptionId() + " already has attribute " + attribute.getRegisteredName());
+                return;
+            }
+            var instance = new AttributeInstance(attribute, x -> {});
+            attributes.instances.put(attribute, instance);
+        });
+    }
+
+    /**
+     * This sets all the attributes for an entity type.
+     * Don't do this for vanilla entities; use entityAttribute() to add new attributes to an existing entity.
+     */
     public <T extends LivingEntity> void entityAttributes(Supplier<EntityType<T>> entity, Supplier<AttributeSupplier.Builder> builder) {
         loader.registerDeferred(() -> {
-            log("Entity attributes " + entity.get().getDescriptionId());
+            log("Entity attributes for " + entity.get().getDescriptionId());
             FabricDefaultAttributeRegistry.register(entity.get(), builder.get());
         });
     }
@@ -457,19 +482,29 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         });
     }
 
+    private <T extends LivingEntity> void makeAttributeInstancesMutable(EntityType<T> entityType) {
+        var attributes = DefaultAttributes.getSupplier(entityType);
+        if (attributes.instances instanceof LinkedHashMap<Holder<Attribute>, AttributeInstance>) {
+            return; // No action needed.
+        }
+
+        log.warnIfDev("Making attribute instances mutable for entity type " + entityType.getDescriptionId());
+        attributes.instances = new LinkedHashMap<>(attributes.instances);
+    }
+
     private Int2ObjectMap<List<ItemListing>> getMutableTrades(VillagerProfession profession) {
         var fixedTrades = TRADES.get(profession);
-        Int2ObjectMap<List<ItemListing>> mutableTrades = new Int2ObjectOpenHashMap<>();
+        Int2ObjectMap<List<ItemListing>> mutable = new Int2ObjectOpenHashMap<>();
 
         for (int i = 1; i <= 5; i++) {
-            mutableTrades.put(i, NonNullList.create());
+            mutable.put(i, NonNullList.create());
         }
 
         fixedTrades.int2ObjectEntrySet().forEach(e
             -> Arrays.stream(e.getValue())
-            .forEach(a -> mutableTrades.get(e.getIntKey()).add(a)));
+            .forEach(a -> mutable.get(e.getIntKey()).add(a)));
 
-        return mutableTrades;
+        return mutable;
     }
 
     private void reassembleTrades(VillagerProfession profession, Int2ObjectMap<List<ItemListing>> trades) {
@@ -477,6 +512,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         trades.int2ObjectEntrySet().forEach(e
             -> mappedTrades.put(e.getIntKey(), e.getValue().toArray(new ItemListing[0])));
 
+        log.warnIfDev("Reassembling trades for profession " + profession.name());
         TRADES.put(profession, mappedTrades);
     }
 
