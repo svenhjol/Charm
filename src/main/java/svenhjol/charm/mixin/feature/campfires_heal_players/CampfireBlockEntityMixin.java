@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.feature.campfires_boost_health;
+package svenhjol.charm.mixin.feature.campfires_heal_players;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.feature.campfires_boost_health.CampfiresBoostHealth;
+import svenhjol.charm.feature.campfires_heal_players.CampfiresHealPlayers;
 import svenhjol.charm.foundation.Resolve;
 
 @Mixin(CampfireBlockEntity.class)
@@ -18,6 +18,6 @@ public class CampfireBlockEntityMixin {
         at = @At("HEAD")
     )
     private static void hookCookTick(Level level, BlockPos pos, BlockState blockState, CampfireBlockEntity campfireBlockEntity, CallbackInfo ci) {
-        Resolve.feature(CampfiresBoostHealth.class).handlers.tryRegeneratePlayersAroundFire(level, pos);
+        Resolve.feature(CampfiresHealPlayers.class).handlers.tryRegeneratePlayersAroundFire(level, pos);
     }
 }

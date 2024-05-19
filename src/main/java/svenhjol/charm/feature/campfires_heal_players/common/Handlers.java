@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.campfires_boost_health.common;
+package svenhjol.charm.feature.campfires_heal_players.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -10,15 +10,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import svenhjol.charm.feature.campfires_boost_health.CampfiresBoostHealth;
+import svenhjol.charm.feature.campfires_heal_players.CampfiresHealPlayers;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
-public final class Handlers extends FeatureHolder<CampfiresBoostHealth> {
+public final class Handlers extends FeatureHolder<CampfiresHealPlayers> {
     public final int INTERVAL_CHECK = 200;
     public final int LENGTH_OF_REGENERATION = 2;
     public final int DISTANCE_TO_FIRE = 6;
 
-    public Handlers(CampfiresBoostHealth feature) {
+    public Handlers(CampfiresHealPlayers feature) {
         super(feature);
     }
 
