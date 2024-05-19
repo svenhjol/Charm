@@ -12,13 +12,13 @@ public class SuspiciousEffectsLastLonger extends CommonFeature {
 
     @Configurable(
         name = "Beneficial effect multiplier",
-        description = "Beneficial suspicious effect duration will be multiplied by this number."
+        description = "The duration of beneficial suspicious effects (such as strength) will be multiplied by this number."
     )
     public static int beneficialMultiplier = 4;
 
     @Configurable(
         name = "Detrimental effect multiplier",
-        description = "Detrimental suspicious effect duration will be multiplied by this number."
+        description = "The duration of detrimental suspicious effects (such as poison) will be multiplied by this number."
     )
     public static int detrimentalMultiplier = 2;
 
