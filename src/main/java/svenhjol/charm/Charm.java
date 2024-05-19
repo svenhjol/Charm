@@ -21,6 +21,7 @@ import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
 import svenhjol.charm.feature.echolocation.Echolocation;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
+import svenhjol.charm.feature.mob_drops.MobDrops;
 import svenhjol.charm.feature.note_blocks.NoteBlocks;
 import svenhjol.charm.feature.nether_portal_blocks.NetherPortalBlocks;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
@@ -60,50 +61,51 @@ public final class Charm {
 
     public static List<Class<? extends CommonFeature>> features() {
         return List.of(
+            AnimalArmorEnchanting.class,
+            AnimalArmorGrinding.class,
+            AnimalReviving.class,
             ArcanePurpur.class,
             Atlases.class,
-            ItemRestocking.class,
             BatBuckets.class,
             Beekeepers.class,
             CampfiresBoostHealth.class,
             Chairs.class,
             ChorusTeleport.class,
-            ItemFrameHiding.class,
             Collection.class,
-            GlintColorTemplates.class,
-            GlintColoring.class,
             CopperPistons.class,
             CoralSeaLanterns.class,
             CoralSquids.class,
             Core.class,
             DeepslateDungeons.class,
             Echolocation.class,
-            AnimalArmorEnchanting.class,
             EndermitePowder.class,
-            NoteBlocks.class,
-            NetherPortalBlocks.class,
-            Wood.class,
-            GrindstoneDisenchanting.class,
             Firing.class,
-            AnimalArmorGrinding.class,
+            GlintColorTemplates.class,
+            GlintColoring.class,
+            GrindstoneDisenchanting.class,
+            ItemFrameHiding.class,
             ItemHoverSorting.class,
-            MineshaftImprovements.class,
+            ItemRestocking.class,
             ItemTidying.class,
             Kilns.class,
             Lumberjacks.class,
+            MineshaftImprovements.class,
+            MobDrops.class,
             Mooblooms.class,
+            NetherPortalBlocks.class,
+            NoteBlocks.class,
             PigsFindMushrooms.class,
             PlayerPressurePlates.class,
             PotionOfRadiance.class,
-            AnimalReviving.class,
+            RepairCostUnlimited.class,
             ShulkerBoxDragDrop.class,
             Silence.class,
             SmoothGlowstone.class,
             StorageBlocks.class,
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
-            RepairCostUnlimited.class,
             VillagerAttracting.class,
+            Wood.class,
             Woodcutters.class,
             Woodcutting.class
         );

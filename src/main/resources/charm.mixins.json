@@ -6,6 +6,8 @@
   "mixins": [
     "event.anvil_repair.AnvilMenuMixin",
     "event.anvil_update.AnvilMenuMixin",
+    "event.entity_drop.LivingEntityMixin",
+    "event.entity_tick_callback.LivingEntityMixin",
     "event.grindstone.GrindstoneMenuInputMixin",
     "event.grindstone.GrindstoneMenuMixin",
     "event.grindstone.GrindstoneMenuOutputMixin",
