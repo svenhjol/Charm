@@ -23,12 +23,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.event.*;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.event.BlockBreakSpeedCallback;
 import svenhjol.charm.foundation.event.EntityTickCallback;
 import svenhjol.charm.foundation.event.PlayerLoginCallback;
 import svenhjol.charm.foundation.event.PlayerTickCallback;
@@ -58,6 +60,7 @@ public final class CommonEvents {
 
         // These are global Fabric events that any mod/feature can observe.
         AttackEntityCallback.EVENT.register(CommonEvents::handleAttackEntity);
+        BlockBreakSpeedCallback.EVENT.register(CommonEvents::handleBlockBreakSpeed);
         EntityTickCallback.EVENT.register(CommonEvents::handleEntityTick);
         ServerLivingEntityEvents.AFTER_DEATH.register(CommonEvents::handleDeathEvent);
         LootTableEvents.MODIFY.register(CommonEvents::handleLootTableModify);
@@ -87,6 +90,10 @@ public final class CommonEvents {
     private static InteractionResult handleAttackEntity(Player player, Level level, InteractionHand handle,
                                                         Entity entity, @Nullable EntityHitResult hitResult) {
         return EntityAttackEvent.INSTANCE.invoke(player, level, handle, entity, hitResult);
+    }
+
+    private static float handleBlockBreakSpeed(Player player, BlockState state, float originalSpeed) {
+        return BlockBreakSpeedEvent.INSTANCE.invoke(player, state, originalSpeed);
     }
 
     private static void handleDeathEvent(LivingEntity entity, DamageSource damageSource) {
