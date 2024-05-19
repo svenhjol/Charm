@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.wood;
 
 import svenhjol.charm.feature.wood.azalea_wood.AzaleaWoodClient;
+import svenhjol.charm.feature.wood.ebony_wood.EbonyWoodClient;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
@@ -17,7 +18,8 @@ public final class WoodClient extends ClientFeature {
     @Override
     public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
         return List.of(
-            new AzaleaWoodClient(loader())
+            new AzaleaWoodClient(loader()),
+            new EbonyWoodClient(loader())
         );
     }
 }

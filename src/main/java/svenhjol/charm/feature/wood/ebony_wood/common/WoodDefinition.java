@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.wood.azalea_wood.common;
+package svenhjol.charm.feature.wood.ebony_wood.common;
 
 import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;
@@ -9,7 +9,7 @@ import java.util.List;
 public class WoodDefinition implements CustomWoodDefinition {
     @Override
     public CustomWoodMaterial material() {
-        return Material.AZALEA;
+        return EbonyMaterial.EBONY;
     }
 
     @Override
@@ -26,9 +26,11 @@ public class WoodDefinition implements CustomWoodDefinition {
             CustomType.GATE,
             CustomType.HANGING_SIGN,
             CustomType.LADDER,
+            CustomType.LEAVES,
             CustomType.LOG,
             CustomType.PLANKS,
             CustomType.PRESSURE_PLATE,
+            CustomType.SAPLING,
             CustomType.SIGN,
             CustomType.SLAB,
             CustomType.STAIRS,

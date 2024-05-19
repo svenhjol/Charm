@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:random_patch",
+  "config": {
+    "feature": "charm:ebony_tree",
+    "tries": 5,
+    "xz_spread": 8,
+    "y_spread": 3
+  }
+}
