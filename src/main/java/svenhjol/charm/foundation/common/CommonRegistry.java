@@ -108,15 +108,17 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         BiomeModifications.addSpawn(biomeSelectionContext, category, entity.get(), weight, minGroupSize, maxGroupSize);
     }
 
+    /**
+     * May be run late.
+     * Use this to conditionally modify a biome in the onEnabled() function of your register.
+     */
     public void biomeAddition(String id, Predicate<Holder<Biome>> predicate, GenerationStep.Decoration step, ResourceKey<PlacedFeature> feature) {
-        loader.registerDeferred(() -> {
-            log("Biome addition " + id);
-            Predicate<BiomeSelectionContext> biomeSelectionContext = c -> predicate.test(c.getBiomeRegistryEntry());
-            BiomeModifications.create(id(id + "_biome_addition")).add(
-                ModificationPhase.ADDITIONS,
-                biomeSelectionContext,
-                ctx -> ctx.getGenerationSettings().addFeature(step, feature));
-        });
+        log("Biome addition " + id);
+        Predicate<BiomeSelectionContext> biomeSelectionContext = c -> predicate.test(c.getBiomeRegistryEntry());
+        BiomeModifications.create(id(id + "_biome_addition")).add(
+            ModificationPhase.ADDITIONS,
+            biomeSelectionContext,
+            ctx -> ctx.getGenerationSettings().addFeature(step, feature));
     }
 
     public <B extends Block> Register<B> block(String id, Supplier<B> supplier) {
