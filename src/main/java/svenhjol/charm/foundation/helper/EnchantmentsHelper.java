@@ -5,8 +5,12 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 
 import javax.annotation.Nullable;
@@ -15,18 +19,34 @@ import java.util.List;
 
 public final class EnchantmentsHelper {
     public static boolean hasEnchantment(ItemStack stack, ResourceKey<Enchantment> enchantment) {
+        return getLevel(stack, enchantment) > 0;
+    }
+
+    public static int getLevel(ItemStack stack, ResourceKey<Enchantment> enchantment) {
         if (stack.has(DataComponents.ENCHANTMENTS)) {
             var enchantments = stack.get(DataComponents.ENCHANTMENTS);
-            if (enchantments == null) return false;
+            if (enchantments == null) return 0;
 
             for (Holder<Enchantment> holder : enchantments.keySet()) {
                 if (holder.is(enchantment)) {
-                    return true;
+                    return enchantments.getLevel(holder);
                 }
             }
         }
 
-        return false;
+        return 0;
+    }
+
+    public static int lootingLevel(DamageSource source) {
+        return source.getDirectEntity() instanceof LivingEntity entity ? lootingLevel(entity) : 0;
+    }
+
+    public static int lootingLevel(LivingEntity entity) {
+        return Math.max(lootingLevel(entity, EquipmentSlot.MAINHAND), lootingLevel(entity, EquipmentSlot.OFFHAND));
+    }
+
+    public static int lootingLevel(LivingEntity entity, EquipmentSlot slot) {
+        return getLevel(entity.getItemBySlot(slot), Enchantments.LOOTING);
     }
 
     @Nullable
