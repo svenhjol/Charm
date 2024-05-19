@@ -42,14 +42,14 @@ public final class Handlers extends FeatureHolder<Chairs> {
             ) {
                 var chair = new Chair(level, pos);
                 level.addFreshEntity(chair);
-                log().debug("Added new chair entity");
+                log().dev("Added new chair entity");
 
                 var result = player.startRiding(chair);
-                log().debug("Player is now riding");
+                log().dev("Player is now riding");
                 if (result) {
                     player.moveTo(chair.getX(), chair.getY(), chair.getZ());
                     player.setPos(chair.getX(), chair.getY(), chair.getZ());
-                    log().debug("Moved player to chair pos");
+                    log().dev("Moved player to chair pos");
                 }
 
                 feature().advancements.satOnChair(player);

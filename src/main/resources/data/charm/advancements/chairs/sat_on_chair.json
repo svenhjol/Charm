@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tweaks",
+  "display": {
+    "icon": {
+      "id": "charm:azalea_stairs"
+    },
+    "title": {
+      "translate": "advancements.charm.sat_on_chair.title"
+    },
+    "description": {
+      "translate": "advancements.charm.sat_on_chair.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "sat_on_chair": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:sat_on_chair"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "sat_on_chair"
+    ]
+  ]
+}
