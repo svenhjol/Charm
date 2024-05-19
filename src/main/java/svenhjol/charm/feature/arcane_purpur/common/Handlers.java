@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.chorus_teleport.common;
+package svenhjol.charm.feature.arcane_purpur.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -8,15 +8,15 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.feature.chorus_teleport.ChorusTeleport;
+import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class Handlers extends FeatureHolder<ChorusTeleport> {
-    public Handlers(ChorusTeleport feature) {
+public final class Handlers extends FeatureHolder<ArcanePurpur> {
+    public Handlers(ArcanePurpur feature) {
         super(feature);
     }
 
@@ -25,7 +25,7 @@ public final class Handlers extends FeatureHolder<ChorusTeleport> {
             return false;
         }
 
-        var range = ChorusTeleport.range;
+        var range = ArcanePurpur.range;
         var pos = entity.blockPosition();
         var level = (ServerLevel)entity.level();
         Map<Double, BlockPos> candidates = new HashMap<>();

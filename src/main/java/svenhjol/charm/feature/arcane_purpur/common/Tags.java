@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.chorus_teleport.common;
+package svenhjol.charm.feature.arcane_purpur.common;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;

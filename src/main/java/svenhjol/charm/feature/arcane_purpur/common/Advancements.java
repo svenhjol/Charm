@@ -1,11 +1,11 @@
-package svenhjol.charm.feature.chorus_teleport.common;
+package svenhjol.charm.feature.arcane_purpur.common;
 
 import net.minecraft.world.entity.player.Player;
-import svenhjol.charm.feature.chorus_teleport.ChorusTeleport;
+import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
 import svenhjol.charm.foundation.feature.AdvancementHolder;
 
-public final class Advancements extends AdvancementHolder<ChorusTeleport> {
-    public Advancements(ChorusTeleport feature) {
+public final class Advancements extends AdvancementHolder<ArcanePurpur> {
+    public Advancements(ArcanePurpur feature) {
         super(feature);
     }
 
