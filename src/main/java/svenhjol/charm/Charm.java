@@ -1,6 +1,7 @@
 package svenhjol.charm;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.feature.aerial_affinity.AerialAffinity;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
 import svenhjol.charm.feature.animal_armor_grinding.AnimalArmorGrinding;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
@@ -64,6 +65,7 @@ public final class Charm {
 
     public static List<Class<? extends CommonFeature>> features() {
         return List.of(
+            AerialAffinity.class,
             AnimalArmorEnchanting.class,
             AnimalArmorGrinding.class,
             AnimalReviving.class,

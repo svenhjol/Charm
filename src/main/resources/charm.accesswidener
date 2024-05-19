@@ -33,6 +33,9 @@ accessible field net/minecraft/client/particle/Particle friction F
 accessible field net/minecraft/client/particle/Particle speedUpWhenYMotionIsBlocked Z
 accessible field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Ljava/util/Map;
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+accessible field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
+mutable    field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
+
 
 # AnimalReviving
 accessible field net/minecraft/world/entity/animal/horse/AbstractHorse inventory Lnet/minecraft/world/SimpleContainer;

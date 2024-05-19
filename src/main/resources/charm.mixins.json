@@ -7,6 +7,7 @@
     "event.anvil_repair.AnvilMenuMixin",
     "event.anvil_update.AnvilMenuMixin",
     "event.apply_beacon_effects.BeaconBlockEntityMixin",
+    "event.block_break_speed_callback.PlayerMixin",
     "event.entity_drop.LivingEntityMixin",
     "event.entity_tick_callback.LivingEntityMixin",
     "event.grindstone.GrindstoneMenuInputMixin",
