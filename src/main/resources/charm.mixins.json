@@ -60,6 +60,7 @@
     "feature.silence.YggdrasilMinecraftSessionServiceMixin",
     "feature.silence.YggdrasilServicesKeyInfoMixin",
     "feature.silence.YggdrasilUserApiServiceMixin",
+    "feature.torchflowers_emit_light.BlockBehaviourPropertiesMixin",
     "feature.totem_of_preserving.ExplosionMixin",
     "feature.totem_of_preserving.LevelMixin",
     "feature.totems_work_from_inventory.LivingEntityMixin",
