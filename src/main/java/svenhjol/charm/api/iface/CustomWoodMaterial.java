@@ -1,8 +1,12 @@
 package svenhjol.charm.api.iface;
 
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+
+import java.util.Optional;
 
 /**
  * A custom wood material definition used when registering new wooden item types.
@@ -22,4 +26,8 @@ public interface CustomWoodMaterial extends CustomMaterial {
     BlockSetType blockSetType();
 
     WoodType woodType();
+
+    default Optional<ResourceKey<ConfiguredFeature<?, ?>>> tree() {
+        return Optional.empty();
+    }
 }

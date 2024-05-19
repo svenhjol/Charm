@@ -13,8 +13,16 @@ public class CustomSapling {
     public final Supplier<CharmSaplingBlock.BlockItem> item;
 
     public CustomSapling(CustomWoodHolder holder) {
+        var material = holder.getMaterial();
         var saplingId = holder.getMaterialName() + "_sapling";
-        var treeGrower = new TreeGrower(holder.getMaterialName(), 0f, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+
+        var tree = material.tree();
+        if (tree.isEmpty()) {
+            holder.owner().log().error("No tree defined for sapling!");
+        }
+
+        // Param 1 = Mega tree (?), Param 2 = Normal tree, Param 3 = Some variant, like with beehives (?)
+        var treeGrower = new TreeGrower(holder.getMaterialName(), Optional.empty(), tree, Optional.empty());
 
         block = holder.ownerRegistry().block(saplingId, () -> new CharmSaplingBlock(holder.getMaterial(), treeGrower));
         item = holder.ownerRegistry().item(saplingId, () -> new CharmSaplingBlock.BlockItem(block));
