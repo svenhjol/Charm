@@ -74,7 +74,7 @@ public class Moobloom extends Cow implements Shearable, FeatureResolver<Moobloom
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putString(TYPE_TAG, getMoobloomType().getName());
-        tag.putBoolean(POLLINATED_TAG, entityData.get(POLLINATED));
+        tag.putBoolean(POLLINATED_TAG, isPollinated());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class Moobloom extends Cow implements Shearable, FeatureResolver<Moobloom
         setMoobloomType(MoobloomType.fromName(tag.getString(TYPE_TAG)));
 
         if (tag.contains(POLLINATED_TAG)) {
-            entityData.set(POLLINATED, tag.getBoolean(POLLINATED_TAG));
+            setPollinated(tag.getBoolean(POLLINATED_TAG));
         }
     }
 
@@ -104,11 +104,15 @@ public class Moobloom extends Cow implements Shearable, FeatureResolver<Moobloom
     public void pollinate() {
         var level = level();
         level.playSound(null, blockPosition(), SoundEvents.BEE_POLLINATE, SoundSource.NEUTRAL, 1.0F, 1.0F);
-        entityData.set(POLLINATED, true);
+        setPollinated(true);
     }
 
     public boolean isPollinated() {
         return entityData.get(POLLINATED);
+    }
+
+    public void setPollinated(boolean flag) {
+        entityData.set(POLLINATED, flag);
     }
 
     public MoobloomType getMoobloomType() {

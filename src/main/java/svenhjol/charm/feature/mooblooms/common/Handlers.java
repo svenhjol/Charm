@@ -62,7 +62,7 @@ public final class Handlers extends FeatureHolder<Mooblooms> {
 
                 var out = ItemUtils.createFilledResult(held, player, stew, false);
                 player.setItemInHand(hand, out);
-                moobloom.getEntityData().set(Moobloom.POLLINATED, false);
+                moobloom.setPollinated(false);
 
                 feature().advancements.milkedMoobloom(player);
 
