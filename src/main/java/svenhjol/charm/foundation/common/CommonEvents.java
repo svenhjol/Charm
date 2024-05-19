@@ -29,6 +29,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.event.*;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.event.EntityTickCallback;
 import svenhjol.charm.foundation.event.PlayerLoginCallback;
 import svenhjol.charm.foundation.event.PlayerTickCallback;
 
@@ -57,6 +58,7 @@ public final class CommonEvents {
 
         // These are global Fabric events that any mod/feature can observe.
         AttackEntityCallback.EVENT.register(CommonEvents::handleAttackEntity);
+        EntityTickCallback.EVENT.register(CommonEvents::handleEntityTick);
         ServerLivingEntityEvents.AFTER_DEATH.register(CommonEvents::handleDeathEvent);
         LootTableEvents.MODIFY.register(CommonEvents::handleLootTableModify);
         PlayerLoginCallback.EVENT.register(CommonEvents::handlePlayerLogin);
@@ -89,6 +91,10 @@ public final class CommonEvents {
 
     private static void handleDeathEvent(LivingEntity entity, DamageSource damageSource) {
         EntityKilledEvent.INSTANCE.invoke(entity, damageSource);
+    }
+
+    private static void handleEntityTick(LivingEntity entity) {
+        EntityTickEvent.INSTANCE.invoke(entity);
     }
 
     private static void handleLootTableModify(ResourceKey<LootTable> key, LootTable.Builder builder, LootTableSource source) {
