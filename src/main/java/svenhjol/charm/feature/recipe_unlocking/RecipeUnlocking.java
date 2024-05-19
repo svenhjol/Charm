@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 @Feature(enabledByDefault = false, description = """
     Unlocks all vanilla recipes.
     This opinionated feature is disabled by default.""")
-public class RecipeUnlocking extends CommonFeature {
+public final class RecipeUnlocking extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
 
