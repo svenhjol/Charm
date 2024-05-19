@@ -4,10 +4,12 @@ import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,12 +17,14 @@ import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
@@ -31,13 +35,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.deferred.DeferredParticle;
@@ -64,6 +73,10 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
         this.log = new Log(loader.id(), this);
     }
 
+    public void blockColor(List<Supplier<? extends Block>> blocks) {
+        ColorProviderRegistry.BLOCK.register(this::handleBlockColor, blocks.stream().map(Supplier::get).toList().toArray(Block[]::new));
+    }
+
     public <T extends BlockEntity> void blockEntityRenderer(Supplier<BlockEntityType<T>> supplier, Supplier<BlockEntityRendererProvider<T>> provider) {
         loader.registerDeferred(() -> BlockEntityRenderers.register(supplier.get(), provider.get()));
     }
@@ -78,6 +91,10 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
 
     public ResourceLocation id(String path) {
         return new ResourceLocation(loader.id(), path);
+    }
+
+    public void itemColor(List<Supplier<? extends ItemLike>> items) {
+        ColorProviderRegistry.ITEM.register(this::handleItemColor, items.stream().map(Supplier::get).toList().toArray(ItemLike[]::new));
     }
 
     /**
@@ -167,5 +184,15 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
             Sheets.SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.get().name())));
             Sheets.HANGING_SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/hanging/" + woodType.get().name())));
         });
+    }
+
+    private int handleItemColor(ItemStack stack, int tintIndex) {
+        var state = ((BlockItem)stack.getItem()).getBlock().defaultBlockState();
+        var blockColors = Minecraft.getInstance().getBlockColors();
+        return blockColors.getColor(state, null, null, tintIndex);
+    }
+
+    private int handleBlockColor(BlockState state, BlockAndTintGetter level, BlockPos pos, int tintIndex) {
+        return level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor();
     }
 }
