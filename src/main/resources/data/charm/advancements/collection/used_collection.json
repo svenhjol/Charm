@@ -1,0 +1,32 @@
+{
+  "parent": "charm:core/enchantments",
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_pickaxe",
+      "nbt": "{Enchantments:[{id:\"charm:collection\",lvl:1s}]}"
+    },
+    "title": {
+      "translate": "advancements.charm.used_collection.title"
+    },
+    "description": {
+      "translate": "advancements.charm.used_collection.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "used_collection": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:used_collection"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "used_collection"
+    ]
+  ]
+}
