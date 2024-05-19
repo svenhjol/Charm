@@ -1,9 +1,10 @@
 package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.foundation.feature.ChildFeature;
 import svenhjol.charm.foundation.feature.Conditional;
 import svenhjol.charm.foundation.feature.Metadata;
-import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.foundation.helper.TextHelper;
 
 import java.util.List;
 import java.util.Optional;
@@ -65,6 +66,10 @@ public abstract class Feature implements Conditional {
 
     public String name() {
         return this.getClass().getSimpleName();
+    }
+
+    public String snakeCaseName() {
+        return TextHelper.upperCamelToSnake(name());
     }
 
     @Override

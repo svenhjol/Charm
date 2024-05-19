@@ -38,7 +38,7 @@ import svenhjol.charm.feature.note_blocks.NoteBlocks;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlates;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
-import svenhjol.charm.feature.recipe_unlocking.RecipeUnlocking;
+import svenhjol.charm.feature.recipe_improvements.RecipeImprovements;
 import svenhjol.charm.feature.repair_cost_unlimited.RepairCostUnlimited;
 import svenhjol.charm.feature.shulker_box_transferring.ShulkerBoxTransferring;
 import svenhjol.charm.feature.silence.Silence;
@@ -100,7 +100,7 @@ public final class Charm {
             PigsFindMushrooms.class,
             PlayerPressurePlates.class,
             PotionOfRadiance.class,
-            RecipeUnlocking.class,
+            RecipeImprovements.class,
             RepairCostUnlimited.class,
             ShulkerBoxTransferring.class,
             Silence.class,
