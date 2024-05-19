@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.shulker_box_drag_drop.common;
+package svenhjol.charm.feature.shulker_box_transferring.common;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
@@ -16,13 +16,13 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.api.event.ItemDragDropEvent;
-import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
+import svenhjol.charm.feature.shulker_box_transferring.ShulkerBoxTransferring;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 import svenhjol.charm.foundation.helper.ItemTidyingHelper;
 
-public final class Handlers extends FeatureHolder<ShulkerBoxDragDrop> {
+public final class Handlers extends FeatureHolder<ShulkerBoxTransferring> {
 
-    public Handlers(ShulkerBoxDragDrop feature) {
+    public Handlers(ShulkerBoxTransferring feature) {
         super(feature);
     }
 
@@ -99,7 +99,7 @@ public final class Handlers extends FeatureHolder<ShulkerBoxDragDrop> {
 
                 var itemContainerContents = ItemContainerContents.fromItems(containerItems);
                 dest.set(DataComponents.CONTAINER, itemContainerContents);
-                feature().advancements.draggedItemToShulkerBox(player);
+                feature().advancements.transferredToShulkerBox(player);
                 return InteractionResult.SUCCESS;
             }
         }

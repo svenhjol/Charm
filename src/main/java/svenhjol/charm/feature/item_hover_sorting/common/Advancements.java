@@ -9,7 +9,7 @@ public final class Advancements extends AdvancementHolder<ItemHoverSorting> {
         super(feature);
     }
 
-    public void hoverSortedItems(Player player) {
-        trigger("hover_sorted_items", player);
+    public void sortedItemsWhileHovering(Player player) {
+        trigger("sorted_items_while_hovering", player);
     }
 }

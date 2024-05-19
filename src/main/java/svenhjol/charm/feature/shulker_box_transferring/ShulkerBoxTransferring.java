@@ -1,19 +1,19 @@
-package svenhjol.charm.feature.shulker_box_drag_drop;
+package svenhjol.charm.feature.shulker_box_transferring;
 
-import svenhjol.charm.feature.shulker_box_drag_drop.common.Advancements;
-import svenhjol.charm.feature.shulker_box_drag_drop.common.Handlers;
-import svenhjol.charm.feature.shulker_box_drag_drop.common.Registers;
+import svenhjol.charm.feature.shulker_box_transferring.common.Advancements;
+import svenhjol.charm.feature.shulker_box_transferring.common.Handlers;
+import svenhjol.charm.feature.shulker_box_transferring.common.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Drag and drop items into a shulkerbox from within your inventory.")
-public final class ShulkerBoxDragDrop extends CommonFeature {
+public final class ShulkerBoxTransferring extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Advancements advancements;
 
-    public ShulkerBoxDragDrop(CommonLoader loader) {
+    public ShulkerBoxTransferring(CommonLoader loader) {
         super(loader);
 
         registers = new Registers(this);

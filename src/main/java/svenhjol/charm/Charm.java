@@ -40,7 +40,7 @@ import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlates;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
 import svenhjol.charm.feature.recipe_unlocking.RecipeUnlocking;
 import svenhjol.charm.feature.repair_cost_unlimited.RepairCostUnlimited;
-import svenhjol.charm.feature.shulker_box_drag_drop.ShulkerBoxDragDrop;
+import svenhjol.charm.feature.shulker_box_transferring.ShulkerBoxTransferring;
 import svenhjol.charm.feature.silence.Silence;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
@@ -102,7 +102,7 @@ public final class Charm {
             PotionOfRadiance.class,
             RecipeUnlocking.class,
             RepairCostUnlimited.class,
-            ShulkerBoxDragDrop.class,
+            ShulkerBoxTransferring.class,
             Silence.class,
             SmoothGlowstone.class,
             StorageBlocks.class,
