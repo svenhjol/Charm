@@ -56,6 +56,7 @@
     "feature.note_blocks.NoteBlockInstrumentMixin",
     "feature.note_blocks.amethyst_note_block.BlockBehaviourPropertiesMixin",
     "feature.note_blocks.amethyst_note_block.NoteBlockMixin",
+    "feature.parrots_stay_on_shoulder.PlayerMixin",
     "feature.pigs_find_mushrooms.PigMixin",
     "feature.repair_cost_unlimited.AnvilMenuMixin",
     "feature.silence.YggdrasilMinecraftSessionServiceMixin",

@@ -104,6 +104,11 @@ accessible method net/minecraft/world/entity/animal/Bee setHasNectar (Z)V
 accessible field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
 mutable    field net/minecraft/world/level/portal/PortalShape FRAME Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
 
+# ParrotsStayOnShoulder
+accessible method net/minecraft/world/entity/player/Player respawnEntityOnShoulder (Lnet/minecraft/nbt/CompoundTag;)V
+accessible method net/minecraft/world/entity/player/Player setShoulderEntityLeft (Lnet/minecraft/nbt/CompoundTag;)V
+accessible method net/minecraft/world/entity/player/Player setShoulderEntityRight (Lnet/minecraft/nbt/CompoundTag;)V
+
 # Recipes
 ### RecipeBookCategories AGGREGATE_CATEGORIES non-final map so we can add new categories.
 accessible field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;

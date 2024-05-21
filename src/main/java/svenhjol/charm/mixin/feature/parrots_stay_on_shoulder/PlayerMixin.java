@@ -1,0 +1,38 @@
+package svenhjol.charm.mixin.feature.parrots_stay_on_shoulder;
+
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import svenhjol.charm.feature.parrots_stay_on_shoulder.ParrotsStayOnShoulder;
+import svenhjol.charm.foundation.Resolve;
+
+@Mixin(Player.class)
+public abstract class PlayerMixin extends Entity {
+    @Shadow
+    private long timeEntitySatOnShoulder;
+
+    public PlayerMixin(EntityType<?> type, Level level) {
+        super(type, level);
+    }
+
+    /**
+     * Defer to {@link svenhjol.charm.feature.parrots_stay_on_shoulder.common.Handlers#shouldParrotStayMounted}.
+     * If check passes then return early so that entities do not dismount.
+     */
+    @Inject(
+        method = "removeEntitiesOnShoulder",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private void hookSpawnShoulderEntities(CallbackInfo ci) {
+        if (Resolve.feature(ParrotsStayOnShoulder.class).handlers.shouldParrotStayMounted(level(), timeEntitySatOnShoulder)) {
+            ci.cancel();
+        }
+    }
+}
