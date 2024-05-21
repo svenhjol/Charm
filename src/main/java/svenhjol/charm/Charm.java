@@ -37,6 +37,7 @@ import svenhjol.charm.feature.mob_drops.MobDrops;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
 import svenhjol.charm.feature.nether_portal_blocks.NetherPortalBlocks;
 import svenhjol.charm.feature.note_blocks.NoteBlocks;
+import svenhjol.charm.feature.path_converting.PathConverting;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlates;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
@@ -103,6 +104,7 @@ public final class Charm {
             Mooblooms.class,
             NetherPortalBlocks.class,
             NoteBlocks.class,
+            PathConverting.class,
             PigsFindMushrooms.class,
             PlayerPressurePlates.class,
             PotionOfRadiance.class,
