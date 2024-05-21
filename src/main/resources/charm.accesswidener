@@ -78,6 +78,9 @@ accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScr
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
 
+# LowerNoteblockPitch
+accessible method net/minecraft/world/level/block/NoteBlock playNote (Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V
+
 # MineshaftImprovements
 accessible method net/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftCorridor hasSturdyNeighbours (Lnet/minecraft/world/level/WorldGenLevel;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIII)Z
 accessible method net/minecraft/world/level/levelgen/structure/structures/MineshaftPieces$MineShaftPiece isSupportingBox (Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/world/level/levelgen/structure/BoundingBox;IIII)Z

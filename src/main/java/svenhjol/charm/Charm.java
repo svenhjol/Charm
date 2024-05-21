@@ -30,6 +30,7 @@ import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
 import svenhjol.charm.feature.item_restocking.ItemRestocking;
 import svenhjol.charm.feature.item_tidying.ItemTidying;
 import svenhjol.charm.feature.kilns.Kilns;
+import svenhjol.charm.feature.lower_noteblock_pitch.LowerNoteblockPitch;
 import svenhjol.charm.feature.lumberjacks.Lumberjacks;
 import svenhjol.charm.feature.mineshaft_improvements.MineshaftImprovements;
 import svenhjol.charm.feature.mob_drops.MobDrops;
@@ -95,6 +96,7 @@ public final class Charm {
             ItemRestocking.class,
             ItemTidying.class,
             Kilns.class,
+            LowerNoteblockPitch.class,
             Lumberjacks.class,
             MineshaftImprovements.class,
             MobDrops.class,
