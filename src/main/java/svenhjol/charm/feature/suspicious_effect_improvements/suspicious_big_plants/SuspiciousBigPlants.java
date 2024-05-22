@@ -1,8 +1,8 @@
-package svenhjol.charm.feature.suspicious_improvements.suspicious_big_plants;
+package svenhjol.charm.feature.suspicious_effect_improvements.suspicious_big_plants;
 
 import net.minecraft.util.Mth;
-import svenhjol.charm.feature.suspicious_improvements.SuspiciousImprovements;
-import svenhjol.charm.feature.suspicious_improvements.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
+import svenhjol.charm.feature.suspicious_effect_improvements.SuspiciousEffectImprovements;
+import svenhjol.charm.feature.suspicious_effect_improvements.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
 import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
@@ -11,7 +11,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(description = "Suspicious stews can be crafted from pitcher plants and sunflowers.")
-public final class SuspiciousBigPlants extends CommonFeature implements ChildFeature<SuspiciousImprovements> {
+public final class SuspiciousBigPlants extends CommonFeature implements ChildFeature<SuspiciousEffectImprovements> {
     @Configurable(name = "Pitcher plant effect duration", description = "Number of seconds of strength and regeneration from a pitcher plant.")
     private static int pitcherPlantEffectDuration = 8;
 
@@ -23,8 +23,8 @@ public final class SuspiciousBigPlants extends CommonFeature implements ChildFea
     }
 
     @Override
-    public Class<SuspiciousImprovements> typeForParent() {
-        return SuspiciousImprovements.class;
+    public Class<SuspiciousEffectImprovements> typeForParent() {
+        return SuspiciousEffectImprovements.class;
     }
 
     public int pitcherPlantEffectDuration() {

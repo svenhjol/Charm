@@ -1,8 +1,8 @@
-package svenhjol.charm.feature.suspicious_improvements.suspicious_effects_last_longer;
+package svenhjol.charm.feature.suspicious_effect_improvements.suspicious_effects_last_longer;
 
 import net.minecraft.util.Mth;
-import svenhjol.charm.feature.suspicious_improvements.SuspiciousImprovements;
-import svenhjol.charm.feature.suspicious_improvements.suspicious_effects_last_longer.common.Handlers;
+import svenhjol.charm.feature.suspicious_effect_improvements.SuspiciousEffectImprovements;
+import svenhjol.charm.feature.suspicious_effect_improvements.suspicious_effects_last_longer.common.Handlers;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(description = "Suspicious effects from stews and flowers last longer.")
-public class SuspiciousEffectsLastLonger extends CommonFeature implements ChildFeature<SuspiciousImprovements> {
+public class SuspiciousEffectsLastLonger extends CommonFeature implements ChildFeature<SuspiciousEffectImprovements> {
     public final Handlers handlers;
 
     @Configurable(
@@ -32,8 +32,8 @@ public class SuspiciousEffectsLastLonger extends CommonFeature implements ChildF
     }
 
     @Override
-    public Class<SuspiciousImprovements> typeForParent() {
-        return SuspiciousImprovements.class;
+    public Class<SuspiciousEffectImprovements> typeForParent() {
+        return SuspiciousEffectImprovements.class;
     }
 
     public int beneficialMultiplier() {

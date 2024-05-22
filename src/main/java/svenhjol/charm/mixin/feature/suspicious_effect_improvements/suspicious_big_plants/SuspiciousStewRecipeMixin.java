@@ -1,4 +1,4 @@
-package svenhjol.charm.mixin.feature.suspicious_improvements.suspicious_big_plants;
+package svenhjol.charm.mixin.feature.suspicious_effect_improvements.suspicious_big_plants;
 
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
