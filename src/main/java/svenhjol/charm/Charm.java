@@ -5,6 +5,7 @@ import svenhjol.charm.feature.aerial_affinity.AerialAffinity;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
 import svenhjol.charm.feature.animal_armor_grinding.AnimalArmorGrinding;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
+import svenhjol.charm.feature.anvils_last_longer.AnvilsLastLonger;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
@@ -74,6 +75,7 @@ public final class Charm {
             AnimalArmorEnchanting.class,
             AnimalArmorGrinding.class,
             AnimalReviving.class,
+            AnvilsLastLonger.class,
             ArcanePurpur.class,
             Atlases.class,
             BatBuckets.class,

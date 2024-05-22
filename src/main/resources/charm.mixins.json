@@ -25,6 +25,7 @@
     "feature.animal_armor_enchanting.MobMixin",
     "feature.animal_reviving.LivingEntityMixin",
     "feature.animal_reviving.NameTagItemMixin",
+    "feature.anvils_last_longer.AnvilBlockMixin",
     "feature.arcane_purpur.ChorusFruitItemMixin",
     "feature.atlases.CartographyTableMenuMixin",
     "feature.atlases.MapItemSavedDataMixin",
