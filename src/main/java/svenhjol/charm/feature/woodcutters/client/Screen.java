@@ -21,12 +21,12 @@ import java.util.List;
  * TODO: Need to make unique versions of texture and sprites.
  */
 public class Screen extends AbstractContainerScreen<Menu> {
-   private static final ResourceLocation SCROLLER_SPRITE = new ResourceLocation("container/stonecutter/scroller");
-   private static final ResourceLocation SCROLLER_DISABLED_SPRITE = new ResourceLocation("container/stonecutter/scroller_disabled");
-   private static final ResourceLocation RECIPE_SELECTED_SPRITE = new ResourceLocation("container/stonecutter/recipe_selected");
-   private static final ResourceLocation RECIPE_HIGHLIGHTED_SPRITE = new ResourceLocation("container/stonecutter/recipe_highlighted");
-   private static final ResourceLocation RECIPE_SPRITE = new ResourceLocation("container/stonecutter/recipe");
-   private static final ResourceLocation BG_LOCATION = new ResourceLocation("textures/gui/container/stonecutter.png");
+   private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.parse("container/stonecutter/scroller");
+   private static final ResourceLocation SCROLLER_DISABLED_SPRITE = ResourceLocation.parse("container/stonecutter/scroller_disabled");
+   private static final ResourceLocation RECIPE_SELECTED_SPRITE = ResourceLocation.parse("container/stonecutter/recipe_selected");
+   private static final ResourceLocation RECIPE_HIGHLIGHTED_SPRITE = ResourceLocation.parse("container/stonecutter/recipe_highlighted");
+   private static final ResourceLocation RECIPE_SPRITE = ResourceLocation.parse("container/stonecutter/recipe");
+   private static final ResourceLocation BG_LOCATION = ResourceLocation.parse("textures/gui/container/stonecutter.png");
    private float scrollAmount;
    private boolean scrolling;
    private int startIndex;

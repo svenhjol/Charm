@@ -19,7 +19,7 @@ public final class Handlers extends FeatureHolder<MobTextures> {
     private static final Map<UUID, ResourceLocation> CACHED_TEXTURE = new WeakHashMap<>();
     private static final String TEXTURES_FOLDER = "textures/entity";
     private static final String TEXTURE_TAG = "charm_texture";
-    private static final ResourceLocation DEFAULT_SHEEP = new ResourceLocation(TEXTURES_FOLDER + "/sheep/sheep.png");
+    private static final ResourceLocation DEFAULT_SHEEP = ResourceLocation.parse(TEXTURES_FOLDER + "/sheep/sheep.png");
     private final List<ResourceLocation> chickens = new ArrayList<>();
     private final List<ResourceLocation> cows = new ArrayList<>();
     private final List<ResourceLocation> dolphins = new ArrayList<>();
@@ -154,14 +154,14 @@ public final class Handlers extends FeatureHolder<MobTextures> {
         rareTurtles.clear();
 
         // Add vanilla textures.
-        chickens.add(new ResourceLocation(TEXTURES_FOLDER + "/chicken.png"));
-        cows.add(new ResourceLocation(TEXTURES_FOLDER + "/cow/cow.png"));
-        dolphins.add(new ResourceLocation(TEXTURES_FOLDER + "/dolphin.png"));
-        pigs.add(new ResourceLocation(TEXTURES_FOLDER + "/pig/pig.png"));
-        snowGolems.add(new ResourceLocation(TEXTURES_FOLDER + "/snow_golem.png"));
-        squids.add(new ResourceLocation(TEXTURES_FOLDER + "/squid/squid.png"));
-        turtles.add(new ResourceLocation(TEXTURES_FOLDER + "/turtle/big_sea_turtle.png"));
-        wanderingTraders.add(new ResourceLocation(TEXTURES_FOLDER + "/wandering_trader.png"));
+        chickens.add(ResourceLocation.parse(TEXTURES_FOLDER + "/chicken.png"));
+        cows.add(ResourceLocation.parse(TEXTURES_FOLDER + "/cow/cow.png"));
+        dolphins.add(ResourceLocation.parse(TEXTURES_FOLDER + "/dolphin.png"));
+        pigs.add(ResourceLocation.parse(TEXTURES_FOLDER + "/pig/pig.png"));
+        snowGolems.add(ResourceLocation.parse(TEXTURES_FOLDER + "/snow_golem.png"));
+        squids.add(ResourceLocation.parse(TEXTURES_FOLDER + "/squid/squid.png"));
+        turtles.add(ResourceLocation.parse(TEXTURES_FOLDER + "/turtle/big_sea_turtle.png"));
+        wanderingTraders.add(ResourceLocation.parse(TEXTURES_FOLDER + "/wandering_trader.png"));
 
         for (var i = 1; i <= 5; i++) {
             registerCustomTextures(chickens, MobType.CHICKEN, "chicken" + i);

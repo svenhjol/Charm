@@ -14,6 +14,7 @@ accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlo
 accessible method net/minecraft/world/entity/npc/VillagerProfession register (Ljava/lang/String;Lnet/minecraft/resources/ResourceKey;Lcom/google/common/collect/ImmutableSet;Lcom/google/common/collect/ImmutableSet;Lnet/minecraft/sounds/SoundEvent;)Lnet/minecraft/world/entity/npc/VillagerProfession;
 accessible method net/minecraft/client/particle/Particle setAlpha (F)V
 accessible method net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase asState ()Lnet/minecraft/world/level/block/state/BlockState;
+accessible method net/minecraft/resources/ResourceLocation <init> (Ljava/lang/String;Ljava/lang/String;)V
 ### Fields
 accessible field net/minecraft/world/entity/ai/village/poi/PoiTypes TYPE_BY_STATE Ljava/util/Map;
 accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
@@ -65,9 +66,7 @@ accessible field net/minecraft/client/sounds/SoundEngine instanceBySource Lcom/g
 # GlintColoring
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
 accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
-accessible field net/minecraft/client/renderer/RenderType ARMOR_GLINT Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/RenderType ARMOR_ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
-accessible field net/minecraft/client/renderer/RenderType GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT_DIRECT Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/RenderType ENTITY_GLINT Lnet/minecraft/client/renderer/RenderType;
 accessible field net/minecraft/client/renderer/RenderType GLINT Lnet/minecraft/client/renderer/RenderType;

@@ -402,7 +402,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public Register<SoundEvent> soundEvent(String id) {
         if (id.contains(":")) {
-            var res = new ResourceLocation(id);
+            var res = ResourceLocation.parse(id);
             return soundEvent(res.getPath(), () -> SoundEvent.createVariableRangeEvent(res));
         } else {
             return soundEvent(id, () -> SoundEvent.createVariableRangeEvent(id(id)));

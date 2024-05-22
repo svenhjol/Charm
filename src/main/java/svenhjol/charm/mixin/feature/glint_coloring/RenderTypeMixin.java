@@ -12,17 +12,6 @@ import svenhjol.charm.foundation.Resolve;
 @Mixin(RenderType.class)
 public class RenderTypeMixin {
     @Inject(
-        method = "armorGlint",
-        at = @At("HEAD"),
-        cancellable = true
-    )
-    private static void hookGetArmorGlint(CallbackInfoReturnable<RenderType> cir) {
-        if (glintColoring().handlers.isEnabled()) {
-            cir.setReturnValue(glintColoring().handlers.getArmorGlintRenderLayer());
-        }
-    }
-
-    @Inject(
         method = "armorEntityGlint",
         at = @At("HEAD"),
         cancellable = true
@@ -63,17 +52,6 @@ public class RenderTypeMixin {
     private static void hookGetGlint(CallbackInfoReturnable<RenderType> cir) {
         if (glintColoring().handlers.isEnabled()) {
             cir.setReturnValue(glintColoring().handlers.getGlintRenderLayer());
-        }
-    }
-
-    @Inject(
-        method = "glintDirect",
-        at = @At("HEAD"),
-        cancellable = true
-    )
-    private static void hookGetGlintDirect(CallbackInfoReturnable<RenderType> cir) {
-        if (glintColoring().handlers.isEnabled()) {
-            cir.setReturnValue(glintColoring().handlers.getDirectGlintRenderLayer());
         }
     }
 

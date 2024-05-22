@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 public interface CharmTooltip extends TooltipComponent {
-    ResourceLocation BACKGROUND_SPRITE = new ResourceLocation("container/bundle/background");
+    ResourceLocation BACKGROUND_SPRITE = ResourceLocation.parse("container/bundle/background");
     int MARGIN_Y = 6;
     int SLOT_SIZE_X = 18;
     int SLOT_SIZE_Y = 20;
@@ -63,8 +63,8 @@ public interface CharmTooltip extends TooltipComponent {
     }
 
     enum Texture {
-        BLOCKED_SLOT(new ResourceLocation("container/bundle/blocked_slot"), SLOT_SIZE_X, SLOT_SIZE_Y),
-        SLOT(new ResourceLocation("container/bundle/slot"), SLOT_SIZE_X, SLOT_SIZE_Y);
+        BLOCKED_SLOT(ResourceLocation.parse("container/bundle/blocked_slot"), SLOT_SIZE_X, SLOT_SIZE_Y),
+        SLOT(ResourceLocation.parse("container/bundle/slot"), SLOT_SIZE_X, SLOT_SIZE_Y);
 
         public final ResourceLocation sprite;
         public final int w;

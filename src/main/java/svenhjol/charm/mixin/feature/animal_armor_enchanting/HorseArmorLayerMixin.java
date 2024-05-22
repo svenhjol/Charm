@@ -28,6 +28,6 @@ public class HorseArmorLayerMixin {
         var armor = horse.getBodyArmorItem();
         var item = (AnimalArmorItem)armor.getItem();
         Resolve.feature(GlintColoringClient.class).handlers.setTargetStack(armor);
-        return ItemRenderer.getArmorFoilBuffer(multiBufferSource, RenderType.armorCutoutNoCull(item.getTexture()), false, armor.hasFoil());
+        return ItemRenderer.getArmorFoilBuffer(multiBufferSource, RenderType.armorCutoutNoCull(item.getTexture()), false);
     }
 }

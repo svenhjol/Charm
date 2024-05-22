@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public final class Handlers extends FeatureHolder<TooltipImprovements> {
     public static final RenderType MAP_BACKGROUND
-        = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
+        = RenderType.text(ResourceLocation.parse("textures/map/map_background.png"));
 
     public Handlers(TooltipImprovements feature) {
         super(feature);
@@ -68,10 +68,10 @@ public final class Handlers extends FeatureHolder<TooltipImprovements> {
             var vertexConsumer = bufferSource.getBuffer(MAP_BACKGROUND);
             var matrix4f = guiGraphics.pose().last().pose();
 
-            vertexConsumer.vertex(matrix4f, -7.0F, 135.0F, 0.0F).color(255, 255, 255, 255).uv(0.0F, 1.0F).uv2(light).endVertex();
-            vertexConsumer.vertex(matrix4f, 135.0F, 135.0F, 0.0F).color(255, 255, 255, 255).uv(1.0F, 1.0F).uv2(light).endVertex();
-            vertexConsumer.vertex(matrix4f, 135.0F, -7.0F, 0.0F).color(255, 255, 255, 255).uv(1.0F, 0.0F).uv2(light).endVertex();
-            vertexConsumer.vertex(matrix4f, -7.0F, -7.0F, 0.0F).color(255, 255, 255, 255).uv(0.0F, 0.0F).uv2(light).endVertex();
+            vertexConsumer.addVertex(matrix4f, -7.0F, 135.0F, 0.0F).setColor(255, 255, 255, 255).setUv(0.0F, 1.0F).setLight(light);
+            vertexConsumer.addVertex(matrix4f, 135.0F, 135.0F, 0.0F).setColor(255, 255, 255, 255).setUv(1.0F, 1.0F).setLight(light);
+            vertexConsumer.addVertex(matrix4f, 135.0F, -7.0F, 0.0F).setColor(255, 255, 255, 255).setUv(1.0F, 0.0F).setLight(light);
+            vertexConsumer.addVertex(matrix4f, -7.0F, -7.0F, 0.0F).setColor(255, 255, 255, 255).setUv(0.0F, 0.0F).setLight(light);
 
             guiGraphics.pose().pushPose();
             guiGraphics.pose().translate(0.0, 0.0, 1.0);

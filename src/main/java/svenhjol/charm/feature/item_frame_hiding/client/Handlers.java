@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHidingClient;
 import svenhjol.charm.feature.item_frame_hiding.common.Networking;
 import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.foundation.helper.ColorHelper;
 
 public final class Handlers extends FeatureHolder<ItemFrameHidingClient> {
     public Handlers(ItemFrameHidingClient feature) {
@@ -36,12 +37,12 @@ public final class Handlers extends FeatureHolder<ItemFrameHidingClient> {
 
     public void createParticle(Level level, BlockPos pos) {
         var particleType = feature().common().registers.particleType.get();
+        var col = new ColorHelper.Color(DyeColor.PURPLE);
 
-        float[] col = DyeColor.PURPLE.getTextureDiffuseColors();
         var x = (double) pos.getX() + 0.5d;
         var y = (double) pos.getY() + 0.5d;
         var z = (double) pos.getZ() + 0.5d;
 
-        level.addParticle(particleType, x, y, z, col[0], col[1], col[2]);
+        level.addParticle(particleType, x, y, z, col.getRed(), col.getGreen(), col.getBlue());
     }
 }

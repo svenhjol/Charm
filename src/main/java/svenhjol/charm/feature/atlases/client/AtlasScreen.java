@@ -46,7 +46,7 @@ import java.util.stream.Collector;
 @SuppressWarnings("ConstantConditions")
 public class AtlasScreen extends CharmContainerScreen<Menu> {
     private static final RenderType MAP_BACKGROUND = RenderType.text(
-        new ResourceLocation("textures/map/map_background.png"));
+        ResourceLocation.parse("textures/map/map_background.png"));
     private static final ResourceLocation CONTAINER_BACKGROUND = Charm.id("textures/gui/atlas.png");
 
     private static final int SIZE = 48;
@@ -217,10 +217,10 @@ public class AtlasScreen extends CharmContainerScreen<Menu> {
             Matrix4f matrix4f = pose.last().pose();
             VertexConsumer builder = buffer.getBuffer(RenderType.text(textureAtlasSprite.atlasLocation()));
             float z = k * 0.001f;
-            builder.vertex(matrix4f, -1, 1, z).color(255, 255, 255, 255).uv(f1, f2).uv2(LIGHT).endVertex();
-            builder.vertex(matrix4f, 1, 1, z).color(255, 255, 255, 255).uv(f3, f2).uv2(LIGHT).endVertex();
-            builder.vertex(matrix4f, 1, -1, z).color(255, 255, 255, 255).uv(f3, f4).uv2(LIGHT).endVertex();
-            builder.vertex(matrix4f, -1, -1, z).color(255, 255, 255, 255).uv(f1, f4).uv2(LIGHT).endVertex();
+            builder.addVertex(matrix4f, -1, 1, z).setColor(255, 255, 255, 255).setUv(f1, f2).setLight(LIGHT);
+            builder.addVertex(matrix4f, 1, 1, z).setColor(255, 255, 255, 255).setUv(f3, f2).setLight(LIGHT);
+            builder.addVertex(matrix4f, 1, -1, z).setColor(255, 255, 255, 255).setUv(f3, f4).setLight(LIGHT);
+            builder.addVertex(matrix4f, -1, -1, z).setColor(255, 255, 255, 255).setUv(f1, f4).setLight(LIGHT);
             pose.popPose();
 
             ++k;

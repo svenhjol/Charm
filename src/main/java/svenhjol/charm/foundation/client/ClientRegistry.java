@@ -181,8 +181,8 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
 
     public void signMaterial(Supplier<WoodType> woodType) {
         loader.registerDeferred(() -> {
-            Sheets.SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.get().name())));
-            Sheets.HANGING_SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/hanging/" + woodType.get().name())));
+            Sheets.SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, ResourceLocation.parse("entity/signs/" + woodType.get().name())));
+            Sheets.HANGING_SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, ResourceLocation.parse("entity/signs/hanging/" + woodType.get().name())));
         });
     }
 

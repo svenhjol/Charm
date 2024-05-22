@@ -1,6 +1,6 @@
 package svenhjol.charm.mixin.feature.glint_coloring;
 
-import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderType;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +23,7 @@ public class RenderBuffersMixin {
         at = @At("TAIL"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookInit(int i, CallbackInfo ci, SortedMap<RenderType, BufferBuilder> builders) {
+    private void hookInit(int i, CallbackInfo ci, SortedMap<RenderType, ByteBufferBuilder> builders) {
         Resolve.feature(GlintColoringClient.class).handlers.setBuilders(builders);
     }
 }

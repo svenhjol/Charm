@@ -2,8 +2,8 @@ package svenhjol.charm.foundation;
 
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.foundation.common.CommonResolver;
-import svenhjol.charm.foundation.feature.Conditional;
 import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.foundation.feature.Conditional;
 import svenhjol.charm.foundation.helper.TextHelper;
 
 import java.util.*;
@@ -36,7 +36,7 @@ public abstract class Loader<F extends Feature> {
      */
     public ResourceLocation id(String path) {
         if (path.contains(":")) {
-            return new ResourceLocation(path);
+            return ResourceLocation.parse(path);
         }
         return new ResourceLocation(this.id, path);
     }

@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.glint_coloring.client;
 
-import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
@@ -26,12 +26,10 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
     public final Map<DyeColor, ResourceLocation> ENTITY_TEXTURES = new HashMap<>();
     public final Map<DyeColor, RenderType> GLINT = new HashMap<>();
     public final Map<DyeColor, RenderType> ENTITY_GLINT = new HashMap<>();
-    public final Map<DyeColor, RenderType> GLINT_DIRECT = new HashMap<>();
     public final Map<DyeColor, RenderType> ENTITY_GLINT_DIRECT = new HashMap<>();
-    public final Map<DyeColor, RenderType> ARMOR_GLINT = new HashMap<>();
     public final Map<DyeColor, RenderType> ARMOR_ENTITY_GLINT = new HashMap<>();
 
-    private SortedMap<RenderType, BufferBuilder> builders;
+    private SortedMap<RenderType, ByteBufferBuilder> builders;
     private ItemStack targetStack;
     private boolean enabled = false;
 
@@ -53,7 +51,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
         this.targetStack = targetStack;
     }
 
-    public void setBuilders(@Nullable SortedMap<RenderType, BufferBuilder> builders) {
+    public void setBuilders(@Nullable SortedMap<RenderType, ByteBufferBuilder> builders) {
         this.builders = builders;
     }
 
@@ -79,10 +77,8 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
             ENTITY_TEXTURES.put(dyeColor, entityTexture);
 
             GLINT.put(dyeColor, createGlint(colorName, ITEM_TEXTURES.get(dyeColor)));
-            GLINT_DIRECT.put(dyeColor, createDirectGlint(colorName, ITEM_TEXTURES.get(dyeColor)));
             ENTITY_GLINT.put(dyeColor, createEntityGlint(colorName, ENTITY_TEXTURES.get(dyeColor)));
             ENTITY_GLINT_DIRECT.put(dyeColor, createDirectEntityGlint(colorName, ENTITY_TEXTURES.get(dyeColor)));
-            ARMOR_GLINT.put(dyeColor, createArmorGlint(colorName, ENTITY_TEXTURES.get(dyeColor)));
             ARMOR_ENTITY_GLINT.put(dyeColor, createArmorEntityGlint(colorName, ENTITY_TEXTURES.get(dyeColor)));
         }
 
@@ -100,7 +96,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
             .setTexturingState(RenderStateShard.GLINT_TEXTURING)
             .createCompositeState(false));
 
-        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
+        getBuilders().put(renderLayer, new ByteBufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
@@ -116,23 +112,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
             .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
             .createCompositeState(false));
 
-        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
-        return renderLayer;
-    }
-
-    public RenderType createArmorGlint(String color, ResourceLocation texture) {
-        RenderType renderLayer = RenderType.create("armor_glint_" + color, DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, RenderType.CompositeState.builder()
-            .setShaderState(RenderStateShard.RENDERTYPE_ARMOR_GLINT_SHADER)
-            .setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
-            .setWriteMaskState(RenderStateShard.COLOR_WRITE)
-            .setCullState(RenderStateShard.NO_CULL)
-            .setDepthTestState(RenderStateShard.EQUAL_DEPTH_TEST)
-            .setTransparencyState(RenderStateShard.GLINT_TRANSPARENCY)
-            .setTexturingState(RenderStateShard.GLINT_TEXTURING)
-            .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
-            .createCompositeState(false));
-
-        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
+        getBuilders().put(renderLayer, new ByteBufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
@@ -148,22 +128,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
             .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
             .createCompositeState(false));
 
-        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
-        return renderLayer;
-    }
-
-    public RenderType createDirectGlint(String color, ResourceLocation texture) {
-        RenderType renderLayer = RenderType.create("glint_direct_" + color, DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 256, RenderType.CompositeState.builder()
-            .setShaderState(RenderStateShard.RENDERTYPE_GLINT_DIRECT_SHADER)
-            .setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
-            .setWriteMaskState(RenderStateShard.COLOR_WRITE)
-            .setCullState(RenderStateShard.NO_CULL)
-            .setDepthTestState(RenderStateShard.EQUAL_DEPTH_TEST)
-            .setTransparencyState(RenderStateShard.GLINT_TRANSPARENCY)
-            .setTexturingState(RenderStateShard.GLINT_TEXTURING)
-            .createCompositeState(false));
-
-        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
+        getBuilders().put(renderLayer, new ByteBufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
@@ -179,27 +144,17 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
             .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
             .createCompositeState(false));
 
-        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
+        getBuilders().put(renderLayer, new ByteBufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
-    public SortedMap<RenderType, BufferBuilder> getBuilders() {
+    public SortedMap<RenderType, ByteBufferBuilder> getBuilders() {
         return builders;
-    }
-
-    public RenderType getArmorGlintRenderLayer() {
-        return ARMOR_GLINT
-            .getOrDefault(GlintColoring.get(targetStack), RenderType.ARMOR_GLINT);
     }
 
     public RenderType getArmorEntityGlintRenderLayer() {
         return ARMOR_ENTITY_GLINT
             .getOrDefault(GlintColoring.get(targetStack), RenderType.ARMOR_ENTITY_GLINT);
-    }
-
-    public RenderType getDirectGlintRenderLayer() {
-        return GLINT_DIRECT
-            .getOrDefault(GlintColoring.get(targetStack), RenderType.GLINT_DIRECT);
     }
 
     public RenderType getDirectEntityGlintRenderLayer() {
