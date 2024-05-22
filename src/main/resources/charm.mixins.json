@@ -103,6 +103,7 @@
     "feature.silence.ClientTelemetryManagerMixin",
     "feature.silence.DisableToastMixin",
     "feature.silence.RealmsAvailabilityMixin",
+    "feature.silence.WorldOpenFlowsMixin",
     "feature.spyglass_scope_hiding.GuiMixin",
     "registry.client_tooltip_component.ClientTooltipComponentMixin",
     "registry.particle_engine.ParticleEngineMixin"

@@ -18,7 +18,7 @@ public class DisableToastMixin {
         )
     )
     private void hookStopNaggingMe(ToastComponent instance, Toast toast) {
-        if (Silence.disableChatMessageNag) return;
+        if (Silence.disableChatMessageVerification) return;
         instance.addToast(toast); // Vanilla behavior
     }
 }
