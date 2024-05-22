@@ -4,8 +4,10 @@ accessWidener v1 named
 ### Classes
 accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration
 accessible class net/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type
+accessible class net/minecraft/core/component/DataComponentMap$Builder$SimpleMap
 ### Methods
 accessible method net/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type <init> (Ljava/lang/String;I)V
+accessible method net/minecraft/core/component/DataComponentMap$Builder$SimpleMap <init> (Lit/unimi/dsi/fastutil/objects/Reference2ObjectMap;)V
 accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
@@ -35,6 +37,8 @@ accessible field net/minecraft/world/entity/ai/behavior/GiveGiftToHero GIFTS Lja
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
 mutable    field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
+accessible field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
+mutable    field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
 
 # AnimalReviving
 accessible field net/minecraft/world/entity/animal/horse/AbstractHorse inventory Lnet/minecraft/world/SimpleContainer;
