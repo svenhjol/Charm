@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.lower_noteblock_pitch.common;
+package svenhjol.charm.feature.note_block_lower_pitch.common;
 
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -8,11 +8,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.phys.BlockHitResult;
-import svenhjol.charm.feature.lower_noteblock_pitch.LowerNoteblockPitch;
+import svenhjol.charm.feature.note_block_lower_pitch.NoteBlockLowerPitch;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
-public final class Handlers extends FeatureHolder<LowerNoteblockPitch> {
-    public Handlers(LowerNoteblockPitch feature) {
+public final class Handlers extends FeatureHolder<NoteBlockLowerPitch> {
+    public Handlers(NoteBlockLowerPitch feature) {
         super(feature);
     }
 
