@@ -9,6 +9,6 @@ import java.util.function.Supplier;
  * Add the final blockstate for a crop-type block that can be harvested by Charm's QuickReplant feature.
  */
 @SuppressWarnings("unused")
-public interface IQuickReplantProvider {
+public interface QuickReplantProvider {
     List<Supplier<BlockState>> getHarvestableBlocks();
 }

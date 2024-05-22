@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.collection.Collection;
+import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.Map;
@@ -20,12 +21,16 @@ public final class Handlers extends FeatureHolder<Collection> {
         super(feature);
     }
 
-    public void startBreaking(Player player, BlockPos pos) {
-        var collection = feature().registers.attribute.get();
+    public boolean hasCollection(Player player) {
+        var collection = Resolve.feature(Collection.class).registers.attribute.get();
         var playerAttributes = player.getAttributes();
 
-        if (playerAttributes.hasAttribute(collection)
-            && playerAttributes.getValue(collection) > 0) {
+        return playerAttributes.hasAttribute(collection)
+            && playerAttributes.getValue(collection) > 0;
+    }
+
+    public void startBreaking(Player player, BlockPos pos) {
+        if (hasCollection(player)) {
             BREAKING.put(pos, player.getUUID());
         }
     }
