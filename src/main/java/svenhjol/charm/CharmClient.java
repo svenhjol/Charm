@@ -22,6 +22,7 @@ import svenhjol.charm.feature.mob_textures.MobTextures;
 import svenhjol.charm.feature.mooblooms.MoobloomsClient;
 import svenhjol.charm.feature.note_blocks.NoteBlocksClient;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlatesClient;
+import svenhjol.charm.feature.redstone_sand.RedstoneSandClient;
 import svenhjol.charm.feature.repair_cost_visible.RepairCostVisible;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
 import svenhjol.charm.feature.spyglass_scope_hiding.SpyglassScopeHiding;
@@ -59,6 +60,7 @@ public final class CharmClient {
             MoobloomsClient.class,
             NoteBlocksClient.class,
             PlayerPressurePlatesClient.class,
+            RedstoneSandClient.class,
             RepairCostVisible.class,
             SmoothGlowstoneClient.class,
             SpyglassScopeHiding.class,
