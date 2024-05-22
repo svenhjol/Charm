@@ -1,7 +1,7 @@
-package svenhjol.charm.feature.suspicious_effects_last_longer.common;
+package svenhjol.charm.feature.suspicious_improvements.suspicious_effects_last_longer.common;
 
 import net.minecraft.world.item.component.SuspiciousStewEffects;
-import svenhjol.charm.feature.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
+import svenhjol.charm.feature.suspicious_improvements.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.ArrayList;
@@ -25,9 +25,9 @@ public final class Handlers extends FeatureHolder<SuspiciousEffectsLastLonger> {
                 int oldDuration = entry.duration();
 
                 if (effect.isBeneficial()) {
-                    newDuration = entry.duration() * SuspiciousEffectsLastLonger.beneficialMultiplier;
+                    newDuration = entry.duration() * feature().beneficialMultiplier();
                 } else {
-                    newDuration = entry.duration() * SuspiciousEffectsLastLonger.detrimentalMultiplier;
+                    newDuration = entry.duration() * feature().detrimentalMultiplier();
                 }
                 feature().log().dev(
                     "Old duration was " + oldDuration + ", new duration is " + newDuration +

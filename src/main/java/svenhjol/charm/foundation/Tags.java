@@ -9,9 +9,6 @@ import svenhjol.charm.Charm;
 @Deprecated
 @SuppressWarnings("unused")
 public final class Tags {
-    public static final TagKey<Item> HAS_SUSPICIOUS_EFFECTS = TagKey.create(Registries.ITEM,
-        Charm.id("has_suspicious_effects"));
-
     public static final TagKey<Block> NEARBY_WORKSTATIONS = TagKey.create(Registries.BLOCK,
         Charm.id("nearby_workstations"));
 

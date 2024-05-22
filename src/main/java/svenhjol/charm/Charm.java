@@ -34,12 +34,12 @@ import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
 import svenhjol.charm.feature.item_restocking.ItemRestocking;
 import svenhjol.charm.feature.item_tidying.ItemTidying;
 import svenhjol.charm.feature.kilns.Kilns;
-import svenhjol.charm.feature.note_block_lower_pitch.NoteBlockLowerPitch;
 import svenhjol.charm.feature.lumberjacks.Lumberjacks;
 import svenhjol.charm.feature.mineshaft_improvements.MineshaftImprovements;
 import svenhjol.charm.feature.mob_drops.MobDrops;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
 import svenhjol.charm.feature.nether_portal_blocks.NetherPortalBlocks;
+import svenhjol.charm.feature.note_block_lower_pitch.NoteBlockLowerPitch;
 import svenhjol.charm.feature.note_blocks.NoteBlocks;
 import svenhjol.charm.feature.parrots_stay_on_shoulder.ParrotsStayOnShoulder;
 import svenhjol.charm.feature.path_converting.PathConverting;
@@ -53,7 +53,7 @@ import svenhjol.charm.feature.silence.Silence;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.spawners_drop_items.SpawnersDropItems;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
-import svenhjol.charm.feature.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
+import svenhjol.charm.feature.suspicious_improvements.SuspiciousImprovements;
 import svenhjol.charm.feature.torchflowers_emit_light.TorchflowersEmitLight;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
@@ -126,7 +126,7 @@ public final class Charm {
             SmoothGlowstone.class,
             SpawnersDropItems.class,
             StorageBlocks.class,
-            SuspiciousEffectsLastLonger.class,
+            SuspiciousImprovements.class,
             TorchflowersEmitLight.class,
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
