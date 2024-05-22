@@ -311,7 +311,9 @@
   "subtitles.charm.block.gunpowder_block.dissolve": "Gunpowder dissolves",
   "subtitles.charm.block.kiln.bake": "Kiln bakes",
   "subtitles.charm.block.sugar_block.dissolve": "Sugar dissolves",
-  "subtitles.charm.block.suspicious_block.make": "Item added suspiciously",
+  "subtitles.charm.block.suspicious_block.create": "Item added suspiciously",
+  "subtitles.charm.block.totem_of_preserving.release_items": "Totem releases items",
+  "subtitles.charm.block.totem_of_preserving.store_items": "Totem stores items",
   "subtitles.charm.block.woodcutter.use": "Woodcutter saws",
   "subtitles.charm.entity.moobloom.milk": "Moobloom gets milked",
   "subtitles.charm.entity.pig.sniffing": "Pig searches for mushrooms",
@@ -323,8 +325,6 @@
   "subtitles.charm.item.endermite_powder.launch": "Endermite powder launches",
   "subtitles.charm.item.path.convert_from_dirt": "Shovel flattens",
   "subtitles.charm.item.path.convert_to_dirt": "Hoe works path",
-  "subtitles.charm.block.totem_of_preserving.release_items": "Totem releases items",
-  "subtitles.charm.block.totem_of_preserving.store_items": "Totem stores items",
   "totem_of_preserving.charm.item": "Preserving one item",
   "totem_of_preserving.charm.items": "Preserving %s items"
 }
