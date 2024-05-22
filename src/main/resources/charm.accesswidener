@@ -36,7 +36,6 @@ accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/worl
 accessible field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
 mutable    field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
 
-
 # AnimalReviving
 accessible field net/minecraft/world/entity/animal/horse/AbstractHorse inventory Lnet/minecraft/world/SimpleContainer;
 
@@ -58,6 +57,10 @@ accessible field net/minecraft/world/level/block/Block item Lnet/minecraft/world
 mutable    field net/minecraft/world/level/block/Block item Lnet/minecraft/world/item/Item;
 accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
 mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument type Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type;
+
+# DiscsStopBackgroundMusic
+accessible field net/minecraft/client/sounds/SoundManager soundEngine Lnet/minecraft/client/sounds/SoundEngine;
+accessible field net/minecraft/client/sounds/SoundEngine instanceBySource Lcom/google/common/collect/Multimap;
 
 # GlintColoring
 accessible class net/minecraft/client/renderer/RenderType$CompositeState
