@@ -127,5 +127,11 @@ mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Ma
 accessible field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
 mutable    field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
 
+# SuspiciousBlockCreating
+accessible field net/minecraft/world/level/block/entity/BrushableBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;
+mutable    field net/minecraft/world/level/block/entity/BrushableBlockEntity lootTable Lnet/minecraft/resources/ResourceKey;
+accessible field net/minecraft/world/level/block/entity/BrushableBlockEntity item Lnet/minecraft/world/item/ItemStack;
+mutable    field net/minecraft/world/level/block/entity/BrushableBlockEntity item Lnet/minecraft/world/item/ItemStack;
+
 # Woodcutting
 accessible method net/minecraft/world/item/crafting/SingleItemRecipe$Serializer <init> (Lnet/minecraft/world/item/crafting/SingleItemRecipe$Factory;)V

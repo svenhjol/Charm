@@ -65,6 +65,7 @@
     "feature.silence.YggdrasilMinecraftSessionServiceMixin",
     "feature.silence.YggdrasilServicesKeyInfoMixin",
     "feature.silence.YggdrasilUserApiServiceMixin",
+    "feature.suspicious_block_creating.PistonBaseBlockMixin",
     "feature.suspicious_effect_improvements.suspicious_big_plants.DoublePlantBlockMixin",
     "feature.suspicious_effect_improvements.suspicious_big_plants.SuspiciousStewRecipeMixin",
     "feature.suspicious_effect_improvements.suspicious_big_plants.TallFlowerBlockMixin",

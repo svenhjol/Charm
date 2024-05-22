@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/tweaks",
+  "display": {
+    "icon": {
+      "id": "minecraft:piston"
+    },
+    "title": {
+      "translate": "advancements.charm.created_suspicious_block.title"
+    },
+    "description": {
+      "translate": "advancements.charm.created_suspicious_block.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "created_suspicious_block": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:created_suspicious_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "created_suspicious_block"
+    ]
+  ]
+}

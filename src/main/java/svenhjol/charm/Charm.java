@@ -54,6 +54,7 @@ import svenhjol.charm.feature.silence.Silence;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
 import svenhjol.charm.feature.spawners_drop_items.SpawnersDropItems;
 import svenhjol.charm.feature.storage_blocks.StorageBlocks;
+import svenhjol.charm.feature.suspicious_block_creating.SuspiciousBlockCreating;
 import svenhjol.charm.feature.suspicious_effect_improvements.SuspiciousEffectImprovements;
 import svenhjol.charm.feature.torchflowers_emit_light.TorchflowersEmitLight;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
@@ -128,6 +129,7 @@ public final class Charm {
             SmoothGlowstone.class,
             SpawnersDropItems.class,
             StorageBlocks.class,
+            SuspiciousBlockCreating.class,
             SuspiciousEffectImprovements.class,
             TorchflowersEmitLight.class,
             TotemOfPreserving.class,
