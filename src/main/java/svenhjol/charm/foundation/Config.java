@@ -160,6 +160,7 @@ public abstract class Config {
 
                     var fieldName = annotation.name();
                     var fieldDescription = annotation.description();
+                    field.setAccessible(true);
                     Object fieldValue = field.get(null);
 
                     // Set the key/value pair. The "." specifies that it is nested
@@ -168,7 +169,7 @@ public abstract class Config {
                     config.add(featureConfigName, fieldValue);
 
                 } catch (Exception e) {
-                    log.error("Failed to write config property `" + field.getName() + "` in `" + feature.name() + "`");
+                    log.error("Failed to write config property `" + field.getName() + "` in `" + feature.name() + "`: " + e.getMessage());
                 }
             }
         }
