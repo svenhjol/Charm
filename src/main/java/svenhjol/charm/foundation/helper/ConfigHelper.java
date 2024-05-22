@@ -3,12 +3,15 @@ package svenhjol.charm.foundation.helper;
 import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.Charm;
+import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.enums.Side;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public final class ConfigHelper {
+    private static final Log LOGGER = new Log(Charm.ID, "ConfigHelper");
+
     public static final String DEBUG_MODE = "Debug mode";
     public static final String COMPAT_MODE = "Compat mode";
 
@@ -66,7 +69,21 @@ public final class ConfigHelper {
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isFeatureEnabled(String filename, String featureName) {
         var toml = read(filename);
-        var path = featureName + ".Enabled";
+        String path;
+
+        if (featureName.contains(".")) {
+            // We need to check if parent feature is disabled and return that instead.
+            var split = featureName.split("\\.");
+            if (split.length > 2) {
+                LOGGER.error("Feature name can't be parsed, too many fragments");
+                return false;
+            }
+            var parent = split[0];
+            path = parent + ".Enabled";
+        } else {
+            // This feature doesn't have a parent.
+            path = featureName + ".Enabled";
+        }
 
         if (toml.contains(path)) {
             return toml.getBoolean(path);
