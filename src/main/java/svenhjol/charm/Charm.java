@@ -4,6 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.feature.aerial_affinity.AerialAffinity;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
 import svenhjol.charm.feature.animal_armor_grinding.AnimalArmorGrinding;
+import svenhjol.charm.feature.animal_damage_immunity.AnimalDamageImmunity;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
 import svenhjol.charm.feature.anvils_last_longer.AnvilsLastLonger;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
@@ -76,6 +77,7 @@ public final class Charm {
             AerialAffinity.class,
             AnimalArmorEnchanting.class,
             AnimalArmorGrinding.class,
+            AnimalDamageImmunity.class,
             AnimalReviving.class,
             AnvilsLastLonger.class,
             ArcanePurpur.class,

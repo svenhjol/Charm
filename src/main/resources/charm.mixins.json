@@ -9,6 +9,7 @@
     "event.apply_beacon_effects.BeaconBlockEntityMixin",
     "event.block_break_speed_callback.PlayerMixin",
     "event.entity_drop.LivingEntityMixin",
+    "event.entity_hurt.LivingEntityMixin",
     "event.entity_tick_callback.LivingEntityMixin",
     "event.grindstone.GrindstoneMenuInputMixin",
     "event.grindstone.GrindstoneMenuMixin",
