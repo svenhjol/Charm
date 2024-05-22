@@ -3,13 +3,11 @@ package svenhjol.charm.foundation.common;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.event.player.UseEntityCallback;
-import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.event.player.*;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -23,6 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.BlockHitResult;
@@ -60,6 +59,7 @@ public final class CommonEvents {
 
         // These are global Fabric events that any mod/feature can observe.
         AttackEntityCallback.EVENT.register(CommonEvents::handleAttackEntity);
+        PlayerBlockBreakEvents.BEFORE.register(CommonEvents::handleBlockBreak);
         BlockBreakSpeedCallback.EVENT.register(CommonEvents::handleBlockBreakSpeed);
         EntityTickCallback.EVENT.register(CommonEvents::handleEntityTick);
         ServerLivingEntityEvents.AFTER_DEATH.register(CommonEvents::handleDeathEvent);
@@ -90,6 +90,10 @@ public final class CommonEvents {
     private static InteractionResult handleAttackEntity(Player player, Level level, InteractionHand handle,
                                                         Entity entity, @Nullable EntityHitResult hitResult) {
         return EntityAttackEvent.INSTANCE.invoke(player, level, handle, entity, hitResult);
+    }
+
+    private static boolean handleBlockBreak(Level level, Player player, BlockPos pos, BlockState state, BlockEntity blockEntity) {
+        return BlockBreakEvent.INSTANCE.invoke(level, pos, state, player);
     }
 
     private static float handleBlockBreakSpeed(Player player, BlockState state, float originalSpeed) {
