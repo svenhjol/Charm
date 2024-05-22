@@ -37,6 +37,11 @@ public final class EnchantmentsHelper {
         return 0;
     }
 
+    public static int featherFallingLevel(LivingEntity entity) {
+        var boots = entity.getItemBySlot(EquipmentSlot.FEET);
+        return getLevel(boots, Enchantments.FEATHER_FALLING);
+    }
+
     public static int lootingLevel(DamageSource source) {
         return source.getDirectEntity() instanceof LivingEntity entity ? lootingLevel(entity) : 0;
     }

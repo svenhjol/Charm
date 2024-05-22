@@ -47,6 +47,7 @@
     "feature.core.custom_recipes.RecipeManagerMixin",
     "feature.core.custom_recipes.ReloadableServerResourcesMixin",
     "feature.core.custom_recipes.ServerPackSourceMixin",
+    "feature.crop_feather_falling.FarmBlockMixin",
     "feature.deepslate_dungeons.MonsterRoomFeatureMixin",
     "feature.doors_open_together.DoorBlockMixin",
     "feature.item_restocking.AnimalMixin",
