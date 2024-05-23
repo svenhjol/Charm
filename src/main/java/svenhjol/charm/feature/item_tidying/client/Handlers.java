@@ -11,7 +11,6 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.feature.item_tidying.ItemTidyingClient;
 import svenhjol.charm.feature.item_tidying.common.TidyType;
 import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.ScreenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +65,7 @@ public final class Handlers extends FeatureHolder<ItemTidyingClient> {
             }
         }
 
-        sortingButtons.forEach(b -> ScreenHelper.addRenderableWidget(containerScreen, b));
+        sortingButtons.forEach(containerScreen::addRenderableWidget);
     }
 
     public void screenRender(AbstractContainerScreen<?> screen, GuiGraphics guiGraphics, int mouseX, int mouseY) {
