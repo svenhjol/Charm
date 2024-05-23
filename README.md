@@ -8,4 +8,5 @@ Dev tasks:
 - ignore unregistered data fixer errors - add feature to Silence?
 - all static config props to be private with accessors
 - rename player.collection attribute to player.automatic_item_pickup
+- also check common for matching feature in MixinConfig
 - Untranlated item tags warning - add tag.item.<namespace>.<path> with slashes in tag path as periods
