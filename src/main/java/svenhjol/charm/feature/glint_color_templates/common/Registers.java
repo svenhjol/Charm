@@ -28,7 +28,7 @@ import java.util.function.Supplier;
 public final class Registers extends RegisterHolder<GlintColorTemplates> {
     public final List<ResourceLocation> emptyDyes = new ArrayList<>();
     public final ResourceKey<LootTable> lootTable;
-    public final Supplier<net.minecraft.world.item.Item> item;
+    public final Supplier<Item> item;
 
     public static final String ITEM_ID = "glint_color_template";
 
@@ -43,9 +43,7 @@ public final class Registers extends RegisterHolder<GlintColorTemplates> {
             registry.id("item/empty_dye_04")
         ));
 
-        item = registry.item(ITEM_ID,
-            Item::new);
-
+        item = registry.item(ITEM_ID, Item::new);
         lootTable = registry.lootTable(GlintColorTemplates.configurableLootTable);
     }
 
