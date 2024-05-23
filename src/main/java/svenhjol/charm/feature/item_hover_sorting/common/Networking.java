@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import svenhjol.charm.Charm;
 import svenhjol.charm.api.enums.SortDirection;
 import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
 import svenhjol.charm.foundation.feature.FeatureHolder;
@@ -15,8 +16,7 @@ public final class Networking extends FeatureHolder<ItemHoverSorting> {
 
     // Client-to-server packet to set the slot index and direction of scroll.
     public record C2SScrollOnHover(int slotIndex, SortDirection sortDirection) implements CustomPacketPayload {
-        static final String ID = "charm:item_hover_sorting_scroll";
-        static Type<C2SScrollOnHover> TYPE = CustomPacketPayload.createType(ID);
+        static Type<C2SScrollOnHover> TYPE = new Type<>(Charm.id("item_hover_sorting_scroll"));
         static StreamCodec<FriendlyByteBuf, C2SScrollOnHover> CODEC
             = StreamCodec.of(C2SScrollOnHover::encode, C2SScrollOnHover::decode);
 

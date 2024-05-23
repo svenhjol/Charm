@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import svenhjol.charm.Charm;
 import svenhjol.charm.feature.item_tidying.ItemTidying;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
@@ -14,9 +15,8 @@ public final class Networking extends FeatureHolder<ItemTidying> {
 
     // Client-to-server packet to tidy the inventory or the viewed container.
     public record C2STidyInventory(TidyType tidyType) implements CustomPacketPayload {
-        static final String ID = "charm:tidied_items";
-        static Type<C2STidyInventory> TYPE = CustomPacketPayload.createType(ID);
-        static StreamCodec<FriendlyByteBuf, C2STidyInventory> CODEC
+        public static Type<C2STidyInventory> TYPE = new Type<>(Charm.id("tidied_items"));
+        public static StreamCodec<FriendlyByteBuf, C2STidyInventory> CODEC
             = StreamCodec.of(C2STidyInventory::encode, C2STidyInventory::decode);
 
         @Override

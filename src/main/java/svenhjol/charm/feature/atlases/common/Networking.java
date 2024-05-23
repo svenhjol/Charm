@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ComplexItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
+import svenhjol.charm.Charm;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
@@ -40,9 +41,8 @@ public final class Networking extends FeatureHolder<Atlases> {
 
     // Server-to-client
     public record S2CSwappedAtlasSlot(int slot) implements CustomPacketPayload {
-        private static final String ID = "charm:swapped_atlas_slot";
         public static Type<S2CSwappedAtlasSlot> TYPE
-            = CustomPacketPayload.createType(ID);
+            = new Type<>(Charm.id("swapped_atlas_slot"));
         public static StreamCodec<FriendlyByteBuf, S2CSwappedAtlasSlot> CODEC
             = StreamCodec.of(S2CSwappedAtlasSlot::encode, S2CSwappedAtlasSlot::decode);
 
@@ -66,8 +66,7 @@ public final class Networking extends FeatureHolder<Atlases> {
 
     // Server-to-client
     public record S2CUpdateInventory(int slot) implements CustomPacketPayload {
-        private static final String ID = "charm:update_atlas_inventory";
-        public static Type<S2CUpdateInventory> TYPE = CustomPacketPayload.createType(ID);
+        public static Type<S2CUpdateInventory> TYPE = new Type<>(Charm.id("update_atlas_inventory"));
         public static StreamCodec<FriendlyByteBuf, S2CUpdateInventory> CODEC = StreamCodec.of(S2CUpdateInventory::encode, S2CUpdateInventory::decode);
 
         public static void send(ServerPlayer player, int slot) {
@@ -92,8 +91,7 @@ public final class Networking extends FeatureHolder<Atlases> {
 
     // Client-to-server
     public record C2SSwapAtlasSlot(int slot) implements CustomPacketPayload {
-        private static final String ID = "charm:swap_atlas_slot";
-        public static Type<C2SSwapAtlasSlot> TYPE = CustomPacketPayload.createType(ID);
+        public static Type<C2SSwapAtlasSlot> TYPE = new Type<>(Charm.id("swap_atlas_slot"));
         public static StreamCodec<FriendlyByteBuf, C2SSwapAtlasSlot> CODEC =
             StreamCodec.of(C2SSwapAtlasSlot::encode, C2SSwapAtlasSlot::decode);
 
@@ -117,8 +115,7 @@ public final class Networking extends FeatureHolder<Atlases> {
 
     // Client-to-server
     public record C2STransferAtlas(int atlasSlot, int mapX, int mapZ, MoveMode moveMode) implements CustomPacketPayload {
-        private static final String ID = "charm:transfer_atlas";
-        public static Type<C2STransferAtlas> TYPE = CustomPacketPayload.createType(ID);
+        public static Type<C2STransferAtlas> TYPE = new Type<>(Charm.id("transfer_atlas"));
         public static StreamCodec<FriendlyByteBuf, C2STransferAtlas> CODEC =
             StreamCodec.of(C2STransferAtlas::encode, C2STransferAtlas::decode);
 

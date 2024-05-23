@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import svenhjol.charm.Charm;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventory;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
@@ -14,8 +15,7 @@ public final class Networking extends FeatureHolder<CraftingFromInventory> {
 
     // Client-to-server packet to instruct the server to try and open the crafting table.
     public record C2SOpenPortableCrafting() implements CustomPacketPayload {
-        private static final String ID = "charm:open_portable_crafting";
-        public static Type<C2SOpenPortableCrafting> TYPE = CustomPacketPayload.createType(ID);
+        public static Type<C2SOpenPortableCrafting> TYPE = new Type<>(Charm.id("open_portable_crafting"));
         public static StreamCodec<FriendlyByteBuf, C2SOpenPortableCrafting> CODEC =
             StreamCodec.of(C2SOpenPortableCrafting::encode, C2SOpenPortableCrafting::decode);
 

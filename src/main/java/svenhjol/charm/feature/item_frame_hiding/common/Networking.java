@@ -8,6 +8,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import svenhjol.charm.Charm;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHiding;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
@@ -26,7 +27,7 @@ public final class Networking extends FeatureHolder<ItemFrameHiding> {
 
     // Server-to-client
     public record AddAmethyst(BlockPos pos) implements CustomPacketPayload, ItemFrameInteraction {
-        public static Type<AddAmethyst> TYPE = CustomPacketPayload.createType("charm:add_amethyst_to_item_frame");
+        public static Type<AddAmethyst> TYPE = new Type<>(Charm.id("add_amethyst_to_item_frame"));
         static StreamCodec<FriendlyByteBuf, AddAmethyst> CODEC = StreamCodec.of(AddAmethyst::encode, AddAmethyst::decode);
 
         @Override
@@ -53,7 +54,7 @@ public final class Networking extends FeatureHolder<ItemFrameHiding> {
 
     // Server-to-client
     public record RemoveAmethyst(BlockPos pos) implements CustomPacketPayload, ItemFrameInteraction {
-        public static Type<RemoveAmethyst> TYPE = CustomPacketPayload.createType("charm:remove_amethyst_from_item_frame");
+        public static Type<RemoveAmethyst> TYPE = new Type<>(Charm.id("remove_amethyst_from_item_frame"));
         static StreamCodec<FriendlyByteBuf, RemoveAmethyst> CODEC = StreamCodec.of(RemoveAmethyst::encode, RemoveAmethyst::decode);
 
         @Override
