@@ -61,6 +61,7 @@ import svenhjol.charm.feature.suspicious_effect_improvements.SuspiciousEffectImp
 import svenhjol.charm.feature.torchflowers_emit_light.TorchflowersEmitLight;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
+import svenhjol.charm.feature.trade_improvements.TradeImprovements;
 import svenhjol.charm.feature.villager_attracting.VillagerAttracting;
 import svenhjol.charm.feature.wood.Wood;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
@@ -138,6 +139,7 @@ public final class Charm {
             TorchflowersEmitLight.class,
             TotemOfPreserving.class,
             TotemsWorkFromInventory.class,
+            TradeImprovements.class,
             VillagerAttracting.class,
             Wood.class,
             Woodcutters.class,
