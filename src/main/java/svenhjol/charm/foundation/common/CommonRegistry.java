@@ -86,7 +86,7 @@ import java.util.function.UnaryOperator;
 import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRADES;
 
-@SuppressWarnings({"unused", "UnusedReturnValue"})
+@SuppressWarnings({"unused", "UnusedReturnValue", "UnnecessaryLocalVariable"})
 public final class CommonRegistry implements svenhjol.charm.foundation.Registry {
     private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
     private final List<DeferredPotionMix> deferredPotionMixes = new ArrayList<>(); // Must be on the instance!
@@ -391,7 +391,14 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     public <R extends Recipe<?>> Register<RecipeType<R>> recipeType(String id) {
         return new Register<>(() -> {
             log("Recipe type " + id);
-            return RecipeType.register(id(id).toString());
+            var res = id(id);
+            var recipe = Registry.register(BuiltInRegistries.RECIPE_TYPE, res, new RecipeType<R>() {
+                @Override
+                public String toString() {
+                    return res.toString();
+                }
+            });
+            return recipe;
         });
     }
 
@@ -444,14 +451,17 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     public <B extends Block> Supplier<VillagerProfession> villagerProfession(String professionId, String poitId, List<Supplier<B>> jobSiteBlocks, Supplier<SoundEvent> workSound) {
         return new Register<>(() -> {
             log("Villager profession " + professionId + " with POIT " + poitId);
+            var res = id(professionId);
             var poitKey = ResourceKey.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE.key(), id(poitId));
-            var registered = VillagerProfession.register(
-                id(professionId).toString(),
-                poitKey,
+            var jobSites = jobSiteBlocks.stream().map(b -> (Block)b.get()).collect(ImmutableSet.toImmutableSet());
+            var registered = Registry.register(BuiltInRegistries.VILLAGER_PROFESSION, res, new VillagerProfession(
+                res.toString(),
+                holder -> holder.is(poitKey),
+                holder -> holder.is(poitKey),
                 ImmutableSet.of(),
-                jobSiteBlocks.stream().map(Supplier::get).collect(ImmutableSet.toImmutableSet()),
+                jobSites,
                 workSound.get()
-            );
+            ));
             loader.registerDeferred(() -> TRADES.put(registered, new Int2ObjectOpenHashMap<>()));
             return registered;
         });
