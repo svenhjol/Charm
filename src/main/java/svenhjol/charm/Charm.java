@@ -31,6 +31,7 @@ import svenhjol.charm.feature.glint_coloring.GlintColoring;
 import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchanting;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHiding;
 import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
+import svenhjol.charm.feature.item_repairing.ItemRepairing;
 import svenhjol.charm.feature.item_restocking.ItemRestocking;
 import svenhjol.charm.feature.item_stacking.ItemStacking;
 import svenhjol.charm.feature.item_tidying.ItemTidying;
@@ -107,6 +108,7 @@ public final class Charm {
             GrindstoneDisenchanting.class,
             ItemFrameHiding.class,
             ItemHoverSorting.class,
+            ItemRepairing.class,
             ItemRestocking.class,
             ItemStacking.class,
             ItemTidying.class,
