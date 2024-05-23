@@ -9,6 +9,7 @@ import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanternsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.core.CoreClient;
+import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventoryClient;
 import svenhjol.charm.feature.discs_stop_background_music.DiscsStopBackgroundMusic;
 import svenhjol.charm.feature.endermite_powder.EndermitePowderClient;
 import svenhjol.charm.feature.glint_color_templates.GlintColorTemplatesClient;
@@ -47,6 +48,7 @@ public final class CharmClient {
             CoralSeaLanternsClient.class,
             CoralSquidsClient.class,
             CoreClient.class,
+            CraftingFromInventoryClient.class,
             DiscsStopBackgroundMusic.class,
             EndermitePowderClient.class,
             GlintColorTemplatesClient.class,

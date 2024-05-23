@@ -19,6 +19,7 @@ import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanterns;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
 import svenhjol.charm.feature.core.Core;
+import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventory;
 import svenhjol.charm.feature.crop_feather_falling.CropFeatherFalling;
 import svenhjol.charm.feature.crop_replanting.CropReplanting;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
@@ -97,6 +98,7 @@ public final class Charm {
             CoralSeaLanterns.class,
             CoralSquids.class,
             Core.class,
+            CraftingFromInventory.class,
             CropFeatherFalling.class,
             CropReplanting.class,
             DeepslateDungeons.class,

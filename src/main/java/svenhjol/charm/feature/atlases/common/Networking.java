@@ -94,7 +94,8 @@ public final class Networking extends FeatureHolder<Atlases> {
     public record C2SSwapAtlasSlot(int slot) implements CustomPacketPayload {
         private static final String ID = "charm:swap_atlas_slot";
         public static Type<C2SSwapAtlasSlot> TYPE = CustomPacketPayload.createType(ID);
-        public static StreamCodec<FriendlyByteBuf, C2SSwapAtlasSlot> CODEC = StreamCodec.of(C2SSwapAtlasSlot::encode, C2SSwapAtlasSlot::decode);
+        public static StreamCodec<FriendlyByteBuf, C2SSwapAtlasSlot> CODEC =
+            StreamCodec.of(C2SSwapAtlasSlot::encode, C2SSwapAtlasSlot::decode);
 
         public static void send(int slot) {
             ClientPlayNetworking.send(new C2SSwapAtlasSlot(slot));
@@ -118,7 +119,8 @@ public final class Networking extends FeatureHolder<Atlases> {
     public record C2STransferAtlas(int atlasSlot, int mapX, int mapZ, MoveMode moveMode) implements CustomPacketPayload {
         private static final String ID = "charm:transfer_atlas";
         public static Type<C2STransferAtlas> TYPE = CustomPacketPayload.createType(ID);
-        public static StreamCodec<FriendlyByteBuf, C2STransferAtlas> CODEC = StreamCodec.of(C2STransferAtlas::encode, C2STransferAtlas::decode);
+        public static StreamCodec<FriendlyByteBuf, C2STransferAtlas> CODEC =
+            StreamCodec.of(C2STransferAtlas::encode, C2STransferAtlas::decode);
 
         public static void send(int atlasSlot, int mapX, int mapZ, MoveMode moveMode) {
             ClientPlayNetworking.send(new C2STransferAtlas(atlasSlot, mapX, mapZ, moveMode));
