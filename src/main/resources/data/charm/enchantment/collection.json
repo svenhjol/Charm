@@ -12,9 +12,8 @@
           "per_level_above_first": 0.0
         },
         "attribute": "charm:player.collection",
-        "name": "enchantment.collection",
-        "operation": "add_value",
-        "uuid": "3deb37c0-d000-46b5-bd02-785457b01d96"
+        "id": "charm:enchantment.collection",
+        "operation": "add_value"
       }
     ]
   },

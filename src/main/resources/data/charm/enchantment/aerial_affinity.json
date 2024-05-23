@@ -12,9 +12,8 @@
           "per_level_above_first": 1.0
         },
         "attribute": "charm:player.aerial_mining_speed",
-        "name": "enchantment.aerial_affinity",
-        "operation": "add_multiplied_total",
-        "uuid": "60ae1101-aaad-4ad0-8170-785457b01d96"
+        "id": "charm:enchantment.aerial_affinity",
+        "operation": "add_multiplied_total"
       }
     ]
   },
