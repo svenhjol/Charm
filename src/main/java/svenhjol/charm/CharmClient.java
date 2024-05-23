@@ -9,6 +9,7 @@ import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanternsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
 import svenhjol.charm.feature.core.CoreClient;
+import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventoryClient;
 import svenhjol.charm.feature.discs_stop_background_music.DiscsStopBackgroundMusic;
 import svenhjol.charm.feature.endermite_powder.EndermitePowderClient;
 import svenhjol.charm.feature.glint_color_templates.GlintColorTemplatesClient;
@@ -22,6 +23,7 @@ import svenhjol.charm.feature.mob_textures.MobTextures;
 import svenhjol.charm.feature.mooblooms.MoobloomsClient;
 import svenhjol.charm.feature.note_blocks.NoteBlocksClient;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlatesClient;
+import svenhjol.charm.feature.redstone_sand.RedstoneSandClient;
 import svenhjol.charm.feature.repair_cost_visible.RepairCostVisible;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstoneClient;
 import svenhjol.charm.feature.spyglass_scope_hiding.SpyglassScopeHiding;
@@ -46,6 +48,7 @@ public final class CharmClient {
             CoralSeaLanternsClient.class,
             CoralSquidsClient.class,
             CoreClient.class,
+            CraftingFromInventoryClient.class,
             DiscsStopBackgroundMusic.class,
             EndermitePowderClient.class,
             GlintColorTemplatesClient.class,
@@ -59,6 +62,7 @@ public final class CharmClient {
             MoobloomsClient.class,
             NoteBlocksClient.class,
             PlayerPressurePlatesClient.class,
+            RedstoneSandClient.class,
             RepairCostVisible.class,
             SmoothGlowstoneClient.class,
             SpyglassScopeHiding.class,

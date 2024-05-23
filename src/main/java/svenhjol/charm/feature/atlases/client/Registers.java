@@ -51,12 +51,14 @@ public final class Registers extends RegisterHolder<AtlasesClient> {
         HeldItemRenderEvent.INSTANCE.handle(this::handleRenderHeldItem);
     }
 
+    // TODO: move to client handlers
     private void handleKeyPress(String id) {
         if (Minecraft.getInstance().level != null && id.equals(openAtlasKey.get())) {
             C2SSwapAtlasSlot.send(feature().handlers.swappedSlot);
         }
     }
 
+    // TODO: move to client handlers
     private InteractionResult handleRenderHeldItem(float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack itemStack, float equipProgress, PoseStack poseStack, MultiBufferSource multiBufferSource, int light) {
         if (itemStack.getItem() == feature().common().registers.item.get()) {
             if (renderer == null) {

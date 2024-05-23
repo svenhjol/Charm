@@ -37,6 +37,7 @@ import net.minecraft.world.entity.ai.behavior.GiveGiftToHero;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -83,6 +84,7 @@ import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
 import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
+import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRADES;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public final class CommonRegistry implements svenhjol.charm.foundation.Registry {
@@ -472,6 +474,19 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public <W extends WallSignBlock, S extends SignBlock> Register<CharmWallSignBlock> wallSignBlock(String id, CustomWoodMaterial material, Supplier<S> drops, WoodType type) {
         return block(id, () -> new CharmWallSignBlock(material, drops.get(), type));
+    }
+
+    /**
+     * May be run late. Use this to conditionally add trades to a wandering trade if the feature is enabled.
+     */
+    public void wandererTrade(Supplier<VillagerTrades.ItemListing> supplier, boolean isRare) {
+        List<VillagerTrades.ItemListing> trades = NonNullList.create();
+        int index = isRare ? 2 : 1;
+
+        trades.addAll(Arrays.asList(WANDERING_TRADER_TRADES.get(index)));
+        trades.add(supplier.get());
+
+        WANDERING_TRADER_TRADES.put(index, trades.toArray(new VillagerTrades.ItemListing[0]));
     }
 
     public Register<WoodType> woodType(Supplier<CustomWoodMaterial> material) {
