@@ -13,7 +13,7 @@ Dev tasks:
 - ~~all static config props to be private with accessors~~
 - rename player.collection attribute to player.automatic_item_pickup
 - ~~check common for matching feature in MixinConfig~~
-- custom sound for coral squid bucket pickup
+- ~~custom sound for coral squid bucket pickup~~
 - ~~custom sound when chicken sheds feather~~
 - ~~test lumberjack and beekeeper hero gifts~~
 - API provider for registering spawner drop items 

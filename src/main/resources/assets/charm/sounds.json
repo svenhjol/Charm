@@ -76,6 +76,20 @@
     ],
     "subtitle": "subtitles.charm.block.suspicious_block.create"
   },
+  "coral_squid_bucket_fill": {
+    "sounds": [
+      {
+        "name": "minecraft:item/bucket/fill1"
+      },
+      {
+        "name": "minecraft:item/bucket/fill2"
+      },
+      {
+        "name": "minecraft:item/bucket/fill3"
+      }
+    ],
+    "subtitle": "subtitles.charm.item.bucket.fill_coral_squid"
+  },
   "dirt_to_path": {
     "sounds": [
       {

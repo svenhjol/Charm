@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.coral_squids.common;
 
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -15,6 +16,7 @@ public final class Registers extends RegisterHolder<CoralSquids> {
     public final Supplier<SpawnEggItem> spawnEggItem;
     public final Supplier<Item> bucketItem;
     public final Supplier<EntityType<CoralSquid>> entity;
+    public final Supplier<SoundEvent> coralSquidBucketFill;
 
     public Registers(CoralSquids feature) {
         super(feature);
@@ -26,6 +28,7 @@ public final class Registers extends RegisterHolder<CoralSquids> {
 
         spawnEggItem = registry.spawnEggItem("coral_squid_spawn_egg", entity, 0x0000ff, 0xff00ff, new Item.Properties());
         bucketItem = registry.item("coral_squid_bucket", BucketItem::new);
+        coralSquidBucketFill = registry.soundEvent("coral_squid_bucket_fill");
 
         registry.biomeSpawn(holder -> holder.is(Tags.SPAWNS_CORAL_SQUIDS), MobCategory.WATER_AMBIENT, entity, 50, 2, 4);
         registry.entitySpawnPlacement(entity, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CoralSquid::canSpawn);

@@ -296,7 +296,7 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
 
     @Override
     public SoundEvent getPickupSound() {
-        return SoundEvents.BUCKET_FILL_AXOLOTL; // TODO: custom sound
+        return feature().registers.coralSquidBucketFill.get();
     }
 
     @Override
