@@ -64,7 +64,7 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
     public CoralSquid(EntityType<? extends CoralSquid> entityType, Level level) {
         super(entityType, level);
         this.random.setSeed(this.getId());
-        this.tentacleSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2F;
+        this.tentacleSpeed = 1.0F / (this.random.nextFloat() + 1.0F) * 0.2f;
     }
 
     @Nullable
@@ -144,11 +144,11 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
 
     public static AttributeSupplier.Builder createSquidAttributes() {
         return Mob.createMobAttributes()
-            .add(Attributes.MAX_HEALTH, 5.0D);
+            .add(Attributes.MAX_HEALTH, 5.0f);
     }
 
     protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
-        return dimensions.height() * 0.8F;
+        return dimensions.height() * 0.8f;
     }
 
     @Override
@@ -173,7 +173,7 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
 
     @Override
     public float getVoicePitch() {
-        return 1.25F;
+        return 1.25f;
     }
 
     /**
@@ -238,7 +238,7 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
 
     public void handleEntityEvent(byte status) {
         if (status == 19) {
-            this.tentacleMovement = 0.0F;
+            this.tentacleMovement = 0.0f;
         } else {
             super.handleEntityEvent(status);
         }
@@ -251,7 +251,7 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
     }
 
     public boolean hasMovementVector() {
-        return this.swimX != 0.0F || this.swimY != 0.0F || this.swimZ != 0.0F;
+        return this.swimX != 0.0f || this.swimY != 0.0f || this.swimZ != 0.0f;
     }
 
     @Override
@@ -323,7 +323,7 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
         public boolean canUse() {
             var livingEntity = CoralSquid.this.getLastHurtByMob();
             if (CoralSquid.this.isInWater() && livingEntity != null) {
-                return CoralSquid.this.distanceToSqr(livingEntity) < 100.0D;
+                return CoralSquid.this.distanceToSqr(livingEntity) < 100.0f;
             } else {
                 return false;
             }
@@ -342,27 +342,27 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
                 var fluidState = CoralSquid.this.level().getFluidState(new BlockPos((int) (CoralSquid.this.getX() + vec3d.x), (int) (CoralSquid.this.getY() + vec3d.y), (int) (CoralSquid.this.getZ() + vec3d.z)));
                 if (fluidState.is(FluidTags.WATER) || blockState.isAir()) {
                     double d = vec3d.length();
-                    if (d > 0.0D) {
+                    if (d > 0.0d) {
                         vec3d.normalize();
-                        float f = 3.0F;
-                        if (d > 5.0D) {
-                            f = (float)((double)f - (d - 5.0D) / 5.0D);
+                        float f = 3.0f;
+                        if (d > 5.0d) {
+                            f = (float)((double)f - (d - 5.0d) / 5.0d);
                         }
 
-                        if (f > 0.0F) {
+                        if (f > 0.0f) {
                             vec3d = vec3d.scale(f);
                         }
                     }
 
                     if (blockState.isAir()) {
-                        vec3d = vec3d.subtract(0.0D, vec3d.y, 0.0D);
+                        vec3d = vec3d.subtract(0.0d, vec3d.y, 0.0d);
                     }
 
-                    CoralSquid.this.setMovementVector((float)vec3d.x / 20.0F, (float)vec3d.y / 20.0F, (float)vec3d.z / 20.0F);
+                    CoralSquid.this.setMovementVector((float)vec3d.x / 20.0f, (float)vec3d.y / 20.0f, (float)vec3d.z / 20.0f);
                 }
 
                 if (this.timer % 10 == 5) {
-                    CoralSquid.this.level().addParticle(ParticleTypes.BUBBLE, CoralSquid.this.getX(), CoralSquid.this.getY(), CoralSquid.this.getZ(), 0.0D, 0.0D, 0.0D);
+                    CoralSquid.this.level().addParticle(ParticleTypes.BUBBLE, CoralSquid.this.getX(), CoralSquid.this.getY(), CoralSquid.this.getZ(), 0.0d, 0.0d, 0.0d);
                 }
 
             }
@@ -383,12 +383,12 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
         public void tick() {
             var i = this.squid.getNoActionTime();
             if (i > 100) {
-                this.squid.setMovementVector(0.0F, 0.0F, 0.0F);
+                this.squid.setMovementVector(0.0f, 0.0f, 0.0f);
             } else if (this.squid.getRandom().nextInt(30) == 0 || !this.squid.wasTouchingWater || !this.squid.hasMovementVector()) {
-                var f = this.squid.getRandom().nextFloat() * 6.2831855F;
-                var g = Mth.cos(f) * 0.2F;
-                var h = -0.1F + this.squid.getRandom().nextFloat() * 0.05F;
-                var j = Mth.sin(f) * 0.2F;
+                var f = this.squid.getRandom().nextFloat() * 6.2831855f;
+                var g = Mth.cos(f) * 0.2f;
+                var h = -0.1F + this.squid.getRandom().nextFloat() * 0.05f;
+                var j = Mth.sin(f) * 0.2f;
                 this.squid.setMovementVector(g, h, j);
             }
         }

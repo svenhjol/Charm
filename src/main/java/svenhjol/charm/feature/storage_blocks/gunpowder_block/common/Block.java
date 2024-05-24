@@ -65,7 +65,7 @@ public class Block extends FallingBlock implements FeatureResolver<GunpowderBloc
         if (lavaBelow) {
             level.globalLevelEvent(2001, pos, net.minecraft.world.level.block.Block.getId(level.getBlockState(pos)));
             level.removeBlock(pos, true);
-            level.playSound(null, pos, feature().registers.dissolveSound.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.playSound(null, pos, feature().registers.dissolveSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
 
             if (!level.isClientSide()) {
                 feature().advancements.dissolvedGunpowder((ServerLevel)level, pos);

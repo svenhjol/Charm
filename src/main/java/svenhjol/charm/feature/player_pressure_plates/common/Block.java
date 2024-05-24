@@ -16,7 +16,7 @@ public class Block extends PressurePlateBlock {
             .requiresCorrectToolForDrops()
             .noCollission()
             .mapColor(MapColor.COLOR_BLACK)
-            .strength(2F, 1200F));
+            .strength(2f, 1200f));
     }
 
     @Override

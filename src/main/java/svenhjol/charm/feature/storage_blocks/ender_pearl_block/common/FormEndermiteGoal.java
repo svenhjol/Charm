@@ -21,7 +21,7 @@ public class FormEndermiteGoal extends RandomStrollGoal implements FeatureResolv
     private boolean merge;
 
     public FormEndermiteGoal(Silverfish silverfish) {
-        super(silverfish, 0.6D);
+        super(silverfish, 0.6d);
         this.silverfish = silverfish;
         setFlags(EnumSet.of(Flag.MOVE));
     }
@@ -37,7 +37,7 @@ public class FormEndermiteGoal extends RandomStrollGoal implements FeatureResolv
         } else {
             var random = silverfish.getRandom();
 
-            if (random.nextFloat() < 0.8D) {
+            if (random.nextFloat() < 0.8d) {
                 facing = Direction.getRandom(random);
                 BlockPos pos = getPosition(silverfish).relative(facing);
                 BlockState state = silverfish.getCommandSenderWorld().getBlockState(pos);
@@ -83,7 +83,7 @@ public class FormEndermiteGoal extends RandomStrollGoal implements FeatureResolv
 
     private BlockPos getPosition(Silverfish silverfish) {
         var pos = silverfish.blockPosition();
-        return new BlockPos(pos.getX(), (int) (pos.getY() + 0.5D), pos.getZ());
+        return new BlockPos(pos.getX(), (int) (pos.getY() + 0.5d), pos.getZ());
     }
 
     @Override

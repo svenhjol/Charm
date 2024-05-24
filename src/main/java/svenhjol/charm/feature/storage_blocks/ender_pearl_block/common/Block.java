@@ -16,7 +16,7 @@ public class Block extends CharmBlock<EnderPearlBlock> {
     public Block() {
         super(Properties.of()
             .sound(SoundType.GLASS)
-            .strength(2.0F));
+            .strength(2.0f));
     }
 
     /**
@@ -26,7 +26,10 @@ public class Block extends CharmBlock<EnderPearlBlock> {
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         super.animateTick(state, level, pos, random);
         if (random.nextInt(10) == 0) {
-            level.addParticle(ParticleTypes.PORTAL, pos.getX() + random.nextDouble(), pos.getY() + 1.1D, pos.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
+            level.addParticle(ParticleTypes.PORTAL,
+                pos.getX() + random.nextDouble(),
+                pos.getY() + 1.1d,
+                pos.getZ() + random.nextDouble(), 0.0d, 0.0d, 0.0d);
         }
     }
 

@@ -23,7 +23,7 @@ public class Block extends FallingBlock implements FeatureResolver<SugarBlock> {
     public Block() {
         this(Properties.of()
             .sound(SoundType.SAND)
-            .strength(0.5F));
+            .strength(0.5f));
     }
 
     private Block(BlockBehaviour.Properties properties) {
