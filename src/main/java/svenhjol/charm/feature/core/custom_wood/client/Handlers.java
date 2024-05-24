@@ -27,13 +27,12 @@ public final class Handlers extends FeatureHolder<CustomWoodClient> {
     }
 
     public Optional<BlockEntity> renderChestBlockItem(ItemStack stack, Block block) {
-        if (block instanceof CharmChestBlock chest) {
-            cachedNormalChest.setMaterial(chest.getMaterial());
-            return Optional.of(cachedNormalChest);
-
-        } else if (block instanceof CharmTrappedChestBlock trappedChest) {
+        if (block instanceof CharmTrappedChestBlock trappedChest) {
             cachedTrappedChest.setMaterial(trappedChest.getMaterial());
             return Optional.of(cachedTrappedChest);
+        } else if (block instanceof CharmChestBlock chest) {
+            cachedNormalChest.setMaterial(chest.getMaterial());
+            return Optional.of(cachedNormalChest);
         }
 
         return Optional.empty();

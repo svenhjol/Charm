@@ -1,8 +1,0 @@
-{
-  "template": {
-    "textures": {
-      "particle": "NAMESPACE:block/WOOD_planks"
-    }
-  },
-  "variants": "wood"
-}

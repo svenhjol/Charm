@@ -11,13 +11,11 @@ import svenhjol.charm.foundation.Resolve;
 import javax.annotation.Nullable;
 
 public class ChestBlockEntity extends net.minecraft.world.level.block.entity.ChestBlockEntity {
-    private static final CustomWood CUSTOM_WOOD = Resolve.feature(CustomWood.class);
-
     @Nullable
     private CustomMaterial material = null;
 
     public ChestBlockEntity(BlockPos pos, BlockState state) {
-        this(CUSTOM_WOOD.registers.chestBlockEntity.get(), pos, state);
+        this(Resolve.feature(CustomWood.class).registers.chestBlockEntity.get(), pos, state);
     }
 
     public ChestBlockEntity(BlockEntityType<?> blockEntity, BlockPos pos, BlockState state) {

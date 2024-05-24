@@ -9,9 +9,8 @@ import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.foundation.Resolve;
 
 public class TrappedChestBlockEntity extends ChestBlockEntity {
-    private static final CustomWood CUSTOM_WOOD = Resolve.feature(CustomWood.class);
     public TrappedChestBlockEntity(BlockPos pos, BlockState state) {
-        this(CUSTOM_WOOD.registers.trappedChestBlockEntity.get(), pos, state);
+        this(Resolve.feature(CustomWood.class).registers.trappedChestBlockEntity.get(), pos, state);
     }
 
     public TrappedChestBlockEntity(BlockEntityType<?> blockEntity, BlockPos pos, BlockState state) {
