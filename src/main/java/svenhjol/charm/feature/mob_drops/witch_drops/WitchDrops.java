@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.mob_drops.witch_drops;
 
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Witch;
@@ -22,10 +23,14 @@ import java.util.Optional;
 @Feature(description = "Witches have a chance to drop a Potion of Luck when killed.")
 public final class WitchDrops extends CommonFeature implements ChildFeature<MobDrops>, DropHandler, KilledDropProvider<Witch> {
     @Configurable(name = "Potion of Luck drop chance", description = "Chance (out of 1.0) of a witch dropping a Potion of Luck when killed.")
-    public static double luckDropChance = 0.05d;
+    private static double luckDropChance = 0.05d;
 
     public WitchDrops(CommonLoader loader) {
         super(loader);
+    }
+
+    public double luckDropChance() {
+        return Mth.clamp(luckDropChance, 0.0d, 1.0d);
     }
 
     @Override
@@ -45,7 +50,7 @@ public final class WitchDrops extends CommonFeature implements ChildFeature<MobD
 
     @Override
     public ItemStack stackWhenKilled(Witch witch, DamageSource source) {
-        var chance = luckDropChance + (EnchantmentsHelper.lootingLevel(source) * MobDrops.LOOTING_MULTIPLIER);
+        var chance = luckDropChance() + (EnchantmentsHelper.lootingLevel(source) * MobDrops.LOOTING_MULTIPLIER);
         if (witch.getRandom().nextDouble() <= chance) {
             return PotionContents.createItemStack(Items.POTION, Potions.LUCK);
         }

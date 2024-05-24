@@ -26,7 +26,7 @@ public final class Lumberjacks extends CommonFeature {
             If true, lumberjacks will provide custom barrels in their trades.
             If false, lumberjacks will trade the vanilla barrel."""
     )
-    public static boolean customBarrels = true;
+    private static boolean customBarrels = true;
 
     @Configurable(
         name = "Use custom bookshelves in trades",
@@ -34,7 +34,7 @@ public final class Lumberjacks extends CommonFeature {
             If true, lumberjacks will provide custom bookshelves in their trades.
             If false, lumberjacks will trade the vanilla bookshelf."""
     )
-    public static boolean customBookshelves = true;
+    private static boolean customBookshelves = true;
 
     @Configurable(
         name = "Use custom ladders in trades",
@@ -42,7 +42,7 @@ public final class Lumberjacks extends CommonFeature {
             If true, lumberjacks will provide custom ladders in their trades.
             If false, lumberjacks will trade the vanilla ladder."""
     )
-    public static boolean customLadders = true;
+    private static boolean customLadders = true;
 
     public Lumberjacks(CommonLoader loader) {
         super(loader);
@@ -51,6 +51,19 @@ public final class Lumberjacks extends CommonFeature {
         advancements = new Advancements(this);
         trades = new Trades(this);
     }
+
+    public boolean customBarrels() {
+        return customBarrels;
+    }
+
+    public boolean customBookshelves() {
+        return customBookshelves;
+    }
+
+    public boolean customLadders() {
+        return customLadders;
+    }
+
 
     @Override
     public List<BooleanSupplier> checks() {

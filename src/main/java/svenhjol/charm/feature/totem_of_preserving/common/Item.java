@@ -13,6 +13,7 @@ import svenhjol.charm.api.enums.EventResult;
 import svenhjol.charm.feature.glint_coloring.GlintColoring;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totem_of_preserving.client.Tooltip;
+import svenhjol.charm.foundation.Resolve;
 import svenhjol.charm.foundation.item.CharmItem;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class Item extends CharmItem<TotemOfPreserving> {
     public Item() {
         super(new Properties()
             .stacksTo(1)
-            .durability(TotemOfPreserving.durability)
+            .durability(Resolve.feature(TotemOfPreserving.class).durability())
             .rarity(Rarity.UNCOMMON));
     }
 
@@ -38,7 +39,7 @@ public class Item extends CharmItem<TotemOfPreserving> {
 
     @Override
     public boolean isValidRepairItem(ItemStack item, ItemStack repair) {
-        return TotemOfPreserving.durability > 1 && !TotemOfPreserving.graveMode
+        return feature().durability() > 1 && !feature().graveMode()
             && (repair.is(Items.ECHO_SHARD) || super.isValidRepairItem(item, repair));
     }
 

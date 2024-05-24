@@ -17,49 +17,49 @@ public class CompassesShowPosition extends ClientFeature {
         description = "If true, shows the cardinal direction that the player is facing.",
         requireRestart = false
     )
-    public static boolean showFacing = true;
+    private static boolean showFacing = true;
 
     @Configurable(
         name = "Co-ordinates",
         description = "If true, shows the player's XYZ coordinates.",
         requireRestart = false
     )
-    public static boolean showCoords = true;
+    private static boolean showCoords = true;
 
     @Configurable(
         name = "Biome",
         description = "If true, shows the player's biome.",
         requireRestart = false
     )
-    public static boolean showBiome = true;
+    private static boolean showBiome = true;
 
     @Configurable(
         name = "Only show X and Z",
         description = "If true, only show the player's X and Z coordinates (not their height/depth).",
         requireRestart = false
     )
-    public static boolean onlyXZ = false;
+    private static boolean onlyShowXZ = false;
 
     @Configurable(
         name = "Show when sneaking",
         description = "If true, only show the compass overlay if the player is sneaking.",
         requireRestart = false
     )
-    public static boolean onlyShowWhenSneaking = false;
+    private static boolean onlyShowWhenSneaking = false;
 
     @Configurable(
         name = "Always show",
         description = "If true, the overlay will always be shown even if the player is not holding a compass.",
         requireRestart = false
     )
-    public static boolean alwaysShow = false;
+    private static boolean alwaysShow = false;
 
     @Configurable(
         name = "Compact view",
         description = "If true, the overlay will be shown in smaller text and in top left of the screen.",
         requireRestart = false
     )
-    public static boolean compactView = false;
+    private static boolean compactView = false;
 
     public CompassesShowPosition(ClientLoader loader) {
         super(loader);
@@ -72,4 +72,33 @@ public class CompassesShowPosition extends ClientFeature {
     public boolean canBeDisabled() {
         return true;
     }
+
+    public boolean showFacing() {
+        return showFacing;
+    }
+
+    public boolean showCoords() {
+        return showCoords;
+    }
+
+    public boolean showBiome() {
+        return showBiome;
+    }
+
+    public boolean onlyShowXZ() {
+        return onlyShowXZ;
+    }
+
+    public boolean onlyShowWhenSneaking() {
+        return onlyShowWhenSneaking;
+    }
+
+    public boolean alwaysShow() {
+        return alwaysShow;
+    }
+
+    public boolean compactView() {
+        return compactView;
+    }
+
 }

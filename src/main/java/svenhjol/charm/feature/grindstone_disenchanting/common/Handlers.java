@@ -131,7 +131,7 @@ public final class Handlers extends FeatureHolder<GrindstoneDisenchanting> {
     }
 
     public int getCost(ItemStack stack) {
-        var cost = GrindstoneDisenchanting.initialCost;
+        var cost = feature().initialCost();
         var enchantments = EnchantmentHelper.getEnchantmentsForCrafting(stack);
 
         // Get all enchantments from the left item and create a map of enchantments for the output
@@ -144,12 +144,12 @@ public final class Handlers extends FeatureHolder<GrindstoneDisenchanting> {
             }
 
             if (enchantment.is(EnchantmentTags.TREASURE)) {
-                cost += GrindstoneDisenchanting.treasureCost;
+                cost += feature().treasureCost();
             }
         }
 
         // Add repair cost on the input item
-        if (GrindstoneDisenchanting.addRepairCost) {
+        if (feature().addRepairCost()) {
             cost += stack.getOrDefault(DataComponents.REPAIR_COST, 0);
         }
 

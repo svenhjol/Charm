@@ -10,47 +10,47 @@ public final class Registers extends RegisterHolder<MobTextures> {
         super(feature);
         var registry = feature.registry();
 
-        if (MobTextures.chickens) {
+        if (feature().chickens()) {
             registry.entityRenderer(() -> EntityType.CHICKEN,
                 () -> Renderer.RenderChicken::new);
         }
 
-        if (MobTextures.cows) {
+        if (feature().cows()) {
             registry.entityRenderer(() -> EntityType.COW,
                 () -> Renderer.RenderCow::new);
         }
 
-        if (MobTextures.dolphins) {
+        if (feature().dolphins()) {
             registry.entityRenderer(() -> EntityType.DOLPHIN,
                 () -> Renderer.RenderDolphin::new);
         }
 
-        if (MobTextures.pigs) {
+        if (feature().pigs()) {
             registry.entityRenderer(() -> EntityType.PIG,
                 () -> Renderer.RenderPig::new);
         }
 
-        if (MobTextures.sheep) {
+        if (feature().sheep()) {
             registry.entityRenderer(() -> EntityType.SHEEP,
                 () -> Renderer.RenderSheep::new);
         }
 
-        if (MobTextures.snowGolems) {
+        if (feature().snowGolems()) {
             registry.entityRenderer(() -> EntityType.SNOW_GOLEM,
                 () -> Renderer.RenderSnowGolem::new);
         }
 
-        if (MobTextures.squids) {
+        if (feature().squids()) {
             registry.entityRenderer(() -> EntityType.SQUID,
                 () -> Renderer.RenderSquid::new);
         }
 
-        if (MobTextures.turtles) {
+        if (feature().turtles()) {
             registry.entityRenderer(() -> EntityType.TURTLE,
                 () -> Renderer.RenderTurtle::new);
         }
 
-        if (MobTextures.wanderingTraders) {
+        if (feature().wanderingTraders()) {
             registry.entityRenderer(() -> EntityType.WANDERING_TRADER,
                 () -> Renderer.RenderWanderingTrader::new);
         }

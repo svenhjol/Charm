@@ -41,10 +41,9 @@ public final class Networking extends FeatureHolder<Atlases> {
 
     // Server-to-client
     public record S2CSwappedAtlasSlot(int slot) implements CustomPacketPayload {
-        public static Type<S2CSwappedAtlasSlot> TYPE
-            = new Type<>(Charm.id("swapped_atlas_slot"));
-        public static StreamCodec<FriendlyByteBuf, S2CSwappedAtlasSlot> CODEC
-            = StreamCodec.of(S2CSwappedAtlasSlot::encode, S2CSwappedAtlasSlot::decode);
+        public static Type<S2CSwappedAtlasSlot> TYPE = new Type<>(Charm.id("swapped_atlas_slot"));
+        public static StreamCodec<FriendlyByteBuf, S2CSwappedAtlasSlot> CODEC =
+            StreamCodec.of(S2CSwappedAtlasSlot::encode, S2CSwappedAtlasSlot::decode);
 
         public static void send(ServerPlayer player, int slot) {
             ServerPlayNetworking.send(player, new S2CSwappedAtlasSlot(slot));
@@ -67,7 +66,8 @@ public final class Networking extends FeatureHolder<Atlases> {
     // Server-to-client
     public record S2CUpdateInventory(int slot) implements CustomPacketPayload {
         public static Type<S2CUpdateInventory> TYPE = new Type<>(Charm.id("update_atlas_inventory"));
-        public static StreamCodec<FriendlyByteBuf, S2CUpdateInventory> CODEC = StreamCodec.of(S2CUpdateInventory::encode, S2CUpdateInventory::decode);
+        public static StreamCodec<FriendlyByteBuf, S2CUpdateInventory> CODEC =
+            StreamCodec.of(S2CUpdateInventory::encode, S2CUpdateInventory::decode);
 
         public static void send(ServerPlayer player, int slot) {
             ServerPlayNetworking.send(player, new S2CUpdateInventory(slot));

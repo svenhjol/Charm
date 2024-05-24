@@ -21,14 +21,14 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
         if (minecraft == null || minecraft.player == null) return;
         var player = minecraft.player;
 
-        if (!CompassesShowPosition.alwaysShow) {
+        if (!feature().alwaysShow()) {
             // Only render hud if player is holding a compass.
             if (player.getOffhandItem().getItem() != Items.COMPASS && player.getMainHandItem().getItem() != Items.COMPASS) {
                 return;
             }
         }
 
-        if (CompassesShowPosition.onlyShowWhenSneaking && !player.isCrouching()) {
+        if (feature().onlyShowWhenSneaking() && !player.isCrouching()) {
             return;
         }
 
@@ -43,7 +43,7 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
 
         String coords;
 
-        if (CompassesShowPosition.onlyXZ) {
+        if (feature().onlyShowXZ()) {
             coords = I18n.get("gui.charm.coords_only_xz", pos.getX(), pos.getZ());
         } else {
             coords = I18n.get("gui.charm.coords", pos.getX(), pos.getY(), pos.getZ());
@@ -56,7 +56,7 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
         var facingColor = 0xFFEEDD;
         float midX;
 
-        if (CompassesShowPosition.compactView) {
+        if (feature().compactView()) {
             midX = window.getGuiScaledWidth() / 9.0F;
             y = 10;
             lineHeight = 9;
@@ -66,17 +66,17 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
             lineHeight = 12;
         }
 
-        if (CompassesShowPosition.showFacing) {
+        if (feature().showFacing()) {
             renderText(guiGraphics, font, facing, midX, y, -facingLength / 2, 0, facingColor | alpha);
             y += lineHeight;
         }
 
-        if (CompassesShowPosition.showCoords) {
+        if (feature().showCoords()) {
             renderText(guiGraphics, font, coords, midX, y, -coordsLength / 2, 0, coordsColor | alpha);
             y += lineHeight;
         }
 
-        if (CompassesShowPosition.showBiome) {
+        if (feature().showBiome()) {
             var biomeRes = player.level().getBiome(pos).unwrap().map(key -> key != null ? key.location() : null, unknown -> null);
             if (biomeRes != null) {
                 var biomeName = I18n.get("biome." + biomeRes.getNamespace() + "." + biomeRes.getPath());
@@ -95,7 +95,7 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
         pose.pushPose();
         pose.translate(translateX, translateY, 0.0);
 
-        if (CompassesShowPosition.compactView) {
+        if (feature().compactView()) {
             var scaleFactor = 0.75f;
             useX = -32; // Align all text to the left when in compact mode
             pose.scale(scaleFactor, scaleFactor, scaleFactor);

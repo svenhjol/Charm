@@ -25,7 +25,11 @@ public final class Handlers extends FeatureHolder<ArcanePurpur> {
             return false;
         }
 
-        var range = ArcanePurpur.range;
+        var range = feature().teleportRange();
+        if (range == 0) {
+            return false;
+        }
+
         var pos = entity.blockPosition();
         var level = (ServerLevel)entity.level();
         Map<Double, BlockPos> candidates = new HashMap<>();

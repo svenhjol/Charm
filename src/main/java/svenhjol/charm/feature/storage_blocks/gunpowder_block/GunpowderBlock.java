@@ -19,7 +19,7 @@ public final class GunpowderBlock extends CommonFeature implements ChildFeature<
     public final Providers providers;
 
     @Configurable(name = "TNT from gunpowder block and sand", description = "If true, adds a recipe for TNT using a gunpowder block and any sand.")
-    public static boolean tntRecipe = true;
+    private static boolean tntRecipe = true;
 
     public GunpowderBlock(CommonLoader loader) {
         super(loader);
@@ -27,6 +27,10 @@ public final class GunpowderBlock extends CommonFeature implements ChildFeature<
         registers = new Registers(this);
         advancements = new Advancements(this);
         providers = new Providers(this);
+    }
+
+    public boolean tntRecipe() {
+        return tntRecipe;
     }
 
     @Override

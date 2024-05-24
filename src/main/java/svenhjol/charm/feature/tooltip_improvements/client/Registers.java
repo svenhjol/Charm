@@ -13,11 +13,11 @@ public final class Registers extends RegisterHolder<TooltipImprovements> {
 
     @Override
     public void onEnabled() {
-        if (TooltipImprovements.showMaps) {
+        if (feature().showMaps()) {
             TooltipRenderEvent.INSTANCE.handle(feature().handlers::hoverOverMap);
         }
 
-        if (TooltipImprovements.showShulkerBoxes) {
+        if (feature().showShulkerBoxes()) {
             TooltipItemHoverEvent.INSTANCE.handle(feature().handlers::removeLinesFromShulkerBox);
             TooltipComponentEvent.INSTANCE.handle(feature().handlers::addGridToShulkerBox);
         }

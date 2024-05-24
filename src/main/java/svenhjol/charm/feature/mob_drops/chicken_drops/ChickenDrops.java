@@ -19,15 +19,15 @@ import java.util.Optional;
 
 @Feature(description = "Chickens occasionally shed a feather.")
 public final class ChickenDrops extends CommonFeature implements ChildFeature<MobDrops>, DropHandler, ChanceDropProvider<Chicken> {
-    public final int boundedFeatherDropChance;
-
     @Configurable(name = "Feather drop chance", description = "1 in X chance of a chicken dropping a feather, per game tick.")
-    public static int featherDropChance = 3000;
+    private static int featherDropChance = 3000;
 
     public ChickenDrops(CommonLoader loader) {
         super(loader);
+    }
 
-        boundedFeatherDropChance = Mth.clamp(featherDropChance, 20, 20000);
+    public int featherDropChance() {
+        return Mth.clamp(featherDropChance, 100, 20000);
     }
 
     @Override
@@ -51,7 +51,7 @@ public final class ChickenDrops extends CommonFeature implements ChildFeature<Mo
             && !chicken.level().isClientSide
             && !chicken.isBaby()
             && !chicken.isChickenJockey()
-            && chicken.level().random.nextInt(boundedFeatherDropChance) == 0
+            && chicken.level().random.nextInt(featherDropChance()) == 0
         ) {
             // Todo: drop feather sound
             var random = chicken.level().random;

@@ -21,28 +21,28 @@ public final class RecipeImprovements extends CommonFeature {
     public final Providers providers;
 
     @Configurable(name = "Ore block from raw ore block", description = "If true, adds a blast furnace recipe for smelting raw ore blocks into ore blocks.")
-    public static boolean rawOreBlocks = true;
+    private static boolean rawOreBlocks = true;
 
     @Configurable(name = "Gilded Blackstone", description = "If true, adds a recipe for Gilded Blackstone using gold nuggets and blackstone.")
-    public static boolean gildedBlackstone = true;
+    private static boolean gildedBlackstone = true;
 
     @Configurable(name = "Cyan Dye from warped roots", description = "If true, adds a recipe for Cyan Dye using warped roots.")
-    public static boolean cyanDye = true;
+    private static boolean cyanDye = true;
 
     @Configurable(name = "Green Dye from yellow and blue", description = "If true, adds a recipe for Green Dye using yellow and blue dyes.")
-    public static boolean greenDye = true;
+    private static boolean greenDye = true;
 
     @Configurable(name = "Snowballs from snow blocks", description = "If true, adds a recipe for turning snow blocks back into snowballs.")
-    public static boolean snowballs = true;
+    private static boolean snowballs = true;
 
     @Configurable(name = "Quartz from quartz blocks", description = "If true, adds a recipe for turning quartz blocks back into quartz.")
-    public static boolean quartz = true;
+    private static boolean quartz = true;
 
     @Configurable(name = "Clay balls from clay blocks", description = "If true, adds a recipe for turning clay blocks back into clay balls.")
-    public static boolean clay = true;
+    private static boolean clay = true;
 
     @Configurable(name = "Simpler Soul Torch", description = "If true, adds a recipe for Soul Torches using soul sand/soul soil and sticks.")
-    public static boolean soulTorch = true;
+    private static boolean soulTorch = true;
 
     public RecipeImprovements(CommonLoader loader) {
         super(loader);
@@ -50,6 +50,39 @@ public final class RecipeImprovements extends CommonFeature {
         handlers = new Handlers(this);
         providers = new Providers(this);
     }
+
+    public boolean rawOreBlocks() {
+        return rawOreBlocks;
+    }
+
+    public boolean gildedBlackstone() {
+        return gildedBlackstone;
+    }
+
+    public boolean cyanDye() {
+        return cyanDye;
+    }
+
+    public boolean greenDye() {
+        return greenDye;
+    }
+
+    public boolean snowballs() {
+        return snowballs;
+    }
+
+    public boolean quartz() {
+        return quartz;
+    }
+
+    public boolean clay() {
+        return clay;
+    }
+
+    public boolean soulTorch() {
+        return soulTorch;
+    }
+
 
     @Override
     public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {

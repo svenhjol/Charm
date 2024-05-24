@@ -1,8 +1,6 @@
 package svenhjol.charm.feature.item_stacking;
 
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.atlases.common.Item;
 import svenhjol.charm.feature.item_stacking.common.Registers;
 import svenhjol.charm.foundation.annotation.Configurable;
@@ -60,13 +58,5 @@ public class ItemStacking extends CommonFeature {
 
     public int suspiciousStewStackSize() {
         return Mth.clamp(suspiciousStewStackSize, 1, Item.DEFAULT_MAX_STACK_SIZE);
-    }
-
-    public static ItemStack getReducedStack(ItemStack stack) {
-        if (stack.getItem() == Items.ENCHANTED_BOOK) {
-            stack.shrink(1);
-            return stack;
-        }
-        return ItemStack.EMPTY;
     }
 }

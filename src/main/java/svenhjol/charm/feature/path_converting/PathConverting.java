@@ -16,18 +16,26 @@ public final class PathConverting extends CommonFeature {
         name = "Convert dirt to path",
         description = "If true, a shovel can be used to convert a dirt block to a path block."
     )
-    public static boolean dirtToPath = true;
+    private static boolean dirtToPath = true;
 
     @Configurable(
         name = "Convert path to dirt",
         description = "If true, a hoe can be used to convert a path block to a dirt block."
     )
-    public static boolean pathToDirt = true;
+    private static boolean pathToDirt = true;
 
     public PathConverting(CommonLoader loader) {
         super(loader);
 
         registers = new Registers(this);
         handlers = new Handlers(this);
+    }
+
+    public boolean dirtToPath() {
+        return dirtToPath;
+    }
+
+    public boolean pathToDirt() {
+        return pathToDirt;
     }
 }

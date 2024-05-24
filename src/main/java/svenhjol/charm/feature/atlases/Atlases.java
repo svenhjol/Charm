@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.atlases;
 
+import net.minecraft.util.Mth;
 import svenhjol.charm.feature.atlases.common.*;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
@@ -14,13 +15,11 @@ public final class Atlases extends CommonFeature {
     public final Networking networking;
     public final Providers providers;
 
-    public static final int EMPTY_MAP_SLOTS = 3;
-
     @Configurable(name = "Open in off hand", description = "Allow opening the atlas while it is in the off-hand.")
-    public static boolean offHandOpen = false;
+    private static boolean openInOffHand = false;
 
     @Configurable(name = "Map scale", description = "Map scale used in atlases by default.")
-    public static int defaultScale = 0;
+    private static int defaultMapScale = 0;
 
     public Atlases(CommonLoader loader) {
         super(loader);
@@ -30,5 +29,13 @@ public final class Atlases extends CommonFeature {
         networking = new Networking(this);
         registers = new Registers(this);
         providers = new Providers(this);
+    }
+
+    public boolean openInOffHand() {
+        return openInOffHand;
+    }
+
+    public int defaultMapScale() {
+        return Mth.clamp(defaultMapScale, 0, 3);
     }
 }

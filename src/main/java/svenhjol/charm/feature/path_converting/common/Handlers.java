@@ -23,7 +23,7 @@ public final class Handlers extends FeatureHolder<PathConverting> {
         var state = level.getBlockState(pos);
         var success = false;
 
-        if (PathConverting.pathToDirt && stack.getItem() instanceof HoeItem && state.is(Blocks.DIRT_PATH)) {
+        if (feature().pathToDirt() && stack.getItem() instanceof HoeItem && state.is(Blocks.DIRT_PATH)) {
             player.swing(hand);
 
             if (!level.isClientSide) {
@@ -33,7 +33,7 @@ public final class Handlers extends FeatureHolder<PathConverting> {
             success = true;
 
 
-        } else if (PathConverting.dirtToPath && stack.getItem() instanceof ShovelItem && state.is(Blocks.DIRT)) {
+        } else if (feature().dirtToPath() && stack.getItem() instanceof ShovelItem && state.is(Blocks.DIRT)) {
             player.swing(hand);
 
             if (!level.isClientSide) {

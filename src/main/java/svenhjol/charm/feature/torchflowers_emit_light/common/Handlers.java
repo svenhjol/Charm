@@ -17,7 +17,7 @@ public final class Handlers extends FeatureHolder<TorchflowersEmitLight> {
 
     public Optional<Integer> lightLevel(BlockBehaviour.BlockStateBase state) {
         if (cachedLightLevel == -1) {
-            cachedLightLevel = feature().boundedLightLevel();
+            cachedLightLevel = feature().lightLevel();
         }
 
         if (state.is(Blocks.TORCHFLOWER) || state.is(Blocks.POTTED_TORCHFLOWER)) {

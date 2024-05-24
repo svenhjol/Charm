@@ -39,7 +39,7 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
     public void decorateCorridor(MineShaftCorridor piece, WorldGenLevel level, RandomSource random, BoundingBox box) {
         var registers = feature().registers;
 
-        if (MineshaftImprovements.floorBlockChance > 0 || MineshaftImprovements.ceilingBlockChance > 0) {
+        if (feature().floorBlockChance() > 0 || feature().ceilingBlockChance() > 0) {
             for (var x = 0; x < 3; x++) {
                 if (x == 1 && random.nextFloat() < 0.08F) {
                     continue; // Rarely, spawn some block in the middle of the corridor.
@@ -50,10 +50,10 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
                     var validFloor = validFloorBlock(piece, level, x, 0, z, box);
                     if (!validCeiling) continue;
 
-                    if (validFloor && !registers.blocksForFloor.isEmpty() && random.nextFloat() < MineshaftImprovements.floorBlockChance && piece.hasSturdyNeighbours(level, box, x, 0, z, 2)) {
+                    if (validFloor && !registers.blocksForFloor.isEmpty() && random.nextFloat() < feature().floorBlockChance() && piece.hasSturdyNeighbours(level, box, x, 0, z, 2)) {
                         var state = getRandom(registers.blocksForFloor, random);
                         piece.placeBlock(level, state, x, 0, z, box);
-                    } else if (!registers.blocksForCeiling.isEmpty() && random.nextFloat() < MineshaftImprovements.ceilingBlockChance && piece.hasSturdyNeighbours(level, box, x, 2, z, 2)) {
+                    } else if (!registers.blocksForCeiling.isEmpty() && random.nextFloat() < feature().ceilingBlockChance() && piece.hasSturdyNeighbours(level, box, x, 2, z, 2)) {
                         var state = getRandom(registers.blocksForCeiling, random);
 
                         // if the ceiling block is a chain then attach a hanging lantern to it
@@ -67,7 +67,7 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
             }
         }
 
-        if (!registers.blocksForPile.isEmpty() && random.nextFloat() < MineshaftImprovements.blockPileChance) {
+        if (!registers.blocksForPile.isEmpty() && random.nextFloat() < feature().blockPileChance()) {
             var z = random.nextInt(7);
             if (validFloorBlock(piece, level, 1, 0, z, box)) {
                 var state1 = getRandom(registers.blocksForPile, random);
@@ -87,7 +87,7 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
             }
         }
 
-        if (!registers.minecartLoot.isEmpty() && random.nextFloat() < MineshaftImprovements.minecartChance) {
+        if (!registers.minecartLoot.isEmpty() && random.nextFloat() < feature().minecartChance()) {
             var y = piece.getWorldY(0);
             var x = piece.getWorldX(1, 0);
             var z = piece.getWorldZ(1, 0);
@@ -134,7 +134,7 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
             for (int y = 1; y <= 2; y++) {
                 for (int x = 0; x <= bx; x++) {
                     for (int z = 0; z <= bz; z++) {
-                        if (random.nextFloat() < MineshaftImprovements.roomBlockChance) {
+                        if (random.nextFloat() < feature().roomBlockChance()) {
                             BlockState state;
 
                             if (y == 1) {

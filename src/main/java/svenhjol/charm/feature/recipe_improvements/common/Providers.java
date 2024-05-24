@@ -22,7 +22,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements Con
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return RecipeImprovements.rawOreBlocks;
+                    return feature().rawOreBlocks();
                 }
 
                 @Override
@@ -34,7 +34,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements Con
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return RecipeImprovements.gildedBlackstone;
+                    return feature().gildedBlackstone();
                 }
 
                 @Override
@@ -46,7 +46,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements Con
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return RecipeImprovements.snowballs;
+                    return feature().snowballs();
                 }
 
                 @Override
@@ -58,7 +58,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements Con
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return RecipeImprovements.quartz;
+                    return feature().quartz();
                 }
 
                 @Override
@@ -70,7 +70,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements Con
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return RecipeImprovements.clay;
+                    return feature().clay();
                 }
 
                 @Override
@@ -82,7 +82,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements Con
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return RecipeImprovements.cyanDye;
+                    return feature().cyanDye();
                 }
 
                 @Override
@@ -94,7 +94,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements Con
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return RecipeImprovements.greenDye;
+                    return feature().greenDye();
                 }
 
                 @Override
@@ -106,7 +106,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements Con
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return RecipeImprovements.soulTorch;
+                    return feature().soulTorch();
                 }
 
                 @Override

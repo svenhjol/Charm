@@ -1,8 +1,9 @@
 package svenhjol.charm.feature.grindstone_disenchanting;
 
+import net.minecraft.util.Mth;
+import svenhjol.charm.feature.grindstone_disenchanting.common.Advancements;
 import svenhjol.charm.feature.grindstone_disenchanting.common.Handlers;
 import svenhjol.charm.feature.grindstone_disenchanting.common.Registers;
-import svenhjol.charm.feature.grindstone_disenchanting.common.Advancements;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
@@ -19,13 +20,13 @@ public final class GrindstoneDisenchanting extends CommonFeature {
     public final Registers registers;
 
     @Configurable(name = "Initial cost", description = "Initial cost (in XP levels) of extraction before adding on the cost of the enchantment(s).")
-    public static int initialCost = 5;
+    private static int initialCost = 5;
 
     @Configurable(name = "Treasure cost", description = "Adds extra cost (in XP levels) if the enchantment is a treasure enchantment such as Mending.")
-    public static int treasureCost = 5;
+    private static int treasureCost = 5;
 
     @Configurable(name = "Add item repair cost", description = "If true, the item's repair cost will be added to the cost of extraction.")
-    public static boolean addRepairCost = true;
+    private static boolean addRepairCost = true;
 
     public GrindstoneDisenchanting(CommonLoader loader) {
         super(loader);
@@ -33,6 +34,18 @@ public final class GrindstoneDisenchanting extends CommonFeature {
         registers = new Registers(this);
         handlers = new Handlers(this);
         advancements = new Advancements(this);
+    }
+
+    public int initialCost() {
+        return Mth.clamp(initialCost, 0, 30);
+    }
+
+    public int treasureCost() {
+        return Mth.clamp(treasureCost, 0, 30);
+    }
+
+    public boolean addRepairCost() {
+        return addRepairCost;
     }
 
     @Override

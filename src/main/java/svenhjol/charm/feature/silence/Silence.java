@@ -5,6 +5,9 @@ import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
+/**
+ * Silence must have publicly accessible static variables for mixins to function properly.
+ */
 @Feature(enabledByDefault = false, description = """
     Disables some nag messages and telemetry.
     Some data removal may be considered controversial so this feature is disabled by defualt.""")
@@ -31,8 +34,4 @@ public final class Silence extends CommonFeature {
         If true, disables realms and other API connections when running in the development environment.
         Setting this to true doesn't do anything if you are playing in a launcher.""")
     public static boolean disableDevEnvironmentConnections = true;
-
-    public boolean disableExperimental() {
-        return disableExperimental;
-    }
 }

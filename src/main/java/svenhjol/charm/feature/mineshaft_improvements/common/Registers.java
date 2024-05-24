@@ -36,7 +36,7 @@ public final class Registers extends RegisterHolder<MineshaftImprovements> {
         super(feature);
         var registry = feature.registry();
 
-        minecartLoot.addAll(MineshaftImprovements.minecartLoot.stream().map(registry::lootTable).toList());
+        minecartLoot.addAll(feature().minecartLoot().stream().map(registry::lootTable).toList());
         floorBlockLoot = registry.lootTable("mineshaft_improvements/floor_blocks");
         pileBlockLoot = registry.lootTable("mineshaft_improvements/pile_blocks");
         ceilingBlockLoot = registry.lootTable("mineshaft_improvements/ceiling_blocks");

@@ -137,7 +137,7 @@ public class CoralSquid extends WaterAnimal implements Bucketable, FeatureResolv
     @Override
     protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean allowDrops) { // For 24w20a
         super.dropCustomDeathLoot(level, source, allowDrops);
-        if (random.nextFloat() < CoralSquids.dropChance) {
+        if (random.nextFloat() < feature().dropChance()) {
             this.spawnAtLocation(getVariant().getDrop());
         }
     }

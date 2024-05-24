@@ -119,9 +119,9 @@ public final class Handlers extends FeatureHolder<MobTextures> {
             }
         }
 
-        var isRare = MobTextures.rareTypeChance > 0
+        var isRare = feature().rareTypeChance() > 0
             && !rareSet.isEmpty()
-            && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % MobTextures.rareTypeChance == 0;
+            && (id.getLeastSignificantBits() + id.getMostSignificantBits()) % feature().rareTypeChance() == 0;
 
         var set = isRare ? rareSet : normalSet;
         if (set.isEmpty()) {

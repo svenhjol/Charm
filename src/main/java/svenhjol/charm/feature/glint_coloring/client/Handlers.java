@@ -15,10 +15,7 @@ import svenhjol.charm.feature.glint_coloring.GlintColoringClient;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.SortedMap;
+import java.util.*;
 
 public final class Handlers extends FeatureHolder<GlintColoringClient> {
     public final Map<DyeColor, ResourceLocation> ITEM_TEXTURES = new HashMap<>();
@@ -30,6 +27,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
 
     private SortedMap<RenderType, ByteBufferBuilder> builders;
     private ItemStack targetStack;
+    private DyeColor cachedGlintColor;
     private boolean enabled = false;
 
     public static boolean initialized = false;

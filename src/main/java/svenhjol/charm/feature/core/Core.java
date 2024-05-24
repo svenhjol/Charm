@@ -27,7 +27,7 @@ public final class Core extends CommonFeature {
         description = """
             Enable debugging mode. Produces more logging output and adds some testing code."""
     )
-    public static boolean debug = false;
+    private static boolean debug = false;
 
     @Configurable(
         name = ConfigHelper.COMPAT_MODE,
@@ -35,7 +35,7 @@ public final class Core extends CommonFeature {
             Enable mixin compatibility mode. All mixins will be disabled, making Charm mods useless.
             Use this if any Charm mods are crashing to determine if there is a mixin collision with another mod."""
     )
-    public static boolean compat = false;
+    private static boolean compat = false;
 
     public Core(CommonLoader loader) {
         super(loader);
@@ -48,6 +48,14 @@ public final class Core extends CommonFeature {
     @Override
     public boolean canBeDisabled() {
         return false;
+    }
+
+    public boolean debug() {
+        return debug;
+    }
+
+    public boolean compat() {
+        return compat;
     }
 
     @Override

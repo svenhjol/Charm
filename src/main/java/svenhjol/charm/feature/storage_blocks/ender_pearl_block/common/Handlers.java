@@ -12,7 +12,7 @@ public final class Handlers extends FeatureHolder<EnderPearlBlock> {
     }
 
     public void handleEntityJoin(Entity entity, Level level) {
-        if (!EnderPearlBlock.convertSilverfish) return;
+        if (!feature().convertSilverfish()) return;
 
         // Must be a silverfish.
         if (!(entity instanceof Silverfish silverfish)) {

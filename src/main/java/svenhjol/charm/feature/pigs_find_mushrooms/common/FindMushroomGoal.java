@@ -35,7 +35,7 @@ public class FindMushroomGoal extends Goal implements FeatureResolver<PigsFindMu
         if (pig.isBaby()) {
             return false;
         }
-        if (pig.getRandom().nextInt(PigsFindMushrooms.findChance) != 0) {
+        if (pig.getRandom().nextInt(feature().findChance()) != 0) {
             return false;
         }
 
@@ -75,7 +75,7 @@ public class FindMushroomGoal extends Goal implements FeatureResolver<PigsFindMu
 
         var pos = pig.blockPosition().below();
         if (isValidBlock(pos)) {
-            if (mobGriefing && random.nextFloat() < PigsFindMushrooms.erodeChance) {
+            if (mobGriefing && random.nextFloat() < feature().erodeChance()) {
                 level.setBlock(pos, Blocks.DIRT.defaultBlockState(), 2);
                 level.levelEvent(2001, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
             }

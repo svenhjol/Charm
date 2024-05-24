@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.arcane_purpur;
 
+import net.minecraft.util.Mth;
 import svenhjol.charm.feature.arcane_purpur.common.Advancements;
 import svenhjol.charm.feature.arcane_purpur.common.Handlers;
 import svenhjol.charm.feature.arcane_purpur.common.Registers;
@@ -21,7 +22,7 @@ public final class ArcanePurpur extends CommonFeature {
         description = "Range (in blocks) in which a player will be teleported to a chiseled arcane purpur block when eating a chorus fruit.",
         requireRestart = false
     )
-    public static int range = 12;
+    private static int teleportRange = 12;
 
     public ArcanePurpur(CommonLoader loader) {
         super(loader);
@@ -29,5 +30,9 @@ public final class ArcanePurpur extends CommonFeature {
         registers = new Registers(this);
         advancements = new Advancements(this);
         handlers = new Handlers(this);
+    }
+
+    public int teleportRange() {
+        return Mth.clamp(teleportRange, 0, 64);
     }
 }

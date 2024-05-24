@@ -20,7 +20,7 @@ public final class EnderPearlBlock extends CommonFeature implements ChildFeature
         name = "Ender pearl block converts silverfish",
         description = "If true, ender pearl blocks will convert silverfish to endermites."
     )
-    public static boolean convertSilverfish = true;
+    private static boolean convertSilverfish = true;
 
     public EnderPearlBlock(CommonLoader loader) {
         super(loader);
@@ -28,6 +28,10 @@ public final class EnderPearlBlock extends CommonFeature implements ChildFeature
         registers = new Registers(this);
         handlers = new Handlers(this);
         advancements = new Advancements(this);
+    }
+
+    public boolean convertSilverfish() {
+        return convertSilverfish;
     }
 
     @Override

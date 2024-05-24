@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.torchflowers_emit_light;
 
+import net.minecraft.util.Mth;
 import svenhjol.charm.feature.torchflowers_emit_light.common.Handlers;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
@@ -14,7 +15,7 @@ public class TorchflowersEmitLight extends CommonFeature {
         name = "Light level",
         description = "Amount of light emitted by a Torchflower. Valid values between 0-15."
     )
-    public static int lightLevel = 8;
+    private static int lightLevel = 8;
 
     public TorchflowersEmitLight(CommonLoader loader) {
         super(loader);
@@ -22,7 +23,7 @@ public class TorchflowersEmitLight extends CommonFeature {
         handlers = new Handlers(this);
     }
 
-    public int boundedLightLevel() {
-        return Math.max(0, Math.min(15, lightLevel));
+    public int lightLevel() {
+        return Mth.clamp(lightLevel, 0, 15);
     }
 }

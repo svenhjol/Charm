@@ -76,7 +76,7 @@ public final class Providers extends ProviderHolder<TotemOfPreserving> implement
         return List.of(new ConditionalRecipe() {
             @Override
             public boolean test() {
-                return !TotemOfPreserving.graveMode;
+                return !feature().graveMode();
             }
 
             @Override
@@ -93,7 +93,7 @@ public final class Providers extends ProviderHolder<TotemOfPreserving> implement
         return List.of(new ConditionalAdvancement() {
             @Override
             public boolean test() {
-                return !TotemOfPreserving.graveMode;
+                return !feature().graveMode();
             }
 
             @Override

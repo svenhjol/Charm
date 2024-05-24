@@ -40,6 +40,9 @@ public class AtlasInventory implements MenuProvider, Container {
     private static final Atlases ATLASES = Resolve.feature(Atlases.class);
     private static final Map<UUID, AtlasInventory> SERVER_CACHE = new HashMap<>();
     private static final Map<UUID, AtlasInventory> CLIENT_CACHE = new HashMap<>();
+
+    public static final int EMPTY_MAP_SLOTS = 3;
+
     private final Table<ResourceKey<Level>, Index, MapInfo> mapInfos;
     private List<ItemStack> emptyMaps;
     private int diameter;
@@ -50,9 +53,9 @@ public class AtlasInventory implements MenuProvider, Container {
 
     public AtlasInventory(ItemStack atlas) {
         this.atlas = atlas;
-        this.scale = Atlases.defaultScale;
+        this.scale = Resolve.feature(Atlases.class).defaultMapScale();
         this.diameter = 128;
-        this.emptyMaps = NonNullList.withSize(Atlases.EMPTY_MAP_SLOTS, ItemStack.EMPTY);
+        this.emptyMaps = NonNullList.withSize(EMPTY_MAP_SLOTS, ItemStack.EMPTY);
         this.mapInfos = HashBasedTable.create();
         this.lastActiveMap = null;
         load();
@@ -172,7 +175,7 @@ public class AtlasInventory implements MenuProvider, Container {
     }
 
     private MapInfo makeNewMap(ServerPlayer player, int x, int z) {
-        for (int i = 0; i < Atlases.EMPTY_MAP_SLOTS; ++i) {
+        for (int i = 0; i < EMPTY_MAP_SLOTS; ++i) {
             ItemStack stack = emptyMaps.get(i);
             if (stack.getItem() == Items.MAP) {
                 if (!player.isCreative()) {
@@ -222,7 +225,7 @@ public class AtlasInventory implements MenuProvider, Container {
 
     @Override
     public int getContainerSize() {
-        return Atlases.EMPTY_MAP_SLOTS;
+        return EMPTY_MAP_SLOTS;
     }
 
     @Override

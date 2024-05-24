@@ -13,12 +13,12 @@ public final class TooltipImprovements extends ClientFeature {
     public final Registers registers;
 
     @Configurable(name = "Maps", description = "If true, a map will show its content when hovering over the item.")
-    public static boolean showMaps = true;
+    private static boolean showMaps = true;
 
     @Configurable(
         name = "Shulker boxes",
         description = "If true, the contents of a shulker box will be shown when hovering over the item.")
-    public static boolean showShulkerBoxes = true;
+    private static boolean showShulkerBoxes = true;
 
     public TooltipImprovements(ClientLoader loader) {
         super(loader);
@@ -26,6 +26,15 @@ public final class TooltipImprovements extends ClientFeature {
         registers = new Registers(this);
         handlers = new Handlers(this);
     }
+
+    public boolean showMaps() {
+        return showMaps;
+    }
+
+    public boolean showShulkerBoxes() {
+        return showShulkerBoxes;
+    }
+
 
     @Override
     public boolean canBeDisabled() {

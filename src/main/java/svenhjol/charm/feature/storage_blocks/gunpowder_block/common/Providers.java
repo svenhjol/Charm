@@ -24,7 +24,7 @@ public final class Providers extends ProviderHolder<GunpowderBlock> implements C
             new ConditionalRecipe() {
                 @Override
                 public boolean test() {
-                    return GunpowderBlock.tntRecipe;
+                    return feature().tntRecipe();
                 }
 
                 @Override
@@ -43,7 +43,7 @@ public final class Providers extends ProviderHolder<GunpowderBlock> implements C
             new ConditionalAdvancement() {
                 @Override
                 public boolean test() {
-                    return GunpowderBlock.tntRecipe;
+                    return feature().tntRecipe();
                 }
 
                 @Override

@@ -44,9 +44,9 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
             && !player.level().isClientSide()
             && player.isAlive()
             && level.getBlockEntity(pos) instanceof BlockEntity totemBlockEntity
-            && (!TotemOfPreserving.ownerOnly
-            || (totemBlockEntity.getOwner().equals(player.getUUID())
-            || player.getAbilities().instabuild))
+            && (!feature().ownerOnly()
+                || (totemBlockEntity.getOwner().equals(player.getUUID())
+                || player.getAbilities().instabuild))
         ) {
             var serverLevel = (ServerLevel)level;
             var dimension = serverLevel.dimension().location();
@@ -122,7 +122,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
         }
 
         // When not in grave mode, look through inventory items for the first empty totem of preserving.
-        if (!TotemOfPreserving.graveMode) {
+        if (!feature().graveMode()) {
             var totemWorksFromInventory = Resolve.isEnabled(Side.COMMON, Charm.id("totems_work_from_inventory"));
 
             if (!totemWorksFromInventory) {
@@ -326,7 +326,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
         level.playSound(null, spawnPos, feature().registers.storeSound.get(), SoundSource.PLAYERS, 1.0f, 1.0f);
 
         // Show the death position as chat message.
-        if (TotemOfPreserving.showDeathPositionInChat) {
+        if (feature().showDeathPositionInChat()) {
             var x = spawnPos.getX();
             var y = spawnPos.getY();
             var z = spawnPos.getZ();
@@ -365,12 +365,12 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
 
         level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.6f, 1.0f);
 
-        if (TotemOfPreserving.graveMode) {
+        if (feature().graveMode()) {
 
             // Always destroy totem in Grave Mode.
             destroyTotem = true;
 
-        } else if (TotemOfPreserving.durability <= 0) {
+        } else if (feature().durability() <= 0) {
 
             givePlayerCleanTotem(player, hand);
 

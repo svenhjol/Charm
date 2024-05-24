@@ -56,7 +56,7 @@ public final class AtlasData {
         this.activeMap = active;
         this.id = id;
         this.scale = scale;
-        this.emptyMaps = NonNullList.withSize(Atlases.EMPTY_MAP_SLOTS, ItemStack.EMPTY);
+        this.emptyMaps = NonNullList.withSize(AtlasInventory.EMPTY_MAP_SLOTS, ItemStack.EMPTY);
         for (int i = 0; i < emptyMaps.size(); i++) {
             this.emptyMaps.set(i, emptyMaps.get(i));
         }
@@ -65,7 +65,7 @@ public final class AtlasData {
 
     public static Mutable create(UUID id) {
         List<ItemStack> emptyMaps = new ArrayList<>();
-        for (int i = 0; i < Atlases.EMPTY_MAP_SLOTS; i++) {
+        for (int i = 0; i < AtlasInventory.EMPTY_MAP_SLOTS; i++) {
             emptyMaps.add(i, ItemStack.EMPTY);
         }
         return new Mutable(new AtlasData(emptyMaps, List.of(), id.toString(), 0, -1));
@@ -147,7 +147,7 @@ public final class AtlasData {
         }
 
         public Mutable setEmptyMaps(List<ItemStack> emptyMaps) {
-            if (emptyMaps.isEmpty() || emptyMaps.size() > Atlases.EMPTY_MAP_SLOTS) {
+            if (emptyMaps.isEmpty() || emptyMaps.size() > AtlasInventory.EMPTY_MAP_SLOTS) {
                 ATLASES.log().die("Invalid emptyMaps size");
             }
             this.emptyMaps = emptyMaps;

@@ -44,7 +44,7 @@ public final class Registers extends RegisterHolder<GlintColorTemplates> {
         ));
 
         item = registry.item(ITEM_ID, Item::new);
-        lootTable = registry.lootTable(GlintColorTemplates.configurableLootTable);
+        lootTable = registry.lootTable(feature().lootTable());
     }
 
     @Override
@@ -60,7 +60,7 @@ public final class Registers extends RegisterHolder<GlintColorTemplates> {
         if (key == lootTable) {
             var builder = LootPool.lootPool();
 
-            if (RandomSource.create().nextDouble() < GlintColorTemplates.lootChance) {
+            if (RandomSource.create().nextDouble() < feature().lootChance()) {
                 builder.setRolls(ConstantValue.exactly(1));
             }
 

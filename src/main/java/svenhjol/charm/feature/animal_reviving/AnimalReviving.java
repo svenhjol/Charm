@@ -22,7 +22,7 @@ public final class AnimalReviving extends CommonFeature {
             If true, tamed and named animals drop items from their loot table (such as leather from horses) when they die.
             This could be unwanted behavior as it can be used to dupe items by killing and resurrecting an animal repeatedly."""
     )
-    public static boolean dropLootOnDeath = false;
+    private static boolean dropLootOnDeath = false;
 
     @Configurable(
         name = "Drop experience on death",
@@ -30,7 +30,7 @@ public final class AnimalReviving extends CommonFeature {
             If true, tamed and named animals drop experience when they die. This could be unwanted behavior as it can be used
             to receive an increasing amount experience by killing and resurrecting an animal repeatedly."""
     )
-    public static boolean dropExperienceOnDeath = false;
+    private static boolean dropExperienceOnDeath = false;
 
     public AnimalReviving(CommonLoader loader) {
         super(loader);
@@ -38,5 +38,13 @@ public final class AnimalReviving extends CommonFeature {
         registers = new Registers(this);
         advancements = new Advancements(this);
         handlers = new Handlers(this);
+    }
+
+    public boolean dropLootOnDeath() {
+        return dropLootOnDeath;
+    }
+
+    public boolean dropExperienceOnDeath() {
+        return dropExperienceOnDeath;
     }
 }

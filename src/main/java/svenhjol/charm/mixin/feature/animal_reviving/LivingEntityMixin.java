@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
+import svenhjol.charm.foundation.Resolve;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
@@ -18,7 +19,7 @@ public class LivingEntityMixin {
     private void hookShouldDropLoot(CallbackInfoReturnable<Boolean> cir) {
         if (this instanceof OwnableEntity ownable
             && ownable.getOwnerUUID() != null) {
-            cir.setReturnValue(AnimalReviving.dropLootOnDeath);
+            cir.setReturnValue(Resolve.feature(AnimalReviving.class).dropLootOnDeath());
         }
     }
 
@@ -30,7 +31,7 @@ public class LivingEntityMixin {
     private void hookShouldDropExperience(CallbackInfoReturnable<Boolean> cir) {
         if (this instanceof OwnableEntity ownable
             && ownable.getOwnerUUID() != null) {
-            cir.setReturnValue(AnimalReviving.dropExperienceOnDeath);
+            cir.setReturnValue(Resolve.feature(AnimalReviving.class).dropExperienceOnDeath());
         }
     }
 }

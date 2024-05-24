@@ -1,5 +1,6 @@
 package svenhjol.charm.feature.pigs_find_mushrooms;
 
+import net.minecraft.util.Mth;
 import svenhjol.charm.feature.pigs_find_mushrooms.common.Advancements;
 import svenhjol.charm.feature.pigs_find_mushrooms.common.Handlers;
 import svenhjol.charm.feature.pigs_find_mushrooms.common.Registers;
@@ -21,14 +22,14 @@ public final class PigsFindMushrooms extends CommonFeature {
         description = "Approximately 1 in X chance of a pig finding a mushroom per game tick.",
         requireRestart = false
     )
-    public static int findChance = 1000;
+    private static int findChance = 1000;
 
     @Configurable(
         name = "Chance to erode block",
         description = "Chance (out of 1.0) of a block being converted to dirt when a pig finds a mushroom.",
         requireRestart = false
     )
-    public static double erodeChance = 0.25d;
+    private static double erodeChance = 0.25d;
 
     public PigsFindMushrooms(CommonLoader loader) {
         super(loader);
@@ -36,5 +37,13 @@ public final class PigsFindMushrooms extends CommonFeature {
         registers = new Registers(this);
         handlers = new Handlers(this);
         advancements = new Advancements(this);
+    }
+
+    public int findChance() {
+        return Mth.clamp(findChance, 100, 20000);
+    }
+
+    public double erodeChance() {
+        return Mth.clamp(erodeChance, 0.0d, 1.0f);
     }
 }
