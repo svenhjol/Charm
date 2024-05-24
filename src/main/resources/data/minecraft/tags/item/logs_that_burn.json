@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#charm:azalea_logs"
+    "#charm:azalea_logs",
+    "#charm:ebony_logs"
   ]
 }

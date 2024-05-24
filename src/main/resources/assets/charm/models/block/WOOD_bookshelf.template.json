@@ -1,0 +1,10 @@
+{
+  "template": {
+    "parent": "block/cube_column",
+    "textures": {
+      "end": "NAMESPACE:block/WOOD_planks",
+      "side": "charm:block/WOOD_bookshelf"
+    }
+  },
+  "variants": "wood"
+}

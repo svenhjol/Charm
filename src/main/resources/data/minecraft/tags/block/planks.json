@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "charm:azalea_planks"
+    "charm:azalea_planks",
+    "charm:ebony_planks"
   ]
 }

@@ -1,0 +1,6 @@
+{
+  "template": {
+    "parent": "charm:block/WOOD_barrel"
+  },
+  "variants": "wood"
+}

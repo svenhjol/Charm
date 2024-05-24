@@ -52,7 +52,7 @@ public final class Trades extends FeatureHolder<Beekeepers> {
         @Override
         public MerchantOffer getOffer(Entity merchant, RandomSource random) {
             var registryAccess = merchant.level().registryAccess();
-            var tag = Tags.BEEKEEPER_SELLS_FLOWERS;
+            var tag = Tags.BEEKEEPERS_SELL_FLOWERS;
             var flowers = TagHelper.getValues(registryAccess.registryOrThrow(tag.registry()), tag);
             var index = random.nextInt(flowers.size());
             var flower = flowers.get(index);

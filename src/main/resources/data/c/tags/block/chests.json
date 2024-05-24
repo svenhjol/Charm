@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "#charm:chests/normal",
+    "#charm:chests/trapped"
+  ]
+}

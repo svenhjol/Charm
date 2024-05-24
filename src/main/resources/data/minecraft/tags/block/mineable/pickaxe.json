@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "charm:arcane_purpur_block",
+    "charm:arcane_purpur_glyph_block",
+    "charm:arcane_purpur_slab",
+    "charm:arcane_purpur_stairs",
+    "charm:chiseled_arcane_purpur_block",
+    "charm:chiseled_arcane_purpur_glyph_block",
+    "charm:copper_piston",
+    "charm:copper_piston_head",
+    "charm:ender_pearl_block",
+    "charm:kiln",
+    "charm:player_pressure_plate",
+    "charm:sticky_copper_piston"
+  ]
+}

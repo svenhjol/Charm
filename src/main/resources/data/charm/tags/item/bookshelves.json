@@ -1,5 +1,4 @@
 {
-  "replace": false,
   "values": [
     "charm:acacia_bookshelf",
     "charm:azalea_bookshelf",
@@ -8,6 +7,7 @@
     "charm:cherry_bookshelf",
     "charm:crimson_bookshelf",
     "charm:dark_oak_bookshelf",
+    "charm:ebony_bookshelf",
     "charm:jungle_bookshelf",
     "charm:mangrove_bookshelf",
     "charm:oak_bookshelf",

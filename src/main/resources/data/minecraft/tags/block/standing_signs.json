@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "charm:azalea_sign"
+    "charm:azalea_sign",
+    "charm:ebony_sign"
   ]
 }

@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "charm:azalea_fence"
+    "charm:azalea_fence",
+    "charm:ebony_fence"
   ]
 }

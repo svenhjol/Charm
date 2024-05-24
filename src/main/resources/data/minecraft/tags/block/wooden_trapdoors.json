@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "charm:azalea_trapdoor"
+    "charm:azalea_trapdoor",
+    "charm:ebony_trapdoor"
   ]
 }
