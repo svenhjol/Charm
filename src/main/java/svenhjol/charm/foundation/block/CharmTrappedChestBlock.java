@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.TrappedChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.api.iface.IFuelProvider;
+import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
@@ -71,7 +71,7 @@ public class CharmTrappedChestBlock extends ChestBlock implements VariantMateria
         return material;
     }
 
-    public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
+    public static class BlockItem extends net.minecraft.world.item.BlockItem implements FuelProvider {
         private final CustomMaterial material;
 
         public BlockItem(Supplier<CharmTrappedChestBlock> block) {

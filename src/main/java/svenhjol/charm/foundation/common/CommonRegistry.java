@@ -66,8 +66,8 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.storage.loot.LootTable;
 import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.CustomWoodMaterial;
-import svenhjol.charm.api.iface.IFuelProvider;
-import svenhjol.charm.api.iface.IIgniteProvider;
+import svenhjol.charm.api.iface.FuelProvider;
+import svenhjol.charm.api.iface.IgniteProvider;
 import svenhjol.charm.foundation.Log;
 import svenhjol.charm.foundation.block.CharmStairBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
@@ -240,7 +240,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         });
     }
 
-    public <T extends IFuelProvider> void fuel(Supplier<T> provider) {
+    public <T extends FuelProvider> void fuel(Supplier<T> provider) {
         loader.registerDeferred(() -> {
             var item = provider.get();
             FuelRegistry.INSTANCE.add((ItemLike) item, item.fuelTime());
@@ -255,7 +255,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return loader.id(path);
     }
 
-    public <T extends IIgniteProvider> void ignite(Supplier<T> provider) {
+    public <T extends IgniteProvider> void ignite(Supplier<T> provider) {
         loader.registerDeferred(() -> {
             var block = provider.get();
             ((FireBlock) Blocks.FIRE).setFlammable((Block)block, block.igniteChance(), block.burnChance());
@@ -424,7 +424,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         return item;
     }
 
-    public <B extends StairBlock & IIgniteProvider, I extends BlockItem> Pair<Register<CharmStairBlock>, Register<CharmStairBlock.BlockItem>> stairsBlock(String id, Supplier<CustomMaterial> material, Supplier<BlockState> state) {
+    public <B extends StairBlock & IgniteProvider, I extends BlockItem> Pair<Register<CharmStairBlock>, Register<CharmStairBlock.BlockItem>> stairsBlock(String id, Supplier<CustomMaterial> material, Supplier<BlockState> state) {
         var block = block(id, () -> new CharmStairBlock(material.get(), state.get()));
         var item = item(id, () -> new CharmStairBlock.BlockItem(block));
         return Pair.of(block, item);

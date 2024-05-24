@@ -2,13 +2,13 @@ package svenhjol.charm.foundation.block;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import svenhjol.charm.api.iface.IFuelProvider;
-import svenhjol.charm.api.iface.IIgniteProvider;
+import svenhjol.charm.api.iface.FuelProvider;
+import svenhjol.charm.api.iface.IgniteProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
-public class CharmBookshelfBlock extends Block implements IIgniteProvider {
+public class CharmBookshelfBlock extends Block implements IgniteProvider {
     private final CustomMaterial material;
 
     public CharmBookshelfBlock(CustomMaterial material) {
@@ -30,7 +30,7 @@ public class CharmBookshelfBlock extends Block implements IIgniteProvider {
         return material.burnChance();
     }
 
-    public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
+    public static class BlockItem extends net.minecraft.world.item.BlockItem implements FuelProvider {
         private final CustomMaterial material;
 
         public BlockItem(Supplier<CharmBookshelfBlock> block) {

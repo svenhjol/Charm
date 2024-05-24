@@ -6,7 +6,7 @@ import java.util.List;
  * A recipe definition to test for some condition and remove one or more Charmony recipes if the test fails.
  */
 @SuppressWarnings("unused")
-public interface IConditionalRecipe {
+public interface ConditionalRecipe {
     /**
      * If this test fails, all recipes that match patterns returned by recipes() will be removed when the world loads.
      */

@@ -3,13 +3,13 @@ package svenhjol.charm.foundation.block;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.TrapDoorBlock;
-import svenhjol.charm.api.iface.IIgniteProvider;
+import svenhjol.charm.api.iface.IgniteProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.CustomWoodMaterial;
 
 import java.util.function.Supplier;
 
-public class CharmWoodenTrapdoorBlock extends TrapDoorBlock implements IIgniteProvider {
+public class CharmWoodenTrapdoorBlock extends TrapDoorBlock implements IgniteProvider {
     protected final CustomMaterial material;
 
     public CharmWoodenTrapdoorBlock(CustomWoodMaterial material) {

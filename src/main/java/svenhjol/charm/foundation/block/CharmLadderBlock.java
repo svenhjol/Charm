@@ -2,7 +2,7 @@ package svenhjol.charm.foundation.block;
 
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LadderBlock;
-import svenhjol.charm.api.iface.IFuelProvider;
+import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
 
@@ -21,7 +21,7 @@ public class CharmLadderBlock extends LadderBlock implements VariantMaterialHold
         return material;
     }
 
-    public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
+    public static class BlockItem extends net.minecraft.world.item.BlockItem implements FuelProvider {
         private final CustomMaterial material;
 
         public BlockItem(Supplier<CharmLadderBlock> block) {

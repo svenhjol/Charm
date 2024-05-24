@@ -1,25 +1,25 @@
 package svenhjol.charm.feature.recipe_improvements.common;
 
-import svenhjol.charm.api.iface.IConditionalAdvancement;
-import svenhjol.charm.api.iface.IConditionalAdvancementProvider;
-import svenhjol.charm.api.iface.IConditionalRecipe;
-import svenhjol.charm.api.iface.IConditionalRecipeProvider;
+import svenhjol.charm.api.iface.ConditionalAdvancement;
+import svenhjol.charm.api.iface.ConditionalAdvancementProvider;
+import svenhjol.charm.api.iface.ConditionalRecipe;
+import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.recipe_improvements.RecipeImprovements;
 import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 
-public class Providers extends ProviderHolder<RecipeImprovements> implements IConditionalRecipeProvider, IConditionalAdvancementProvider {
+public class Providers extends ProviderHolder<RecipeImprovements> implements ConditionalRecipeProvider, ConditionalAdvancementProvider {
     public Providers(RecipeImprovements feature) {
         super(feature);
     }
 
     @Override
-    public List<IConditionalRecipe> getRecipeConditions() {
+    public List<ConditionalRecipe> getRecipeConditions() {
         var prefix = feature().snakeCaseName() + "/";
 
         return List.of(
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return RecipeImprovements.rawOreBlocks;
@@ -31,7 +31,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements ICo
                 }
             },
 
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return RecipeImprovements.gildedBlackstone;
@@ -43,7 +43,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements ICo
                 }
             },
 
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return RecipeImprovements.snowballs;
@@ -55,7 +55,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements ICo
                 }
             },
 
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return RecipeImprovements.quartz;
@@ -67,7 +67,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements ICo
                 }
             },
 
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return RecipeImprovements.clay;
@@ -79,7 +79,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements ICo
                 }
             },
 
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return RecipeImprovements.cyanDye;
@@ -91,7 +91,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements ICo
                 }
             },
 
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return RecipeImprovements.greenDye;
@@ -103,7 +103,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements ICo
                 }
             },
 
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return RecipeImprovements.soulTorch;
@@ -118,7 +118,7 @@ public class Providers extends ProviderHolder<RecipeImprovements> implements ICo
     }
 
     @Override
-    public List<IConditionalAdvancement> getAdvancementConditions() {
+    public List<ConditionalAdvancement> getAdvancementConditions() {
         return feature().handlers.getAdvancementConditions(feature(), this);
     }
 }

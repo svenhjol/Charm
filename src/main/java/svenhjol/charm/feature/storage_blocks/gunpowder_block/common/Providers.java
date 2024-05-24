@@ -1,15 +1,15 @@
 package svenhjol.charm.feature.storage_blocks.gunpowder_block.common;
 
-import svenhjol.charm.api.iface.IConditionalAdvancement;
-import svenhjol.charm.api.iface.IConditionalAdvancementProvider;
-import svenhjol.charm.api.iface.IConditionalRecipe;
-import svenhjol.charm.api.iface.IConditionalRecipeProvider;
+import svenhjol.charm.api.iface.ConditionalAdvancement;
+import svenhjol.charm.api.iface.ConditionalAdvancementProvider;
+import svenhjol.charm.api.iface.ConditionalRecipe;
+import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.storage_blocks.gunpowder_block.GunpowderBlock;
 import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 
-public final class Providers extends ProviderHolder<GunpowderBlock> implements IConditionalRecipeProvider, IConditionalAdvancementProvider {
+public final class Providers extends ProviderHolder<GunpowderBlock> implements ConditionalRecipeProvider, ConditionalAdvancementProvider {
     public static final String RECIPE_NAME = "tnt_from_gunpowder_block";
 
     public Providers(GunpowderBlock feature) {
@@ -17,11 +17,11 @@ public final class Providers extends ProviderHolder<GunpowderBlock> implements I
     }
 
     @Override
-    public List<IConditionalRecipe> getRecipeConditions() {
+    public List<ConditionalRecipe> getRecipeConditions() {
         var prefix = feature().snakeCaseName() + "/";
 
         return List.of(
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return GunpowderBlock.tntRecipe;
@@ -36,11 +36,11 @@ public final class Providers extends ProviderHolder<GunpowderBlock> implements I
     }
 
     @Override
-    public List<IConditionalAdvancement> getAdvancementConditions() {
+    public List<ConditionalAdvancement> getAdvancementConditions() {
         var prefix = feature().snakeCaseName() + "/recipes/";
 
         return List.of(
-            new IConditionalAdvancement() {
+            new ConditionalAdvancement() {
                 @Override
                 public boolean test() {
                     return GunpowderBlock.tntRecipe;

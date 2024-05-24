@@ -7,7 +7,7 @@ import svenhjol.charm.api.enums.TotemType;
 import java.util.Optional;
 
 @SuppressWarnings("unused")
-public interface ITotemInventoryCheckProvider {
+public interface TotemInventoryCheckProvider {
     /**
      * Find a totem in any player inventory and return the found itemstack.
      * @param player Reference to the player to search inventory.

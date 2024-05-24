@@ -1,16 +1,16 @@
 package svenhjol.charm.feature.core.custom_advancements.common;
 
-import svenhjol.charm.api.iface.IConditionalAdvancement;
-import svenhjol.charm.api.iface.IConditionalAdvancementProvider;
+import svenhjol.charm.api.iface.ConditionalAdvancement;
+import svenhjol.charm.api.iface.ConditionalAdvancementProvider;
 import svenhjol.charm.feature.core.custom_advancements.CustomAdvancements;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class Providers extends ProviderHolder<CustomAdvancements> {
-    public final List<IConditionalAdvancement> conditions = new ArrayList<>();
+    public final List<ConditionalAdvancement> conditions = new ArrayList<>();
 
     public Providers(CustomAdvancements feature) {
         super(feature);
@@ -18,7 +18,7 @@ public final class Providers extends ProviderHolder<CustomAdvancements> {
 
     @Override
     public void onEnabled() {
-        ApiHelper.consume(IConditionalAdvancementProvider.class,
+        Api.consume(ConditionalAdvancementProvider.class,
             provider -> conditions.addAll(provider.getAdvancementConditions()));
     }
 }

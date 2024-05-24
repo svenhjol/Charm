@@ -2,12 +2,12 @@ package svenhjol.charm.foundation.block;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import svenhjol.charm.api.iface.IIgniteProvider;
+import svenhjol.charm.api.iface.IgniteProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
-public class CharmPlanksBlock extends Block implements IIgniteProvider {
+public class CharmPlanksBlock extends Block implements IgniteProvider {
     protected final CustomMaterial material;
 
     public CharmPlanksBlock(CustomMaterial material) {

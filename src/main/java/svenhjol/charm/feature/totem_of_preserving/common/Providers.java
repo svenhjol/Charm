@@ -6,20 +6,20 @@ import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.iface.*;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public final class Providers extends ProviderHolder<TotemOfPreserving> implements
-    ITotemPreservingProvider,
-    ITotemInventoryCheckProvider,
-    IConditionalRecipeProvider,
-    IConditionalAdvancementProvider
+    TotemPreservingProvider,
+    TotemInventoryCheckProvider,
+    ConditionalRecipeProvider,
+    ConditionalAdvancementProvider
 {
-    public final List<ITotemPreservingProvider> preservingProviders = new ArrayList<>();
-    public final List<ITotemInventoryCheckProvider> inventoryCheckProviders = new ArrayList<>();
+    public final List<TotemPreservingProvider> preservingProviders = new ArrayList<>();
+    public final List<TotemInventoryCheckProvider> inventoryCheckProviders = new ArrayList<>();
 
     public Providers(TotemOfPreserving feature) {
         super(feature);
@@ -72,8 +72,8 @@ public final class Providers extends ProviderHolder<TotemOfPreserving> implement
     }
 
     @Override
-    public List<IConditionalRecipe> getRecipeConditions() {
-        return List.of(new IConditionalRecipe() {
+    public List<ConditionalRecipe> getRecipeConditions() {
+        return List.of(new ConditionalRecipe() {
             @Override
             public boolean test() {
                 return !TotemOfPreserving.graveMode;
@@ -89,8 +89,8 @@ public final class Providers extends ProviderHolder<TotemOfPreserving> implement
     }
 
     @Override
-    public List<IConditionalAdvancement> getAdvancementConditions() {
-        return List.of(new IConditionalAdvancement() {
+    public List<ConditionalAdvancement> getAdvancementConditions() {
+        return List.of(new ConditionalAdvancement() {
             @Override
             public boolean test() {
                 return !TotemOfPreserving.graveMode;
@@ -107,7 +107,7 @@ public final class Providers extends ProviderHolder<TotemOfPreserving> implement
 
     @Override
     public void onEnabled() {
-        ApiHelper.consume(ITotemPreservingProvider.class, preservingProviders::add);
-        ApiHelper.consume(ITotemInventoryCheckProvider.class, inventoryCheckProviders::add);
+        Api.consume(TotemPreservingProvider.class, preservingProviders::add);
+        Api.consume(TotemInventoryCheckProvider.class, inventoryCheckProviders::add);
     }
 }

@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.wood.ebony_wood.common;
 
-import svenhjol.charm.api.iface.IConditionalAdvancement;
-import svenhjol.charm.api.iface.IConditionalAdvancementProvider;
-import svenhjol.charm.api.iface.IConditionalRecipe;
-import svenhjol.charm.api.iface.IConditionalRecipeProvider;
+import svenhjol.charm.api.iface.ConditionalAdvancement;
+import svenhjol.charm.api.iface.ConditionalAdvancementProvider;
+import svenhjol.charm.api.iface.ConditionalRecipe;
+import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.wood.ebony_wood.EbonyWood;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.foundation.Resolve;
@@ -11,15 +11,15 @@ import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 
-public final class Providers extends ProviderHolder<EbonyWood> implements IConditionalRecipeProvider, IConditionalAdvancementProvider {
+public final class Providers extends ProviderHolder<EbonyWood> implements ConditionalRecipeProvider, ConditionalAdvancementProvider {
     public Providers(EbonyWood feature) {
         super(feature);
     }
 
     @Override
-    public List<IConditionalRecipe> getRecipeConditions() {
+    public List<ConditionalRecipe> getRecipeConditions() {
         return List.of(
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return Resolve.isEnabled(Woodcutting.class);
@@ -34,9 +34,9 @@ public final class Providers extends ProviderHolder<EbonyWood> implements ICondi
     }
 
     @Override
-    public List<IConditionalAdvancement> getAdvancementConditions() {
+    public List<ConditionalAdvancement> getAdvancementConditions() {
         return List.of(
-            new IConditionalAdvancement() {
+            new ConditionalAdvancement() {
                 @Override
                 public boolean test() {
                     return Resolve.isEnabled(Woodcutting.class);

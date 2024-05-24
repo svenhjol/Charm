@@ -3,13 +3,13 @@ package svenhjol.charm.feature.item_tidying.client;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.*;
-import svenhjol.charm.api.iface.IContainerOffsetTweak;
-import svenhjol.charm.api.iface.IContainerOffsetTweakProvider;
+import svenhjol.charm.api.iface.ContainerOffsetTweak;
+import svenhjol.charm.api.iface.ContainerOffsetTweakProvider;
 import svenhjol.charm.api.iface.ItemTidyingBlacklistProvider;
 import svenhjol.charm.api.iface.ItemTidyingWhitelistProvider;
 import svenhjol.charm.feature.item_tidying.ItemTidyingClient;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class Providers extends ProviderHolder<ItemTidyingClient>
-    implements ItemTidyingWhitelistProvider, ItemTidyingBlacklistProvider, IContainerOffsetTweakProvider {
+    implements ItemTidyingWhitelistProvider, ItemTidyingBlacklistProvider, ContainerOffsetTweakProvider {
     public final List<Class<? extends Screen>> whitelistedScreens = new ArrayList<>();
     public final List<Class<? extends Screen>> blacklistedScreens = new ArrayList<>();
     public final Map<Class<? extends Screen>, Pair<Integer, Integer>> containerOffsets = new HashMap<>();
@@ -27,10 +27,10 @@ public final class Providers extends ProviderHolder<ItemTidyingClient>
     }
 
     @Override
-    public List<IContainerOffsetTweak> getContainerOffsetTweaks() {
+    public List<ContainerOffsetTweak> getContainerOffsetTweaks() {
         // Offset the button by these X and Y coordinates on these screens.
         return List.of(
-            new IContainerOffsetTweak() {
+            new ContainerOffsetTweak() {
                 @Override
                 public Class<? extends Screen> getScreen() {
                     return MerchantScreen.class;
@@ -41,7 +41,7 @@ public final class Providers extends ProviderHolder<ItemTidyingClient>
                     return Pair.of(100, 0);
                 }
             },
-            new IContainerOffsetTweak() {
+            new ContainerOffsetTweak() {
                 @Override
                 public Class<? extends Screen> getScreen() {
                     return InventoryScreen.class;
@@ -77,14 +77,14 @@ public final class Providers extends ProviderHolder<ItemTidyingClient>
 
     @Override
     public void onEnabled() {
-        ApiHelper.consume(IContainerOffsetTweakProvider.class,
+        Api.consume(ContainerOffsetTweakProvider.class,
             provider -> provider.getContainerOffsetTweaks().forEach(
                 tweak -> containerOffsets.put(tweak.getScreen(), tweak.getOffset())));
 
-        ApiHelper.consume(ItemTidyingWhitelistProvider.class,
+        Api.consume(ItemTidyingWhitelistProvider.class,
             provider -> whitelistedScreens.addAll(provider.getWhitelistedItemTidyingScreens()));
 
-        ApiHelper.consume(ItemTidyingBlacklistProvider.class,
+        Api.consume(ItemTidyingBlacklistProvider.class,
             provider -> blacklistedScreens.addAll(provider.getBlacklistedItemTidyingScreens()));
     }
 }

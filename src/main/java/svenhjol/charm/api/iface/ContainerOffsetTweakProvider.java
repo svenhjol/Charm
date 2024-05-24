@@ -7,6 +7,6 @@ import java.util.List;
  * This is used by features that place buttons near the container inventory.
  */
 @SuppressWarnings("unused")
-public interface IContainerOffsetTweakProvider {
-    List<IContainerOffsetTweak> getContainerOffsetTweaks();
+public interface ContainerOffsetTweakProvider {
+    List<ContainerOffsetTweak> getContainerOffsetTweaks();
 }

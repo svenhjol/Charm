@@ -3,7 +3,8 @@ package svenhjol.charm.api.iface;
 import java.util.List;
 import java.util.Map;
 
-public interface IConditionalTag {
+@Deprecated
+public interface ConditionalTag {
     /**
      * If this test fails, all resources that match patterns returned by resources() will be removed when the world loads.
      */

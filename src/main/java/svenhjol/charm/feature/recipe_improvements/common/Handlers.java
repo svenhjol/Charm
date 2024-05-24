@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.recipe_improvements.common;
 
-import svenhjol.charm.api.iface.IConditionalAdvancement;
-import svenhjol.charm.api.iface.IConditionalRecipeProvider;
+import svenhjol.charm.api.iface.ConditionalAdvancement;
+import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.recipe_improvements.RecipeImprovements;
 import svenhjol.charm.foundation.Feature;
 import svenhjol.charm.foundation.feature.FeatureHolder;
@@ -18,13 +18,13 @@ public final class Handlers extends FeatureHolder<RecipeImprovements> {
      * Convenience method to match advancement "recipe" conditions to a set of recipe conditions.
      * This allows advancements that unlock recipes to be enabled/disabled according to a recipe condition.
      */
-    public List<IConditionalAdvancement> getAdvancementConditions(Feature owner, IConditionalRecipeProvider provider) {
+    public List<ConditionalAdvancement> getAdvancementConditions(Feature owner, ConditionalRecipeProvider provider) {
         var recipePrefix = owner.snakeCaseName() + "/";
         var advancementPrefix = recipePrefix + "recipes/";
-        List<IConditionalAdvancement> advancements = new ArrayList<>();
+        List<ConditionalAdvancement> advancements = new ArrayList<>();
 
         for (var recipe : provider.getRecipeConditions()) {
-            advancements.add(new IConditionalAdvancement() {
+            advancements.add(new ConditionalAdvancement() {
                 @Override
                 public boolean test() {
                     return recipe.test();

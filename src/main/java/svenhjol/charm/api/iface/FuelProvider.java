@@ -1,5 +1,5 @@
 package svenhjol.charm.api.iface;
 
-public interface IFuelProvider {
+public interface FuelProvider {
     int fuelTime();
 }

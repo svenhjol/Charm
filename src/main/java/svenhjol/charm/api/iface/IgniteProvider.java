@@ -1,6 +1,6 @@
 package svenhjol.charm.api.iface;
 
-public interface IIgniteProvider {
+public interface IgniteProvider {
     int igniteChance();
 
     int burnChance();

@@ -3,14 +3,14 @@ package svenhjol.charm.feature.animal_armor_grinding.common;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import svenhjol.charm.api.iface.IGrindableItemProvider;
+import svenhjol.charm.api.iface.GrindableItemProvider;
 import svenhjol.charm.feature.animal_armor_grinding.AnimalArmorGrinding;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 
 import java.util.List;
 
-public final class Providers extends ProviderHolder<AnimalArmorGrinding> implements IGrindableItemProvider {
+public final class Providers extends ProviderHolder<AnimalArmorGrinding> implements GrindableItemProvider {
     public Providers(AnimalArmorGrinding feature) {
         super(feature);
     }
@@ -29,7 +29,7 @@ public final class Providers extends ProviderHolder<AnimalArmorGrinding> impleme
 
     @Override
     public void onEnabled() {
-        ApiHelper.consume(IGrindableItemProvider.class,
+        Api.consume(GrindableItemProvider.class,
             provider -> provider.getItemGrindResults().forEach(
                 result -> feature().registers.recipes.put(result.getFirst(), result.getSecond())));
     }

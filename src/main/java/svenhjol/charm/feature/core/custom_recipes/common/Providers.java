@@ -1,16 +1,16 @@
 package svenhjol.charm.feature.core.custom_recipes.common;
 
-import svenhjol.charm.api.iface.IConditionalRecipe;
-import svenhjol.charm.api.iface.IConditionalRecipeProvider;
+import svenhjol.charm.api.iface.ConditionalRecipe;
+import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class Providers extends ProviderHolder<CustomRecipes> {
-    public final List<IConditionalRecipe> conditions = new ArrayList<>();
+    public final List<ConditionalRecipe> conditions = new ArrayList<>();
 
     public Providers(CustomRecipes feature) {
         super(feature);
@@ -18,7 +18,7 @@ public final class Providers extends ProviderHolder<CustomRecipes> {
 
     @Override
     public void onEnabled() {
-        ApiHelper.consume(IConditionalRecipeProvider.class,
+        Api.consume(ConditionalRecipeProvider.class,
             provider -> conditions.addAll(provider.getRecipeConditions()));
     }
 }

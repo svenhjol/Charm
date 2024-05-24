@@ -1,7 +1,7 @@
 package svenhjol.charm.foundation.block;
 
 import net.minecraft.world.level.block.SoundType;
-import svenhjol.charm.api.iface.IFuelProvider;
+import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
@@ -21,7 +21,7 @@ public class CharmChiseledBookshelfBlock extends net.minecraft.world.level.block
         return material;
     }
 
-    public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
+    public static class BlockItem extends net.minecraft.world.item.BlockItem implements FuelProvider {
         CustomMaterial material;
 
         public BlockItem(Supplier<CharmChiseledBookshelfBlock> block) {

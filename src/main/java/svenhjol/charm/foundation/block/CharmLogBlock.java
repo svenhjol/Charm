@@ -3,12 +3,12 @@ package svenhjol.charm.foundation.block;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import svenhjol.charm.api.iface.IIgniteProvider;
+import svenhjol.charm.api.iface.IgniteProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 
-public class CharmLogBlock extends RotatedPillarBlock implements IIgniteProvider {
+public class CharmLogBlock extends RotatedPillarBlock implements IgniteProvider {
     protected final CustomMaterial material;
 
     public CharmLogBlock(CustomMaterial material) {

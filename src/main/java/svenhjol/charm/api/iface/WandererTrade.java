@@ -3,7 +3,7 @@ package svenhjol.charm.api.iface;
 import net.minecraft.world.level.ItemLike;
 
 @SuppressWarnings("unused")
-public interface IWandererTrade {
+public interface WandererTrade {
     /**
      * The item being sold.
      */

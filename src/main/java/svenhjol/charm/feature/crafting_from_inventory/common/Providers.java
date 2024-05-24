@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.api.iface.CraftingTableInventoryCheckProvider;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventory;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +39,6 @@ public final class Providers extends ProviderHolder<CraftingFromInventory> imple
 
     @Override
     public void onEnabled() {
-        ApiHelper.consume(CraftingTableInventoryCheckProvider.class, inventoryCheckProviders::add);
+        Api.consume(CraftingTableInventoryCheckProvider.class, inventoryCheckProviders::add);
     }
 }

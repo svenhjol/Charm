@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.api.iface.QuickReplantProvider;
 import svenhjol.charm.feature.crop_replanting.CropReplanting;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public final class Providers extends ProviderHolder<CropReplanting> implements Q
 
     @Override
     public void onEnabled() {
-        ApiHelper.consume(QuickReplantProvider.class,
+        Api.consume(QuickReplantProvider.class,
             provider -> provider.getHarvestableBlocks().forEach(
                 supplier -> replantable.add(supplier.get())));
     }

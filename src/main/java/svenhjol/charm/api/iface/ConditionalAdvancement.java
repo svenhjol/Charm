@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * An advancement definition to test for some condition and remove one or more Charmony advancements if the test fails.
  */
-public interface IConditionalAdvancement {
+public interface ConditionalAdvancement {
     /**
      * If this test fails, all advancements that match patterns returned by advancements() will be removed when the world loads.
      */

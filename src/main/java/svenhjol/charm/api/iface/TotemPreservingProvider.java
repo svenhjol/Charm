@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public interface ITotemPreservingProvider {
+public interface TotemPreservingProvider {
     /**
      * Return all items from inventories that should go into a Totem of Preserving on death.
      * @param player Reference to the dead player.

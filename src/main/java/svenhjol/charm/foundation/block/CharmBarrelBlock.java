@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.api.iface.IFuelProvider;
+import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 
 import javax.annotation.Nullable;
@@ -36,7 +36,7 @@ public class CharmBarrelBlock extends BarrelBlock {
         return material;
     }
 
-    public static class BlockItem extends net.minecraft.world.item.BlockItem implements IFuelProvider {
+    public static class BlockItem extends net.minecraft.world.item.BlockItem implements FuelProvider {
         private final CustomMaterial material;
 
         public BlockItem(Supplier<CharmBarrelBlock> block) {

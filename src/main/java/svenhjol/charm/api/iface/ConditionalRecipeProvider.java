@@ -4,9 +4,9 @@ import java.util.List;
 
 /**
  * Define conditional recipes from any Charmony mod.
- * @see IConditionalRecipe
+ * @see ConditionalRecipe
  */
 @SuppressWarnings("unused")
-public interface IConditionalRecipeProvider {
-    List<IConditionalRecipe> getRecipeConditions();
+public interface ConditionalRecipeProvider {
+    List<ConditionalRecipe> getRecipeConditions();
 }

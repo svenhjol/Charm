@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.Block;
 import svenhjol.charm.api.iface.HoverSortableItemProvider;
 import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public final class Providers extends ProviderHolder<ItemHoverSorting> implements
     public void onEnabled() {
         var registers = feature().registers;
 
-        ApiHelper.consume(HoverSortableItemProvider.class,
+        Api.consume(HoverSortableItemProvider.class,
             provider -> {
                 registers.cachedSortables.addAll(provider.getHoverSortableItems());
                 registers.cachedBlockTags.addAll(provider.getHoverSortableBlockTags());

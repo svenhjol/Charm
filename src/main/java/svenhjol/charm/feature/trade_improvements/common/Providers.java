@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.trade_improvements.common;
 
-import svenhjol.charm.api.iface.IWandererTradeProvider;
+import svenhjol.charm.api.iface.WandererTradeProvider;
 import svenhjol.charm.feature.trade_improvements.TradeImprovements;
 import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.helper.ApiHelper;
+import svenhjol.charm.foundation.Api;
 import svenhjol.charm.foundation.villages.GenericTrades;
 
-public final class Providers extends ProviderHolder<TradeImprovements> implements IWandererTradeProvider {
+public final class Providers extends ProviderHolder<TradeImprovements> implements WandererTradeProvider {
     public Providers(TradeImprovements feature) {
         super(feature);
     }
@@ -16,7 +16,7 @@ public final class Providers extends ProviderHolder<TradeImprovements> implement
         if (feature().charmModItems()) {
             var registry = feature().registry();
 
-            ApiHelper.consume(IWandererTradeProvider.class,
+            Api.consume(WandererTradeProvider.class,
                 provider -> {
                     provider.getWandererTrades().forEach(
                         trade -> registry.wandererTrade(

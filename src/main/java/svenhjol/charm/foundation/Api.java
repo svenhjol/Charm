@@ -1,7 +1,6 @@
-package svenhjol.charm.foundation.helper;
+package svenhjol.charm.foundation;
 
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +9,8 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 @SuppressWarnings({"unchecked", "unused"})
-public final class ApiHelper {
-    private static final Log LOGGER = new Log(Charm.ID, "ApiHelper");
+public final class Api {
+    private static final Log LOGGER = new Log(Charm.ID, "Api");
 
     /**
      * All consumers keyed by the interface they process.

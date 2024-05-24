@@ -1,25 +1,25 @@
 package svenhjol.charm.feature.recipe_improvements.shapeless_recipes.common;
 
-import svenhjol.charm.api.iface.IConditionalAdvancement;
-import svenhjol.charm.api.iface.IConditionalAdvancementProvider;
-import svenhjol.charm.api.iface.IConditionalRecipe;
-import svenhjol.charm.api.iface.IConditionalRecipeProvider;
+import svenhjol.charm.api.iface.ConditionalAdvancement;
+import svenhjol.charm.api.iface.ConditionalAdvancementProvider;
+import svenhjol.charm.api.iface.ConditionalRecipe;
+import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.recipe_improvements.shapeless_recipes.ShapelessRecipes;
 import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 
-public final class Providers extends ProviderHolder<ShapelessRecipes> implements IConditionalRecipeProvider, IConditionalAdvancementProvider {
+public final class Providers extends ProviderHolder<ShapelessRecipes> implements ConditionalRecipeProvider, ConditionalAdvancementProvider {
     public Providers(ShapelessRecipes feature) {
         super(feature);
     }
 
     @Override
-    public List<IConditionalRecipe> getRecipeConditions() {
+    public List<ConditionalRecipe> getRecipeConditions() {
         var prefix = feature().snakeCaseName() + "/";
 
         return List.of(
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return ShapelessRecipes.bread;
@@ -31,7 +31,7 @@ public final class Providers extends ProviderHolder<ShapelessRecipes> implements
                 }
             },
 
-            new IConditionalRecipe() {
+            new ConditionalRecipe() {
                 @Override
                 public boolean test() {
                     return ShapelessRecipes.paper;
@@ -46,7 +46,7 @@ public final class Providers extends ProviderHolder<ShapelessRecipes> implements
     }
 
     @Override
-    public List<IConditionalAdvancement> getAdvancementConditions() {
+    public List<ConditionalAdvancement> getAdvancementConditions() {
         return feature().parent().handlers.getAdvancementConditions(feature(), this);
     }
 }
