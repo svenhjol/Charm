@@ -114,7 +114,7 @@
   "advancements.charm.use_totem_of_preserving.title": "Safe Hands",
   "advancements.charm.use_totem_of_preserving.description": "Use a Totem of Preserving to store all your items when you die",
   "attribute.name.player.charm.aerial_mining_speed": "Aerial Mining Speed",
-  "attribute.name.player.charm.collection": "Automatic Drop Pickup",
+  "attribute.name.player.charm.automatic_item_pickup": "Automatic Item Pickup",
   "block.charm.acacia_barrel": "Acacia Barrel",
   "block.charm.acacia_bookshelf": "Acacia Bookshelf",
   "block.charm.acacia_chest": "Acacia Chest",

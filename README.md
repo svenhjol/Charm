@@ -11,7 +11,7 @@ Dev tasks:
 - handle custom_wood and variant_wood mess in variants
 - ignore unregistered data fixer errors - add feature to Silence?
 - ~~all static config props to be private with accessors~~
-- rename player.collection attribute to player.automatic_item_pickup
+- ~~rename player.collection attribute to player.automatic_item_pickup~~
 - ~~check common for matching feature in MixinConfig~~
 - ~~custom sound for coral squid bucket pickup~~
 - ~~custom sound when chicken sheds feather~~

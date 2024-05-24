@@ -11,7 +11,7 @@
           "base": 1.0,
           "per_level_above_first": 0.0
         },
-        "attribute": "charm:player.collection",
+        "attribute": "charm:player.automatic_item_pickup",
         "id": "charm:enchantment.collection",
         "operation": "add_value"
       }
