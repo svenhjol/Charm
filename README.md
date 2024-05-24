@@ -15,7 +15,7 @@ Dev tasks:
 - ~~check common for matching feature in MixinConfig~~
 - custom sound for coral squid bucket pickup
 - custom sound when chicken sheds feather
-- test lumberjack and beekeeper hero gifts
+- ~~test lumberjack and beekeeper hero gifts~~
 - API provider for registering spawner drop items 
 - API event for villager interaction (hook into Villager#startTrading)
 - untranslated item tags warning - add tag.item.<namespace>.<path> with slashes in tag path as periods

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:honeycomb"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:flowering_azalea_leaves"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:white_candle"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:yellow_candle"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "charm:gameplay/hero_of_the_village/beekeeper_gift"
+}
