@@ -9,4 +9,5 @@ Dev tasks:
 - all static config props to be private with accessors
 - rename player.collection attribute to player.automatic_item_pickup
 - also check common for matching feature in MixinConfig
+- race condition in colored glints being applied, possibly MC-272311 ?
 - Untranlated item tags warning - add tag.item.<namespace>.<path> with slashes in tag path as periods
