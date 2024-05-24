@@ -17,8 +17,6 @@ import java.util.List;
 
 /**
  * Much copypasta from {@link net.minecraft.client.gui.screens.inventory.StonecutterScreen}.
- * TODO: might need to recopy, looks like things have changed a bit.
- * TODO: Need to make unique versions of texture and sprites.
  */
 public class Screen extends AbstractContainerScreen<Menu> {
    private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.parse("container/stonecutter/scroller");

@@ -18,8 +18,6 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
     protected String mixinPackage;
     protected static final Logger LOGGER = LogManager.getLogger("MixinConfig");
     protected static final Map<String, Boolean> BLACKLISTED = new HashMap<>();
-
-    // TODO: write mixins to manifest. Collecting here useful for debugging.
     protected static final List<String> ALL_MIXINS = new ArrayList<>();
 
     @Override
