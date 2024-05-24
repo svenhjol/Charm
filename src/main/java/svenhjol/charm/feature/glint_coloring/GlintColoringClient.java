@@ -2,7 +2,6 @@ package svenhjol.charm.feature.glint_coloring;
 
 import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.feature.glint_coloring.client.Handlers;
-import svenhjol.charm.feature.glint_coloring.client.Registers;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
@@ -17,7 +16,6 @@ import java.util.function.BooleanSupplier;
     Allows the default enchantment glint color to be customized.
     An item with its own custom enchantment glint color will not be overridden by this feature.""")
 public final class GlintColoringClient extends ClientFeature implements CommonResolver<GlintColoring> {
-    public final Registers registers;
     public final Handlers handlers;
 
     @Configurable(
@@ -32,7 +30,6 @@ public final class GlintColoringClient extends ClientFeature implements CommonRe
     public GlintColoringClient(ClientLoader loader) {
         super(loader);
 
-        registers = new Registers(this);
         handlers = new Handlers(this);
     }
 

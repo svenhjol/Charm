@@ -36,6 +36,7 @@ public final class GlintColoring extends CommonFeature {
     /**
      * Helper method for other mods to quickly get the dyecolor of the given stack.
      */
+    @Nullable
     public static DyeColor get(@Nullable ItemStack stack) {
         return Resolve.feature(GlintColoring.class).handlers.get(stack);
     }

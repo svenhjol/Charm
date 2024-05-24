@@ -34,12 +34,14 @@ public final class Handlers extends FeatureHolder<GlintColoring> {
      * Get the enchanted item's glint color.
      * If it isn't set then return the configured default.
      */
+    @Nullable
     public DyeColor get(@Nullable ItemStack stack) {
-        if (stack == null || !GlintColorData.has(stack)) {
-            return getDefault();
+        if (has(stack)) {
+            return GlintColorData.get(stack).color();
         }
 
-        return GlintColorData.get(stack).color();
+        // TODO: handle default here
+        return null;
     }
 
     /**
