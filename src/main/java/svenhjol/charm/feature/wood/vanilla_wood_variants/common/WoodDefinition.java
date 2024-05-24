@@ -10,8 +10,12 @@ public record WoodDefinition(CustomWoodMaterial material) implements CustomWoodD
     @Override
     public List<CustomType> types() {
         return List.of(
-            CustomType.BARREL, CustomType.BOOKSHELF, CustomType.CHEST,
-            CustomType.CHISELED_BOOKSHELF, CustomType.LADDER, CustomType.TRAPPED_CHEST
+            CustomType.BARREL,
+            CustomType.BOOKSHELF,
+            CustomType.CHEST,
+            CustomType.CHISELED_BOOKSHELF,
+            CustomType.LADDER,
+            CustomType.TRAPPED_CHEST
         );
     }
 }
