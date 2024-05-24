@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.mob_drops.chicken_drops;
 
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Chicken;
@@ -19,11 +18,15 @@ import java.util.Optional;
 
 @Feature(description = "Chickens occasionally shed a feather.")
 public final class ChickenDrops extends CommonFeature implements ChildFeature<MobDrops>, DropHandler, ChanceDropProvider<Chicken> {
+    public final Registers registers;
+
     @Configurable(name = "Feather drop chance", description = "1 in X chance of a chicken dropping a feather, per game tick.")
     private static int featherDropChance = 3000;
 
     public ChickenDrops(CommonLoader loader) {
         super(loader);
+
+        registers = new Registers(this);
     }
 
     public int featherDropChance() {
@@ -53,9 +56,8 @@ public final class ChickenDrops extends CommonFeature implements ChildFeature<Mo
             && !chicken.isChickenJockey()
             && chicken.level().random.nextInt(featherDropChance()) == 0
         ) {
-            // Todo: drop feather sound
             var random = chicken.level().random;
-            chicken.playSound(SoundEvents.CHICKEN_EGG, 1.0f, (random.nextFloat() - random.nextFloat()) * 0.2f + 1.0f);
+            chicken.playSound(registers.shedFeatherSound.get(), 0.2f, 0.9f + (random.nextFloat() * 0.5f));
             return new ItemStack(Items.FEATHER);
         }
         return ItemStack.EMPTY;

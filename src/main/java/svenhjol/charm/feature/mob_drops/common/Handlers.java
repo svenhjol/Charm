@@ -42,6 +42,6 @@ public final class Handlers extends FeatureHolder<MobDrops> {
     public void spawnEntityItem(LivingEntity entity, ItemStack stack) {
         var level = entity.level();
         var pos = entity.blockPosition();
-        level.addFreshEntity(new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack));
+        level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5d, pos.getY(), pos.getZ() + 0.5d, stack));
     }
 }
