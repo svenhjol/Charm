@@ -34,6 +34,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.minecraft.world.entity.ai.behavior.GiveGiftToHero;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -285,6 +286,17 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public ResourceKey<LootTable> lootTable(String name) {
         return ResourceKey.create(Registries.LOOT_TABLE, id(name));
+    }
+
+    public <T> Register<MemoryModuleType<T>> memoryModuleType(String id) {
+        return memoryModuleType(id, () -> new MemoryModuleType<>(Optional.empty()));
+    }
+
+    public <T> Register<MemoryModuleType<T>> memoryModuleType(String id, Supplier<MemoryModuleType<T>> supplier) {
+        return new Register<>(() -> {
+            log("Memory module type " + id);
+            return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, id(id), supplier.get());
+        });
     }
 
     public <T extends MenuType<U>, U extends AbstractContainerMenu> Register<T> menuType(String id, Supplier<T> supplier) {

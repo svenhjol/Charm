@@ -22,6 +22,7 @@ import svenhjol.charm.feature.kilns.KilnsClient;
 import svenhjol.charm.feature.mob_textures.MobTextures;
 import svenhjol.charm.feature.mooblooms.MoobloomsClient;
 import svenhjol.charm.feature.note_blocks.NoteBlocksClient;
+import svenhjol.charm.feature.piglin_pointing.PiglinPointingClient;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlatesClient;
 import svenhjol.charm.feature.redstone_sand.RedstoneSandClient;
 import svenhjol.charm.feature.repair_cost_visible.RepairCostVisible;
@@ -61,6 +62,7 @@ public final class CharmClient {
             MobTextures.class,
             MoobloomsClient.class,
             NoteBlocksClient.class,
+            PiglinPointingClient.class,
             PlayerPressurePlatesClient.class,
             RedstoneSandClient.class,
             RepairCostVisible.class,

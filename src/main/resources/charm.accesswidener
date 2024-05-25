@@ -116,6 +116,13 @@ accessible method net/minecraft/world/entity/player/Player respawnEntityOnShould
 accessible method net/minecraft/world/entity/player/Player setShoulderEntityLeft (Lnet/minecraft/nbt/CompoundTag;)V
 accessible method net/minecraft/world/entity/player/Player setShoulderEntityRight (Lnet/minecraft/nbt/CompoundTag;)V
 
+# PiglinPointing
+accessible method net/minecraft/world/entity/monster/piglin/PiglinAi holdInOffhand (Lnet/minecraft/world/entity/monster/piglin/Piglin;Lnet/minecraft/world/item/ItemStack;)V
+accessible method net/minecraft/world/entity/monster/piglin/PiglinAi admireGoldItem (Lnet/minecraft/world/entity/LivingEntity;)V
+accessible method net/minecraft/world/entity/ai/memory/MemoryModuleType register (Ljava/lang/String;)Lnet/minecraft/world/entity/ai/memory/MemoryModuleType;
+accessible field net/minecraft/world/entity/monster/piglin/Piglin MEMORY_TYPES Lcom/google/common/collect/ImmutableList;
+mutable field net/minecraft/world/entity/monster/piglin/Piglin MEMORY_TYPES Lcom/google/common/collect/ImmutableList;
+
 # Recipes
 ### RecipeBookCategories AGGREGATE_CATEGORIES non-final map so we can add new categories.
 accessible field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;

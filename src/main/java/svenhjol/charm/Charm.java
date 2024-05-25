@@ -46,6 +46,7 @@ import svenhjol.charm.feature.note_block_lower_pitch.NoteBlockLowerPitch;
 import svenhjol.charm.feature.note_blocks.NoteBlocks;
 import svenhjol.charm.feature.parrots_stay_on_shoulder.ParrotsStayOnShoulder;
 import svenhjol.charm.feature.path_converting.PathConverting;
+import svenhjol.charm.feature.piglin_pointing.PiglinPointing;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlates;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
@@ -125,6 +126,7 @@ public final class Charm {
             NoteBlocks.class,
             ParrotsStayOnShoulder.class,
             PathConverting.class,
+            PiglinPointing.class,
             PigsFindMushrooms.class,
             PlayerPressurePlates.class,
             PotionOfRadiance.class,
