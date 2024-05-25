@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "id": "charm:woodcutter"
+    },
+    "title": {
+      "translate": "advancements.charm.obtained_woodcutter.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtained_woodcutter.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_woodcutter": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:woodcutter"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_woodcutter"
+    ]
+  ]
+}

@@ -2,13 +2,14 @@
   "parent": "charm:core/root",
   "display": {
     "icon": {
-      "id": "minecraft:debug_stick"
+      "id": "minecraft:iron_pickaxe",
+      "nbt": "[minecraft:damage=0]"
     },
     "title": {
-      "translate": "advancements.charm.tweaks.title"
+      "translate": "advancements.charm.tools.title"
     },
     "description": {
-      "translate": "advancements.charm.tweaks.description"
+      "translate": "advancements.charm.tools.description"
     },
     "frame": "task",
     "show_toast": false,

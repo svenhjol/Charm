@@ -1,0 +1,10 @@
+{
+  "type": "charm:woodcutting",
+  "ingredient": {
+    "item": "charm:azalea_planks"
+  },
+  "result": {
+    "id": "charm:azalea_slab",
+    "count": 2
+  }
+}

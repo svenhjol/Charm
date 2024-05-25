@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "charm:azalea_log"
+    }
+  },
+  "result": {
+    "id": "charm:azalea_wood",
+    "count": 3
+  }
+}

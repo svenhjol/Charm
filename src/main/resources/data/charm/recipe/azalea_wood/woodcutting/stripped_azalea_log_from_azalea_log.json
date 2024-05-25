@@ -1,10 +1,10 @@
 {
   "type": "charm:woodcutting",
   "ingredient": {
-    "item": "minecraft:bamboo_planks"
+    "item": "charm:azalea_log"
   },
   "result": {
-    "id": "minecraft:bamboo_raft",
+    "id": "charm:stripped_azalea_log",
     "count": 1
   }
 }

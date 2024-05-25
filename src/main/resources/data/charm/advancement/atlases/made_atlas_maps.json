@@ -1,0 +1,31 @@
+{
+  "parent": "charm:atlases/obtained_atlas",
+  "display": {
+    "icon": {
+      "id": "charm:atlas"
+    },
+    "title": {
+      "translate": "advancements.charm.made_atlas_maps.title"
+    },
+    "description": {
+      "translate": "advancements.charm.made_atlas_maps.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "made_atlas_maps": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:made_atlas_maps"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "made_atlas_maps"
+    ]
+  ]
+}

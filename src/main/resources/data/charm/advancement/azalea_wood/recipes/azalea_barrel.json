@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "charm:azalea_wood/azalea_barrel"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "charm:azalea_planks"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_slab": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "charm:azalea_slab"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_planks",
+      "has_slab",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "charm:azalea_wood/azalea_barrel"
+    ]
+  }
+}

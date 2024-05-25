@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "charm:azalea_planks"
+    }
+  },
+  "result": {
+    "id": "charm:azalea_door",
+    "count": 3
+  }
+}

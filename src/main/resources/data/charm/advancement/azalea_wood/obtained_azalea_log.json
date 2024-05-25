@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "id": "charm:azalea_planks"
+    },
+    "title": {
+      "translate": "advancements.charm.obtained_azalea_log.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtained_azalea_log.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_azalea_log": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:azalea_log"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_azalea_log"
+    ]
+  ]
+}

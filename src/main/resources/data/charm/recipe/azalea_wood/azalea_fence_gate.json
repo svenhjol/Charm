@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "charm:azalea_planks"
+    }
+  },
+  "result": {
+    "id": "charm:azalea_fence_gate"
+  }
+}

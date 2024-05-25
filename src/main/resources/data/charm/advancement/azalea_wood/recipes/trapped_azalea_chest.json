@@ -1,0 +1,47 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "charm:variant_wood/trapped_azalea_chest"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_chest": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "charm:azalea_chest"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_tripwire_hook": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:tripwire_hook"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_chest",
+      "has_tripwire_hook",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "charm:variant_wood/trapped_azalea_chest"
+    ]
+  }
+}

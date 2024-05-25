@@ -2,13 +2,13 @@
   "parent": "charm:endermite_powder/obtained_endermite_powder",
   "display": {
     "icon": {
-      "id": "charm:chiseled_arcane_purpur_block"
+      "id": "minecraft:purpur_block"
     },
     "title": {
-      "translate": "advancements.charm.teleported_to_block.title"
+      "translate": "advancements.charm.used_endermite_powder.title"
     },
     "description": {
-      "translate": "advancements.charm.teleported_to_block.description"
+      "translate": "advancements.charm.used_endermite_powder.description"
     },
     "frame": "challenge",
     "show_toast": true,
@@ -16,16 +16,16 @@
     "hidden": false
   },
   "criteria": {
-    "teleported_to_block": {
+    "used_endermite_powder": {
       "trigger": "charmony_action_performed",
       "conditions": {
-        "action": "charm:teleported_to_block"
+        "action": "charm:used_endermite_powder"
       }
     }
   },
   "requirements": [
     [
-      "teleported_to_block"
+      "used_endermite_powder"
     ]
   ]
 }

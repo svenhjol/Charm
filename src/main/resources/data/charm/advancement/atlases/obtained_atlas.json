@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/tools",
+  "display": {
+    "icon": {
+      "id": "charm:atlas"
+    },
+    "title": {
+      "translate": "advancements.charm.obtained_atlas.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtained_atlas.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_atlas": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:atlas"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_atlas"
+    ]
+  ]
+}

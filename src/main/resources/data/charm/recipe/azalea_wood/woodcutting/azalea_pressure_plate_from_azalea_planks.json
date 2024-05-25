@@ -1,10 +1,10 @@
 {
   "type": "charm:woodcutting",
   "ingredient": {
-    "item": "minecraft:bamboo_planks"
+    "item": "charm:azalea_planks"
   },
   "result": {
-    "id": "minecraft:bamboo_raft",
+    "id": "charm:azalea_pressure_plate",
     "count": 1
   }
 }

@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "id": "minecraft:item_frame"
+    },
+    "title": {
+      "translate": "advancements.charm.hidden_item_frame.title"
+    },
+    "description": {
+      "translate": "advancements.charm.hidden_item_frame.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "hidden_item_frame": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:hidden_item_frame"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "hidden_item_frame"
+    ]
+  ]
+}

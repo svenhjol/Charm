@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "id": "minecraft:iron_horse_armor",
-      "nbt": "{Enchantments:[{id:\"minecraft:frost_walker\",lvl:2s}]}"
+      "nbt": "[Enchantments:[{id:\"minecraft:frost_walker\",lvl:2s}]]"
     },
     "title": {
       "translate": "advancements.charm.added_enchantment_to_animal_armor.title"

@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "id": "minecraft:bricks"
+    },
+    "title": {
+      "translate": "advancements.charm.obtained_kiln.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtained_kiln.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_kiln": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:kiln"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_kiln"
+    ]
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "template": {
+    "parent": "minecraft:recipes/root",
+    "criteria": {
+      "has_the_recipe": {
+        "conditions": {
+          "recipe": "charm:variant_wood/VANILLA_WOOD_chest"
+        },
+        "trigger": "minecraft:recipe_unlocked"
+      },
+      "has_planks": {
+        "conditions": {
+          "items": [
+            {
+              "items": [
+                "minecraft:VANILLA_WOOD_planks"
+              ]
+            }
+          ]
+        },
+        "trigger": "minecraft:inventory_changed"
+      }
+    },
+    "requirements": [
+      [
+        "has_planks",
+        "has_the_recipe"
+      ]
+    ],
+    "rewards": {
+      "recipes": [
+        "charm:variant_wood/VANILLA_WOOD_chest"
+      ]
+    }
+  },
+  "variants": "vanilla_wood"
+}
