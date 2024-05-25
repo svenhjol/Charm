@@ -83,7 +83,7 @@ public class FindMushroomGoal extends Goal implements FeatureResolver<PigsFindMu
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, stack));
             level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 1.0f, 1.0f);
 
-            feature().advancements.unearthed_mushroom(level, pos);
+            feature().advancements.unearthedMushroom(level, pos);
         }
     }
 

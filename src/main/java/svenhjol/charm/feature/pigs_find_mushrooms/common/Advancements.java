@@ -11,7 +11,7 @@ public final class Advancements extends AdvancementHolder<PigsFindMushrooms> {
         super(feature);
     }
 
-    public void unearthed_mushroom(Level level, BlockPos pos) {
+    public void unearthedMushroom(Level level, BlockPos pos) {
         PlayerHelper.getPlayersInRange(level, pos, 8.0d).forEach(
             player -> trigger("unearthed_mushroom", player));
     }
