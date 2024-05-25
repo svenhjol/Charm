@@ -10,12 +10,12 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ChestBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TrappedChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
+import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
+import svenhjol.charm.feature.core.custom_wood.common.CustomTrappedChestBlockEntity;
 import svenhjol.charm.foundation.Resolve;
 
 import java.util.function.Supplier;
@@ -31,7 +31,9 @@ public class CharmTrappedChestBlock extends ChestBlock implements VariantMateria
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new TrappedChestBlockEntity(pos, state);
+        // Note to self: this was set to vanilla TrappedChestBlockEntity, not the custom override.
+        // It didn't render any textures or function properly, but equally showed no useful errors.
+        return new CustomTrappedChestBlockEntity(pos, state);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class CharmTrappedChestBlock extends ChestBlock implements VariantMateria
      */
     @Override
     public int getSignal(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {
-        return Mth.clamp(TrappedChestBlockEntity.getOpenCount(blockGetter, blockPos), 0, 15);
+        return Mth.clamp(CustomTrappedChestBlockEntity.getOpenCount(blockGetter, blockPos), 0, 15);
     }
 
     /**

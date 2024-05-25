@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.core.custom_wood.client.BlockEntityRenderer;
+import svenhjol.charm.feature.core.custom_wood.client.CustomBlockEntityRenderer;
 
 /**
- * Defers to {@link BlockEntityRenderer#getChestMaterial} to fetch
+ * Defers to {@link CustomBlockEntityRenderer#getChestMaterial} to fetch
  * a custom chest texture according to the provided block entity.
  * If the returned texture is null, use vanilla texture.
  */
@@ -23,7 +23,7 @@ public class SheetsMixin {
         cancellable = true
     )
     private static void hookGetChestTexture(BlockEntity blockEntity, ChestType type, boolean christmas, CallbackInfoReturnable<Material> cir) {
-        var spriteIdentifier = BlockEntityRenderer.getChestMaterial(blockEntity, type);
+        var spriteIdentifier = CustomBlockEntityRenderer.getChestMaterial(blockEntity, type);
 
         if (spriteIdentifier != null) {
             cir.setReturnValue(spriteIdentifier);

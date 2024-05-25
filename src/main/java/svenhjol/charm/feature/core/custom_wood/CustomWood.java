@@ -14,7 +14,7 @@ import svenhjol.charm.foundation.feature.ChildFeature;
 
 import java.util.Optional;
 
-@Feature(description = "Handles custom wood.")
+@Feature(priority = 5, description = "Handles custom wood.")
 public final class CustomWood extends CommonFeature implements ChildFeature<Core> {
     public final Registers registers;
     public final Handlers handlers;

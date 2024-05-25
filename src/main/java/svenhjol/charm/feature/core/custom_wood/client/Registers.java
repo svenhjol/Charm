@@ -22,12 +22,6 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
         var registry = feature.registry();
         var chestTypes = List.of(ChestType.SINGLE, ChestType.LEFT, ChestType.RIGHT);
 
-        // Bind the chest block entities to their custom renderers.
-        feature.registry().blockEntityRenderer(feature().common().registers.chestBlockEntity,
-            () -> BlockEntityRenderer::new);
-        feature.registry().blockEntityRenderer(feature().common().registers.trappedChestBlockEntity,
-            () -> BlockEntityRenderer::new);
-
         // Register client ops for each holder.
         feature.common().registers.holders.forEach(
             (material, holder) -> {
@@ -53,7 +47,7 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
                         var textureId = new ResourceLocation(holder.ownerId(), "entity/chest/" + material.getSerializedName() + "_" + base + chestTypeName);
 
                         // Store the texture reference in the chest renderer.
-                        BlockEntityRenderer.addTexture(material, chestType, textureId, false);
+                        CustomBlockEntityRenderer.addTexture(material, chestType, textureId, false);
                     }
                 });
 
@@ -71,10 +65,16 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
                         var textureId = new ResourceLocation(holder.ownerId(), "entity/chest/" + material.getSerializedName() + "_" + base + chestTypeName);
 
                         // Store the texture reference in the chest renderer.
-                        BlockEntityRenderer.addTexture(material, chestType, textureId, true);
+                        CustomBlockEntityRenderer.addTexture(material, chestType, textureId, true);
                     }
                 });
             });
+
+        // Bind the chest block entities to their custom renderers.
+        feature.registry().blockEntityRenderer(feature().common().registers.chestBlockEntity,
+            () -> CustomBlockEntityRenderer::new);
+        feature.registry().blockEntityRenderer(feature().common().registers.trappedChestBlockEntity,
+            () -> CustomBlockEntityRenderer::new);
     }
 
     @Override

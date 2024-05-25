@@ -9,25 +9,25 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.api.iface.CustomMaterial;
-import svenhjol.charm.feature.core.custom_wood.common.ChestBlockEntity;
-import svenhjol.charm.feature.core.custom_wood.common.TrappedChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.common.CustomChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.common.CustomTrappedChestBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BlockEntityRenderer<T extends ChestBlockEntity & LidBlockEntity> extends ChestRenderer<T> {
+public class CustomBlockEntityRenderer<T extends CustomChestBlockEntity & LidBlockEntity> extends ChestRenderer<T> {
     private static final Map<CustomMaterial, Map<ChestType, Material>> NORMAL_TEXTURES = new HashMap<>();
     private static final Map<CustomMaterial, Map<ChestType, Material>> TRAPPED_TEXTURES = new HashMap<>();
 
-    public BlockEntityRenderer(BlockEntityRendererProvider.Context dispatcher) {
+    public CustomBlockEntityRenderer(BlockEntityRendererProvider.Context dispatcher) {
         super(dispatcher);
     }
 
     public static void addTexture(CustomMaterial material, ChestType chestType, ResourceLocation id, boolean trapped) {
         var textures = trapped
-            ? BlockEntityRenderer.TRAPPED_TEXTURES
-            : BlockEntityRenderer.NORMAL_TEXTURES;
+            ? CustomBlockEntityRenderer.TRAPPED_TEXTURES
+            : CustomBlockEntityRenderer.NORMAL_TEXTURES;
 
         if (!textures.containsKey(material)) {
             textures.put(material, new HashMap<>());
@@ -38,15 +38,15 @@ public class BlockEntityRenderer<T extends ChestBlockEntity & LidBlockEntity> ex
 
     @Nullable
     public static Material getChestMaterial(BlockEntity blockEntity, ChestType chestType) {
-        if (!(blockEntity instanceof ChestBlockEntity)) {
+        if (!(blockEntity instanceof CustomChestBlockEntity)) {
             return null;
         }
 
-        var textures = blockEntity instanceof TrappedChestBlockEntity
+        var textures = blockEntity instanceof CustomTrappedChestBlockEntity
             ? TRAPPED_TEXTURES
             : NORMAL_TEXTURES;
 
-        var material = ((ChestBlockEntity)blockEntity).getMaterial();
+        var material = ((CustomChestBlockEntity)blockEntity).getMaterial();
 
         if (textures.containsKey(material)) {
             return textures.get(material).getOrDefault(chestType, null);

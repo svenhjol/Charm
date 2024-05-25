@@ -73,6 +73,7 @@ import svenhjol.charm.foundation.block.CharmStairBlock;
 import svenhjol.charm.foundation.block.CharmWallHangingSignBlock;
 import svenhjol.charm.foundation.block.CharmWallSignBlock;
 import svenhjol.charm.foundation.deferred.DeferredPotionMix;
+import svenhjol.charm.foundation.helper.ConfigHelper;
 import svenhjol.charm.foundation.helper.DispenserHelper;
 import svenhjol.charm.foundation.helper.EnumHelper;
 import svenhjol.charm.foundation.helper.TextHelper;
@@ -134,8 +135,11 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
     public <T extends BlockEntity, U extends Block> Register<BlockEntityType<T>> blockEntity(String id, Supplier<BlockEntityType.BlockEntitySupplier<T>> builder, List<Supplier<U>> blocks) {
         return new Register<>(() -> {
             log("Block entity " + id);
+            var builderToAdd = builder.get();
+            var blocksToAdd = blocks.stream().map(Supplier::get).toArray(Block[]::new);
+
             return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(id),
-                BlockEntityType.Builder.of(builder.get(), blocks.stream().map(Supplier::get).toArray(Block[]::new)).build(null));
+                BlockEntityType.Builder.of(builderToAdd, blocksToAdd).build(null));
         });
     }
 
@@ -145,7 +149,8 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public <T extends BlockEntity> void blockEntityBlocks(Supplier<BlockEntityType<T>> supplier, List<Supplier<? extends Block>> blocks) {
         loader.registerDeferred(() -> {
-            var blockEntityBlocks = supplier.get().validBlocks;
+            var blockEntity = supplier.get();
+            var blockEntityBlocks = blockEntity.validBlocks;
             List<Block> mutable = new ArrayList<>(blockEntityBlocks);
 
             for (Supplier<? extends Block> blockSupplier : blocks) {
@@ -154,7 +159,12 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
                     mutable.add(block);
                 }
             }
-            supplier.get().validBlocks = new HashSet<>(mutable);
+
+            if (ConfigHelper.isDevEnvironment()) {
+                var key = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity);
+                log("Blocks for block entity " + key + ": " + mutable);
+            }
+            blockEntity.validBlocks = new HashSet<>(mutable);
         });
     }
 
@@ -515,7 +525,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
             return; // No action needed.
         }
 
-        log.warnIfDev("Making attribute instances mutable for entity type " + entityType.getDescriptionId());
+        log.warnIfDebug("Making attribute instances mutable for entity type " + entityType.getDescriptionId());
         attributes.instances = new LinkedHashMap<>(attributes.instances);
     }
 
@@ -539,7 +549,7 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
         trades.int2ObjectEntrySet().forEach(e
             -> mappedTrades.put(e.getIntKey(), e.getValue().toArray(new ItemListing[0])));
 
-        log.warnIfDev("Reassembling trades for profession " + profession.name());
+        log.warnIfDebug("Reassembling trades for profession " + profession.name());
         TRADES.put(profession, mappedTrades);
     }
 

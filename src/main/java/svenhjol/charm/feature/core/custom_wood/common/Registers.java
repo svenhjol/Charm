@@ -27,8 +27,8 @@ public final class Registers extends RegisterHolder<CustomWood> {
     public final Map<String, Map<CustomType, List<Supplier<? extends Item>>>> creativeTabItems = new HashMap<>();
     public final List<Supplier<CharmSignItem>> signItems = new ArrayList<>();
     public final List<Supplier<CharmHangingSignItem>> hangingSignItems = new ArrayList<>();
-    public final Register<BlockEntityType<ChestBlockEntity>> chestBlockEntity;
-    public final Register<BlockEntityType<TrappedChestBlockEntity>> trappedChestBlockEntity;
+    public final Register<BlockEntityType<CustomChestBlockEntity>> chestBlockEntity;
+    public final Register<BlockEntityType<CustomTrappedChestBlockEntity>> trappedChestBlockEntity;
     public final Map<CustomWoodMaterial, CustomWoodHolder> holders = new HashMap<>();
 
     public Registers(CustomWood feature) {
@@ -38,8 +38,10 @@ public final class Registers extends RegisterHolder<CustomWood> {
         @SuppressWarnings("unused")
         var boatTypeValues = Boat.Type.values();
 
-        chestBlockEntity = feature.registry().blockEntity("variant_chest", () -> ChestBlockEntity::new);
-        trappedChestBlockEntity = feature.registry().blockEntity("variant_trapped_chest", () -> TrappedChestBlockEntity::new);
+        chestBlockEntity = feature.registry().blockEntity("variant_chest",
+            () -> CustomChestBlockEntity::new);
+        trappedChestBlockEntity = feature.registry().blockEntity("variant_trapped_chest",
+            () -> CustomTrappedChestBlockEntity::new);
     }
 
     @Override

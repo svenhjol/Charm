@@ -9,7 +9,7 @@ import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
-import svenhjol.charm.feature.core.custom_wood.common.ChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.common.CustomChestBlockEntity;
 import svenhjol.charm.foundation.Resolve;
 
 import java.util.function.Supplier;
@@ -30,7 +30,7 @@ public class CharmChestBlock extends ChestBlock implements VariantMaterialHolder
 
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ChestBlockEntity(pos, state);
+        return new CustomChestBlockEntity(pos, state);
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem implements FuelProvider {

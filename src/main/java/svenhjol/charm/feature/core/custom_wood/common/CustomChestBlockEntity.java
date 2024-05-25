@@ -2,6 +2,7 @@ package svenhjol.charm.feature.core.custom_wood.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
@@ -10,15 +11,15 @@ import svenhjol.charm.foundation.Resolve;
 
 import javax.annotation.Nullable;
 
-public class ChestBlockEntity extends net.minecraft.world.level.block.entity.ChestBlockEntity {
+public class CustomChestBlockEntity extends ChestBlockEntity {
     @Nullable
     private CustomMaterial material = null;
 
-    public ChestBlockEntity(BlockPos pos, BlockState state) {
+    public CustomChestBlockEntity(BlockPos pos, BlockState state) {
         this(Resolve.feature(CustomWood.class).registers.chestBlockEntity.get(), pos, state);
     }
 
-    public ChestBlockEntity(BlockEntityType<?> blockEntity, BlockPos pos, BlockState state) {
+    public CustomChestBlockEntity(BlockEntityType<?> blockEntity, BlockPos pos, BlockState state) {
         super(blockEntity, pos, state);
     }
 

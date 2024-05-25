@@ -6,8 +6,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import svenhjol.charm.feature.core.custom_wood.CustomWoodClient;
-import svenhjol.charm.feature.core.custom_wood.common.ChestBlockEntity;
-import svenhjol.charm.feature.core.custom_wood.common.TrappedChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.common.CustomChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.common.CustomTrappedChestBlockEntity;
 import svenhjol.charm.foundation.block.CharmChestBlock;
 import svenhjol.charm.foundation.block.CharmTrappedChestBlock;
 import svenhjol.charm.foundation.feature.FeatureHolder;
@@ -15,15 +15,15 @@ import svenhjol.charm.foundation.feature.FeatureHolder;
 import java.util.Optional;
 
 public final class Handlers extends FeatureHolder<CustomWoodClient> {
-    private final ChestBlockEntity cachedNormalChest;
-    private final TrappedChestBlockEntity cachedTrappedChest;
+    private final CustomChestBlockEntity cachedNormalChest;
+    private final CustomTrappedChestBlockEntity cachedTrappedChest;
 
     public Handlers(CustomWoodClient feature) {
         super(feature);
 
         // Cache the chest block entities for fast lookup by the renderer.
-        cachedNormalChest = new ChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
-        cachedTrappedChest = new TrappedChestBlockEntity(BlockPos.ZERO, Blocks.TRAPPED_CHEST.defaultBlockState());
+        cachedNormalChest = new CustomChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
+        cachedTrappedChest = new CustomTrappedChestBlockEntity(BlockPos.ZERO, Blocks.TRAPPED_CHEST.defaultBlockState());
     }
 
     public Optional<BlockEntity> renderChestBlockItem(ItemStack stack, Block block) {
