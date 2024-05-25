@@ -82,7 +82,7 @@
   "advancements.charm.restocked_current_item.title": "Free Refill",
   "advancements.charm.restocked_current_item.description": "Restock your current item when it runs out",
   "advancements.charm.revived_animal.title": "Second Chance",
-  "advancements.charm.revived_animal.description": "Revive an animal from its nametag using a Totem of Undying",
+  "advancements.charm.revived_animal.description": "Revive a tamed animal from its nametag using a Totem of Undying",
   "advancements.charm.sat_on_chair.title": "Sitting Comfortably",
   "advancements.charm.sat_on_chair.description": "Click use on a stair block with an empty hand to sit down",
   "advancements.charm.sorted_items_while_hovering.title": "Sorted",
