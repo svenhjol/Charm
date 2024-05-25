@@ -1,9 +1,8 @@
 # Charm for Minecraft 1.21
 
 Dev tasks:
-- port advancements and:
-  - advancement trigger methods and lang keys should match name of advancement
-- port recipes
+- ~~port advancements and advancement trigger methods and lang keys should match name of advancement~~
+- ~~port recipes~~
 - ~~port loot tables~~
 - ~~port tags~~
 - ~~rename API interfaces, clean up unneeded~~
