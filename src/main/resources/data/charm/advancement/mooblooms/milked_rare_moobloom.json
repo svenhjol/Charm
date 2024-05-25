@@ -1,5 +1,5 @@
 {
-  "parent": "charm:mooblooms/milk_moobloom",
+  "parent": "charm:mooblooms/milked_moobloom",
   "display": {
     "icon": {
       "id": "minecraft:suspicious_stew"
