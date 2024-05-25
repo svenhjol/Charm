@@ -3,7 +3,9 @@
   "display": {
     "icon": {
       "id": "minecraft:name_tag",
-      "nbt": "[Enchantments:[{id:\"minecraft:unbreaking\",lvl:1s}]]"
+      "components": {
+        "minecraft:enchantment_glint_override": true
+      }
     },
     "title": {
       "translate": "advancements.charm.revived_animal.title"

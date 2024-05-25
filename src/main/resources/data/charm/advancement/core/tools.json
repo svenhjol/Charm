@@ -2,8 +2,7 @@
   "parent": "charm:core/root",
   "display": {
     "icon": {
-      "id": "minecraft:iron_pickaxe",
-      "nbt": "[minecraft:damage=0]"
+      "id": "minecraft:iron_pickaxe"
     },
     "title": {
       "translate": "advancements.charm.tools.title"

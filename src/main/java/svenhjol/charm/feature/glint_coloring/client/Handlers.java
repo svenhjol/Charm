@@ -27,7 +27,6 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
 
     private SortedMap<RenderType, ByteBufferBuilder> builders;
     private ItemStack targetStack;
-    private DyeColor cachedGlintColor;
     private boolean enabled = false;
 
     public static boolean initialized = false;

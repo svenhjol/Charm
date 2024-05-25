@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/decoration",
+  "display": {
+    "icon": {
+      "id": "charm:glint_color_template"
+    },
+    "title": {
+      "translate": "advancements.charm.obtained_glint_color_template.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtained_glint_color_template.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_glint_color_template": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:glint_color_template"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_glint_color_template"
+    ]
+  ]
+}
