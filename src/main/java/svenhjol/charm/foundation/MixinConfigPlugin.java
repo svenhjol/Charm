@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import svenhjol.charm.foundation.enums.Side;
 import svenhjol.charm.foundation.helper.ConfigHelper;
 
 import java.io.File;
@@ -95,12 +94,8 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
             return true;
         }
 
-        // Check if feature is disabled in config.
-        var common = ConfigHelper.filename(id(), Side.COMMON);
-        var client = ConfigHelper.filename(id(), Side.CLIENT);
-        var enabledInCommon = ConfigHelper.isFeatureEnabled(id(), common, featureName);
-        var enabledInClient = ConfigHelper.isFeatureEnabled(id(), client, featureName);
-        var valid = enabledInCommon && enabledInClient;
+        // Check if feature is enabled in config.
+        var valid = ConfigHelper.isFeatureEnabled(id(), featureName);
 
         if (debug) {
             if (valid) {

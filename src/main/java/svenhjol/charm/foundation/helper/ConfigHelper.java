@@ -68,7 +68,7 @@ public final class ConfigHelper {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean isFeatureEnabled(String modId, String filename, String featureName) {
+    public static boolean isFeatureEnabled(String modId, String featureName) {
         Feature annotation;
 
         if (featureName.contains(".")) {
@@ -87,18 +87,27 @@ public final class ConfigHelper {
             annotation = null;
         }
 
-        var toml = read(filename);
+        var common = read(filename(modId, Side.COMMON));
+        var client = read(filename(modId, Side.CLIENT));
+
         var path = featureName + ".Enabled";
 
-        if (toml.contains(path)) {
-            // If the "Enabled" path can be found in the config, use its value.
-            return toml.getBoolean(path);
+        if (client.contains(path)) {
+            // If the "Enabled" path can be found in the client config, use its value.
+            return client.getBoolean(path);
+        } else if (common.contains(path)) {
+            // If the "Enabled" path can be found in the common config, use its value.
+            return common.getBoolean(path);
         } else if (annotation != null) {
             // If config can't be found, use the feature's "enabledByDefault" value.
             return annotation.enabledByDefault();
         }
 
         return true; // Just fall through to enabling the feature.
+    }
+
+    public static boolean configExists(String filename) {
+        return configPath(filename).toFile().exists();
     }
 
     public static Path configDir() {
