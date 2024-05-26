@@ -1,4 +1,4 @@
-package svenhjol.charm.feature.discs_stop_background_music.common;
+package svenhjol.charm.feature.discs_stop_background_music.client;
 
 import com.google.common.collect.Multimap;
 import net.minecraft.client.Minecraft;

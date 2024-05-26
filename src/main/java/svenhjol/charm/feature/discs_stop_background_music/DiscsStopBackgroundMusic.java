@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.discs_stop_background_music;
 
-import svenhjol.charm.feature.discs_stop_background_music.common.Handlers;
-import svenhjol.charm.feature.discs_stop_background_music.common.Registers;
+import svenhjol.charm.feature.discs_stop_background_music.client.Handlers;
+import svenhjol.charm.feature.discs_stop_background_music.client.Registers;
 import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
