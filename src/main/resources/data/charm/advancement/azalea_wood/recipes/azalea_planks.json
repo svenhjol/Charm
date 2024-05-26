@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "charm:azalea_logs"
+            "items": "#charm:azalea_logs"
           }
         ]
       },

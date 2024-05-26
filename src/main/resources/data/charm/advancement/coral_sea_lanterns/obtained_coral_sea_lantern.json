@@ -18,10 +18,18 @@
   "criteria": {
     "obtained_coral_sea_lantern": {
       "trigger": "minecraft:inventory_changed",
-      "conditions": {"items": [{"tag": "charm:coral_sea_lanterns"}]}
+      "conditions": {
+        "items": [
+          {
+            "items": "#charm:coral_sea_lanterns"
+          }
+        ]
+      }
     }
   },
   "requirements": [
-    ["obtained_coral_sea_lantern"]
+    [
+      "obtained_coral_sea_lantern"
+    ]
   ]
 }

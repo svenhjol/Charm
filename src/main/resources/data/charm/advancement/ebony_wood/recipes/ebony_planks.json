@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "charm:ebony_logs"
+            "items": "#charm:ebony_logs"
           }
         ]
       },
