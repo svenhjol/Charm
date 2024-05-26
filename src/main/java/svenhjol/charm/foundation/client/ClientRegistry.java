@@ -16,6 +16,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
@@ -23,6 +24,9 @@ import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -31,12 +35,14 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -90,11 +96,28 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
     }
 
     public ResourceLocation id(String path) {
-        return new ResourceLocation(loader.id(), path);
+        return loader.id(path);
     }
 
     public void itemColor(List<Supplier<? extends ItemLike>> items) {
         ColorProviderRegistry.ITEM.register(this::handleItemColor, items.stream().map(Supplier::get).toList().toArray(ItemLike[]::new));
+    }
+
+    @SuppressWarnings("deprecation")
+    public <T extends Item> void itemProperties(String id, Supplier<T> item, Supplier<ItemPropertyFunction> function) {
+        var itemPropertyFunction = function.get();
+        var clampedItemPropertyFunction = new ClampedItemPropertyFunction() {
+            @Override
+            public float unclampedCall(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
+                return itemPropertyFunction.call(itemStack, clientLevel, livingEntity, i);
+            }
+
+            @Override
+            public float call(ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
+                return itemPropertyFunction.call(itemStack, clientLevel, livingEntity, i);
+            }
+        };
+        ItemProperties.register(item.get(), id(id), clampedItemPropertyFunction);
     }
 
     /**
