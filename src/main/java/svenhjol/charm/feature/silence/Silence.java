@@ -11,7 +11,7 @@ import svenhjol.charm.foundation.helper.ConfigHelper;
  */
 @Feature(enabledByDefault = false, description = """
     Disables some nag messages and telemetry.
-    Some data removal may be considered controversial so this feature is disabled by defualt.""")
+    Some data removal may be considered controversial so this feature is disabled by default.""")
 public final class Silence extends CommonFeature {
     public Silence(CommonLoader loader) {
         super(loader);
