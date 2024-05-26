@@ -21,7 +21,7 @@ public final class ChickenDrops extends CommonFeature implements ChildFeature<Mo
     public final Registers registers;
 
     @Configurable(name = "Feather drop chance", description = "1 in X chance of a chicken dropping a feather, per game tick.")
-    private static int featherDropChance = 3000;
+    private static int featherDropChance = 5000;
 
     public ChickenDrops(CommonLoader loader) {
         super(loader);
