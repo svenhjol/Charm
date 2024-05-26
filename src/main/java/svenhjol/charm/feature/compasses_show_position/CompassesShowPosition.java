@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.compasses_show_position;
 
 import svenhjol.charm.feature.compasses_show_position.client.Handlers;
+import svenhjol.charm.feature.compasses_show_position.client.Providers;
 import svenhjol.charm.feature.compasses_show_position.client.Registers;
 import svenhjol.charm.foundation.annotation.Configurable;
 import svenhjol.charm.foundation.annotation.Feature;
@@ -11,6 +12,7 @@ import svenhjol.charm.foundation.client.ClientLoader;
 public class CompassesShowPosition extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;
+    public final Providers providers;
 
     @Configurable(
         name = "Facing",
@@ -66,6 +68,7 @@ public class CompassesShowPosition extends ClientFeature {
 
         registers = new Registers(this);
         handlers = new Handlers(this);
+        providers = new Providers(this);
     }
 
     @Override

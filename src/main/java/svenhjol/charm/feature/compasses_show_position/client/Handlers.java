@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.compasses_show_position.CompassesShowPosition;
 import svenhjol.charm.foundation.feature.FeatureHolder;
@@ -44,14 +45,14 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
         String coords;
 
         if (feature().onlyShowXZ()) {
-            coords = I18n.get("gui.charm.coords_only_xz", pos.getX(), pos.getZ());
+            coords = I18n.get("gui.charm.compass.coords_only_xz", pos.getX(), pos.getZ());
         } else {
-            coords = I18n.get("gui.charm.coords", pos.getX(), pos.getY(), pos.getZ());
+            coords = I18n.get("gui.charm.compass.coords", pos.getX(), pos.getY(), pos.getZ());
         }
 
         var coordsLength = font.width(coords);
         var coordsColor = 0xAA9988;
-        var facing = I18n.get("gui.charm.facing", direction.getName());
+        var facing = I18n.get("gui.charm.compass.facing", direction.getName());
         var facingLength = font.width(facing);
         var facingColor = 0xFFEEDD;
         float midX;
@@ -80,10 +81,19 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
             var biomeRes = player.level().getBiome(pos).unwrap().map(key -> key != null ? key.location() : null, unknown -> null);
             if (biomeRes != null) {
                 var biomeName = I18n.get("biome." + biomeRes.getNamespace() + "." + biomeRes.getPath());
-                var biomeLength = font.width(biomeName);
+                var biomeText = Component.translatable("gui.charm.compass.biome", biomeName).getString();
+                var biomeLength = font.width(biomeText);
                 var biomeColor = 0x9ACCAA;
-                renderText(guiGraphics, font, biomeName, midX, y, -biomeLength / 2, 0, biomeColor | alpha);
+                renderText(guiGraphics, font, biomeText, midX, y, -biomeLength / 2, 0, biomeColor | alpha);
+                y += lineHeight;
             }
+        }
+
+        for (var item : feature().providers.overlayItems) {
+            if (!item.shouldShow(player)) continue;
+            var length = font.width(item.text());
+            renderText(guiGraphics, font, item.text(), midX, y, -length / 2, 0, item.color() | alpha);
+            y += lineHeight;
         }
     }
 
