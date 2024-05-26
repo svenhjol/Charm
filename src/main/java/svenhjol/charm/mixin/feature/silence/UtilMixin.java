@@ -18,7 +18,7 @@ public class UtilMixin {
         )
     )
     private static void hookDoFetchChoiceTypeError(Logger LOGGER, String message, Object entity) {
-        if (Silence.downgradeDataFixerError) {
+        if (Silence.downgradeDataFixerError()) {
             LOGGER.info(message, entity);
         } else {
             // Vanilla behavior.

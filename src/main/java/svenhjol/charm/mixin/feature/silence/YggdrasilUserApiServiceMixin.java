@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.silence.common.Handlers;
+import svenhjol.charm.feature.silence.Silence;
 
 @Mixin(YggdrasilUserApiService.class)
 public class YggdrasilUserApiServiceMixin {
@@ -17,7 +17,7 @@ public class YggdrasilUserApiServiceMixin {
         remap = false
     )
     private void hookFetchProperties(CallbackInfoReturnable<UserApiService.UserProperties> cir) {
-        if (Handlers.disableDevEnvironmentConnections()) {
+        if (Silence.disableDevEnvironmentConnections()) {
             cir.setReturnValue(UserApiService.OFFLINE_PROPERTIES);
         }
     }

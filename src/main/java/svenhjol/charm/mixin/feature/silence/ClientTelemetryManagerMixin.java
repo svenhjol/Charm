@@ -16,7 +16,7 @@ public class ClientTelemetryManagerMixin {
         cancellable = true
     )
     private void hookCreateEventSender(CallbackInfoReturnable<TelemetryEventSender> cir) {
-        if (Silence.disableTelemetry) {
+        if (Silence.disableTelemetry()) {
             cir.setReturnValue(TelemetryEventSender.DISABLED);
         }
     }

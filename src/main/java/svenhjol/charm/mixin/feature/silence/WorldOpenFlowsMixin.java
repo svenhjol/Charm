@@ -18,7 +18,7 @@ public abstract class WorldOpenFlowsMixin {
         cancellable = true
     )
     private static void hookConfirmWorldCreation(Minecraft minecraft, CreateWorldScreen createWorldScreen, Lifecycle lifecycle, Runnable runnable, boolean bl, CallbackInfo ci) {
-        if (Silence.disableExperimental && lifecycle == Lifecycle.experimental()) {
+        if (Silence.disableExperimental() && lifecycle == Lifecycle.experimental()) {
             runnable.run();
             ci.cancel();
         }

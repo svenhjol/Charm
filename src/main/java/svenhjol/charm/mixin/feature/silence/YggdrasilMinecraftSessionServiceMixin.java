@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.silence.common.Handlers;
+import svenhjol.charm.feature.silence.Silence;
 
 import java.util.UUID;
 
@@ -19,7 +19,7 @@ public class YggdrasilMinecraftSessionServiceMixin {
         remap = false
     )
     private void hookFetchProfileUncached(UUID profileId, boolean requireSecure, CallbackInfoReturnable<ProfileResult> cir) {
-        if (Handlers.disableDevEnvironmentConnections()) {
+        if (Silence.disableDevEnvironmentConnections()) {
             cir.setReturnValue(null);
         }
     }

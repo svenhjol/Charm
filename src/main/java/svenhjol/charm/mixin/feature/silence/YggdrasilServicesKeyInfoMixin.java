@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.feature.silence.common.Handlers;
+import svenhjol.charm.feature.silence.Silence;
 
 import java.net.URL;
 import java.util.Optional;
@@ -21,7 +21,7 @@ public class YggdrasilServicesKeyInfoMixin {
         remap = false
     )
     private static void hookFetch(URL url, MinecraftClient client, CallbackInfoReturnable<Optional<ServicesKeySet>> cir) {
-        if (Handlers.disableDevEnvironmentConnections()) {
+        if (Silence.disableDevEnvironmentConnections()) {
             cir.setReturnValue(Optional.empty());
         }
     }
