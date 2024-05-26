@@ -11,6 +11,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.api.event.EntityUseEvent;
 import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
+import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomTrappedChestBlockEntity;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonRegistry.Register;
 import svenhjol.charm.foundation.feature.RegisterHolder;

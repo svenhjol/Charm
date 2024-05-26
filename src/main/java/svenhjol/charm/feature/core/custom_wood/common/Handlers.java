@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
-import svenhjol.charm.foundation.block.CharmChestBlock;
+import svenhjol.charm.feature.core.custom_wood.blocks.CustomChestBlock;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
@@ -26,7 +26,7 @@ public final class Handlers extends FeatureHolder<CustomWood> {
             var item = held.getItem();
             var block = Block.byItem(item);
 
-            if (block instanceof CharmChestBlock
+            if (block instanceof CustomChestBlock
                 && horse.isTamed()
                 && !horse.hasChest()
                 && !horse.isBaby()

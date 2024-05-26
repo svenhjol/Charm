@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.api.iface.CustomMaterial;
-import svenhjol.charm.feature.core.custom_wood.common.CustomChestBlockEntity;
-import svenhjol.charm.feature.core.custom_wood.common.CustomTrappedChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomTrappedChestBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

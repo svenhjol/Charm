@@ -6,10 +6,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import svenhjol.charm.feature.core.custom_wood.CustomWoodClient;
-import svenhjol.charm.feature.core.custom_wood.common.CustomChestBlockEntity;
-import svenhjol.charm.feature.core.custom_wood.common.CustomTrappedChestBlockEntity;
-import svenhjol.charm.foundation.block.CharmChestBlock;
-import svenhjol.charm.foundation.block.CharmTrappedChestBlock;
+import svenhjol.charm.feature.core.custom_wood.blocks.CustomChestBlock;
+import svenhjol.charm.feature.core.custom_wood.blocks.CustomTrappedChestBlock;
+import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomChestBlockEntity;
+import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomTrappedChestBlockEntity;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.Optional;
@@ -27,10 +27,10 @@ public final class Handlers extends FeatureHolder<CustomWoodClient> {
     }
 
     public Optional<BlockEntity> renderChestBlockItem(ItemStack stack, Block block) {
-        if (block instanceof CharmTrappedChestBlock trappedChest) {
+        if (block instanceof CustomTrappedChestBlock trappedChest) {
             cachedTrappedChest.setMaterial(trappedChest.getMaterial());
             return Optional.of(cachedTrappedChest);
-        } else if (block instanceof CharmChestBlock chest) {
+        } else if (block instanceof CustomChestBlock chest) {
             cachedNormalChest.setMaterial(chest.getMaterial());
             return Optional.of(cachedNormalChest);
         }

@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
-import svenhjol.charm.feature.core.custom_wood.types.*;
+import svenhjol.charm.feature.core.custom_wood.holders.*;
 import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonRegistry;
 
@@ -21,28 +21,28 @@ public class CustomWoodHolder {
     private final CommonFeature owner;
     private final CustomWoodMaterial material;
 
-    private CustomBarrel barrel;
-    private CustomBoat boat;
-    private CustomBookshelf bookshelf;
-    private CustomButton button;
-    private CustomChest chest;
-    private CustomChiseledBookshelf chiseledBookshelf;
-    private CustomDoor door;
-    private CustomFence fence;
-    private CustomGate gate;
-    private CustomHangingSign hangingSign;
-    private CustomLadder ladder;
-    private CustomLeaves leaves;
-    private CustomLogBlock log;
-    private CustomPlanks planks;
-    private CustomPressurePlate pressurePlate;
-    private CustomSapling sapling;
-    private CustomSign sign;
-    private CustomSlab slab;
-    private CustomStairs stairs;
-    private CustomTrapdoor trapdoor;
-    private CustomTrappedChest trappedChest;
-    private CustomWoodBlock wood;
+    private BarrelHolder barrel;
+    private BoatHolder boat;
+    private BookshelfHolder bookshelf;
+    private ButtonHolder button;
+    private ChestHolder chest;
+    private ChiseledBookshelfHolder chiseledBookshelf;
+    private DoorHolder door;
+    private FenceHolder fence;
+    private GateHolder gate;
+    private HangingSignHolder hangingSign;
+    private LaddeHolder ladder;
+    private LeavesHolder leaves;
+    private LogBlockHolder log;
+    private PlanksHolder planks;
+    private PressurePlateHolder pressurePlate;
+    private Sapling sapling;
+    private SignHolder sign;
+    private SlabHolder slab;
+    private StairsHolder stairs;
+    private TrapdoorHolder trapdoor;
+    private TrappedChestHolder trappedChest;
+    private WoodBlockHolder wood;
 
     public CustomWoodHolder(CustomWood feature, CommonFeature owner, CustomWoodDefinition definition) {
         this.feature = feature;
@@ -51,28 +51,28 @@ public class CustomWoodHolder {
 
         definition.types().forEach(type -> {
             switch (type) {
-                case BARREL -> barrel = new CustomBarrel(this);
-                case BOAT -> boat = new CustomBoat(this);
-                case BOOKSHELF -> bookshelf = new CustomBookshelf(this);
-                case BUTTON -> button = new CustomButton(this);
-                case CHEST -> chest = new CustomChest(this);
-                case CHISELED_BOOKSHELF -> chiseledBookshelf = new CustomChiseledBookshelf(this);
-                case DOOR -> door = new CustomDoor(this);
-                case FENCE -> fence = new CustomFence(this);
-                case GATE -> gate = new CustomGate(this);
-                case HANGING_SIGN -> hangingSign = new CustomHangingSign(this);
-                case LADDER -> ladder = new CustomLadder(this);
-                case LEAVES -> leaves = new CustomLeaves(this);
-                case LOG -> log = new CustomLogBlock(this);
-                case PLANKS -> planks = new CustomPlanks(this);
-                case PRESSURE_PLATE -> pressurePlate = new CustomPressurePlate(this);
-                case SAPLING -> sapling = new CustomSapling(this);
-                case SIGN -> sign = new CustomSign(this);
-                case SLAB -> slab = new CustomSlab(this);
-                case STAIRS -> planks().ifPresent(planks -> stairs = new CustomStairs(this, planks));
-                case TRAPDOOR -> trapdoor = new CustomTrapdoor(this);
-                case TRAPPED_CHEST -> trappedChest = new CustomTrappedChest(this);
-                case WOOD -> wood = new CustomWoodBlock(this);
+                case BARREL -> barrel = new BarrelHolder(this);
+                case BOAT -> boat = new BoatHolder(this);
+                case BOOKSHELF -> bookshelf = new BookshelfHolder(this);
+                case BUTTON -> button = new ButtonHolder(this);
+                case CHEST -> chest = new ChestHolder(this);
+                case CHISELED_BOOKSHELF -> chiseledBookshelf = new ChiseledBookshelfHolder(this);
+                case DOOR -> door = new DoorHolder(this);
+                case FENCE -> fence = new FenceHolder(this);
+                case GATE -> gate = new GateHolder(this);
+                case HANGING_SIGN -> hangingSign = new HangingSignHolder(this);
+                case LADDER -> ladder = new LaddeHolder(this);
+                case LEAVES -> leaves = new LeavesHolder(this);
+                case LOG -> log = new LogBlockHolder(this);
+                case PLANKS -> planks = new PlanksHolder(this);
+                case PRESSURE_PLATE -> pressurePlate = new PressurePlateHolder(this);
+                case SAPLING -> sapling = new Sapling(this);
+                case SIGN -> sign = new SignHolder(this);
+                case SLAB -> slab = new SlabHolder(this);
+                case STAIRS -> planks().ifPresent(planks -> stairs = new StairsHolder(this, planks));
+                case TRAPDOOR -> trapdoor = new TrapdoorHolder(this);
+                case TRAPPED_CHEST -> trappedChest = new TrappedChestHolder(this);
+                case WOOD -> wood = new WoodBlockHolder(this);
             }
         });
     }
@@ -113,91 +113,91 @@ public class CustomWoodHolder {
         return ownerRegistry().id();
     }
 
-    public Optional<CustomBarrel> barrel() {
+    public Optional<BarrelHolder> barrel() {
         return Optional.ofNullable(barrel);
     }
 
-    public Optional<CustomBoat> boat() {
+    public Optional<BoatHolder> boat() {
         return Optional.ofNullable(boat);
     }
 
-    public Optional<CustomBookshelf> bookshelf() {
+    public Optional<BookshelfHolder> bookshelf() {
         return Optional.ofNullable(bookshelf);
     }
 
-    public Optional<CustomButton> button() {
+    public Optional<ButtonHolder> button() {
         return Optional.ofNullable(button);
     }
 
-    public Optional<CustomChest> chest() {
+    public Optional<ChestHolder> chest() {
         return Optional.ofNullable(chest);
     }
 
-    public Optional<CustomChiseledBookshelf> chiseledBookshelf() {
+    public Optional<ChiseledBookshelfHolder> chiseledBookshelf() {
         return Optional.ofNullable(chiseledBookshelf);
     }
 
-    public Optional<CustomDoor> door() {
+    public Optional<DoorHolder> door() {
         return Optional.ofNullable(door);
     }
 
-    public Optional<CustomFence> fence() {
+    public Optional<FenceHolder> fence() {
         return Optional.ofNullable(fence);
     }
 
-    public Optional<CustomGate> gate() {
+    public Optional<GateHolder> gate() {
         return Optional.ofNullable(gate);
     }
 
-    public Optional<CustomHangingSign> hangingSign() {
+    public Optional<HangingSignHolder> hangingSign() {
         return Optional.ofNullable(hangingSign);
     }
 
-    public Optional<CustomLadder> ladder() {
+    public Optional<LaddeHolder> ladder() {
         return Optional.ofNullable(ladder);
     }
 
-    public Optional<CustomLeaves> leaves() {
+    public Optional<LeavesHolder> leaves() {
         return Optional.ofNullable(leaves);
     }
 
-    public Optional<CustomLogBlock> log() {
+    public Optional<LogBlockHolder> log() {
         return Optional.ofNullable(log);
     }
 
-    public Optional<CustomPlanks> planks() {
+    public Optional<PlanksHolder> planks() {
         return Optional.ofNullable(planks);
     }
 
-    public Optional<CustomPressurePlate> pressurePlate() {
+    public Optional<PressurePlateHolder> pressurePlate() {
         return Optional.ofNullable(pressurePlate);
     }
 
-    public Optional<CustomSapling> sapling() {
+    public Optional<Sapling> sapling() {
         return Optional.ofNullable(sapling);
     }
 
-    public Optional<CustomSign> sign() {
+    public Optional<SignHolder> sign() {
         return Optional.ofNullable(sign);
     }
 
-    public Optional<CustomSlab> slab() {
+    public Optional<SlabHolder> slab() {
         return Optional.ofNullable(slab);
     }
 
-    public Optional<CustomStairs> stairs() {
+    public Optional<StairsHolder> stairs() {
         return Optional.ofNullable(stairs);
     }
 
-    public Optional<CustomTrapdoor> trapdoor() {
+    public Optional<TrapdoorHolder> trapdoor() {
         return Optional.ofNullable(trapdoor);
     }
 
-    public Optional<CustomTrappedChest> trappedChest() {
+    public Optional<TrappedChestHolder> trappedChest() {
         return Optional.ofNullable(trappedChest);
     }
 
-    public Optional<CustomWoodBlock> wood() {
+    public Optional<WoodBlockHolder> wood() {
         return Optional.ofNullable(wood);
     }
 }
