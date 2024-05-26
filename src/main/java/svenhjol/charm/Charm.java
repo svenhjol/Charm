@@ -67,6 +67,7 @@ import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
 import svenhjol.charm.feature.trade_improvements.TradeImprovements;
 import svenhjol.charm.feature.villager_attracting.VillagerAttracting;
+import svenhjol.charm.feature.waypoints.Waypoints;
 import svenhjol.charm.feature.wood.Wood;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
@@ -149,6 +150,7 @@ public final class Charm {
             TotemsWorkFromInventory.class,
             TradeImprovements.class,
             VillagerAttracting.class,
+            Waypoints.class,
             Wood.class,
             Woodcutters.class,
             Woodcutting.class

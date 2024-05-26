@@ -305,6 +305,19 @@
     ],
     "subtitle": "subtitles.charm.block.totem_of_preserving.store_items"
   },
+  "waypoint_broadcast": {
+    "sounds": [
+      {
+        "name": "charm:waypoint_broadcast1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:waypoint_broadcast2",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.waypoint.broadcast"
+  },
   "woodcutter_use": {
     "sounds": [
       {

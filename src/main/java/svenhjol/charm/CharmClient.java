@@ -32,6 +32,7 @@ import svenhjol.charm.feature.spyglass_scope_hiding.SpyglassScopeHiding;
 import svenhjol.charm.feature.storage_blocks.StorageBlocksClient;
 import svenhjol.charm.feature.tooltip_improvements.TooltipImprovements;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
+import svenhjol.charm.feature.waypoints.WaypointsClient;
 import svenhjol.charm.feature.wood.WoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
 import svenhjol.charm.foundation.client.ClientFeature;
@@ -73,6 +74,7 @@ public final class CharmClient {
             StorageBlocksClient.class,
             TooltipImprovements.class,
             TotemOfPreservingClient.class,
+            WaypointsClient.class,
             WoodClient.class,
             WoodcuttersClient.class
         );
