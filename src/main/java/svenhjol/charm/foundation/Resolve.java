@@ -66,11 +66,11 @@ public final class Resolve {
      * Return true if a feature exists and is enabled.
      */
     public static <F extends Feature> boolean isEnabled(Class<F> clazz) {
-        return tryGetFeature(clazz).map(Feature::isEnabled).orElse(false);
+        return tryFeature(clazz).map(Feature::isEnabled).orElse(false);
     }
 
     public static <F extends Feature> F feature(Class<F> clazz) {
-        return tryGetFeature(clazz).orElseThrow(
+        return tryFeature(clazz).orElseThrow(
             () -> new RuntimeException("Could not resolve feature for " + clazz));
     }
 
@@ -108,7 +108,7 @@ public final class Resolve {
         return loader;
     }
 
-    private static <F extends Feature> Optional<F> tryGetFeature(Class<F> clazz) {
+    public static <F extends Feature> Optional<F> tryFeature(Class<F> clazz) {
         var supertype = clazz.getSuperclass();
         F resolved = null;
 

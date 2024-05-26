@@ -12,6 +12,7 @@ public abstract class AdvancementHolder<F extends Feature> extends FeatureHolder
 
     protected void trigger(String id, Player player) {
         var res = feature().id(id);
-        Resolve.feature(CustomAdvancements.class).handlers.trigger(res, player);
+        Resolve.tryFeature(CustomAdvancements.class).ifPresent(
+            advancements -> advancements.handlers.trigger(res, player));
     }
 }
