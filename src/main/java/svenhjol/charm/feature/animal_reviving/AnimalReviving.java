@@ -28,7 +28,7 @@ public final class AnimalReviving extends CommonFeature {
         name = "Drop experience on death",
         description = """
             If true, tamed and named animals drop experience when they die. This could be unwanted behavior as it can be used
-            to receive an increasing amount experience by killing and resurrecting an animal repeatedly."""
+            to receive an increasing amount of experience by killing and resurrecting an animal repeatedly."""
     )
     private static boolean dropExperienceOnDeath = false;
 
