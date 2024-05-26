@@ -4,6 +4,7 @@ import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.Charm;
 import svenhjol.charm.foundation.Log;
+import svenhjol.charm.foundation.annotation.Feature;
 import svenhjol.charm.foundation.enums.Side;
 
 import java.nio.file.Path;
@@ -67,33 +68,37 @@ public final class ConfigHelper {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean isFeatureEnabled(String filename, String featureName) {
-        var toml = read(filename);
-        String path;
+    public static boolean isFeatureEnabled(String modId, String filename, String featureName) {
+        Feature annotation;
 
         if (featureName.contains(".")) {
-            // We need to check if parent feature is disabled and return that instead.
             var split = featureName.split("\\.");
             if (split.length > 2) {
                 LOGGER.error("Feature name can't be parsed, too many fragments");
                 return false;
             }
-            var parent = split[0];
-            path = parent + ".Enabled";
-        } else {
-            // This feature doesn't have a parent.
-            path = featureName + ".Enabled";
+            featureName = split[0];
         }
+
+        try {
+            var clazz = Class.forName("svenhjol." + modId + ".feature." + TextHelper.upperCamelToSnake(featureName) + "." + featureName);
+            annotation = clazz.getAnnotation(Feature.class);
+        } catch (ClassNotFoundException e) {
+            annotation = null;
+        }
+
+        var toml = read(filename);
+        var path = featureName + ".Enabled";
 
         if (toml.contains(path)) {
+            // If the "Enabled" path can be found in the config, use its value.
             return toml.getBoolean(path);
+        } else if (annotation != null) {
+            // If config can't be found, use the feature's "enabledByDefault" value.
+            return annotation.enabledByDefault();
         }
 
-        return true;
-    }
-
-    public static boolean configExists(String filename) {
-        return configPath(filename).toFile().exists();
+        return true; // Just fall through to enabling the feature.
     }
 
     public static Path configDir() {

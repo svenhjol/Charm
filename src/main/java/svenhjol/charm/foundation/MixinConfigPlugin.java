@@ -98,8 +98,8 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
         // Check if feature is disabled in config.
         var common = ConfigHelper.filename(id(), Side.COMMON);
         var client = ConfigHelper.filename(id(), Side.CLIENT);
-        var enabledInCommon = ConfigHelper.isFeatureEnabled(common, featureName);
-        var enabledInClient = ConfigHelper.isFeatureEnabled(client, featureName);
+        var enabledInCommon = ConfigHelper.isFeatureEnabled(id(), common, featureName);
+        var enabledInClient = ConfigHelper.isFeatureEnabled(id(), client, featureName);
         var valid = enabledInCommon && enabledInClient;
 
         if (debug) {
