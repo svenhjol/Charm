@@ -131,8 +131,8 @@ public final class Handlers extends FeatureHolder<Atlases> {
         return false;
     }
 
-    public void swappedSlot(Player player, Networking.C2SSwapAtlasSlot request) {
-        var swappedSlot = request.slot();
+    public void swappedSlotReceived(Player player, Networking.C2SSwapAtlasSlot packet) {
+        var swappedSlot = packet.slot();
         var offhandItem = player.getOffhandItem().copy();
         var mainHandItem = player.getMainHandItem().copy();
         var inventory = player.getInventory();
@@ -166,14 +166,14 @@ public final class Handlers extends FeatureHolder<Atlases> {
         doSwap.accept(slot);
     }
 
-    public void transferAtlas(Player player, Networking.C2STransferAtlas request) {
+    public void transferAtlasReceived(Player player, Networking.C2STransferAtlas packet) {
         var serverPlayer = (ServerPlayer)player;
-        var atlasSlot = request.atlasSlot();
-        var mapX = request.mapX();
-        var mapZ = request.mapZ();
+        var atlasSlot = packet.atlasSlot();
+        var mapX = packet.mapX();
+        var mapZ = packet.mapZ();
         var inventory = AtlasInventory.get(serverPlayer.level(), serverPlayer.getInventory().getItem(atlasSlot));
 
-        switch (request.moveMode()) {
+        switch (packet.moveMode()) {
             case TO_HAND -> {
                 serverPlayer.containerMenu.setCarried(inventory.removeMapByCoords(serverPlayer.level(), mapX, mapZ).map);
                 Networking.S2CUpdateInventory.send(serverPlayer, atlasSlot);
