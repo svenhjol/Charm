@@ -19,7 +19,7 @@ public final class ItemOverrideHelper {
             newMap.put(key, value);
         }
 
-        LOGGER.warnIfDebug("Attempting to override " + data.toString() + " component of " + item.getDescriptionId() + " with new value " + newValue);
+        LOGGER.warnIfDebug("Overriding the " + data.toString() + " component of " + item.getDescriptionId() + " with new value " + newValue);
         item.components = new DataComponentMap.Builder.SimpleMap(newMap);
     }
 }
