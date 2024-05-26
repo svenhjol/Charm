@@ -123,6 +123,11 @@ accessible method net/minecraft/world/entity/ai/memory/MemoryModuleType register
 accessible field net/minecraft/world/entity/monster/piglin/Piglin MEMORY_TYPES Lcom/google/common/collect/ImmutableList;
 mutable field net/minecraft/world/entity/monster/piglin/Piglin MEMORY_TYPES Lcom/google/common/collect/ImmutableList;
 
+# Raid horns
+accessible field net/minecraft/server/level/ServerLevel customSpawners Ljava/util/List;
+accessible field net/minecraft/world/level/levelgen/PatrolSpawner nextTick I
+accessible method net/minecraft/world/level/levelgen/PatrolSpawner spawnPatrolMember (Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;Z)Z
+
 # Recipes
 ### RecipeBookCategories AGGREGATE_CATEGORIES non-final map so we can add new categories.
 accessible field net/minecraft/client/RecipeBookCategories AGGREGATE_CATEGORIES Ljava/util/Map;

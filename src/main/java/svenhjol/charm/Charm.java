@@ -50,6 +50,7 @@ import svenhjol.charm.feature.piglin_pointing.PiglinPointing;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlates;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
+import svenhjol.charm.feature.raid_horns.RaidHorns;
 import svenhjol.charm.feature.recipe_improvements.RecipeImprovements;
 import svenhjol.charm.feature.redstone_sand.RedstoneSand;
 import svenhjol.charm.feature.repair_cost_unlimited.RepairCostUnlimited;
@@ -130,6 +131,7 @@ public final class Charm {
             PigsFindMushrooms.class,
             PlayerPressurePlates.class,
             PotionOfRadiance.class,
+            RaidHorns.class,
             RecipeImprovements.class,
             RedstoneSand.class,
             RepairCostUnlimited.class,
