@@ -64,6 +64,7 @@
     "feature.piglin_pointing.PiglinMixin",
     "feature.pigs_find_mushrooms.PigMixin",
     "feature.repair_cost_unlimited.AnvilMenuMixin",
+    "feature.respawn_anchors_work_everywhere.RespawnAnchorBlockMixin",
     "feature.silence.YggdrasilMinecraftSessionServiceMixin",
     "feature.silence.YggdrasilServicesKeyInfoMixin",
     "feature.silence.YggdrasilUserApiServiceMixin",

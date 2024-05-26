@@ -18,6 +18,7 @@ Dev tasks:
 - API provider for registering spawner drop items 
 - API event for villager interaction (hook into Villager#startTrading)
 - ~~untranslated item tags warning - add tag.item.<namespace>.<path> with slashes in tag path as periods~~
+- Make MixinConfig read enabledByDefault from feature annotation if config isn't present
 
 Bugs:
 - race condition in colored glints being applied, possibly MC-272311?

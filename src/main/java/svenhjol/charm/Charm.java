@@ -54,6 +54,7 @@ import svenhjol.charm.feature.raid_horns.RaidHorns;
 import svenhjol.charm.feature.recipe_improvements.RecipeImprovements;
 import svenhjol.charm.feature.redstone_sand.RedstoneSand;
 import svenhjol.charm.feature.repair_cost_unlimited.RepairCostUnlimited;
+import svenhjol.charm.feature.respawn_anchors_work_everywhere.RespawnAnchorsWorkEverywhere;
 import svenhjol.charm.feature.shulker_box_transferring.ShulkerBoxTransferring;
 import svenhjol.charm.feature.silence.Silence;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
@@ -135,6 +136,7 @@ public final class Charm {
             RecipeImprovements.class,
             RedstoneSand.class,
             RepairCostUnlimited.class,
+            RespawnAnchorsWorkEverywhere.class,
             ShulkerBoxTransferring.class,
             Silence.class,
             SmoothGlowstone.class,
