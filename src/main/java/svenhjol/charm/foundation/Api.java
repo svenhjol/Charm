@@ -45,7 +45,7 @@ public final class Api {
                 // For all consumers of this interface...
                 var consumers = CONSUMERS.get(iface);
                 for (var consumer : consumers) {
-                    var providerName = provider.getClass().getSimpleName() + ":" + iface.getSimpleName();
+                    var providerName = provider.getClass() + ":" + iface.getSimpleName();
                     var consumerName = consumer.toString();
 
                     // If the provider has never been consumed, consume now and add to this map so it won't be consumed again.
@@ -79,7 +79,7 @@ public final class Api {
             // For providers in waiting for this consumer...
             var providers = PROVIDERS.get(iface);
             for (var provider : providers) {
-                var providerName = provider.getClass().getSimpleName() + ":" + iface.getSimpleName();
+                var providerName = provider.getClass() + ":" + iface.getSimpleName();
                 var consumerName = consumer.toString();
 
                 // If the provider has never been consumed, consume now and add to this map so it won't be consumed again.
