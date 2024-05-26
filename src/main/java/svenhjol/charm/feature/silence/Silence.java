@@ -30,6 +30,11 @@ public final class Silence extends CommonFeature {
         Telemetry includes your game session, game version, operating system and launcher.""")
     public static boolean disableTelemetry = true;
 
+    @Configurable(name = "Downgrade data fixer registered error", description = """
+        If true, downgrades the 'No data fixer registered' error to an info message.
+        This isn't really an error for modded entities.""")
+    public static boolean downgradeDataFixerError = true;
+
     @Configurable(name = "Disable development mode connections", description = """
         If true, disables realms and other API connections when running in the development environment.
         Setting this to true doesn't do anything if you are playing in a launcher.""")
