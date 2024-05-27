@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
 
 @Feature
-public class RedstoneSandClient extends ClientFeature implements CommonResolver<RedstoneSand> {
+public final class RedstoneSandClient extends ClientFeature implements CommonResolver<RedstoneSand> {
     public final Registers registers;
 
     public RedstoneSandClient(ClientLoader loader) {

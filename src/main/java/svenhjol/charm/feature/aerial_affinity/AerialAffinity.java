@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Aerial Affinity is a boots enchantment that increases mining rate when not on the ground.")
-public class AerialAffinity extends CommonFeature {
+public final class AerialAffinity extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Advancements advancements;

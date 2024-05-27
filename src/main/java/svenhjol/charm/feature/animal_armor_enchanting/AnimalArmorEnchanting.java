@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 @Feature(description = """
     Horse and wolf armor can be enchanted.
     The enchantment tags 'on_horse_armor' and 'on_wolf_armor' can be used to configure valid enchantments.""")
-public class AnimalArmorEnchanting extends CommonFeature {
+public final class AnimalArmorEnchanting extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Advancements advancements;

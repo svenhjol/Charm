@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.client.ClientFeature;
 import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature(description = "Shows cardinal directions, XYZ coordinates and current biome when holding a compass.")
-public class CompassesShowPosition extends ClientFeature {
+public final class CompassesShowPosition extends ClientFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Providers providers;

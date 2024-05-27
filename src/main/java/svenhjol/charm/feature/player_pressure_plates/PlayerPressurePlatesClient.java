@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
 
 @Feature
-public class PlayerPressurePlatesClient extends ClientFeature implements CommonResolver<PlayerPressurePlates> {
+public final class PlayerPressurePlatesClient extends ClientFeature implements CommonResolver<PlayerPressurePlates> {
     public final Registers registers;
 
     public PlayerPressurePlatesClient(ClientLoader loader) {

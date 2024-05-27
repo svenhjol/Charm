@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.client.ClientLoader;
 import svenhjol.charm.foundation.common.CommonResolver;
 
 @Feature
-public class PiglinPointingClient extends ClientFeature implements CommonResolver<PiglinPointing> {
+public final class PiglinPointingClient extends ClientFeature implements CommonResolver<PiglinPointing> {
     public final Handlers handlers;
 
     public PiglinPointingClient(ClientLoader loader) {

@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Prevents crop trampling when wearing boots enchanted with Feather Falling.")
-public class CropFeatherFalling extends CommonFeature {
+public final class CropFeatherFalling extends CommonFeature {
     public final Handlers handlers;
 
     public CropFeatherFalling(CommonLoader loader) {

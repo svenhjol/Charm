@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "More ways to repair items using different materials.")
-public class ItemRepairing extends CommonFeature {
+public final class ItemRepairing extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
 

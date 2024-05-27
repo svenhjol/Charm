@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Allows some unstackable items to stack.")
-public class ItemStacking extends CommonFeature {
+public final class ItemStacking extends CommonFeature {
     public final Registers registers;
 
     @Configurable(name = "Enchanted book", description = "Enchanted book maximum stack size.")

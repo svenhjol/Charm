@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "A block that acts like sand but is powered like a block of redstone.")
-public class RedstoneSand extends CommonFeature {
+public final class RedstoneSand extends CommonFeature {
     public final Registers registers;
     public final Providers providers;
 

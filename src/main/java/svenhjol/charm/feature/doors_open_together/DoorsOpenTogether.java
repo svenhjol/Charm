@@ -6,7 +6,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Automatically opens double doors.")
-public class DoorsOpenTogether extends CommonFeature {
+public final class DoorsOpenTogether extends CommonFeature {
     public final Handlers handlers;
 
     public DoorsOpenTogether(CommonLoader loader) {

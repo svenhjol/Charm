@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Anvils are less likely to take damage when used. By default anvils are 50% stronger.")
-public class AnvilsLastLonger extends CommonFeature {
+public final class AnvilsLastLonger extends CommonFeature {
     public final Handlers handlers;
 
     @Configurable(

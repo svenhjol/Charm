@@ -27,6 +27,6 @@ public final class Registers extends RegisterHolder<EbonyWoodClient> {
 
         // Foliage colors.
         registry.itemColor(List.of(leaves.block));
-        registry.blockColor(List.of(leaves.block));
+        registry.blockColor(registry::handleLeavesColor, List.of(leaves.block));
     }
 }

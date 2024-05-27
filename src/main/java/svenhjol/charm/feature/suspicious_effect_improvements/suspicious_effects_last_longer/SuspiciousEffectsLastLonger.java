@@ -10,7 +10,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(description = "Suspicious effects from stews and flowers last longer.")
-public class SuspiciousEffectsLastLonger extends CommonFeature implements ChildFeature<SuspiciousEffectImprovements> {
+public final class SuspiciousEffectsLastLonger extends CommonFeature implements ChildFeature<SuspiciousEffectImprovements> {
     public final Handlers handlers;
 
     @Configurable(

@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Torchflowers emit ambient light.")
-public class TorchflowersEmitLight extends CommonFeature {
+public final class TorchflowersEmitLight extends CommonFeature {
     public final Handlers handlers;
 
     @Configurable(

@@ -9,7 +9,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Raid horns are sometimes dropped from raid leaders and can be used to call off raids or summon pillagers.")
-public class RaidHorns extends CommonFeature {
+public final class RaidHorns extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
     public final Providers providers;

@@ -8,7 +8,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Adds more villager trades.")
-public class TradeImprovements extends CommonFeature {
+public final class TradeImprovements extends CommonFeature {
     public final Registers registers;
     public final Providers providers;
 

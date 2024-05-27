@@ -16,7 +16,7 @@ import svenhjol.charm.foundation.feature.ChildFeature;
 import java.util.List;
 
 @Feature(description = "Some mobs have a chance to drop additional items either by chance or when killed.")
-public class MobDrops extends CommonFeature {
+public final class MobDrops extends CommonFeature {
     public static final double LOOTING_MULTIPLIER = 0.1d;
 
     public final Registers registers;

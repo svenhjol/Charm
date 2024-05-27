@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.common.CommonFeature;
 import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Tamed animals do not take direct damage from players.")
-public class AnimalDamageImmunity extends CommonFeature {
+public final class AnimalDamageImmunity extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
 

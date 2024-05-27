@@ -7,7 +7,7 @@ import svenhjol.charm.foundation.common.CommonLoader;
 @Feature(enabledByDefault = false, description = """
     The repsawn anchor can be used in any dimension.
     This feature changes core gameplay so is disabled by default.""")
-public class RespawnAnchorsWorkEverywhere extends CommonFeature {
+public final class RespawnAnchorsWorkEverywhere extends CommonFeature {
     public RespawnAnchorsWorkEverywhere(CommonLoader loader) {
         super(loader);
     }
