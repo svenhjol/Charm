@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.RecipeBookCategories;
+import net.minecraft.client.color.block.BlockColor;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
@@ -79,8 +80,8 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
         this.log = new Log(loader.id(), this);
     }
 
-    public void blockColor(List<Supplier<? extends Block>> blocks) {
-        ColorProviderRegistry.BLOCK.register(this::handleBlockColor, blocks.stream().map(Supplier::get).toList().toArray(Block[]::new));
+    public void blockColor(BlockColor blockColor, List<Supplier<? extends Block>> blocks) {
+        ColorProviderRegistry.BLOCK.register(blockColor, blocks.stream().map(Supplier::get).toList().toArray(Block[]::new));
     }
 
     public <T extends BlockEntity> void blockEntityRenderer(Supplier<BlockEntityType<T>> supplier, Supplier<BlockEntityRendererProvider<T>> provider) {
@@ -215,7 +216,7 @@ public final class ClientRegistry implements svenhjol.charm.foundation.Registry 
         return blockColors.getColor(state, null, null, tintIndex);
     }
 
-    private int handleBlockColor(BlockState state, BlockAndTintGetter level, BlockPos pos, int tintIndex) {
+    public int handleLeavesColor(BlockState state, BlockAndTintGetter level, BlockPos pos, int tintIndex) {
         return level != null && pos != null ? BiomeColors.getAverageFoliageColor(level, pos) : FoliageColor.getDefaultColor();
     }
 }
