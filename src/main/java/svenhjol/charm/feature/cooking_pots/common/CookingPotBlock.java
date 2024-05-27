@@ -7,17 +7,14 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.WorldlyContainer;
-import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -36,7 +33,7 @@ import svenhjol.charm.foundation.feature.FeatureResolver;
 
 import java.util.function.Supplier;
 
-public class CookingPotBlock extends BaseEntityBlock implements WorldlyContainerHolder, FeatureResolver<CookingPots> {
+public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<CookingPots> {
     public static IntegerProperty PORTIONS = IntegerProperty.create("portions", 0,
         Resolve.feature(CookingPots.class).handlers.getMaxPortions());
     public static EnumProperty<CookingStatus> COOKING_STATUS = EnumProperty.create("cooking_status", CookingStatus.class);
@@ -55,7 +52,7 @@ public class CookingPotBlock extends BaseEntityBlock implements WorldlyContainer
 
         registerDefaultState(defaultBlockState()
             .setValue(PORTIONS, 0)
-            .setValue(COOKING_STATUS, CookingStatus.NONE));
+            .setValue(COOKING_STATUS, CookingStatus.EMPTY));
     }
 
     private CookingPotBlock(BlockBehaviour.Properties properties) {
@@ -70,14 +67,14 @@ public class CookingPotBlock extends BaseEntityBlock implements WorldlyContainer
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                               InteractionHand hand, BlockHitResult hitResult) {
-        return feature().handlers.addItemToPot(stack, state, level, pos, player)
+        return feature().handlers.playerAddItemToPot(stack, state, level, pos, player)
             .asItemInteractionResult(level.isClientSide);
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new BlockEntity(pos, state);
+    public CookingPotBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new CookingPotBlockEntity(pos, state);
     }
 
     @Override
@@ -104,7 +101,7 @@ public class CookingPotBlock extends BaseEntityBlock implements WorldlyContainer
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         int portions = state.getValue(PORTIONS);
 
-        if (!(level.getBlockEntity(pos) instanceof BlockEntity pot)) {
+        if (!(level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot)) {
             return 0;
         }
 
@@ -116,32 +113,70 @@ public class CookingPotBlock extends BaseEntityBlock implements WorldlyContainer
     }
 
     @Override
-    public WorldlyContainer getContainer(BlockState state, LevelAccessor level, BlockPos pos) {
-        if (level.getBlockEntity(pos) instanceof BlockEntity pot && pot.canAddFood()) {
-            return new Containers.InputContainer(level, pos, state);
-        }
-        return new Containers.EmptyContainer();
-    }
-
-    @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
+        if (level.isClientSide()) return null;
+        return CookingPotBlock.createTickerHelper(blockEntity,
+            feature().registers.blockEntity.get(),
+            CookingPotBlockEntity::serverTick);
     }
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         super.animateTick(state, level, pos, random);
 
-        if (level.getBlockEntity(pos) instanceof BlockEntity pot) {
+        if (level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot) {
             if (pot.hasFire() && !pot.isEmpty()) {
                 int portions = state.getValue(PORTIONS);
+                var status = state.getValue(COOKING_STATUS);
 
-                if (random.nextInt(1) == 0) {
-                    level.addParticle(ParticleTypes.SMOKE,
+                if (status == CookingStatus.FILLED_WITH_WATER) {
+                    // When heated water, show white smoke and bubbles
+                    var count = random.nextInt(5);
+                    for (int i = 0; i < count; i++) {
+                        level.addParticle(ParticleTypes.WHITE_SMOKE,
+                            pos.getX() + 0.13d + (0.7d * random.nextDouble()),
+                            pos.getY() + (portions - 2) * 0.153d,
+                            pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
+                            0.0d, 0.0d, 0.0d);
+                    }
+                    level.addParticle(ParticleTypes.BUBBLE,
                         pos.getX() + 0.13d + (0.7d * random.nextDouble()),
-                        pos.getY() + portions * 0.153d,
+                        pos.getY() + (portions - 2) * 0.153d,
                         pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
-                        0.0d, 0.0d, 0.0d);
+                        0.3d, 0.3d, 0.3d);
+
+                } else if (status == CookingStatus.HAS_SOME_FOOD) {
+                    // When in progress, show black smoke.
+                    var count = random.nextInt(5);
+                    for (int i = 0; i < count; i++) {
+                        level.addParticle(ParticleTypes.SMOKE,
+                            pos.getX() + 0.13d + (0.7d * random.nextDouble()),
+                            pos.getY() + (portions - 2) * 0.153d,
+                            pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
+                            0.0d, 0.0d, 0.0d);
+                    }
+                } else if (status == CookingStatus.COOKED) {
+                    // When cooked, show puffy smoke and small black smoke.
+                    level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,
+                        pos.getX() + 0.13d + (0.7d * random.nextDouble()),
+                        pos.getY() + (portions - 2) * 0.153d,
+                        pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
+                        0.0d, 0.05d, 0.0d);
+
+                    var count = random.nextInt(5);
+                    for (int i = 0; i < count; i++) {
+                        level.addParticle(ParticleTypes.SMOKE,
+                            pos.getX() + 0.13d + (0.7d * random.nextDouble()),
+                            pos.getY() + (portions - 2) * 0.153d,
+                            pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
+                            0.0d, 0.0d, 0.0d);
+                    }
                 }
 
                 if (random.nextInt(16) == 0) {

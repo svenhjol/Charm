@@ -16,7 +16,7 @@ public final class Registers extends RegisterHolder<CookingPots> {
 
     public final Supplier<CookingPotBlock> block;
     public final Supplier<CookingPotBlock.BlockItem> blockItem;
-    public final Supplier<BlockEntityType<BlockEntity>> blockEntity;
+    public final Supplier<BlockEntityType<CookingPotBlockEntity>> blockEntity;
     public final Supplier<MixedStewItem> mixedStewItem;
     public final Supplier<SoundEvent> addSound;
     public final Supplier<SoundEvent> ambientSound;
@@ -29,7 +29,7 @@ public final class Registers extends RegisterHolder<CookingPots> {
 
         block = registry.block(BLOCK_ID, CookingPotBlock::new);
         blockItem = registry.item(BLOCK_ID, () -> new CookingPotBlock.BlockItem(block));
-        blockEntity = registry.blockEntity(BLOCK_ID, () -> BlockEntity::new, List.of(block));
+        blockEntity = registry.blockEntity(BLOCK_ID, () -> CookingPotBlockEntity::new, List.of(block));
 
         mixedStewFoodProperties = new FoodProperties.Builder()
             .nutrition(feature.hungerPerStew())

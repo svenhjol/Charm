@@ -20,9 +20,10 @@ public final class Handlers extends FeatureHolder<CookingPotsClient> {
     public int handleBlockColor(BlockState state, BlockAndTintGetter level, BlockPos pos, int tintIndex) {
         if (tintIndex == 0) {
             return switch (state.getValue(CookingPotBlock.COOKING_STATUS)) {
+                case EMPTY -> -1;
+                case FILLED_WITH_WATER -> 0x0088cc;
+                case HAS_SOME_FOOD -> 0x806030;
                 case COOKED -> 0x502800;
-                case IN_PROGRESS -> 0x806030;
-                case NONE -> 0x0088cc;
             };
         }
         return -1;

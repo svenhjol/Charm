@@ -3,8 +3,9 @@ package svenhjol.charm.feature.cooking_pots.common;
 import net.minecraft.util.StringRepresentable;
 
 public enum CookingStatus implements StringRepresentable {
-    NONE("none"),
-    IN_PROGRESS("in_progress"),
+    EMPTY("empty"),
+    FILLED_WITH_WATER("filled_with_water"),
+    HAS_SOME_FOOD("has_some_food"),
     COOKED("cooked");
 
     private final String name;
