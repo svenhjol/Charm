@@ -5,6 +5,7 @@ import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.bat_buckets.BatBucketsClient;
 import svenhjol.charm.feature.chairs.ChairsClient;
 import svenhjol.charm.feature.compasses_show_position.CompassesShowPosition;
+import svenhjol.charm.feature.cooking_pots.CookingPotsClient;
 import svenhjol.charm.feature.copper_pistons.CopperPistonsClient;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanternsClient;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
@@ -47,6 +48,7 @@ public final class CharmClient {
             BatBucketsClient.class,
             ChairsClient.class,
             CompassesShowPosition.class,
+            CookingPotsClient.class,
             CopperPistonsClient.class,
             CoralSeaLanternsClient.class,
             CoralSquidsClient.class,

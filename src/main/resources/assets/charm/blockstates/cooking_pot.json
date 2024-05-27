@@ -1,0 +1,73 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot"
+      }
+    },
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot_level1"
+      },
+      "when": {
+        "portions": "1"
+      }
+    },
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot_level2"
+      },
+      "when": {
+        "portions": "2"
+      }
+    },
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot_level3"
+      },
+      "when": {
+        "portions": "3"
+      }
+    },
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot_level4"
+      },
+      "when": {
+        "portions": "4"
+      }
+    },
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot_level5"
+      },
+      "when": {
+        "portions": "5"
+      }
+    },
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot_level6"
+      },
+      "when": {
+        "portions": "6"
+      }
+    },
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot_level7"
+      },
+      "when": {
+        "portions": "7"
+      }
+    },
+    {
+      "apply": {
+        "model": "charm:block/cooking_pot_level8"
+      },
+      "when": {
+        "portions": "8"
+      }
+    }
+  ]
+}

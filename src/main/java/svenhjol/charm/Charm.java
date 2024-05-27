@@ -15,6 +15,7 @@ import svenhjol.charm.feature.beekeepers.Beekeepers;
 import svenhjol.charm.feature.campfires_heal_players.CampfiresHealPlayers;
 import svenhjol.charm.feature.chairs.Chairs;
 import svenhjol.charm.feature.collection.Collection;
+import svenhjol.charm.feature.cooking_pots.CookingPots;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanterns;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
@@ -98,6 +99,7 @@ public final class Charm {
             CampfiresHealPlayers.class,
             Chairs.class,
             Collection.class,
+            CookingPots.class,
             CopperPistons.class,
             CoralSeaLanterns.class,
             CoralSquids.class,

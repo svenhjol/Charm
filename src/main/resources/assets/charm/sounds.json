@@ -59,6 +59,54 @@
     ],
     "subtitle": "subtitles.charm.item.bat_bucket.release"
   },
+
+  "cooking_pot_add": {
+    "sounds": [
+      {
+        "name": "charm:cooking_pot_add1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:cooking_pot_add2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:cooking_pot_add3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.cooking_pot.add"
+  },
+  "cooking_pot_ambient": {
+    "sounds": [
+      {
+        "name": "charm:cooking_pot_ambient1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:cooking_pot_ambient2",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.cooking_pot.ambient"
+  },
+  "cooking_pot_take": {
+    "sounds": [
+      {
+        "name": "charm:cooking_pot_take1",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:cooking_pot_take2",
+        "volume": 1.0
+      },
+      {
+        "name": "charm:cooking_pot_take3",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.cooking_pot.take"
+  },
   "create_suspicious_block": {
     "sounds": [
       {

@@ -1,0 +1,35 @@
+{
+  "parent": "charm:core/tools",
+  "display": {
+    "icon": {
+      "id": "charm:cooking_pot"
+    },
+    "title": {
+      "translate": "advancements.charm.obtained_cooking_pot.title"
+    },
+    "description": {
+      "translate": "advancements.charm.obtained_cooking_pot.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "obtained_cooking_pot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["charm:cooking_pot"]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "obtained_cooking_pot"
+    ]
+  ]
+}

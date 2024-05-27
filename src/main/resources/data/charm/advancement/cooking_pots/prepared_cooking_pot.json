@@ -1,0 +1,31 @@
+{
+  "parent": "charm:cooking_pots/obtained_cooking_pot",
+  "display": {
+    "icon": {
+      "id": "minecraft:water_bucket"
+    },
+    "title": {
+      "translate": "advancements.charm.prepared_cooking_pot.title"
+    },
+    "description": {
+      "translate": "advancements.charm.prepared_cooking_pot.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "prepared_cooking_pot": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:prepared_cooking_pot"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "prepared_cooking_pot"
+    ]
+  ]
+}
