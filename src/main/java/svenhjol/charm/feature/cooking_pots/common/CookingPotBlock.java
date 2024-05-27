@@ -113,6 +113,11 @@ public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<
     }
 
     @Override
+    public BlockState playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
+        return super.playerWillDestroy(level, blockPos, feature().registers.block.get().defaultBlockState(), player);
+    }
+
+    @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
