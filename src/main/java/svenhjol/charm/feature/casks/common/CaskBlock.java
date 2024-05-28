@@ -9,8 +9,6 @@ import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -19,7 +17,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -78,57 +75,8 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                               InteractionHand hand, BlockHitResult hitResult) {
-        var blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof CaskBlockEntity cask) {
-            if (!level.isClientSide) {
-                if (stack.getItem() == Items.NAME_TAG && stack.has(DataComponents.CUSTOM_NAME)) {
-
-                    // Name the cask using a name tag.
-                    cask.name = stack.getHoverName();
-                    cask.setChanged();
-
-                    level.playSound(null, pos, feature().registers.nameSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-                    stack.shrink(1);
-
-                } else if (stack.is(Items.GLASS_BOTTLE)) {
-
-                    // Take a bottle of liquid from the cask using a glass bottle.
-                    var out = cask.take();
-                    if (out != null) {
-                        player.getInventory().add(out);
-
-                        stack.shrink(1);
-
-                        if (cask.effects.size() > 1) {
-                            feature().advancements.tookLiquidFromCask(player);
-                        }
-                    }
-
-                } else if (feature().handlers.isValidPotion(stack)) {
-
-                    // Add a bottle of liquid to the cask using a filled glass bottle.
-                    var result = cask.add(stack);
-                    if (result) {
-                        stack.shrink(1);
-
-                        // give the glass bottle back to the player
-                        player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
-
-                        // Let nearby players know an item was added to the cask
-                        Networking.S2CAddedToCask.send((ServerLevel) level, pos);
-
-                        // do advancement for filling with potions
-                        if (cask.bottles > 1 && cask.effects.size() > 1) {
-                            feature().advancements.addedLiquidToCask(player);
-                        }
-                    }
-                }
-
-                return ItemInteractionResult.SUCCESS;
-            }
-        }
-
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return feature().handlers.playerAddToCask(stack, state, level, pos, player, hand, hitResult)
+            .asItemInteractionResult();
     }
 
     @Override

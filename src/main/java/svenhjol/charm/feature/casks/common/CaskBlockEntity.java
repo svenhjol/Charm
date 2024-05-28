@@ -334,10 +334,11 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
 
     @Override
     public boolean isEmpty() {
-        for (var item : items) {
-            if (!item.isEmpty()) return false;
-        }
-        return true;
+        return bottles == 0;
+    }
+
+    public boolean isFull() {
+        return bottles == CASKS.maxBottles();
     }
 
     @Override
@@ -393,12 +394,27 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
-        return !items.get(slot).isEmpty() && canPlaceItem(slot, stack);
+        return !items.get(slot).isEmpty();
     }
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        return stack.is(Items.GLASS_BOTTLE) || feature().handlers.isValidPotion(stack);
+        var handlers = feature().handlers;
+
+        if (!items.get(0).isEmpty() || !items.get(1).isEmpty()) {
+            // Don't add items if there's stuff still in the queue.
+            return false;
+        }
+
+        if (stack.is(Items.GLASS_BOTTLE) && !isEmpty()) {
+            return true;
+        }
+
+        if (handlers.isValidPotion(stack) && !isFull()) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override
