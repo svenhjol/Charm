@@ -31,4 +31,13 @@ public enum EventResult {
             case NONE, PASS -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         };
     }
+
+    public ItemInteractionResult asItemInteractionResult() {
+        return switch (this) {
+            case CONSUME -> ItemInteractionResult.CONSUME;
+            case CANCEL -> ItemInteractionResult.FAIL;
+            case SUCCESS -> ItemInteractionResult.SUCCESS;
+            case NONE, PASS -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        };
+    }
 }
