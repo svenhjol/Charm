@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "minecraft:custom_name",
+                "charm:cask_contents"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "charm:cask"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "charm:blocks/cask"
+}

@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "charm:block/cask"
+    },
+    "facing=down": {
+      "x": 180,
+      "model": "charm:block/cask"
+    },
+    "facing=north": {
+      "x": 90,
+      "model": "charm:block/cask"
+    },
+    "facing=east": {
+      "x": 90,
+      "y": 90,
+      "model": "charm:block/cask"
+    },
+    "facing=south": {
+      "x": 90,
+      "y": 180,
+      "model": "charm:block/cask"
+    },
+    "facing=west": {
+      "x": 90,
+      "y": 270,
+      "model": "charm:block/cask"
+    }
+  }
+}

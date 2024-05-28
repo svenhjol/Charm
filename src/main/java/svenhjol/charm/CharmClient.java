@@ -3,6 +3,7 @@ package svenhjol.charm;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpurClient;
 import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.bat_buckets.BatBucketsClient;
+import svenhjol.charm.feature.casks.CasksClient;
 import svenhjol.charm.feature.chairs.ChairsClient;
 import svenhjol.charm.feature.compasses_show_position.CompassesShowPosition;
 import svenhjol.charm.feature.cooking_pots.CookingPotsClient;
@@ -46,6 +47,7 @@ public final class CharmClient {
             ArcanePurpurClient.class,
             AtlasesClient.class,
             BatBucketsClient.class,
+            CasksClient.class,
             ChairsClient.class,
             CompassesShowPosition.class,
             CookingPotsClient.class,

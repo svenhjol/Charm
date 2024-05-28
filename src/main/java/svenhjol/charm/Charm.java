@@ -13,6 +13,7 @@ import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.beacons_heal_mobs.BeaconsHealMobs;
 import svenhjol.charm.feature.beekeepers.Beekeepers;
 import svenhjol.charm.feature.campfires_heal_players.CampfiresHealPlayers;
+import svenhjol.charm.feature.casks.Casks;
 import svenhjol.charm.feature.chairs.Chairs;
 import svenhjol.charm.feature.collection.Collection;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
@@ -97,6 +98,7 @@ public final class Charm {
             BeaconsHealMobs.class,
             Beekeepers.class,
             CampfiresHealPlayers.class,
+            Casks.class,
             Chairs.class,
             Collection.class,
             CookingPots.class,

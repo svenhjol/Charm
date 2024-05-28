@@ -59,7 +59,54 @@
     ],
     "subtitle": "subtitles.charm.item.bat_bucket.release"
   },
-
+  "cask_add": {
+    "sounds": [
+      {
+        "name": "charm:cask_add1",
+        "volume": 0.7
+      },
+      {
+        "name": "charm:cask_add2",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.charm.block.cask.add"
+  },
+  "cask_empty": {
+    "sounds": [
+      {
+        "name": "charm:cask_empty1",
+        "volume": 0.7
+      },
+      {
+        "name": "charm:cask_empty2",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.charm.block.cask.empty"
+  },
+  "cask_name": {
+    "sounds": [
+      {
+        "name": "charm:cask_name",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.cask.name"
+  },
+  "cask_take": {
+    "sounds": [
+      {
+        "name": "charm:cask_take1",
+        "volume": 0.7
+      },
+      {
+        "name": "charm:cask_take2",
+        "volume": 0.7
+      }
+    ],
+    "subtitle": "subtitles.charm.block.cask.take"
+  },
   "cooking_pot_add": {
     "sounds": [
       {
