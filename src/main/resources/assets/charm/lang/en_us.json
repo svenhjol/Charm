@@ -293,7 +293,7 @@
   "gui.charm.north": "north",
   "gui.charm.south": "south",
   "gui.charm.west": "west",
-  "gui.charm.cask.portions": "Number of bottles: %s",
+  "gui.charm.cask.bottles": "Number of bottles: %s",
   "gui.charm.cask.only_contains_water": "Only contains water",
   "gui.charm.compass.biome": "%s biome",
   "gui.charm.compass.closest_waypoint": "Closest waypoint: %s (%s)",

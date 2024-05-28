@@ -1,12 +1,14 @@
 package svenhjol.charm.feature.casks.common;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -15,8 +17,10 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -38,6 +42,7 @@ import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.feature.casks.Casks;
 import svenhjol.charm.foundation.feature.FeatureResolver;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -212,33 +217,31 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     public BlockState mirror(BlockState state, Mirror mirror) {
         return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
-//
-//    @Override
-//    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
-//        super.appendHoverText(stack, context, list, tooltipFlag);
-//
-//        var tag = BlockItem.getBlockEntityData(stack);
-//        if (tag != null) {
-//
-//            // Dumb hack, don't know why "id" isn't serialized via the loot table drop yet.
-//            // Witho ut it the call to BlockEntity.loadStatic fails.
-//            tag.put("id", StringTag.valueOf("strange:cask"));
-//
-//            var blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, feature().registers.block.get().defaultBlockState(), tag);
-//            if (blockEntity instanceof CaskBlockEntity cask && cask.bottles > 0) {
-//                list.add(Component.translatable("gui.strange.cask.portions", cask.bottles).withStyle(ChatFormatting.AQUA));
-//
-//                if (!cask.effects.isEmpty()) {
-//                    for (var effect : cask.effects) {
-//                        BuiltInRegistries.MOB_EFFECT.getOptional(effect).ifPresent(
-//                            mobEffect -> list.add(Component.translatable(mobEffect.getDescriptionId()).withStyle(ChatFormatting.BLUE)));
-//                    }
-//                } else {
-//                    list.add(Component.translatable("gui.strange.cask.only_contains_water").withStyle(ChatFormatting.BLUE));
-//                }
-//            }
-//        }
-//    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, list, tooltipFlag);
+        var caskData = stack.get(feature().registers.data.get());
+
+        if (caskData == null || caskData.bottles() == 0) {
+            return;
+        }
+
+        list.add(Component.translatable("gui.charm.cask.bottles", caskData.bottles())
+            .withStyle(ChatFormatting.AQUA));
+
+        if (!caskData.effects().isEmpty()) {
+            for (var effect : caskData.effects()) {
+                var mobEffect = BuiltInRegistries.MOB_EFFECT.get(effect);
+                if (mobEffect == null) continue;
+                list.add(Component.translatable(mobEffect.getDescriptionId())
+                    .withStyle(ChatFormatting.BLUE));
+            }
+        } else {
+            list.add(Component.translatable("gui.charm.cask.only_contains_water")
+                .withStyle(ChatFormatting.BLUE));
+        }
+    }
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
