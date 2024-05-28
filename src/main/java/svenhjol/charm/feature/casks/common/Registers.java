@@ -14,7 +14,7 @@ public final class Registers extends RegisterHolder<Casks> {
     public final Supplier<CaskBlock> block;
     public final Supplier<CaskBlock.BlockItem> blockItem;
     public final Supplier<BlockEntityType<CaskBlockEntity>> blockEntity;
-    public final Supplier<DataComponentType<CaskContentsData>> data;
+    public final Supplier<DataComponentType<CaskData>> data;
     public final Supplier<SoundEvent> addSound;
     public final Supplier<SoundEvent> emptySound;
     public final Supplier<SoundEvent> nameSound;
@@ -27,10 +27,10 @@ public final class Registers extends RegisterHolder<Casks> {
         block = registry.block(BLOCK_ID, CaskBlock::new);
         blockItem = registry.item(BLOCK_ID, () -> new CaskBlock.BlockItem(block));
         blockEntity = registry.blockEntity(BLOCK_ID, () -> CaskBlockEntity::new, List.of(block));
-        data = registry.dataComponent("charm:cask_contents",
+        data = registry.dataComponent("cask",
             () -> builder -> builder
-                .persistent(CaskContentsData.CODEC)
-                .networkSynchronized(CaskContentsData.STREAM_CODEC));
+                .persistent(CaskData.CODEC)
+                .networkSynchronized(CaskData.STREAM_CODEC));
 
         // Casks can be burned for fuel
         registry.fuel(block);

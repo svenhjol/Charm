@@ -11,31 +11,31 @@ import svenhjol.charm.foundation.Resolve;
 
 import java.util.List;
 
-public record Data(List<ItemStack> items, String message) {
+public record TotemData(List<ItemStack> items, String message) {
     private static final TotemOfPreserving TOTEM_OF_PRESERVING = Resolve.feature(TotemOfPreserving.class);
 
-    public static final Codec<Data> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final Codec<TotemData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("items")
-            .forGetter(Data::items),
+            .forGetter(TotemData::items),
         Codec.STRING.fieldOf("message")
-            .forGetter(Data::message)
-    ).apply(instance, Data::new));
+            .forGetter(TotemData::message)
+    ).apply(instance, TotemData::new));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, Data> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, TotemData> STREAM_CODEC = StreamCodec.composite(
         ItemStack.OPTIONAL_STREAM_CODEC.apply(ByteBufCodecs.list()),
-            Data::items,
+            TotemData::items,
         ByteBufCodecs.STRING_UTF8,
-            Data::message,
-        Data::new
+            TotemData::message,
+        TotemData::new
     );
 
-    public static final Data EMPTY = new Data(List.of(), "");
+    public static final TotemData EMPTY = new TotemData(List.of(), "");
 
     public static Mutable create() {
         return new Mutable(EMPTY);
     }
 
-    public static Data get(ItemStack stack) {
+    public static TotemData get(ItemStack stack) {
         return stack.getOrDefault(TOTEM_OF_PRESERVING.registers.data.get(), EMPTY);
     }
 
@@ -51,17 +51,17 @@ public record Data(List<ItemStack> items, String message) {
         private List<ItemStack> items;
         private String message;
 
-        public Mutable(Data data) {
+        public Mutable(TotemData data) {
             this.items = data.items();
             this.message = data.message();
         }
 
-        public Data toImmutable() {
-            return new Data(items, message);
+        public TotemData toImmutable() {
+            return new TotemData(items, message);
         }
 
         public void save(ItemStack stack) {
-            Data.set(stack, this);
+            TotemData.set(stack, this);
         }
 
         public Mutable setMessage(String message) {

@@ -190,8 +190,9 @@ public final class CommonRegistry implements svenhjol.charm.foundation.Registry 
 
     public <T> Register<DataComponentType<T>> dataComponent(String id, Supplier<UnaryOperator<DataComponentType.Builder<T>>> dataComponent) {
         return new Register<>(() -> {
+            var res = id(id);
             log("Data component " + id);
-            return DataComponents.register(id, dataComponent.get());
+            return DataComponents.register(res.toString(), dataComponent.get());
         });
     }
 

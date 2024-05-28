@@ -14,7 +14,7 @@ public final class Registers extends RegisterHolder<AnimalReviving> {
     public Registers(AnimalReviving feature) {
         super(feature);
 
-        data = feature().registry().dataComponent("charm_revived_animal",
+        data = feature().registry().dataComponent("revived_animal",
             () -> builder -> builder
                 .persistent(Data.CODEC)
                 .networkSynchronized(Data.STREAM_CODEC));

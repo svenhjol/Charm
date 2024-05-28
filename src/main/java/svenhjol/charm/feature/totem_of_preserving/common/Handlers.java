@@ -61,7 +61,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
             var damage = totemBlockEntity.getDamage();
 
             // Set data for the totem.
-            Data.create()
+            TotemData.create()
                 .setItems(items)
                 .setMessage(message)
                 .save(totem);
@@ -131,7 +131,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
                         continue;
                     }
 
-                    var data = Data.get(held);
+                    var data = TotemData.get(held);
                     if (!data.items().isEmpty()) {
                         continue;
                     }
@@ -352,7 +352,7 @@ public final class Handlers extends FeatureHolder<TotemOfPreserving> {
 
     public ItemStackResult useTotemInHand(Level level, Player player, InteractionHand hand) {
         var totem = player.getItemInHand(hand);
-        var data = Data.get(totem);
+        var data = TotemData.get(totem);
         var pos = player.blockPosition();
         var destroyTotem = false;
 

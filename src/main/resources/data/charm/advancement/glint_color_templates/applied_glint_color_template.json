@@ -5,8 +5,8 @@
       "id": "minecraft:netherite_sword",
       "components": {
         "minecraft:enchantment_glint_override": true,
-        "minecraft:charm_glint_color": {
-          "color": "red"
+        "charm:glint_color": {
+          "color": "lime"
         }
       }
     },

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public final class Registers extends RegisterHolder<TotemOfPreserving> {
-    public final Supplier<DataComponentType<Data>> data;
+    public final Supplier<DataComponentType<TotemData>> data;
     public final Supplier<net.minecraft.world.item.Item> item;
     public final Supplier<net.minecraft.world.level.block.Block> block;
     public final Supplier<BlockEntityType<BlockEntity>> blockEntity;
@@ -23,10 +23,10 @@ public final class Registers extends RegisterHolder<TotemOfPreserving> {
         super(feature);
         var registry = feature.registry();
 
-        data = registry.dataComponent("charm_totem_data",
+        data = registry.dataComponent("totem_of_preserving",
             () -> builder -> builder
-                .persistent(Data.CODEC)
-                .networkSynchronized(Data.STREAM_CODEC));
+                .persistent(TotemData.CODEC)
+                .networkSynchronized(TotemData.STREAM_CODEC));
 
         block = registry.block("totem_of_preserving_holder", Block::new);
         item = registry.item("totem_of_preserving", Item::new);

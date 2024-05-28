@@ -17,8 +17,8 @@ public final class Registers extends RegisterHolder<PotionOfRadiance> {
         super(feature);
         var registry = feature.registry();
 
-        potion = registry.potion("charm_radiance", RadiancePotion::new);
-        longPotion = registry.potion("charm_long_radiance", LongRadiancePotion::new);
+        potion = registry.potion("radiance", RadiancePotion::new);
+        longPotion = registry.potion("long_radiance", LongRadiancePotion::new);
 
         registry.brewingRecipe(
             Potions.AWKWARD,

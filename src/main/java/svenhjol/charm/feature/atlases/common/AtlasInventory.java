@@ -284,9 +284,9 @@ public class AtlasInventory implements MenuProvider, Container {
 
     @Override
     public void setChanged() {
-        List<MapData> list = new ArrayList<>();
+        List<AtlasMapData> list = new ArrayList<>();
         for (MapInfo mapInfo : mapInfos.values()) {
-            list.add(MapData.fromMapInfo(mapInfo));
+            list.add(AtlasMapData.fromMapInfo(mapInfo));
         }
 
         AtlasData.getMutable(atlas)
@@ -371,7 +371,7 @@ public class AtlasInventory implements MenuProvider, Container {
             this.dimension = dimension;
         }
 
-        public static MapInfo readFrom(MapData data) {
+        public static MapInfo readFrom(AtlasMapData data) {
             return new MapInfo(
                 data.x(),
                 data.z(),

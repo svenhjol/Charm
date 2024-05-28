@@ -11,7 +11,7 @@
               "function": "minecraft:copy_components",
               "include": [
                 "minecraft:custom_name",
-                "charm:cask_contents"
+                "charm:cask"
               ],
               "source": "block_entity"
             }

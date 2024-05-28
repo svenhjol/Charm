@@ -291,7 +291,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
     @Override
     protected void applyImplicitComponents(DataComponentInput input) {
         super.applyImplicitComponents(input);
-        var caskData = input.getOrDefault(feature().registers.data.get(), CaskContentsData.EMPTY);
+        var caskData = input.getOrDefault(feature().registers.data.get(), CaskData.EMPTY);
 
         this.name = input.get(DataComponents.CUSTOM_NAME);
         this.bottles = caskData.bottles();
@@ -307,7 +307,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         var caskData = feature().registers.data.get();
 
         builder.set(DataComponents.CUSTOM_NAME, this.name);
-        builder.set(caskData, new CaskContentsData(
+        builder.set(caskData, new CaskData(
             this.bottles,
             this.effects,
             this.durations,

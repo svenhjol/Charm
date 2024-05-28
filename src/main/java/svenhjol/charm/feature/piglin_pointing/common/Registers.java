@@ -27,7 +27,7 @@ public final class Registers extends RegisterHolder<PiglinPointing> {
         super(feature);
 
         entityDataIsPointing = SynchedEntityData.defineId(Piglin.class, EntityDataSerializers.BOOLEAN);
-        pointingAtTarget = feature.registry().memoryModuleType("charm_pointing_at_target");
+        pointingAtTarget = feature.registry().memoryModuleType("pointing_at_target");
 
         registerDirectionBartering(Tags.PIGLIN_BARTERS_FOR_BASTIONS, Tags.PIGLIN_BASTION_LOCATED);
         registerDirectionBartering(Tags.PIGLIN_BARTERS_FOR_FORTRESSES, Tags.PIGLIN_FORTRESS_LOCATED);

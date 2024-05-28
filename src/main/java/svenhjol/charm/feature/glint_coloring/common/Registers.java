@@ -12,7 +12,7 @@ public final class Registers extends RegisterHolder<GlintColoring> {
     public Registers(GlintColoring feature) {
         super(feature);
 
-        data = feature.registry().dataComponent("charm_glint_color",
+        data = feature.registry().dataComponent("glint_color",
             () -> builder -> builder
                 .persistent(GlintColorData.CODEC)
                 .networkSynchronized(GlintColorData.STREAM_CODEC));

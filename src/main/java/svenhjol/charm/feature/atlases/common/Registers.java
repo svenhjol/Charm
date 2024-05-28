@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 public final class Registers extends RegisterHolder<Atlases> {
     public final Supplier<DataComponentType<AtlasData>> atlasData;
-    public final Supplier<DataComponentType<MapData>> mapData;
+    public final Supplier<DataComponentType<AtlasMapData>> mapData;
     public final Supplier<Item> item;
     public final Supplier<MenuType<Menu>> menuType;
     public final Supplier<SoundEvent> openSound;
@@ -29,15 +29,15 @@ public final class Registers extends RegisterHolder<Atlases> {
         closeSound = registry.soundEvent("atlas_close");
 
         // Data components for the atlas and the map.
-        atlasData = registry.dataComponent("charm_atlas_data",
+        atlasData = registry.dataComponent("atlas",
             () -> builder -> builder
                 .persistent(AtlasData.CODEC)
                 .networkSynchronized(AtlasData.STREAM_CODEC));
 
-        mapData = registry.dataComponent("charm_map_data",
+        mapData = registry.dataComponent("atlas_map",
             () -> builder -> builder
-                .persistent(MapData.CODEC)
-                .networkSynchronized(MapData.STREAM_CODEC));
+                .persistent(AtlasMapData.CODEC)
+                .networkSynchronized(AtlasMapData.STREAM_CODEC));
 
         // Server packet senders
         registry.serverPacketSender(Networking.S2CSwappedAtlasSlot.TYPE,

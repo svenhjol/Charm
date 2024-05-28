@@ -22,7 +22,7 @@ public final class AtlasData {
     public static final Codec<AtlasData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.listOf().fieldOf("empty_maps")
             .forGetter(a -> a.emptyMaps),
-        MapData.CODEC.listOf().fieldOf("filled_maps")
+        AtlasMapData.CODEC.listOf().fieldOf("filled_maps")
             .forGetter(a -> a.filledMaps),
         Codec.STRING.fieldOf("id")
             .forGetter(a -> a.id),
@@ -35,7 +35,7 @@ public final class AtlasData {
     public static final StreamCodec<RegistryFriendlyByteBuf, AtlasData> STREAM_CODEC = StreamCodec.composite(
         ItemStack.OPTIONAL_STREAM_CODEC.apply(ByteBufCodecs.list()),
             a -> a.emptyMaps,
-        MapData.STREAM_CODEC.apply(ByteBufCodecs.list()),
+        AtlasMapData.STREAM_CODEC.apply(ByteBufCodecs.list()),
             a -> a.filledMaps,
         ByteBufCodecs.STRING_UTF8,
             a -> a.id,
@@ -47,12 +47,12 @@ public final class AtlasData {
     );
 
     private final NonNullList<ItemStack> emptyMaps;
-    private final List<MapData> filledMaps;
+    private final List<AtlasMapData> filledMaps;
     private final int activeMap;
     private final String id;
     private final int scale;
 
-    public AtlasData(List<ItemStack> emptyMaps, List<MapData> filledMaps, String id, int scale, int active) {
+    public AtlasData(List<ItemStack> emptyMaps, List<AtlasMapData> filledMaps, String id, int scale, int active) {
         this.activeMap = active;
         this.id = id;
         this.scale = scale;
@@ -93,7 +93,7 @@ public final class AtlasData {
         return emptyMaps;
     }
 
-    public List<MapData> getFilledMaps() {
+    public List<AtlasMapData> getFilledMaps() {
         return filledMaps;
     }
 
@@ -111,7 +111,7 @@ public final class AtlasData {
 
     public static class Mutable {
         private List<ItemStack> emptyMaps;
-        private List<MapData> filledMaps;
+        private List<AtlasMapData> filledMaps;
         private int activeMap;
         private String id;
         private int scale;
@@ -154,7 +154,7 @@ public final class AtlasData {
             return this;
         }
 
-        public Mutable setFilledMaps(List<MapData> filledMaps) {
+        public Mutable setFilledMaps(List<AtlasMapData> filledMaps) {
             this.filledMaps = filledMaps;
             return this;
         }

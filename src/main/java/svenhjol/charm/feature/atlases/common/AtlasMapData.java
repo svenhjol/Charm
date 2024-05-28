@@ -14,38 +14,38 @@ import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.foundation.Resolve;
 
 @SuppressWarnings("unused")
-public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Level> dimension) {
+public record AtlasMapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Level> dimension) {
     private static final Atlases ATLASES = Resolve.feature(Atlases.class);
 
-    public static final Codec<MapData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final Codec<AtlasMapData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ItemStack.OPTIONAL_CODEC.fieldOf("map")
-            .forGetter(MapData::map),
+            .forGetter(AtlasMapData::map),
         MapId.CODEC.fieldOf("map_id")
-            .forGetter(MapData::mapId),
+            .forGetter(AtlasMapData::mapId),
         Codec.INT.fieldOf("x")
-            .forGetter(MapData::x),
+            .forGetter(AtlasMapData::x),
         Codec.INT.fieldOf("z")
-            .forGetter(MapData::z),
+            .forGetter(AtlasMapData::z),
         ResourceKey.codec(Registries.DIMENSION).fieldOf("dimension")
             .forGetter(a -> a.dimension)
-    ).apply(instance, MapData::new));
+    ).apply(instance, AtlasMapData::new));
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, MapData> STREAM_CODEC = StreamCodec.composite(
+    public static final StreamCodec<RegistryFriendlyByteBuf, AtlasMapData> STREAM_CODEC = StreamCodec.composite(
         ItemStack.OPTIONAL_STREAM_CODEC,
-            MapData::map,
+            AtlasMapData::map,
         MapId.STREAM_CODEC,
-            MapData::mapId,
+            AtlasMapData::mapId,
         ByteBufCodecs.INT,
-            MapData::x,
+            AtlasMapData::x,
         ByteBufCodecs.INT,
-            MapData::z,
+            AtlasMapData::z,
         ResourceKey.streamCodec(Registries.DIMENSION),
-            MapData::dimension,
-        MapData::new
+            AtlasMapData::dimension,
+        AtlasMapData::new
     );
 
-    public static MapData fromMapInfo(AtlasInventory.MapInfo mapInfo) {
-        return new MapData(
+    public static AtlasMapData fromMapInfo(AtlasInventory.MapInfo mapInfo) {
+        return new AtlasMapData(
             mapInfo.map,
             mapInfo.mapId,
             mapInfo.x,
@@ -58,7 +58,7 @@ public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Leve
         return stack.has(ATLASES.registers.mapData.get());
     }
 
-    public static MapData get(ItemStack stack) {
+    public static AtlasMapData get(ItemStack stack) {
         return stack.get(ATLASES.registers.mapData.get());
     }
 
@@ -79,7 +79,7 @@ public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Leve
         private int z;
         private ResourceKey<Level> dimension;
 
-        public Mutable(MapData data) {
+        public Mutable(AtlasMapData data) {
             this.map = data.map;
             this.mapId = data.mapId;
             this.x = data.x;
@@ -87,12 +87,12 @@ public record MapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Leve
             this.dimension = data.dimension;
         }
 
-        public MapData toImmutable() {
-            return new MapData(map, mapId, x, z, dimension);
+        public AtlasMapData toImmutable() {
+            return new AtlasMapData(map, mapId, x, z, dimension);
         }
 
         public void save(ItemStack stack) {
-            MapData.set(stack, this);
+            AtlasMapData.set(stack, this);
         }
 
         public Mutable setDimension(ResourceKey<Level> dimension) {

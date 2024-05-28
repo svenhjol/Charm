@@ -56,7 +56,7 @@ public class Item extends CharmItem<TotemOfPreserving> {
 
     @Override
     public void appendHoverText(ItemStack totem, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        var data = Data.get(totem);
+        var data = TotemData.get(totem);
 
         if (!data.message().isEmpty()) {
             tooltip.add(Component.literal(data.message()));
@@ -73,7 +73,7 @@ public class Item extends CharmItem<TotemOfPreserving> {
 
     @Override
     public Optional<TooltipComponent> getTooltipImage(ItemStack totem) {
-        var data = Data.get(totem);
+        var data = TotemData.get(totem);
         if (data.items().isEmpty()) {
             return Optional.empty();
         }
