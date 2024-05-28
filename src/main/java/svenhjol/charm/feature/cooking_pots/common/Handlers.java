@@ -72,7 +72,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
         return valid;
     }
 
-    public EventResult playerAddItemToPot(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player) {
+    public EventResult playerAddToPot(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player) {
         var blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof CookingPotBlockEntity pot) {
             if (isWaterBucket(stack) && !level.isClientSide() && pot.canAddWater()) {
@@ -129,7 +129,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
         return EventResult.PASS;
     }
 
-    public void hopperAddItemToPot(CookingPotBlockEntity pot) {
+    public void hopperAddToPot(CookingPotBlockEntity pot) {
         var input = pot.items.get(0);
         var output = pot.items.get(1);
 

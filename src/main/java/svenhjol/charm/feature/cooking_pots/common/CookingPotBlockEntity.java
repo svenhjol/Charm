@@ -46,7 +46,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, CookingPotBlockEntity pot) {
-        COOKING_POTS.handlers.hopperAddItemToPot(pot);
+        COOKING_POTS.handlers.hopperAddToPot(pot);
     }
 
     @Override
@@ -96,6 +96,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
         return false;
     }
 
+    @Override
     public boolean isEmpty() {
         return feature().handlers.isEmpty(getBlockState());
     }
@@ -254,11 +255,17 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
         if (!items.get(0).isEmpty() || !items.get(1).isEmpty()) {
             // Don't add any items if there's stuff stuck in the queue.
             return false;
-        } else if ((handlers.isWaterBucket(stack) || handlers.isWaterBottle(stack)) && canAddWater()) {
+        }
+
+        if ((handlers.isWaterBucket(stack) || handlers.isWaterBottle(stack)) && canAddWater()) {
             return true;
-        } else if (handlers.isFood(stack) && canAddFood()) {
+        }
+
+        if (handlers.isFood(stack) && canAddFood()) {
             return true;
-        } else if (stack.is(Items.BOWL) && hasFinishedCooking()) {
+        }
+
+        if (stack.is(Items.BOWL) && hasFinishedCooking()) {
             return true;
         }
 

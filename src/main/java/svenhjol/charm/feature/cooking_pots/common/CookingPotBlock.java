@@ -67,7 +67,7 @@ public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                               InteractionHand hand, BlockHitResult hitResult) {
-        return feature().handlers.playerAddItemToPot(stack, state, level, pos, player)
+        return feature().handlers.playerAddToPot(stack, state, level, pos, player)
             .asItemInteractionResult(level.isClientSide);
     }
 
