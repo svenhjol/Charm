@@ -141,10 +141,6 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         List<MobEffectInstance> potionEffects = new ArrayList<>();
         potion.getAllEffects().forEach(potionEffects::add);
 
-        if (!potion.hasEffects()) {
-            return false;
-        }
-
         if (bottles < feature().maxBottles()) {
 
             // Reset effects if fresh cask
