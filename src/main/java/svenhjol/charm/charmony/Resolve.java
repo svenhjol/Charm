@@ -1,14 +1,9 @@
 package svenhjol.charm.charmony;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.charmony.client.ClientFeature;
-import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonFeature;
-import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.charmony.enums.Side;
-import svenhjol.charm.charmony.server.ServerFeature;
-import svenhjol.charm.charmony.server.ServerLoader;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -24,22 +19,18 @@ import java.util.Optional;
  */
 @SuppressWarnings("unchecked")
 public final class Resolve {
-    private static final Log LOGGER = new Log(Charmony.ID, "Resolve");
+    private static final Map<Side, Map<String, Loader<?>>> LOADERS = new LinkedHashMap<>();
+    private static final Map<Class<? extends Feature>, Feature> FEATURES = new LinkedHashMap<>();
 
-    private static final Map<String, CommonLoader> COMMON_LOADERS = new LinkedHashMap<>();
-    private static final Map<String, ClientLoader> CLIENT_LOADERS = new LinkedHashMap<>();
-    private static final Map<String, ServerLoader> SERVER_LOADERS = new LinkedHashMap<>();
-
-    private static final Map<Class<? extends Feature>, CommonFeature> COMMON_FEATURES = new LinkedHashMap<>();
-    private static final Map<Class<? extends Feature>, ClientFeature> CLIENT_FEATURES = new LinkedHashMap<>();
-    private static final Map<Class<? extends Feature>, ServerFeature> SERVER_FEATURES = new LinkedHashMap<>();
-
+    /**
+     * Return true if a loader exists for the given side and modId.
+     */
     public static boolean hasLoader(Side side, String id) {
-        return switch (side) {
-            case COMMON -> COMMON_LOADERS.containsKey(id);
-            case CLIENT -> CLIENT_LOADERS.containsKey(id);
-            case SERVER -> SERVER_LOADERS.containsKey(id);
-        };
+        if (LOADERS.containsKey(side)) {
+            var loaders = LOADERS.get(side);
+            return loaders.containsKey(id);
+        }
+        return false;
     }
 
     /**
@@ -47,12 +38,14 @@ public final class Resolve {
      */
     public static boolean isEnabled(Side side, ResourceLocation id) {
         var namespace = id.getNamespace();
+        Loader<?> loader;
 
-        var loader = switch (side) {
-            case COMMON -> COMMON_LOADERS.get(namespace);
-            case CLIENT -> CLIENT_LOADERS.get(namespace);
-            case SERVER -> SERVER_LOADERS.get(namespace);
-        };
+        if (LOADERS.containsKey(side)) {
+            var loaders = LOADERS.get(side);
+            loader = loaders.get(namespace);
+        } else {
+            loader = null;
+        }
 
         if (loader == null) {
             return false;
@@ -75,61 +68,20 @@ public final class Resolve {
 
     public static <F extends Feature> F register(F feature) {
         var clazz = feature.getClass();
-        var supertype = clazz.getSuperclass();
-
-        if (supertype.equals(CommonFeature.class)) {
-            COMMON_FEATURES.put(clazz, (CommonFeature) feature);
-        } else if (supertype.equals(ClientFeature.class)) {
-            CLIENT_FEATURES.put(clazz, (ClientFeature) feature);
-        } else if (supertype.equals(ServerFeature.class)) {
-            SERVER_FEATURES.put(clazz, (ServerFeature) feature);
-        } else {
-            LOGGER.die("Could not determine supertype for " + clazz);
-        }
-
+        FEATURES.put(clazz, feature);
         return feature;
     }
 
     public static <F extends Feature, L extends Loader<F>> L register(L loader) {
         var id = loader.id();
-        var clazz = loader.getClass();
+        var side = loader.side();
 
-        if (clazz.equals(CommonLoader.class)) {
-            COMMON_LOADERS.put(id, (CommonLoader) loader);
-        } else if (clazz.equals(ClientLoader.class)) {
-            CLIENT_LOADERS.put(id, (ClientLoader) loader);
-        } else if (clazz.equals(ServerLoader.class)) {
-            SERVER_LOADERS.put(id, (ServerLoader) loader);
-        } else {
-            LOGGER.die("Could not determine class for " + clazz);
-        }
-
+        LOADERS.computeIfAbsent(side, m -> new HashMap<>()).put(id, loader);
         return loader;
     }
 
     public static <F extends Feature> Optional<F> tryFeature(Class<F> clazz) {
-        var supertype = clazz.getSuperclass();
-        F resolved = null;
-
-        if (supertype.equals(CommonFeature.class)) {
-            if (!COMMON_FEATURES.containsKey(clazz)) {
-                return Optional.empty();
-            }
-            resolved = (F) COMMON_FEATURES.get(clazz);
-        } else if (supertype.equals(ClientFeature.class)) {
-            if (!CLIENT_FEATURES.containsKey(clazz)) {
-                return Optional.empty();
-            }
-            resolved = (F) CLIENT_FEATURES.get(clazz);
-        } else if (supertype.equals(ServerFeature.class)) {
-            if (!SERVER_FEATURES.containsKey(clazz)) {
-                return Optional.empty();
-            }
-            resolved = (F) SERVER_FEATURES.get(clazz);
-        } else {
-            LOGGER.die("Could not determine supertype for " + clazz);
-        }
-
+        F resolved = (F) FEATURES.get(clazz);
         return Optional.ofNullable(resolved);
     }
 }

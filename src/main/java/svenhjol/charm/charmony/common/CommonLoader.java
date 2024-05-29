@@ -3,6 +3,7 @@ package svenhjol.charm.charmony.common;
 import svenhjol.charm.charmony.Loader;
 import svenhjol.charm.charmony.Log;
 import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.enums.Side;
 
 public class CommonLoader extends Loader<CommonFeature> {
     private final CommonConfig config;
@@ -15,6 +16,11 @@ public class CommonLoader extends Loader<CommonFeature> {
         this.config = new CommonConfig(this);
         this.registry = new CommonRegistry(this);
         this.events = new CommonEvents(this);
+    }
+
+    @Override
+    public Side side() {
+        return Side.COMMON;
     }
 
     public static CommonLoader create(String id) {

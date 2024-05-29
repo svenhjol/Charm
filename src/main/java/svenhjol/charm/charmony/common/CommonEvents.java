@@ -30,9 +30,9 @@ import svenhjol.charm.api.event.*;
 import svenhjol.charm.charmony.Charmony;
 import svenhjol.charm.charmony.Log;
 import svenhjol.charm.charmony.common.event.BlockBreakSpeedCallback;
-import svenhjol.charm.charmony.common.event.EntityTickCallback;
 import svenhjol.charm.charmony.common.event.PlayerLoginCallback;
-import svenhjol.charm.charmony.common.event.PlayerTickCallback;
+import svenhjol.charm.charmony.event.EntityTickCallback;
+import svenhjol.charm.charmony.event.PlayerTickCallback;
 
 import javax.annotation.Nullable;
 

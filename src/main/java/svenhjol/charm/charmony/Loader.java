@@ -1,6 +1,7 @@
 package svenhjol.charm.charmony;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.charmony.enums.Side;
 import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.charmony.feature.Conditional;
 import svenhjol.charm.charmony.feature.LinkedFeature;
@@ -22,6 +23,8 @@ public abstract class Loader<F extends Feature> {
         this.id = id;
         this.log = new Log(id, this);
     }
+
+    public abstract Side side();
 
     /**
      * ID of the mod.

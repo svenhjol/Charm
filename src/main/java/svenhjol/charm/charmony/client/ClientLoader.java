@@ -4,6 +4,7 @@ import svenhjol.charm.charmony.Feature;
 import svenhjol.charm.charmony.Loader;
 import svenhjol.charm.charmony.Log;
 import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.enums.Side;
 
 import java.util.Comparator;
 
@@ -18,6 +19,11 @@ public class ClientLoader extends Loader<ClientFeature> {
         this.config = new ClientConfig(this);
         this.registry = new ClientRegistry(this);
         this.events = new ClientEvents(this);
+    }
+
+    @Override
+    public Side side() {
+        return Side.CLIENT;
     }
 
     public static ClientLoader create(String id) {
