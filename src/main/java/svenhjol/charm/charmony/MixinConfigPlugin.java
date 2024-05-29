@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import svenhjol.charm.charmony.common.helper.DebugHelper;
 import svenhjol.charm.charmony.enums.Side;
 import svenhjol.charm.charmony.helper.ConfigHelper;
 
@@ -48,7 +47,6 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         // Do the logic checking in onLoad. Fetching annotations here breaks everything.
         var simpleName = mixinClassName.substring(mixinPackage.length() + 1);
-        var debug = DebugHelper.isDebugEnabled();
         var split = simpleName.split("\\.");
         var baseName = split[0];
         var featureName = "";
@@ -73,9 +71,8 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
             ALL_MIXINS.add(simpleName);
         }
 
-        // With compat enabled we don't load ANY mixins EXCEPT accessors.
-        if (DebugHelper.isCompatEnabled() && !baseName.equals("accessor")) {
-            LOGGER.warn("Compat mode skipping mixin {}", mixinClassName);
+        // Let subclass do a check on the baseName of this mixin.
+        if (!baseNameCheck(baseName, mixinClassName)) {
             return false;
         }
 
@@ -98,25 +95,33 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
 
         // Check if feature is enabled in config.
         boolean valid = false;
-        for (var side : sideChecks()) {
+        for (var side : sides()) {
             if (ConfigHelper.isFeatureEnabled(id(), featureName, side)) {
                 valid = true;
                 break;
             }
         }
 
-        if (debug) {
-            if (valid) {
-                LOGGER.info("Enabled mixin {}", mixinClassName);
-            } else {
-                LOGGER.warn("Disabled mixin {}", mixinClassName);
-            }
-        }
+        consoleOutput(valid, mixinClassName);
 
         return valid;
     }
 
-    public abstract List<Side> sideChecks();
+    /**
+     * List of sides to use when checking config files for enabled/disabled features.
+     */
+    public abstract List<Side> sides();
+
+    /**
+     * Test the given baseName. A baseName is a parent folder, for example "accessor".
+     * The mixinClassName is provided for reference.
+     */
+    public abstract boolean baseNameCheck(String baseName, String mixinClassName);
+
+    /**
+     * Defer to subclass to output information about the mixin.
+     */
+    public abstract void consoleOutput(boolean isValid, String mixinClassName);
 
     @Override
     public String getRefMapperConfig() {
