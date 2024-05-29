@@ -3,11 +3,11 @@ package svenhjol.charm.feature.core.custom_wood.common;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
-import svenhjol.charm.feature.core.custom_wood.CustomWood;
-import svenhjol.charm.feature.core.custom_wood.holders.*;
 import svenhjol.charm.charmony.common.CommonFeature;
 import svenhjol.charm.charmony.common.CommonRegistry;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
+import svenhjol.charm.feature.core.custom_wood.CustomWood;
+import svenhjol.charm.feature.core.custom_wood.holders.*;
 
 import java.util.Optional;
 import java.util.function.Supplier;

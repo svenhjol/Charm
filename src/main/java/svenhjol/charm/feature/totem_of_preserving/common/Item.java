@@ -9,12 +9,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.api.enums.EventResult;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.common.item.CharmItem;
+import svenhjol.charm.charmony.enums.EventResult;
 import svenhjol.charm.feature.glint_coloring.GlintColoring;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totem_of_preserving.client.Tooltip;
-import svenhjol.charm.charmony.Resolve;
-import svenhjol.charm.charmony.common.item.CharmItem;
 
 import java.util.List;
 import java.util.Optional;

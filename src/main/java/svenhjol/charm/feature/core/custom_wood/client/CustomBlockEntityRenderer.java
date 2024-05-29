@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import svenhjol.charm.api.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.CustomMaterial;
 import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomChestBlockEntity;
 import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomTrappedChestBlockEntity;
 

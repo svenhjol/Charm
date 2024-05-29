@@ -2,7 +2,7 @@ package svenhjol.charm.feature.core.custom_wood.blocks;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.DoorBlock;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 
 import java.util.function.Supplier;
 

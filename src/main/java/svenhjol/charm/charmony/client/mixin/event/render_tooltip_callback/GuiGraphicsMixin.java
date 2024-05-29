@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.charmony.client.event.RenderTooltipCallback;
+import svenhjol.charm.charmony.client.callback.RenderTooltipCallback;
 import svenhjol.charm.charmony.helper.TooltipHelper;
 
 import java.util.List;

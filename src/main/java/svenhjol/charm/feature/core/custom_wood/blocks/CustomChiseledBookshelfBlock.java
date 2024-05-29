@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.core.custom_wood.blocks;
 
 import net.minecraft.world.level.block.SoundType;
-import svenhjol.charm.api.iface.FuelProvider;
-import svenhjol.charm.api.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.FuelProvider;
 
 import java.util.function.Supplier;
 

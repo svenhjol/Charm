@@ -3,10 +3,10 @@ package svenhjol.charm.feature.totem_of_preserving.common;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import svenhjol.charm.api.event.AnvilUpdateEvent;
-import svenhjol.charm.api.event.PlayerInventoryDropEvent;
-import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
+import svenhjol.charm.charmony.event.AnvilUpdateEvent;
+import svenhjol.charm.charmony.event.PlayerInventoryDropEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 
 import java.util.List;
 import java.util.function.Supplier;

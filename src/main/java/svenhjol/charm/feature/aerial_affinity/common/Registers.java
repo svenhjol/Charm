@@ -6,7 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.item.enchantment.Enchantment;
-import svenhjol.charm.api.event.BlockBreakSpeedEvent;
+import svenhjol.charm.charmony.event.BlockBreakSpeedEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.aerial_affinity.AerialAffinity;
 

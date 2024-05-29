@@ -4,8 +4,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.api.iface.CustomMaterial;
-import svenhjol.charm.api.iface.IgniteProvider;
+import svenhjol.charm.charmony.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.IgniteProvider;
 
 import java.util.function.Supplier;
 

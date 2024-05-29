@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.beacons_heal_mobs.common;
 
-import svenhjol.charm.api.event.ApplyBeaconEffectsEvent;
+import svenhjol.charm.charmony.event.ApplyBeaconEffectsEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.beacons_heal_mobs.BeaconsHealMobs;
 

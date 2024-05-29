@@ -4,10 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.api.iface.CustomMaterial;
-import svenhjol.charm.api.iface.VariantMaterialHolder;
-import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.VariantMaterialHolder;
+import svenhjol.charm.feature.core.custom_wood.CustomWood;
 
 import javax.annotation.Nullable;
 

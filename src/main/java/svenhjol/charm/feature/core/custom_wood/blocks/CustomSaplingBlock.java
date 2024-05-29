@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.grower.TreeGrower;
-import svenhjol.charm.api.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.CustomMaterial;
 
 import java.util.function.Supplier;
 

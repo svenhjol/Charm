@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.animal_reviving.common;
 
 import net.minecraft.core.component.DataComponentType;
-import svenhjol.charm.api.event.EntityKilledEvent;
-import svenhjol.charm.api.event.ItemUseEvent;
+import svenhjol.charm.charmony.event.EntityKilledEvent;
+import svenhjol.charm.charmony.event.ItemUseEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
 

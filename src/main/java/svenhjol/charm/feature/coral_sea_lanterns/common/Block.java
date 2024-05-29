@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.coral_sea_lanterns.common;
 
-import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.charmony.common.block.CharmBlock;
+import svenhjol.charm.charmony.iface.CustomMaterial;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanterns;
 
 import java.util.function.Supplier;

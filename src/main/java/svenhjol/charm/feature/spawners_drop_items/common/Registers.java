@@ -6,7 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.api.event.BlockBreakEvent;
+import svenhjol.charm.charmony.event.BlockBreakEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.spawners_drop_items.SpawnersDropItems;
 

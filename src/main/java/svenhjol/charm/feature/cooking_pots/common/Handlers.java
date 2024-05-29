@@ -10,7 +10,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import svenhjol.charm.api.enums.EventResult;
+import svenhjol.charm.charmony.enums.EventResult;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
 

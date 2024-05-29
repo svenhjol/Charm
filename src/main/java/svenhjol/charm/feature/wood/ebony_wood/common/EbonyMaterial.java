@@ -6,9 +6,9 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
-import svenhjol.charm.feature.wood.ebony_wood.EbonyWood;
 import svenhjol.charm.charmony.feature.FeatureResolver;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
+import svenhjol.charm.feature.wood.ebony_wood.EbonyWood;
 
 import java.util.Locale;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.animal_damage_immunity.common;
 
-import svenhjol.charm.api.event.EntityAttackEvent;
-import svenhjol.charm.api.event.EntityHurtEvent;
+import svenhjol.charm.charmony.event.EntityAttackEvent;
+import svenhjol.charm.charmony.event.EntityHurtEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.animal_damage_immunity.AnimalDamageImmunity;
 

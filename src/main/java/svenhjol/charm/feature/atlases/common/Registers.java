@@ -4,8 +4,8 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import svenhjol.charm.api.event.PlayerLoginEvent;
-import svenhjol.charm.api.event.PlayerTickEvent;
+import svenhjol.charm.charmony.event.PlayerLoginEvent;
+import svenhjol.charm.charmony.event.PlayerTickEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.atlases.Atlases;
 

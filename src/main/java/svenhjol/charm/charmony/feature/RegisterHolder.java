@@ -2,8 +2,8 @@ package svenhjol.charm.charmony.feature;
 
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import svenhjol.charm.api.event.LevelLoadEvent;
 import svenhjol.charm.charmony.Feature;
+import svenhjol.charm.charmony.event.LevelLoadEvent;
 
 public abstract class RegisterHolder<F extends Feature> extends FeatureHolder<F> implements Conditional {
     public RegisterHolder(F feature) {

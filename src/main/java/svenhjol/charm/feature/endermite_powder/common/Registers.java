@@ -3,9 +3,9 @@ package svenhjol.charm.feature.endermite_powder.common;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import svenhjol.charm.api.event.EntityKilledDropEvent;
-import svenhjol.charm.feature.endermite_powder.EndermitePowder;
+import svenhjol.charm.charmony.event.EntityKilledDropEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.endermite_powder.EndermitePowder;
 
 import java.util.function.Supplier;
 

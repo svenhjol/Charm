@@ -17,13 +17,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.api.event.*;
 import svenhjol.charm.charmony.Charmony;
 import svenhjol.charm.charmony.Log;
-import svenhjol.charm.charmony.client.event.RenderHeldItemCallback;
-import svenhjol.charm.charmony.client.event.RenderScreenCallback;
-import svenhjol.charm.charmony.client.event.RenderTooltipCallback;
-import svenhjol.charm.charmony.client.event.SetupScreenCallback;
+import svenhjol.charm.charmony.client.callback.RenderHeldItemCallback;
+import svenhjol.charm.charmony.client.callback.RenderScreenCallback;
+import svenhjol.charm.charmony.client.callback.RenderTooltipCallback;
+import svenhjol.charm.charmony.client.callback.SetupScreenCallback;
+import svenhjol.charm.charmony.event.*;
 
 import java.util.List;
 

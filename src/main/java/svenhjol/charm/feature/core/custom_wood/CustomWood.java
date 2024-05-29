@@ -1,16 +1,16 @@
 package svenhjol.charm.feature.core.custom_wood;
 
-import svenhjol.charm.api.iface.CustomWoodMaterial;
-import svenhjol.charm.feature.core.Core;
-import svenhjol.charm.feature.core.custom_wood.common.CustomWoodDefinition;
-import svenhjol.charm.feature.core.custom_wood.common.CustomWoodHolder;
-import svenhjol.charm.feature.core.custom_wood.common.Handlers;
-import svenhjol.charm.feature.core.custom_wood.common.Registers;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.common.CommonFeature;
 import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.charmony.feature.ChildFeature;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
+import svenhjol.charm.feature.core.Core;
+import svenhjol.charm.feature.core.custom_wood.common.CustomWoodDefinition;
+import svenhjol.charm.feature.core.custom_wood.common.CustomWoodHolder;
+import svenhjol.charm.feature.core.custom_wood.common.Handlers;
+import svenhjol.charm.feature.core.custom_wood.common.Registers;
 
 import java.util.Optional;
 

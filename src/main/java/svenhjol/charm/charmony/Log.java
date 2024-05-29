@@ -4,8 +4,8 @@ import com.google.common.base.CaseFormat;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import svenhjol.charm.charmony.common.helper.DebugHelper;
 import svenhjol.charm.charmony.helper.ConfigHelper;
+import svenhjol.charm.charmony.helper.DebugHelper;
 
 @SuppressWarnings("unused")
 public final class Log {

@@ -4,7 +4,7 @@ import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SignBlock;
 import net.minecraft.world.level.block.WallSignBlock;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 
 import java.util.function.Supplier;
 

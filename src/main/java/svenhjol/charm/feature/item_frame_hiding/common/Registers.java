@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.item_frame_hiding.common;
 
 import net.minecraft.core.particles.SimpleParticleType;
-import svenhjol.charm.api.event.EntityAttackEvent;
-import svenhjol.charm.api.event.EntityUseEvent;
-import svenhjol.charm.feature.item_frame_hiding.ItemFrameHiding;
+import svenhjol.charm.charmony.event.EntityAttackEvent;
+import svenhjol.charm.charmony.event.EntityUseEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.item_frame_hiding.ItemFrameHiding;
 
 import java.util.function.Supplier;
 

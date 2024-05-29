@@ -3,8 +3,8 @@ package svenhjol.charm.feature.core.custom_wood.blocks;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
-import svenhjol.charm.api.iface.CustomMaterial;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 
 import java.util.function.Supplier;
 

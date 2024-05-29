@@ -2,9 +2,10 @@ package svenhjol.charm.mixin;
 
 import svenhjol.charm.Charm;
 import svenhjol.charm.charmony.MixinConfigPlugin;
-import svenhjol.charm.charmony.common.helper.DebugHelper;
 import svenhjol.charm.charmony.enums.Side;
 import svenhjol.charm.charmony.helper.ConfigHelper;
+import svenhjol.charm.charmony.helper.DebugHelper;
+import svenhjol.charm.feature.core.common.CharmDebugChecks;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -18,6 +19,15 @@ public final class MixinConfig extends MixinConfigPlugin {
     @Override
     public List<Side> sides() {
         return List.of(Side.CLIENT, Side.COMMON);
+    }
+
+    @Override
+    public void onLoad(String mixinPackage) {
+        super.onLoad(mixinPackage);
+
+        // Register debug and compat checks in as early as possible.
+        DebugHelper.registerDebugCheck(CharmDebugChecks::isDebugEnabled);
+        DebugHelper.registerCompatCheck(CharmDebugChecks::isCompatEnabled);
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import svenhjol.charm.api.event.EntityKilledDropEvent;
+import svenhjol.charm.charmony.event.EntityKilledDropEvent;
 
 @SuppressWarnings({"ConstantConditions", "UnreachableCode"})
 @Mixin(LivingEntity.class)

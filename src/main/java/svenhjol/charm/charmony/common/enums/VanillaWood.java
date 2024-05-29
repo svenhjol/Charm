@@ -3,7 +3,7 @@ package svenhjol.charm.charmony.common.enums;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 
 import java.util.ArrayList;
 import java.util.Arrays;

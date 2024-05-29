@@ -10,7 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import svenhjol.charm.api.event.AnvilRepairEvent;
+import svenhjol.charm.charmony.event.AnvilRepairEvent;
 
 import javax.annotation.Nullable;
 

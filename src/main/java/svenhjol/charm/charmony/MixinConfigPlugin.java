@@ -41,6 +41,8 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
                 LOGGER.warn("IO error when handling mixin blacklist: {}", e.getMessage());
             }
         }
+
+
     }
 
     @Override

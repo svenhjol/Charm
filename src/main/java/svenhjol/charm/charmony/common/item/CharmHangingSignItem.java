@@ -4,7 +4,7 @@ import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CeilingHangingSignBlock;
 import net.minecraft.world.level.block.WallHangingSignBlock;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 
 import java.util.function.Supplier;
 

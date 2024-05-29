@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.wood.vanilla_wood_variants.common;
 
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;
 import svenhjol.charm.feature.core.custom_wood.common.CustomWoodDefinition;
 

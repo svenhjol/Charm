@@ -3,7 +3,7 @@ package svenhjol.charm.charmony.common.block;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallHangingSignBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 
 @SuppressWarnings("unused")
 public class CharmWallHangingSignBlock extends WallHangingSignBlock {

@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.mob_drops.common;
 
-import svenhjol.charm.api.event.EntityKilledDropEvent;
-import svenhjol.charm.api.event.EntityTickEvent;
+import svenhjol.charm.charmony.event.EntityKilledDropEvent;
+import svenhjol.charm.charmony.event.EntityTickEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.mob_drops.MobDrops;
 

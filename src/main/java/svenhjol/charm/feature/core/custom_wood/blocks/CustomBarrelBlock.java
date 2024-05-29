@@ -7,8 +7,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.api.iface.FuelProvider;
-import svenhjol.charm.api.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.FuelProvider;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;

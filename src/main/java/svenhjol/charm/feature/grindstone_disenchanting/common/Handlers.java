@@ -9,9 +9,9 @@ import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import svenhjol.charm.api.event.GrindstoneEvents;
-import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchanting;
+import svenhjol.charm.charmony.event.GrindstoneEvents;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchanting;
 
 import javax.annotation.Nullable;
 import java.util.Arrays;

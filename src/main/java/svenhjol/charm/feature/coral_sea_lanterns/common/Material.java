@@ -2,7 +2,7 @@ package svenhjol.charm.feature.coral_sea_lanterns.common;
 
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.MapColor;
-import svenhjol.charm.api.iface.CustomMaterial;
+import svenhjol.charm.charmony.iface.CustomMaterial;
 
 import java.util.Locale;
 

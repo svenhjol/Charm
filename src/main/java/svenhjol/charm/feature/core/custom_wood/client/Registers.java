@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.properties.ChestType;
-import svenhjol.charm.api.event.BlockItemRenderEvent;
+import svenhjol.charm.charmony.event.BlockItemRenderEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;

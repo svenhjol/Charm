@@ -10,9 +10,9 @@ import net.minecraft.world.level.block.FallingBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import svenhjol.charm.api.event.SugarDissolveEvent;
-import svenhjol.charm.feature.storage_blocks.sugar_block.SugarBlock;
+import svenhjol.charm.charmony.event.SugarDissolveEvent;
 import svenhjol.charm.charmony.feature.FeatureResolver;
+import svenhjol.charm.feature.storage_blocks.sugar_block.SugarBlock;
 
 import java.util.function.Supplier;
 

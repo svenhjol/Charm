@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.parrots_stay_on_shoulder.common;
 
-import svenhjol.charm.api.event.PlayerTickEvent;
+import svenhjol.charm.charmony.event.PlayerTickEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.parrots_stay_on_shoulder.ParrotsStayOnShoulder;
 

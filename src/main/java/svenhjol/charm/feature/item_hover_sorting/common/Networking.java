@@ -5,9 +5,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import svenhjol.charm.Charm;
-import svenhjol.charm.api.enums.SortDirection;
-import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
+import svenhjol.charm.charmony.enums.SortDirection;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
 
 public final class Networking extends FeatureHolder<ItemHoverSorting> {
     public Networking(ItemHoverSorting feature) {

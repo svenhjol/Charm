@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.waypoints.common;
 
 import net.minecraft.sounds.SoundEvent;
-import svenhjol.charm.api.event.PlayerLoginEvent;
-import svenhjol.charm.api.event.PlayerTickEvent;
+import svenhjol.charm.charmony.event.PlayerLoginEvent;
+import svenhjol.charm.charmony.event.PlayerTickEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.waypoints.Waypoints;
 import svenhjol.charm.feature.waypoints.common.Networking.S2CClearWaypointInfo;
 import svenhjol.charm.feature.waypoints.common.Networking.S2CUpdateWaypointInfo;
-import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

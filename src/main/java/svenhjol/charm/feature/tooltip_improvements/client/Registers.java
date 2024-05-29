@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.tooltip_improvements.client;
 
-import svenhjol.charm.api.event.TooltipComponentEvent;
-import svenhjol.charm.api.event.TooltipItemHoverEvent;
-import svenhjol.charm.api.event.TooltipRenderEvent;
-import svenhjol.charm.feature.tooltip_improvements.TooltipImprovements;
+import svenhjol.charm.charmony.event.TooltipComponentEvent;
+import svenhjol.charm.charmony.event.TooltipItemHoverEvent;
+import svenhjol.charm.charmony.event.TooltipRenderEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.tooltip_improvements.TooltipImprovements;
 
 public final class Registers extends RegisterHolder<TooltipImprovements> {
     public Registers(TooltipImprovements feature) {

@@ -6,10 +6,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import svenhjol.charm.api.event.ItemHoverSortEvent;
-import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
-import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.charmony.common.helper.TagHelper;
+import svenhjol.charm.charmony.event.ItemHoverSortEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
 
 import java.util.ArrayList;
 import java.util.List;

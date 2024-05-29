@@ -2,11 +2,11 @@ package svenhjol.charm.feature.crafting_from_inventory.client;
 
 import net.minecraft.client.KeyMapping;
 import org.lwjgl.glfw.GLFW;
-import svenhjol.charm.api.event.KeyPressEvent;
-import svenhjol.charm.api.event.ScreenRenderEvent;
-import svenhjol.charm.api.event.ScreenSetupEvent;
-import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventoryClient;
+import svenhjol.charm.charmony.event.KeyPressEvent;
+import svenhjol.charm.charmony.event.ScreenRenderEvent;
+import svenhjol.charm.charmony.event.ScreenSetupEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventoryClient;
 
 import java.util.function.Supplier;
 

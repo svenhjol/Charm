@@ -2,9 +2,9 @@ package svenhjol.charm.feature.echolocation.common;
 
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
-import svenhjol.charm.api.event.PlayerTickEvent;
-import svenhjol.charm.feature.echolocation.Echolocation;
+import svenhjol.charm.charmony.event.PlayerTickEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.echolocation.Echolocation;
 
 import java.util.function.Supplier;
 

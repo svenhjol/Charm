@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.waypoints.client;
 
-import svenhjol.charm.api.event.HudRenderEvent;
+import svenhjol.charm.charmony.event.HudRenderEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.waypoints.WaypointsClient;
 import svenhjol.charm.feature.waypoints.common.Networking;
-import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<WaypointsClient> {
     public Registers(WaypointsClient feature) {

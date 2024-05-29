@@ -12,8 +12,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.api.event.ItemDragDropEvent;
-import svenhjol.charm.api.event.ItemDragDropEvent.StackType;
+import svenhjol.charm.charmony.event.ItemDragDropEvent;
 
 import javax.annotation.Nullable;
 
@@ -25,7 +24,7 @@ public class ItemMixin {
         cancellable = true
     )
     private void hookOverrideStackedOnOther(ItemStack source, Slot slot, ClickAction clickAction, Player player, CallbackInfoReturnable<Boolean> ci) {
-        var result = performStack(StackType.STACKED_ON_OTHER, source, slot.getItem(), slot, clickAction, player, null);
+        var result = performStack(ItemDragDropEvent.StackType.STACKED_ON_OTHER, source, slot.getItem(), slot, clickAction, player, null);
         if (result != InteractionResult.PASS) {
             ci.setReturnValue(true);
         }
@@ -37,14 +36,14 @@ public class ItemMixin {
         cancellable = true
     )
     private void hookOverrideOtherStackedOnMe(ItemStack source, ItemStack dest, Slot slot, ClickAction clickAction, Player player, SlotAccess slotAccess, CallbackInfoReturnable<Boolean> ci) {
-        var result = performStack(StackType.STACKED_ON_SELF, source, dest, slot, clickAction, player, slotAccess);
+        var result = performStack(ItemDragDropEvent.StackType.STACKED_ON_SELF, source, dest, slot, clickAction, player, slotAccess);
         if (result != InteractionResult.PASS) {
             ci.setReturnValue(true);
         }
     }
 
     @Unique
-    private InteractionResult performStack(StackType stackType, ItemStack source, ItemStack dest, Slot slot, ClickAction clickAction, Player player, @Nullable SlotAccess slotAccess) {
+    private InteractionResult performStack(ItemDragDropEvent.StackType stackType, ItemStack source, ItemStack dest, Slot slot, ClickAction clickAction, Player player, @Nullable SlotAccess slotAccess) {
         return ItemDragDropEvent.INSTANCE.invoke(stackType, source, dest, slot, clickAction, player, slotAccess);
     }
 }

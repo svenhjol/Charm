@@ -6,8 +6,8 @@ import com.electronwill.nightconfig.toml.TomlWriter;
 import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.charmony.annotation.Configurable;
-import svenhjol.charm.charmony.common.helper.DebugHelper;
 import svenhjol.charm.charmony.feature.ChildFeature;
+import svenhjol.charm.feature.core.common.CharmDebugChecks;
 
 import java.lang.reflect.Field;
 import java.nio.file.Files;
@@ -95,7 +95,7 @@ public abstract class Config {
                             }
 
                             // Set the class property.
-                            if (DebugHelper.isDebugEnabled()) {
+                            if (CharmDebugChecks.isDebugEnabled()) {
                                 log.debug("In feature " + featureName + ": setting `" + fieldName + "` to `" + configValue + "`");
                             }
                             field.set(null, configValue);

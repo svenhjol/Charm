@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.item_repairing.common;
 
-import svenhjol.charm.api.event.AnvilRepairEvent;
-import svenhjol.charm.feature.item_repairing.ItemRepairing;
+import svenhjol.charm.charmony.event.AnvilRepairEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.item_repairing.ItemRepairing;
 
 public final class Registers extends RegisterHolder<ItemRepairing> {
     public Registers(ItemRepairing feature) {

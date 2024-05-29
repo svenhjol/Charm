@@ -20,15 +20,15 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.Charm;
-import svenhjol.charm.api.enums.ItemStackResult;
 import svenhjol.charm.api.enums.TotemType;
-import svenhjol.charm.api.event.AnvilUpdateEvent;
-import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.charmony.Resolve;
-import svenhjol.charm.charmony.enums.Side;
-import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.charmony.client.helper.ClientEffectHelper;
+import svenhjol.charm.charmony.enums.ItemStackResult;
+import svenhjol.charm.charmony.enums.Side;
+import svenhjol.charm.charmony.event.AnvilUpdateEvent;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.charmony.helper.TotemHelper;
+import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 
 import java.util.*;
 

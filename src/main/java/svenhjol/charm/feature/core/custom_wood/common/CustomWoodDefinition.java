@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.core.custom_wood.common;
 
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 
 import java.util.List;
 

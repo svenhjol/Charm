@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.item_tidying.client;
 
-import svenhjol.charm.api.event.ScreenRenderEvent;
-import svenhjol.charm.api.event.ScreenSetupEvent;
-import svenhjol.charm.feature.item_tidying.ItemTidyingClient;
+import svenhjol.charm.charmony.event.ScreenRenderEvent;
+import svenhjol.charm.charmony.event.ScreenSetupEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.item_tidying.ItemTidyingClient;
 
 public final class Registers extends RegisterHolder<ItemTidyingClient> {
     public Registers(ItemTidyingClient feature) {

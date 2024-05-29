@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.arcane_purpur.common;
 
 import net.minecraft.world.item.BlockItem;
-import svenhjol.charm.api.iface.CustomMaterial;
 import svenhjol.charm.charmony.common.block.CharmStairBlock;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.charmony.iface.CustomMaterial;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
 import svenhjol.charm.feature.arcane_purpur.block.*;
 

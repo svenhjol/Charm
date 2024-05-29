@@ -22,7 +22,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
-import svenhjol.charm.api.enums.EventResult;
+import svenhjol.charm.charmony.enums.EventResult;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
 

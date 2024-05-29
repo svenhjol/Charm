@@ -2,7 +2,7 @@ package svenhjol.charm.feature.chairs.common;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import svenhjol.charm.api.event.BlockUseEvent;
+import svenhjol.charm.charmony.event.BlockUseEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.chairs.Chairs;
 

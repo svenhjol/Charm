@@ -4,9 +4,9 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
-import svenhjol.charm.feature.wood.azalea_wood.AzaleaWood;
 import svenhjol.charm.charmony.feature.FeatureResolver;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
+import svenhjol.charm.feature.wood.azalea_wood.AzaleaWood;
 
 import java.util.Locale;
 

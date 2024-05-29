@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.note_block_lower_pitch.common;
 
-import svenhjol.charm.api.event.BlockUseEvent;
+import svenhjol.charm.charmony.event.BlockUseEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.note_block_lower_pitch.NoteBlockLowerPitch;
 

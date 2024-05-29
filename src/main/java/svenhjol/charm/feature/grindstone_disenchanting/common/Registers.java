@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.grindstone_disenchanting.common;
 
-import svenhjol.charm.api.event.GrindstoneEvents;
-import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchanting;
+import svenhjol.charm.charmony.event.GrindstoneEvents;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchanting;
 
 public final class Registers extends RegisterHolder<GrindstoneDisenchanting> {
     public Registers(GrindstoneDisenchanting feature) {

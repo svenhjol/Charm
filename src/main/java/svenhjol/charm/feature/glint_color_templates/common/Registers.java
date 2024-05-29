@@ -12,13 +12,13 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import svenhjol.charm.api.event.LootTableModifyEvent;
-import svenhjol.charm.api.event.SmithingTableEvents;
-import svenhjol.charm.api.event.SmithingTableEvents.SmithingTableInstance;
+import svenhjol.charm.charmony.event.LootTableModifyEvent;
+import svenhjol.charm.charmony.event.SmithingTableEvents;
+import svenhjol.charm.charmony.event.SmithingTableEvents.SmithingTableInstance;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.glint_color_templates.GlintColorTemplates;
 import svenhjol.charm.feature.glint_coloring.GlintColoring;
 import svenhjol.charm.feature.glint_coloring.common.Tags;
-import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package svenhjol.charm.feature.core.custom_wood.blocks;
 
 import net.minecraft.world.level.block.StandingSignBlock;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import svenhjol.charm.api.iface.CustomWoodMaterial;
+import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 
 public class CustomStandingSignBlock extends StandingSignBlock {
     protected final CustomWoodMaterial material;

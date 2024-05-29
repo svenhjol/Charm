@@ -16,8 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.PatrolSpawner;
-import svenhjol.charm.api.enums.ItemStackResult;
 import svenhjol.charm.charmony.common.helper.EnchantmentsHelper;
+import svenhjol.charm.charmony.enums.ItemStackResult;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.raid_horns.RaidHorns;
 

@@ -7,14 +7,13 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
-import svenhjol.charm.api.event.EntityJoinEvent;
+import svenhjol.charm.charmony.event.EntityJoinEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
 
 import java.util.function.Supplier;
 
 public final class Registers extends RegisterHolder<Mooblooms> {
-//    public static final String ID = "moobloom";
     public final Supplier<SpawnEggItem> spawnEggItem;
     public final Supplier<EntityType<Moobloom>> entity;
     public final Supplier<SoundEvent> milkingSound;
