@@ -9,7 +9,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import java.util.List;
 
 @SuppressWarnings("unused")
-public class WorldHelper {
+public final class WorldHelper {
     public static boolean isDay(Player player) {
         var level = player.level();
         var dayTime = level.getDayTime() % 24000;
