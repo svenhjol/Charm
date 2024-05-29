@@ -100,6 +100,16 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         this.log = new Log(loader.id(), "CommonRegistry");
     }
 
+    @Override
+    public String id() {
+        return this.loader.id();
+    }
+
+    @Override
+    public ResourceLocation id(String path) {
+        return loader.id(path);
+    }
+
     public Register<Holder<Attribute>> attribute(String id, Supplier<Attribute> supplier) {
         return new Register<>(() -> {
             log("Attribute " + id);
@@ -257,14 +267,6 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
             var item = provider.get();
             FuelRegistry.INSTANCE.add((ItemLike) item, item.fuelTime());
         });
-    }
-
-    public String id() {
-        return this.loader.id();
-    }
-
-    public ResourceLocation id(String path) {
-        return loader.id(path);
     }
 
     public <T extends IgniteProvider> void ignite(Supplier<T> provider) {

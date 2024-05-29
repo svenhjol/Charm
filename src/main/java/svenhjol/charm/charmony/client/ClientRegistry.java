@@ -80,6 +80,16 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
         this.log = new Log(loader.id(), this);
     }
 
+    @Override
+    public String id() {
+        return loader.id();
+    }
+
+    @Override
+    public ResourceLocation id(String path) {
+        return loader.id(path);
+    }
+
     public void blockColor(BlockColor blockColor, List<Supplier<? extends Block>> blocks) {
         ColorProviderRegistry.BLOCK.register(blockColor, blocks.stream().map(Supplier::get).toList().toArray(Block[]::new));
     }
@@ -94,10 +104,6 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
 
     public <T extends Entity> void entityRenderer(Supplier<EntityType<T>> entity, Supplier<EntityRendererProvider<T>> provider) {
         loader.registerDeferred(() -> EntityRendererRegistry.register(entity.get(), provider.get()));
-    }
-
-    public ResourceLocation id(String path) {
-        return loader.id(path);
     }
 
     public void itemColor(List<Supplier<? extends ItemLike>> items) {
