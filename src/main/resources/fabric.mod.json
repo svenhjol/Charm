@@ -16,8 +16,8 @@
   "environment": "*",
   "mixins": [
     "charm.mixins.json",
-    "charmony.common.mixins.json",
-    "charmony.client.mixins.json"
+    "charm.charmony.common.mixins.json",
+    "charm.charmony.client.mixins.json"
   ],
 
   "entrypoints": {
