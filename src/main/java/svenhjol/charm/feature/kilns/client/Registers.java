@@ -2,16 +2,16 @@ package svenhjol.charm.feature.kilns.client;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.feature.firing.Firing;
-import svenhjol.charm.feature.kilns.KilnsClient;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.firing.Firing;
+import svenhjol.charm.feature.kilns.KilnsClient;
 
 public final class Registers extends RegisterHolder<KilnsClient> {
     public Registers(KilnsClient feature) {
         super(feature);
         var registry = feature().registry();
-        var common = feature().common();
+        var common = feature().linked();
 
         // Early registration of enums.
         registry.recipeBookCategoryEnum("kiln_search", () -> Items.COMPASS);
@@ -26,7 +26,7 @@ public final class Registers extends RegisterHolder<KilnsClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common().registers.blockItem,
+            feature().linked().registers.blockItem,
             CreativeModeTabs.FUNCTIONAL_BLOCKS,
             Items.SMOKER
         );

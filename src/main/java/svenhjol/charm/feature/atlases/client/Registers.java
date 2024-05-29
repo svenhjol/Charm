@@ -18,7 +18,7 @@ public final class Registers extends RegisterHolder<AtlasesClient> {
     public Registers(AtlasesClient feature) {
         super(feature);
 
-        feature().registry().menuScreen(feature().common().registers.menuType,
+        feature().registry().menuScreen(feature().linked().registers.menuType,
             () -> AtlasScreen::new);
 
         openAtlasKey = feature().registry().key("open_atlas",
@@ -34,7 +34,7 @@ public final class Registers extends RegisterHolder<AtlasesClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common().registers.item,
+            feature().linked().registers.item,
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.MAP
         );

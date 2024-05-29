@@ -19,14 +19,14 @@ public final class Registers extends RegisterHolder<MoobloomsClient> {
         layer = registry.modelLayer(
             () -> new ModelLayerLocation(feature().id("moobloom"), "main"), CowModel::createBodyLayer);
 
-        registry.entityRenderer(feature().common().registers.entity,
+        registry.entityRenderer(feature().linked().registers.entity,
             () -> ctx -> new EntityRenderer<>(ctx, new CowModel<>(ctx.bakeLayer(layer.get()))));
     }
 
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common().registers.spawnEggItem,
+            feature().linked().registers.spawnEggItem,
             CreativeModeTabs.SPAWN_EGGS,
             Items.MAGMA_CUBE_SPAWN_EGG
         );

@@ -3,11 +3,11 @@ package svenhjol.charm.feature.player_pressure_plates;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
 import svenhjol.charm.feature.player_pressure_plates.client.Registers;
 
 @Feature
-public final class PlayerPressurePlatesClient extends ClientFeature implements CommonResolver<PlayerPressurePlates> {
+public final class PlayerPressurePlatesClient extends ClientFeature implements LinkedFeature<PlayerPressurePlates> {
     public final Registers registers;
 
     public PlayerPressurePlatesClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class PlayerPressurePlatesClient extends ClientFeature implements C
     }
 
     @Override
-    public Class<PlayerPressurePlates> typeForCommon() {
+    public Class<PlayerPressurePlates> typeForLinked() {
         return PlayerPressurePlates.class;
     }
 }

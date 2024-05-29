@@ -19,7 +19,7 @@ public final class Registers extends RegisterHolder<CookingPotsClient> {
     @Override
     public void onEnabled() {
         var registry = feature().registry();
-        var common = feature().common();
+        var common = feature().linked();
 
         registry.blockColor(feature().handlers::handleBlockColor, List.of(common.registers.block));
         registry.itemTab(common.registers.block, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.CAULDRON);

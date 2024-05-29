@@ -16,10 +16,10 @@ public final class Registers extends RegisterHolder<RaidHornsClient> {
         var registry = feature().registry();
 
         registry.itemProperties("minecraft:tooting",
-            feature().common().registers.item, () -> feature().handlers::handleTooting);
+            feature().linked().registers.item, () -> feature().handlers::handleTooting);
 
         registry.itemTab(
-            feature().common().registers.item,
+            feature().linked().registers.item,
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.TNT_MINECART
         );

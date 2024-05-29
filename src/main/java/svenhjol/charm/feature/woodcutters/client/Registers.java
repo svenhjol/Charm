@@ -3,17 +3,17 @@ package svenhjol.charm.feature.woodcutters.client;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
-import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
-import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
+import svenhjol.charm.feature.woodcutting.Woodcutting;
 
 public final class Registers extends RegisterHolder<WoodcuttersClient> {
     public Registers(WoodcuttersClient feature) {
         super(feature);
         var woodcutting = Resolve.feature(Woodcutting.class);
         var registry = feature.registry();
-        var common = feature.common();
+        var common = feature.linked();
 
         registry.recipeBookCategoryEnum("woodcutter_search", () -> Items.COMPASS);
         registry.recipeBookCategoryEnum("woodcutter", common.registers.block);
@@ -28,7 +28,7 @@ public final class Registers extends RegisterHolder<WoodcuttersClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common().registers.block,
+            feature().linked().registers.block,
             CreativeModeTabs.FUNCTIONAL_BLOCKS,
             Items.STONECUTTER
         );

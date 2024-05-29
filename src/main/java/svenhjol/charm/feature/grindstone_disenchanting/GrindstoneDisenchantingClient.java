@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.grindstone_disenchanting;
 
-import svenhjol.charm.feature.grindstone_disenchanting.client.Handlers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.grindstone_disenchanting.client.Handlers;
 
 @Feature
-public final class GrindstoneDisenchantingClient extends ClientFeature implements CommonResolver<GrindstoneDisenchanting> {
+public final class GrindstoneDisenchantingClient extends ClientFeature implements LinkedFeature<GrindstoneDisenchanting> {
     public final Handlers handlers;
 
     public GrindstoneDisenchantingClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class GrindstoneDisenchantingClient extends ClientFeature implement
     }
 
     @Override
-    public Class<GrindstoneDisenchanting> typeForCommon() {
+    public Class<GrindstoneDisenchanting> typeForLinked() {
         return GrindstoneDisenchanting.class;
     }
 }

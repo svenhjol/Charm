@@ -13,7 +13,7 @@ public final class Registers extends RegisterHolder<EnderPearlBlockClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().common().registers.item,
+            feature().linked().registers.item,
             CreativeModeTabs.FUNCTIONAL_BLOCKS,
             Items.ENDER_EYE
         );

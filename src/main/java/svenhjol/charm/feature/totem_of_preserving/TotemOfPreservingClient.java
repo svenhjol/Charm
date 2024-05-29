@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.totem_of_preserving;
 
-import svenhjol.charm.feature.totem_of_preserving.client.Registers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.totem_of_preserving.client.Registers;
 
 @Feature
-public final class TotemOfPreservingClient extends ClientFeature implements CommonResolver<TotemOfPreserving> {
+public final class TotemOfPreservingClient extends ClientFeature implements LinkedFeature<TotemOfPreserving> {
     public final Registers registers;
 
     public TotemOfPreservingClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class TotemOfPreservingClient extends ClientFeature implements Comm
     }
 
     @Override
-    public Class<TotemOfPreserving> typeForCommon() {
+    public Class<TotemOfPreserving> typeForLinked() {
         return TotemOfPreserving.class;
     }
 }

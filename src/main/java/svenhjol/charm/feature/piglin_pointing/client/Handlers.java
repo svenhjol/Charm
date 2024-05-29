@@ -20,7 +20,7 @@ public final class Handlers extends FeatureHolder<PiglinPointingClient> {
     public void animate(PiglinModel<Piglin> model, Piglin piglin, float f, float g, float h, float i, float j) {
         var uuid = piglin.getUUID();
 
-        if (feature().common().handlers.isPointing(piglin)) {
+        if (feature().linked().handlers.isPointing(piglin)) {
             POINT_ANIMATION.putIfAbsent(uuid, 3f);
 
             var current = POINT_ANIMATION.get(uuid);

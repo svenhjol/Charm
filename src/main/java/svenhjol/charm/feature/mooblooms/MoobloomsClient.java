@@ -3,11 +3,11 @@ package svenhjol.charm.feature.mooblooms;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
 import svenhjol.charm.feature.mooblooms.client.Registers;
 
 @Feature
-public final class MoobloomsClient extends ClientFeature implements CommonResolver<Mooblooms> {
+public final class MoobloomsClient extends ClientFeature implements LinkedFeature<Mooblooms> {
     public final Registers registers;
 
     public MoobloomsClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class MoobloomsClient extends ClientFeature implements CommonResolv
     }
 
     @Override
-    public Class<Mooblooms> typeForCommon() {
+    public Class<Mooblooms> typeForLinked() {
         return Mooblooms.class;
     }
 }

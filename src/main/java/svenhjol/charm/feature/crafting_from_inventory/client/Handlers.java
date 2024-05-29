@@ -6,9 +6,9 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventoryClient;
 import svenhjol.charm.feature.crafting_from_inventory.common.Networking;
-import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<CraftingFromInventoryClient> {
     public ImageButton craftingButton;
@@ -58,6 +58,6 @@ public final class Handlers extends FeatureHolder<CraftingFromInventoryClient> {
 
     private boolean hasCraftingTable() {
         var player = Minecraft.getInstance().player;
-        return feature().common().handlers.hasCraftingTable(player);
+        return feature().linked().handlers.hasCraftingTable(player);
     }
 }

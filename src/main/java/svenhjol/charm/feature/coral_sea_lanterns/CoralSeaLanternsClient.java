@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.coral_sea_lanterns;
 
-import svenhjol.charm.feature.coral_sea_lanterns.client.Registers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.coral_sea_lanterns.client.Registers;
 
 @Feature
-public final class CoralSeaLanternsClient extends ClientFeature implements CommonResolver<CoralSeaLanterns> {
+public final class CoralSeaLanternsClient extends ClientFeature implements LinkedFeature<CoralSeaLanterns> {
     public final Registers registers;
 
     public CoralSeaLanternsClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class CoralSeaLanternsClient extends ClientFeature implements Commo
     }
 
     @Override
-    public Class<CoralSeaLanterns> typeForCommon() {
+    public Class<CoralSeaLanterns> typeForLinked() {
         return CoralSeaLanterns.class;
     }
 }

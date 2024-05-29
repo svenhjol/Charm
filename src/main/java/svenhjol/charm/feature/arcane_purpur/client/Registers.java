@@ -9,7 +9,7 @@ public final class Registers extends RegisterHolder<ArcanePurpurClient> {
     public Registers(ArcanePurpurClient feature) {
         super(feature);
         var registry = feature().registry();
-        var common = feature().common();
+        var common = feature().linked();
 
         registry.itemTab(
             common.registers.chiseledGlyphBlock,

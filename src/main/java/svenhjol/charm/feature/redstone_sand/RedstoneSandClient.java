@@ -3,11 +3,11 @@ package svenhjol.charm.feature.redstone_sand;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
 import svenhjol.charm.feature.redstone_sand.client.Registers;
 
 @Feature
-public final class RedstoneSandClient extends ClientFeature implements CommonResolver<RedstoneSand> {
+public final class RedstoneSandClient extends ClientFeature implements LinkedFeature<RedstoneSand> {
     public final Registers registers;
 
     public RedstoneSandClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class RedstoneSandClient extends ClientFeature implements CommonRes
     }
 
     @Override
-    public Class<RedstoneSand> typeForCommon() {
+    public Class<RedstoneSand> typeForLinked() {
         return RedstoneSand.class;
     }
 }

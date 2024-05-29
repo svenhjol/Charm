@@ -1,15 +1,15 @@
 package svenhjol.charm.feature.storage_blocks.gunpowder_block;
 
-import svenhjol.charm.feature.storage_blocks.StorageBlocksClient;
-import svenhjol.charm.feature.storage_blocks.gunpowder_block.client.Registers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
 import svenhjol.charm.charmony.feature.ChildFeature;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.storage_blocks.StorageBlocksClient;
+import svenhjol.charm.feature.storage_blocks.gunpowder_block.client.Registers;
 
 @Feature
-public final class GunpowderBlockClient extends ClientFeature implements CommonResolver<GunpowderBlock>, ChildFeature<StorageBlocksClient> {
+public final class GunpowderBlockClient extends ClientFeature implements LinkedFeature<GunpowderBlock>, ChildFeature<StorageBlocksClient> {
     public final Registers registers;
 
     public GunpowderBlockClient(ClientLoader loader) {
@@ -19,7 +19,7 @@ public final class GunpowderBlockClient extends ClientFeature implements CommonR
     }
 
     @Override
-    public Class<GunpowderBlock> typeForCommon() {
+    public Class<GunpowderBlock> typeForLinked() {
         return GunpowderBlock.class;
     }
 

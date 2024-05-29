@@ -1,14 +1,14 @@
 package svenhjol.charm.feature.item_frame_hiding;
 
-import svenhjol.charm.feature.item_frame_hiding.client.Handlers;
-import svenhjol.charm.feature.item_frame_hiding.client.Registers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.item_frame_hiding.client.Handlers;
+import svenhjol.charm.feature.item_frame_hiding.client.Registers;
 
 @Feature
-public final class ItemFrameHidingClient extends ClientFeature implements CommonResolver<ItemFrameHiding> {
+public final class ItemFrameHidingClient extends ClientFeature implements LinkedFeature<ItemFrameHiding> {
     public final Registers registers;
     public final Handlers handlers;
 
@@ -20,7 +20,7 @@ public final class ItemFrameHidingClient extends ClientFeature implements Common
     }
 
     @Override
-    public Class<ItemFrameHiding> typeForCommon() {
+    public Class<ItemFrameHiding> typeForLinked() {
         return ItemFrameHiding.class;
     }
 }

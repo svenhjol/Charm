@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.glint_color_templates;
 
-import svenhjol.charm.feature.glint_color_templates.client.Registers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.glint_color_templates.client.Registers;
 
 @Feature
-public final class GlintColorTemplatesClient extends ClientFeature implements CommonResolver<GlintColorTemplates> {
+public final class GlintColorTemplatesClient extends ClientFeature implements LinkedFeature<GlintColorTemplates> {
     public final Registers registers;
 
     public GlintColorTemplatesClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class GlintColorTemplatesClient extends ClientFeature implements Co
     }
 
     @Override
-    public Class<GlintColorTemplates> typeForCommon() {
+    public Class<GlintColorTemplates> typeForLinked() {
         return GlintColorTemplates.class;
     }
 }

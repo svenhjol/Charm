@@ -11,9 +11,9 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.waypoints.WaypointsClient;
 import svenhjol.charm.feature.waypoints.common.Networking;
-import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.Optional;
 
@@ -51,7 +51,7 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
         if (minecraft.player == null || lastSeenPos == null) return "";
 
         var playerPos = minecraft.player.blockPosition();
-        var maxDistance = feature().common().broadcastDistance();
+        var maxDistance = feature().linked().broadcastDistance();
         var currentDistance = Mth.clamp(playerPos.distManhattan(lastSeenPos), 1, maxDistance);
 
         var i = 0d;
@@ -94,12 +94,12 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
 
         if (playSound) {
             Minecraft.getInstance().getSoundManager().play(
-                SimpleSoundInstance.forUI(feature().common().registers.broadcastSound.get(), 0.9f + (0.2f * random.nextFloat()), 0.35f));
+                SimpleSoundInstance.forUI(feature().linked().registers.broadcastSound.get(), 0.9f + (0.2f * random.nextFloat()), 0.35f));
         }
 
         var textColor = color.getFireworkColor() | 0x171717;
         broadcastMessage = displayTitle.withStyle(style -> style.withColor(textColor));
-        broadcastTime = feature().common().messageDuration() * 60;
+        broadcastTime = feature().linked().messageDuration() * 60;
     }
 
     @SuppressWarnings("unused")
@@ -156,7 +156,7 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
         }
 
         // If still in range of waypoint and configured to keep the message showing, don't fade the message.
-        if (feature().common().messageRemainsWhileInRange() && isPlayerInRange()) {
+        if (feature().linked().messageRemainsWhileInRange() && isPlayerInRange()) {
             return;
         }
 

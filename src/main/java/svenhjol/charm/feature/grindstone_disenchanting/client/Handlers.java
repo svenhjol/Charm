@@ -6,8 +6,8 @@ import net.minecraft.client.gui.screens.inventory.GrindstoneScreen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchantingClient;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchantingClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +26,19 @@ public final class Handlers extends FeatureHolder<GrindstoneDisenchantingClient>
         stacks.add(menu.getSlot(1).getItem());
 
         // If it's a disenchant operation.
-        if (feature().common().handlers.shouldExtract(stacks)) {
+        if (feature().linked().handlers.shouldExtract(stacks)) {
 
             // Get the stack to disenchant.
-            var enchanted = feature().common().handlers.getEnchantedItemFromStacks(stacks);
+            var enchanted = feature().linked().handlers.getEnchantedItemFromStacks(stacks);
             if (enchanted.isEmpty()) return;
 
             // Get the stack cost and render it.
-            var cost = feature().common().handlers.getCost(enchanted.get());
+            var cost = feature().linked().handlers.getCost(enchanted.get());
 
             var color = 8453920;
             var string = I18n.get("container.repair.cost", cost);
 
-            if (!feature().common().handlers.hasEnoughXp(player, cost)) {
+            if (!feature().linked().handlers.hasEnoughXp(player, cost)) {
                 color = 16736352;
             }
 

@@ -1,15 +1,15 @@
 package svenhjol.charm.feature.waypoints;
 
-import svenhjol.charm.feature.waypoints.client.Handlers;
-import svenhjol.charm.feature.waypoints.client.Providers;
-import svenhjol.charm.feature.waypoints.client.Registers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.waypoints.client.Handlers;
+import svenhjol.charm.feature.waypoints.client.Providers;
+import svenhjol.charm.feature.waypoints.client.Registers;
 
 @Feature
-public final class WaypointsClient extends ClientFeature implements CommonResolver<Waypoints> {
+public final class WaypointsClient extends ClientFeature implements LinkedFeature<Waypoints> {
     public final Registers registers;
     public final Handlers handlers;
     public final Providers providers;
@@ -23,7 +23,7 @@ public final class WaypointsClient extends ClientFeature implements CommonResolv
     }
 
     @Override
-    public Class<Waypoints> typeForCommon() {
+    public Class<Waypoints> typeForLinked() {
         return Waypoints.class;
     }
 }

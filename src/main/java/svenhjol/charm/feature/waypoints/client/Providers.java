@@ -5,8 +5,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.api.iface.CompassOverlayItem;
 import svenhjol.charm.api.iface.CompassOverlayProvider;
-import svenhjol.charm.feature.waypoints.WaypointsClient;
 import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.feature.waypoints.WaypointsClient;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public final class Providers extends ProviderHolder<WaypointsClient> implements 
             new CompassOverlayItem() {
                 @Override
                 public boolean shouldShow(Player player) {
-                    return feature().common().showNearestWaypointOnCompass()
+                    return feature().linked().showNearestWaypointOnCompass()
                         && feature().handlers.isPlayerInRange();
                 }
 

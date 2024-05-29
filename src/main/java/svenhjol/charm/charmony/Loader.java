@@ -1,9 +1,9 @@
 package svenhjol.charm.charmony;
 
 import net.minecraft.resources.ResourceLocation;
-import svenhjol.charm.charmony.common.CommonResolver;
 import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.charmony.feature.Conditional;
+import svenhjol.charm.charmony.feature.LinkedFeature;
 import svenhjol.charm.charmony.helper.TextHelper;
 
 import java.util.*;
@@ -159,8 +159,8 @@ public abstract class Loader<F extends Feature> {
                 continue;
             }
 
-            if (feature instanceof CommonResolver<?> resolver
-                && !resolver.common().isEnabled()) {
+            if (feature instanceof LinkedFeature<?> resolver
+                && !resolver.linked().isEnabled()) {
                 feature.log().warnIfDebug("Feature's related common feature is disabled");
                 feature.setEnabled(false);
                 continue;

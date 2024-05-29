@@ -16,7 +16,7 @@ public final class Registers extends RegisterHolder<CoralSeaLanternsClient> {
     @Override
     public void onEnabled() {
         var registry = feature().registry();
-        var lanterns = new ArrayList<>(feature().common().registers.blockItems.values());
+        var lanterns = new ArrayList<>(feature().linked().registers.blockItems.values());
         Collections.reverse(lanterns);
 
         lanterns.forEach(value -> {

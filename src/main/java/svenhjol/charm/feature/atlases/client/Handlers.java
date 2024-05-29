@@ -30,7 +30,7 @@ public final class Handlers extends FeatureHolder<AtlasesClient> {
      * @return True if the cartography table contains a map or an atlas.
      */
     public boolean shouldDrawAtlasCopy(CartographyTableScreen screen) {
-        return screen.getMenu().getSlot(0).getItem().getItem() == feature().common().registers.item.get()
+        return screen.getMenu().getSlot(0).getItem().getItem() == feature().linked().registers.item.get()
             && screen.getMenu().getSlot(1).getItem().getItem() == Items.MAP;
     }
 
@@ -55,7 +55,7 @@ public final class Handlers extends FeatureHolder<AtlasesClient> {
     public InteractionResult renderHeldItem(float tickDelta, float pitch, InteractionHand hand, float swingProgress,
                                             ItemStack itemStack, float equipProgress, PoseStack poseStack,
                                             MultiBufferSource multiBufferSource, int light) {
-        if (itemStack.getItem() == feature().common().registers.item.get()) {
+        if (itemStack.getItem() == feature().linked().registers.item.get()) {
             if (renderer == null) {
                 renderer = new AtlasRenderer();
             }

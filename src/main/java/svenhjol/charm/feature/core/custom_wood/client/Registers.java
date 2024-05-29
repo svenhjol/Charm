@@ -9,9 +9,9 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.api.event.BlockItemRenderEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;
-import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +23,7 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
         var chestTypes = List.of(ChestType.SINGLE, ChestType.LEFT, ChestType.RIGHT);
 
         // Register client ops for each holder.
-        feature.common().registers.holders.forEach(
+        feature.linked().registers.holders.forEach(
             (material, holder) -> {
                 var materialName = holder.getMaterialName();
                 var woodType = holder.woodType();
@@ -71,9 +71,9 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
             });
 
         // Bind the chest block entities to their custom renderers.
-        feature.registry().blockEntityRenderer(feature().common().registers.chestBlockEntity,
+        feature.registry().blockEntityRenderer(feature().linked().registers.chestBlockEntity,
             () -> CustomBlockEntityRenderer::new);
-        feature.registry().blockEntityRenderer(feature().common().registers.trappedChestBlockEntity,
+        feature.registry().blockEntityRenderer(feature().linked().registers.trappedChestBlockEntity,
             () -> CustomBlockEntityRenderer::new);
     }
 
@@ -85,7 +85,7 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
         BlockItemRenderEvent.INSTANCE.handle(feature().handlers::renderChestBlockItem);
 
         // Build the creative menu.
-        feature().common().registers.getCreativeTabItems().forEach(
+        feature().linked().registers.getCreativeTabItems().forEach(
             (mod, map) -> {
                 CustomType.BUILDING_BLOCKS.forEach(
                     name -> Optional.ofNullable(map.get(name)).ifPresent(

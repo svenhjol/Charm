@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.coral_squids;
 
-import svenhjol.charm.feature.coral_squids.client.Registers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.coral_squids.client.Registers;
 
 @Feature
-public final class CoralSquidsClient extends ClientFeature implements CommonResolver<CoralSquids> {
+public final class CoralSquidsClient extends ClientFeature implements LinkedFeature<CoralSquids> {
     public final Registers registers;
 
     public CoralSquidsClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class CoralSquidsClient extends ClientFeature implements CommonReso
     }
 
     @Override
-    public Class<CoralSquids> typeForCommon() {
+    public Class<CoralSquids> typeForLinked() {
         return CoralSquids.class;
     }
 }

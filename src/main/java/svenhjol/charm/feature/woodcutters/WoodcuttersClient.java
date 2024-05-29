@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.woodcutters;
 
-import svenhjol.charm.feature.woodcutters.client.Registers;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
+import svenhjol.charm.feature.woodcutters.client.Registers;
 
 @Feature
-public final class WoodcuttersClient extends ClientFeature implements CommonResolver<Woodcutters> {
+public final class WoodcuttersClient extends ClientFeature implements LinkedFeature<Woodcutters> {
     public final Registers registers;
 
     public WoodcuttersClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class WoodcuttersClient extends ClientFeature implements CommonReso
     }
 
     @Override
-    public Class<Woodcutters> typeForCommon() {
+    public Class<Woodcutters> typeForLinked() {
         return Woodcutters.class;
     }
 }

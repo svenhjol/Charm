@@ -3,12 +3,12 @@ package svenhjol.charm.feature.casks;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
 import svenhjol.charm.feature.casks.client.Handlers;
 import svenhjol.charm.feature.casks.client.Registers;
 
 @Feature
-public final class CasksClient extends ClientFeature implements CommonResolver<Casks> {
+public final class CasksClient extends ClientFeature implements LinkedFeature<Casks> {
     public final Registers registers;
     public final Handlers handlers;
 
@@ -20,7 +20,7 @@ public final class CasksClient extends ClientFeature implements CommonResolver<C
     }
 
     @Override
-    public Class<Casks> typeForCommon() {
+    public Class<Casks> typeForLinked() {
         return Casks.class;
     }
 }

@@ -3,11 +3,11 @@ package svenhjol.charm.feature.kilns;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.charmony.client.ClientLoader;
-import svenhjol.charm.charmony.common.CommonResolver;
+import svenhjol.charm.charmony.feature.LinkedFeature;
 import svenhjol.charm.feature.kilns.client.Registers;
 
 @Feature
-public final class KilnsClient extends ClientFeature implements CommonResolver<Kilns> {
+public final class KilnsClient extends ClientFeature implements LinkedFeature<Kilns> {
     public final Registers registers;
 
     public KilnsClient(ClientLoader loader) {
@@ -17,7 +17,7 @@ public final class KilnsClient extends ClientFeature implements CommonResolver<K
     }
 
     @Override
-    public Class<Kilns> typeForCommon() {
+    public Class<Kilns> typeForLinked() {
         return Kilns.class;
     }
 }
