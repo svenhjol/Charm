@@ -2,7 +2,7 @@
   "required": true,
   "package": "svenhjol.charm.charmony.common.mixin",
   "compatibilityLevel": "JAVA_21",
-  "refmap": "${charmony_common_refmap_file}",
+  "refmap": "${refmap_file}",
   "mixins": [
     "event.anvil_repair.AnvilMenuMixin",
     "event.anvil_update.AnvilMenuMixin",
