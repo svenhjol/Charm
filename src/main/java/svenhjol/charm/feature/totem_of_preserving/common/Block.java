@@ -14,7 +14,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 
 public class Block extends BaseEntityBlock implements FeatureResolver<TotemOfPreserving> {
     private static final MapCodec<Block> CODEC = simpleCodec(Block::new);

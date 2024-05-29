@@ -7,8 +7,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.EnderPearlBlock;
-import svenhjol.charm.foundation.block.CharmBlock;
-import svenhjol.charm.foundation.block.CharmBlockItem;
+import svenhjol.charm.charmony.common.block.CharmBlock;
+import svenhjol.charm.charmony.common.block.CharmBlockItem;
 
 import java.util.function.Supplier;
 

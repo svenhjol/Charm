@@ -10,7 +10,7 @@ import svenhjol.charm.feature.core.custom_wood.blocks.CustomChestBlock;
 import svenhjol.charm.feature.core.custom_wood.blocks.CustomTrappedChestBlock;
 import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomChestBlockEntity;
 import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomTrappedChestBlockEntity;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.Optional;
 

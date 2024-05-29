@@ -1,5 +1,6 @@
 package svenhjol.charm;
 
+import svenhjol.charm.charmony.client.ClientFeature;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpurClient;
 import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.bat_buckets.BatBucketsClient;
@@ -37,7 +38,6 @@ import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
 import svenhjol.charm.feature.waypoints.WaypointsClient;
 import svenhjol.charm.feature.wood.WoodClient;
 import svenhjol.charm.feature.woodcutters.WoodcuttersClient;
-import svenhjol.charm.foundation.client.ClientFeature;
 
 import java.util.List;
 

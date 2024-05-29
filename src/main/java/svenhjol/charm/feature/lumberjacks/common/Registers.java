@@ -5,12 +5,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.common.villages.GenericTrades;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.core.custom_wood.common.Tags;
 import svenhjol.charm.feature.lumberjacks.Lumberjacks;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.villages.GenericTrades;
 
 import java.util.List;
 import java.util.function.Supplier;

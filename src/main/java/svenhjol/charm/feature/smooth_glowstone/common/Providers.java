@@ -3,10 +3,10 @@ package svenhjol.charm.feature.smooth_glowstone.common;
 import svenhjol.charm.Charm;
 import svenhjol.charm.api.iface.ConditionalRecipe;
 import svenhjol.charm.api.iface.ConditionalRecipeProvider;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.enums.Side;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.enums.Side;
-import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 

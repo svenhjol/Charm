@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.feature.collection.Collection;
 import svenhjol.charm.feature.crop_replanting.CropReplanting;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.Locale;
 

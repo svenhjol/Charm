@@ -16,8 +16,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.helper.MapHelper;
 import svenhjol.charm.feature.atlases.common.AtlasInventory;
-import svenhjol.charm.foundation.helper.MapHelper;
 
 @SuppressWarnings("unused")
 public class AtlasRenderer {

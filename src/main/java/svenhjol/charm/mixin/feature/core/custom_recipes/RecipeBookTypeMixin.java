@@ -3,7 +3,7 @@ package svenhjol.charm.mixin.feature.core.custom_recipes;
 import net.minecraft.world.inventory.RecipeBookType;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.gen.Invoker;
-import svenhjol.charm.foundation.common.CommonRegistry;
+import svenhjol.charm.charmony.common.CommonRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -13,11 +13,11 @@ import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomChestBlockEntity;
 import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomTrappedChestBlockEntity;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonRegistry.Register;
-import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.item.CharmHangingSignItem;
-import svenhjol.charm.foundation.item.CharmSignItem;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonRegistry.Register;
+import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.charmony.common.item.CharmHangingSignItem;
+import svenhjol.charm.charmony.common.item.CharmSignItem;
 
 import java.util.*;
 import java.util.function.Supplier;

@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.JukeboxBlock;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.feature.discs_stop_background_music.DiscsStopBackgroundMusic;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 @SuppressWarnings("unused")
 public final class Handlers extends FeatureHolder<DiscsStopBackgroundMusic> {

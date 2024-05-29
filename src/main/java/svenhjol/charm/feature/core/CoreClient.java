@@ -2,10 +2,10 @@ package svenhjol.charm.feature.core;
 
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipesClient;
 import svenhjol.charm.feature.core.custom_wood.CustomWoodClient;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.client.ClientFeature;
-import svenhjol.charm.foundation.client.ClientLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.client.ClientFeature;
+import svenhjol.charm.charmony.client.ClientLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public final class CoreClient extends ClientFeature {
     }
 
     @Override
-    public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
+    public List<? extends ChildFeature<? extends svenhjol.charm.charmony.Feature>> children() {
         return List.of(
             new CustomRecipesClient(loader()),
             new CustomWoodClient(loader())

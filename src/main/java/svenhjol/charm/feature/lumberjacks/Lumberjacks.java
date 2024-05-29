@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.lumberjacks;
 
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.lumberjacks.common.Advancements;
 import svenhjol.charm.feature.lumberjacks.common.Registers;
 import svenhjol.charm.feature.lumberjacks.common.Trades;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;

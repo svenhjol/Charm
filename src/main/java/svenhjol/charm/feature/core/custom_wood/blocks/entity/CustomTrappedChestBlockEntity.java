@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 public class CustomTrappedChestBlockEntity extends CustomChestBlockEntity {
     public CustomTrappedChestBlockEntity(BlockPos pos, BlockState state) {

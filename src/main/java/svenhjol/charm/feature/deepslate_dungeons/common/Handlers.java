@@ -5,7 +5,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<DeepslateDungeons> {
     public Handlers(DeepslateDungeons feature) {

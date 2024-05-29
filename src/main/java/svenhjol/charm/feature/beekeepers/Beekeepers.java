@@ -1,11 +1,11 @@
 package svenhjol.charm.feature.beekeepers;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.beekeepers.common.Advancements;
 import svenhjol.charm.feature.beekeepers.common.Registers;
 import svenhjol.charm.feature.beekeepers.common.Trades;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Beekeepers are villagers that trade beekeeping items. Their job site is the beehive.")
 public final class Beekeepers extends CommonFeature {

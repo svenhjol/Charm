@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.compasses_show_position.client;
 
 import svenhjol.charm.api.event.HudRenderEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.compasses_show_position.CompassesShowPosition;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<CompassesShowPosition>  {
     public Registers(CompassesShowPosition feature) {

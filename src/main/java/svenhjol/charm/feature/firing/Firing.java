@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.firing;
 
 import svenhjol.charm.feature.firing.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(priority = 5, description = "Registers the firing recipe.")
 public final class Firing extends CommonFeature {

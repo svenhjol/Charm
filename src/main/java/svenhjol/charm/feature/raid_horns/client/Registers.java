@@ -2,8 +2,8 @@ package svenhjol.charm.feature.raid_horns.client;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.raid_horns.RaidHornsClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 @SuppressWarnings("deprecation")
 public final class Registers extends RegisterHolder<RaidHornsClient> {

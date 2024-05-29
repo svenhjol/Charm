@@ -2,7 +2,7 @@ package svenhjol.charm.feature.glint_coloring.common;
 
 import net.minecraft.core.component.DataComponentType;
 import svenhjol.charm.feature.glint_coloring.GlintColoring;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

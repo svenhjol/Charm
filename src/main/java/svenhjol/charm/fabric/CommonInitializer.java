@@ -2,7 +2,7 @@ package svenhjol.charm.fabric;
 
 import net.fabricmc.api.ModInitializer;
 import svenhjol.charm.Charm;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 public final class CommonInitializer implements ModInitializer {
     private static boolean initialized = false;

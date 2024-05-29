@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.mooblooms.common;
 
 import net.minecraft.world.entity.player.Player;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<Mooblooms> {
     public Advancements(Mooblooms feature) {

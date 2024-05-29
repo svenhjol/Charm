@@ -4,7 +4,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<TotemsWorkFromInventory> {
     public Advancements(TotemsWorkFromInventory feature) {

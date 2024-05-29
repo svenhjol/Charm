@@ -4,11 +4,11 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.feature.glint_coloring.common.Handlers;
 import svenhjol.charm.feature.glint_coloring.common.Registers;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.helper.ConfigHelper;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.helper.ConfigHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;

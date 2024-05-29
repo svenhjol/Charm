@@ -3,8 +3,8 @@ package svenhjol.charm.feature.item_stacking.common;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.item_stacking.ItemStacking;
-import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.helper.ItemOverrideHelper;
+import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.charmony.common.helper.ItemOverrideHelper;
 
 public final class Registers extends RegisterHolder<ItemStacking> {
     public Registers(ItemStacking feature) {

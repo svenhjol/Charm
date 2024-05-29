@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.respawn_anchors_work_everywhere;
 
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(enabledByDefault = false, description = """
     The repsawn anchor can be used in any dimension.

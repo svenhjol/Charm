@@ -6,8 +6,8 @@ import svenhjol.charm.api.iface.ConditionalRecipe;
 import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.wood.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.feature.ProviderHolder;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 
 import java.util.List;
 

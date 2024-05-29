@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.shulker_box_transferring.common;
 
 import net.minecraft.world.entity.player.Player;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 import svenhjol.charm.feature.shulker_box_transferring.ShulkerBoxTransferring;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<ShulkerBoxTransferring> {
     public Advancements(ShulkerBoxTransferring feature) {

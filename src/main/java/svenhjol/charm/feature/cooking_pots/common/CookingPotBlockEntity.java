@@ -20,9 +20,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.common.block.entity.CharmBlockEntity;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.block.entity.CharmBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.Objects;

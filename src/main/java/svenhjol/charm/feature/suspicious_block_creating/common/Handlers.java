@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.feature.suspicious_block_creating.SuspiciousBlockCreating;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<SuspiciousBlockCreating> {
     public Handlers(SuspiciousBlockCreating feature) {

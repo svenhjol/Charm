@@ -3,9 +3,9 @@ package svenhjol.charm.feature.note_blocks.common;
 import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.note_blocks.NoteBlocks;
 import svenhjol.charm.feature.note_blocks.amethyst_note_block.AmethystNoteBlock;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.List;
 import java.util.Locale;

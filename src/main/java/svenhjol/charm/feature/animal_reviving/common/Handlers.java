@@ -17,8 +17,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<AnimalReviving> {
     public Handlers(AnimalReviving feature) {

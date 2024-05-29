@@ -3,8 +3,8 @@ package svenhjol.charm.feature.atlases.common;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.api.iface.WandererTrade;
 import svenhjol.charm.api.iface.WandererTradeProvider;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 

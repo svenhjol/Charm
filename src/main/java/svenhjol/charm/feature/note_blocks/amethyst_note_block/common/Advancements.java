@@ -2,9 +2,9 @@ package svenhjol.charm.feature.note_blocks.amethyst_note_block.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.charmony.helper.PlayerHelper;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 import svenhjol.charm.feature.note_blocks.amethyst_note_block.AmethystNoteBlock;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
-import svenhjol.charm.foundation.helper.PlayerHelper;
 
 public final class Advancements extends AdvancementHolder<AmethystNoteBlock> {
     public Advancements(AmethystNoteBlock feature) {

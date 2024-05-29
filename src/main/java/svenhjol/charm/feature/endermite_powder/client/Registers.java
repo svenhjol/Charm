@@ -3,7 +3,7 @@ package svenhjol.charm.feature.endermite_powder.client;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.endermite_powder.EndermitePowderClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<EndermitePowderClient> {
     public Registers(EndermitePowderClient feature) {

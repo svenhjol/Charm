@@ -4,8 +4,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.api.iface.CraftingTableInventoryCheckProvider;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventory;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
 
 import java.util.ArrayList;
 import java.util.List;

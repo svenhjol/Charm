@@ -7,10 +7,11 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.enums.Side;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.ResourceLocationHelper;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.common.helper.CommonFeatureHelper;
+import svenhjol.charm.charmony.enums.Side;
+import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.helper.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -84,7 +85,7 @@ public final class Handlers extends FeatureHolder<CustomRecipes> {
     }
 
     public boolean shouldRemove(ResourceLocation id) {
-        return ResourceLocationHelper.isDisabledCharmonyFeature(id)
+        return CommonFeatureHelper.isDisabledCharmonyFeature(id)
             || ResourceLocationHelper.match(id, exactRemove, fuzzyRemove);
     }
 }

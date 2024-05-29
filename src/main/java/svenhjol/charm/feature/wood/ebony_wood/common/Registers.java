@@ -11,7 +11,7 @@ import svenhjol.charm.Charm;
 import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.wood.ebony_wood.EbonyWood;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

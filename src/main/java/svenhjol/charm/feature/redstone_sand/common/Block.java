@@ -9,8 +9,8 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 import svenhjol.charm.feature.redstone_sand.RedstoneSand;
-import svenhjol.charm.foundation.feature.FeatureResolver;
 
 import java.util.function.Supplier;
 

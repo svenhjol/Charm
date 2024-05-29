@@ -3,9 +3,9 @@ package svenhjol.charm.feature.endermite_powder;
 import svenhjol.charm.feature.endermite_powder.common.Advancements;
 import svenhjol.charm.feature.endermite_powder.common.Handlers;
 import svenhjol.charm.feature.endermite_powder.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Endermites drop endermite powder that can be used to locate an End City.")
 public final class EndermitePowder extends CommonFeature {

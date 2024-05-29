@@ -5,8 +5,8 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.charmony.common.item.CharmItem;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
-import svenhjol.charm.foundation.item.CharmItem;
 
 public class Item extends CharmItem<BatBuckets> {
     public Item() {

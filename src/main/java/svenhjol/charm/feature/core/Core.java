@@ -7,12 +7,12 @@ import svenhjol.charm.feature.core.custom_advancements.CustomAdvancements;
 import svenhjol.charm.feature.core.custom_pistons.CustomPistons;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
-import svenhjol.charm.foundation.helper.ConfigHelper;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
+import svenhjol.charm.charmony.helper.ConfigHelper;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public final class Core extends CommonFeature {
     }
 
     @Override
-    public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
+    public List<? extends ChildFeature<? extends svenhjol.charm.charmony.Feature>> children() {
         return List.of(
             new CustomAdvancements(loader()),
             new CustomPistons(loader()),

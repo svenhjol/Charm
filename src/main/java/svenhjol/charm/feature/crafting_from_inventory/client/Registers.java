@@ -6,7 +6,7 @@ import svenhjol.charm.api.event.KeyPressEvent;
 import svenhjol.charm.api.event.ScreenRenderEvent;
 import svenhjol.charm.api.event.ScreenSetupEvent;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventoryClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

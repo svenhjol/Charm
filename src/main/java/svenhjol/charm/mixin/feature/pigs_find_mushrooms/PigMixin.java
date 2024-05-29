@@ -5,8 +5,8 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(Pig.class)
 public abstract class PigMixin extends Animal {

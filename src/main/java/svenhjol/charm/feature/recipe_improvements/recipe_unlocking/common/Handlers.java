@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.recipe_improvements.recipe_unlocking.common;
 
 import net.minecraft.world.entity.player.Player;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.recipe_improvements.recipe_unlocking.RecipeUnlocking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<RecipeUnlocking> {
     public Handlers(RecipeUnlocking feature) {

@@ -24,11 +24,11 @@ import svenhjol.charm.api.enums.ItemStackResult;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.event.AnvilUpdateEvent;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.enums.Side;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.ClientEffectHelper;
-import svenhjol.charm.foundation.helper.TotemHelper;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.enums.Side;
+import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.client.helper.ClientEffectHelper;
+import svenhjol.charm.charmony.helper.TotemHelper;
 
 import java.util.*;
 

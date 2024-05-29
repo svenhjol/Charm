@@ -5,9 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.casks.CasksClient;
 import svenhjol.charm.feature.casks.common.Networking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<CasksClient> {
     public Handlers(CasksClient feature) {

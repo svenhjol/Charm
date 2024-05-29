@@ -6,8 +6,8 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import svenhjol.charm.api.event.PlayerLoginEvent;
 import svenhjol.charm.api.event.PlayerTickEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

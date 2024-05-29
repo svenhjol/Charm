@@ -7,7 +7,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.feature.glint_coloring.GlintColoring;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 public record GlintColorData(DyeColor color) {
     private static final GlintColoring COLORED_GLINTS = Resolve.feature(GlintColoring.class);

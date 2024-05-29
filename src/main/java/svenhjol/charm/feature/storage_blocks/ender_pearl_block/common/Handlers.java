@@ -4,7 +4,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.EnderPearlBlock;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<EnderPearlBlock> {
     public Handlers(EnderPearlBlock feature) {

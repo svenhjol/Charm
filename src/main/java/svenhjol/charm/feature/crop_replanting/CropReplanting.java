@@ -4,9 +4,9 @@ import svenhjol.charm.feature.crop_replanting.common.Advancements;
 import svenhjol.charm.feature.crop_replanting.common.Handlers;
 import svenhjol.charm.feature.crop_replanting.common.Providers;
 import svenhjol.charm.feature.crop_replanting.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Right-click with a hoe to quickly harvest and replant a fully-grown crop.")
 public final class CropReplanting extends CommonFeature {

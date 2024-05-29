@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
-import svenhjol.charm.foundation.item.CharmItem;
+import svenhjol.charm.charmony.common.item.CharmItem;
 
 public class Item extends CharmItem<EndermitePowder> {
     public Item() {

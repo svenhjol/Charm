@@ -5,10 +5,10 @@ import svenhjol.charm.feature.totem_of_preserving.common.Advancements;
 import svenhjol.charm.feature.totem_of_preserving.common.Handlers;
 import svenhjol.charm.feature.totem_of_preserving.common.Providers;
 import svenhjol.charm.feature.totem_of_preserving.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Preserves your items on death.")
 public final class TotemOfPreserving extends CommonFeature {

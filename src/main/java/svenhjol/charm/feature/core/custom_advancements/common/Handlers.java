@@ -4,8 +4,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.feature.core.custom_advancements.CustomAdvancements;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.ResourceLocationHelper;
+import svenhjol.charm.charmony.common.helper.CommonFeatureHelper;
+import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.helper.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public final class Handlers extends FeatureHolder<CustomAdvancements> {
     }
 
     public boolean shouldRemove(ResourceLocation id) {
-        return ResourceLocationHelper.isDisabledCharmonyFeature(id)
+        return CommonFeatureHelper.isDisabledCharmonyFeature(id)
             || ResourceLocationHelper.match(id, exactRemove, fuzzyRemove);
     }
 

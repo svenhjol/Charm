@@ -5,7 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<TotemsWorkFromInventory> {
     public Handlers(TotemsWorkFromInventory feature) {

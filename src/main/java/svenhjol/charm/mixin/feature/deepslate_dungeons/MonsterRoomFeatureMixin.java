@@ -8,8 +8,8 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.MonsterRoomFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import org.spongepowered.asm.mixin.Mixin;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.deepslate_dungeons.DeepslateDungeons;
-import svenhjol.charm.foundation.Resolve;
 
 import java.util.function.Predicate;
 

@@ -3,8 +3,8 @@ package svenhjol.charm.feature.core.custom_recipes.common;
 import svenhjol.charm.api.iface.ConditionalRecipe;
 import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
 
 import java.util.ArrayList;
 import java.util.List;

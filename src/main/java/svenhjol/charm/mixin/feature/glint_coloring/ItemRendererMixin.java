@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.glint_coloring.GlintColoringClient;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(ItemRenderer.class)
 public class ItemRendererMixin {

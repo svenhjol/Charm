@@ -3,8 +3,8 @@ package svenhjol.charm.feature.core.custom_advancements.common;
 import svenhjol.charm.api.iface.ConditionalAdvancement;
 import svenhjol.charm.api.iface.ConditionalAdvancementProvider;
 import svenhjol.charm.feature.core.custom_advancements.CustomAdvancements;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
 
 import java.util.ArrayList;
 import java.util.List;

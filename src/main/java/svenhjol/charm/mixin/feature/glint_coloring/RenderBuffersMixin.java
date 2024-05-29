@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.glint_coloring.GlintColoringClient;
-import svenhjol.charm.foundation.Resolve;
 
 import java.util.SequencedMap;
 

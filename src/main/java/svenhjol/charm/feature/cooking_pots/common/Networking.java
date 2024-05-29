@@ -8,9 +8,9 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.helper.PlayerHelper;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.PlayerHelper;
 
 public final class Networking extends FeatureHolder<CookingPots> {
     public Networking(CookingPots feature) {

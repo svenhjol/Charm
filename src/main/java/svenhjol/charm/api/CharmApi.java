@@ -2,7 +2,7 @@ package svenhjol.charm.api;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.Api;
 
 @SuppressWarnings({"SameParameterValue", "UnusedReturnValue", "unused"})
 public final class CharmApi {

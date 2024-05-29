@@ -3,7 +3,7 @@ package svenhjol.charm.feature.storage_blocks.ender_pearl_block.common;
 import net.minecraft.world.item.Item;
 import svenhjol.charm.api.event.EntityJoinEvent;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.EnderPearlBlock;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

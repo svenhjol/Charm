@@ -16,9 +16,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.api.event.ItemDragDropEvent;
+import svenhjol.charm.charmony.common.helper.ItemTidyingHelper;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.shulker_box_transferring.ShulkerBoxTransferring;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.ItemTidyingHelper;
 
 public final class Handlers extends FeatureHolder<ShulkerBoxTransferring> {
 

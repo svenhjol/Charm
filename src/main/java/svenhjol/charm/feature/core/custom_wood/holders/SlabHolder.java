@@ -2,7 +2,7 @@ package svenhjol.charm.feature.core.custom_wood.holders;
 
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;
 import svenhjol.charm.feature.core.custom_wood.common.CustomWoodHolder;
-import svenhjol.charm.foundation.block.CharmSlabBlock;
+import svenhjol.charm.charmony.common.block.CharmSlabBlock;
 
 import java.util.function.Supplier;
 

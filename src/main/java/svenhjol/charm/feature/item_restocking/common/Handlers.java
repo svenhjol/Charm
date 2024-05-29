@@ -8,8 +8,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.feature.item_restocking.ItemRestocking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.EnchantmentsHelper;
+import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.common.helper.EnchantmentsHelper;
 
 import java.util.EnumMap;
 import java.util.Map;

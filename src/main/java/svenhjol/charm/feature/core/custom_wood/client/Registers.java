@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.api.event.BlockItemRenderEvent;
 import svenhjol.charm.feature.core.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.mob_textures;
 
 import net.minecraft.util.Mth;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.client.ClientFeature;
+import svenhjol.charm.charmony.client.ClientLoader;
 import svenhjol.charm.feature.mob_textures.client.Handlers;
 import svenhjol.charm.feature.mob_textures.client.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.client.ClientFeature;
-import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature(description = "Mobs may spawn with different textures.")
 public final class MobTextures extends ClientFeature {

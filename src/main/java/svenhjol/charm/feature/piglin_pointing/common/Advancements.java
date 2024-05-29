@@ -2,9 +2,9 @@ package svenhjol.charm.feature.piglin_pointing.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import svenhjol.charm.charmony.helper.PlayerHelper;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 import svenhjol.charm.feature.piglin_pointing.PiglinPointing;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
-import svenhjol.charm.foundation.helper.PlayerHelper;
 
 public final class Advancements extends AdvancementHolder<PiglinPointing> {
     public Advancements(PiglinPointing feature) {

@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapId;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.Resolve;
 
 @SuppressWarnings("unused")
 public record AtlasMapData(ItemStack map, MapId mapId, int x, int z, ResourceKey<Level> dimension) {

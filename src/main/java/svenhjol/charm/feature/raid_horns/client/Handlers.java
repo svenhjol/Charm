@@ -3,8 +3,8 @@ package svenhjol.charm.feature.raid_horns.client;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.raid_horns.RaidHornsClient;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<RaidHornsClient> {
     public Handlers(RaidHornsClient feature) {

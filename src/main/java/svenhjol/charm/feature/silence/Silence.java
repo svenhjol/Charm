@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.silence;
 
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.helper.ConfigHelper;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.helper.ConfigHelper;
 
 /**
  * Silence must have publicly accessible static variables for mixins to function properly.

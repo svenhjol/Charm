@@ -2,8 +2,8 @@ package svenhjol.charm.feature.mob_textures.client;
 
 import net.minecraft.world.entity.EntityType;
 import svenhjol.charm.api.event.ClientEntityJoinEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.mob_textures.MobTextures;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<MobTextures> {
     public Registers(MobTextures feature) {

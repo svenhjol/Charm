@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.raid_horns;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.raid_horns.common.Advancements;
 import svenhjol.charm.feature.raid_horns.common.Handlers;
 import svenhjol.charm.feature.raid_horns.common.Providers;
 import svenhjol.charm.feature.raid_horns.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Raid horns are sometimes dropped from raid leaders and can be used to call off raids or summon pillagers.")
 public final class RaidHorns extends CommonFeature {

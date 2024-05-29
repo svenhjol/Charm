@@ -6,9 +6,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.glint_coloring.GlintColoringClient;
 import svenhjol.charm.feature.glint_coloring.client.Handlers;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(RenderType.class)
 public class RenderTypeMixin {

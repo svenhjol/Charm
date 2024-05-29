@@ -4,8 +4,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.parrots_stay_on_shoulder.ParrotsStayOnShoulder;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<ParrotsStayOnShoulder> {
     private static final long STAY_MOUNTED_TIME = 20L;

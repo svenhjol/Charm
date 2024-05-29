@@ -2,8 +2,8 @@ package svenhjol.charm.feature.wood.vanilla_wood_variants.common;
 
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.wood.vanilla_wood_variants.VanillaWoodVariants;
-import svenhjol.charm.foundation.enums.VanillaWood;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.common.enums.VanillaWood;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.Collections;
 

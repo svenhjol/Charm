@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.RenderType;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.wood.ebony_wood.EbonyWoodClient;
 import svenhjol.charm.feature.wood.ebony_wood.common.EbonyMaterial;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.List;
 

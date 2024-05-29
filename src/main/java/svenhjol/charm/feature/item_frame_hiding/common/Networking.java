@@ -10,7 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHiding;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Networking extends FeatureHolder<ItemFrameHiding> {
     public Networking(ItemFrameHiding feature) {

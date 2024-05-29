@@ -6,8 +6,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.core.custom_advancements.CustomAdvancements;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(AdvancementTree.class)
 public class AdvancementTreeMixin {

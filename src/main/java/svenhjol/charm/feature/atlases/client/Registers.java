@@ -6,9 +6,9 @@ import net.minecraft.world.item.Items;
 import org.lwjgl.glfw.GLFW;
 import svenhjol.charm.api.event.HeldItemRenderEvent;
 import svenhjol.charm.api.event.KeyPressEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.atlases.common.Networking;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

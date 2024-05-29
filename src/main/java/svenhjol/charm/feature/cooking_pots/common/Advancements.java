@@ -2,7 +2,7 @@ package svenhjol.charm.feature.cooking_pots.common;
 
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<CookingPots> {
     public Advancements(CookingPots feature) {

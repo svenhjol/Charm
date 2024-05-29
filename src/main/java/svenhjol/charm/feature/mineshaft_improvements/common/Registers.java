@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.mineshaft_improvements.MineshaftImprovements;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.ArrayList;
 import java.util.List;

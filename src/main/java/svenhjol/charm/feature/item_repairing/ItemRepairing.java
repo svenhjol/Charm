@@ -2,10 +2,10 @@ package svenhjol.charm.feature.item_repairing;
 
 import svenhjol.charm.feature.item_repairing.common.Handlers;
 import svenhjol.charm.feature.item_repairing.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "More ways to repair items using different materials.")
 public final class ItemRepairing extends CommonFeature {

@@ -2,9 +2,9 @@ package svenhjol.charm.feature.recipe_improvements.common;
 
 import svenhjol.charm.api.iface.ConditionalAdvancement;
 import svenhjol.charm.api.iface.ConditionalRecipeProvider;
+import svenhjol.charm.charmony.Feature;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.recipe_improvements.RecipeImprovements;
-import svenhjol.charm.foundation.Feature;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.ArrayList;
 import java.util.List;

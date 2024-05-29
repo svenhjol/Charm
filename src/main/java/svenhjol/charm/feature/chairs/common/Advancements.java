@@ -2,7 +2,7 @@ package svenhjol.charm.feature.chairs.common;
 
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.feature.chairs.Chairs;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<Chairs> {
     public Advancements(Chairs feature) {

@@ -2,10 +2,10 @@ package svenhjol.charm.feature.tooltip_improvements;
 
 import svenhjol.charm.feature.tooltip_improvements.client.Handlers;
 import svenhjol.charm.feature.tooltip_improvements.client.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.client.ClientFeature;
-import svenhjol.charm.foundation.client.ClientLoader;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.client.ClientFeature;
+import svenhjol.charm.charmony.client.ClientLoader;
 
 @Feature(description = "Adds hover tooltips for some items that have content.")
 public final class TooltipImprovements extends ClientFeature {

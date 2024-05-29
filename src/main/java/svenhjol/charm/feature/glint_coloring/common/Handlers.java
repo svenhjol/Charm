@@ -3,7 +3,7 @@ package svenhjol.charm.feature.glint_coloring.common;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.feature.glint_coloring.GlintColoring;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
 

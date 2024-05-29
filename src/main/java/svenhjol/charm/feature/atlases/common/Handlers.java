@@ -15,8 +15,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.api.enums.EventResult;
 import svenhjol.charm.api.enums.ItemStackResult;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 import svenhjol.charm.mixin.feature.atlases.MapItemSavedDataMixin;
 
 import java.util.UUID;

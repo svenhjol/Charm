@@ -8,8 +8,8 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.saveddata.maps.MapId;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.Resolve;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

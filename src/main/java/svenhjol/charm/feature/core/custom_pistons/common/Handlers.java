@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.feature.core.custom_pistons.CustomPistons;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<CustomPistons> {
     public Handlers(CustomPistons feature) {

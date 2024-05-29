@@ -8,7 +8,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventoryClient;
 import svenhjol.charm.feature.crafting_from_inventory.common.Networking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<CraftingFromInventoryClient> {
     public ImageButton craftingButton;

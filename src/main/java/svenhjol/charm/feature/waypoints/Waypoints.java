@@ -5,11 +5,11 @@ import svenhjol.charm.feature.compasses_show_position.CompassesShowPosition;
 import svenhjol.charm.feature.waypoints.common.Handlers;
 import svenhjol.charm.feature.waypoints.common.Networking;
 import svenhjol.charm.feature.waypoints.common.Registers;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = """
     Lodestones broadcast a message to a nearby player when a banner is placed on top.

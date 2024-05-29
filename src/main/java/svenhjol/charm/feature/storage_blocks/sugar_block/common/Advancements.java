@@ -3,8 +3,8 @@ package svenhjol.charm.feature.storage_blocks.sugar_block.common;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import svenhjol.charm.feature.storage_blocks.sugar_block.SugarBlock;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
-import svenhjol.charm.foundation.helper.PlayerHelper;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
+import svenhjol.charm.charmony.helper.PlayerHelper;
 
 public final class Advancements extends AdvancementHolder<SugarBlock> {
     public Advancements(SugarBlock feature) {

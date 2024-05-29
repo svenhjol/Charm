@@ -8,8 +8,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.repair_cost_visible.RepairCostVisible;
-import svenhjol.charm.foundation.Resolve;
 
 import java.util.List;
 

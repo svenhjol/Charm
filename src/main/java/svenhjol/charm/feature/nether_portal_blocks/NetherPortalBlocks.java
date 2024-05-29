@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.nether_portal_blocks;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.nether_portal_blocks.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = """
     Adds more blocks that can be used to build nether portals. By default this adds Crying Obsidian.

@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.feature.storage_blocks.gunpowder_block.GunpowderBlock;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 
 import java.util.function.Supplier;
 

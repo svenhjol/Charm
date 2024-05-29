@@ -3,7 +3,7 @@ package svenhjol.charm.feature.firing.common;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.crafting.SimpleCookingSerializer;
 import svenhjol.charm.feature.firing.Firing;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

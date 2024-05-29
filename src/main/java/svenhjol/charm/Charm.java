@@ -1,6 +1,7 @@
 package svenhjol.charm;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.charmony.common.CommonFeature;
 import svenhjol.charm.feature.aerial_affinity.AerialAffinity;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
 import svenhjol.charm.feature.animal_armor_grinding.AnimalArmorGrinding;
@@ -73,7 +74,6 @@ import svenhjol.charm.feature.waypoints.Waypoints;
 import svenhjol.charm.feature.wood.Wood;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
-import svenhjol.charm.foundation.common.CommonFeature;
 
 import java.util.List;
 

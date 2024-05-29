@@ -4,7 +4,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import svenhjol.charm.feature.suspicious_block_creating.SuspiciousBlockCreating;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.HashMap;
 import java.util.Map;

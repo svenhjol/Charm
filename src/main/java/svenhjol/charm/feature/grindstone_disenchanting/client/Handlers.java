@@ -7,7 +7,7 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchantingClient;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.ArrayList;
 import java.util.List;

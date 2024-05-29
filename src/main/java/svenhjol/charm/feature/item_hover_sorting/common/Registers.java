@@ -8,8 +8,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.api.event.ItemHoverSortEvent;
 import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
-import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.helper.TagHelper;
+import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.charmony.common.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.List;

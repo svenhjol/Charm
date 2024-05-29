@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.item_restocking.ItemRestocking;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(ComposterBlock.class)
 public class ComposterBlockMixin {

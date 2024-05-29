@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import svenhjol.charm.foundation.helper.TooltipHelper;
+import svenhjol.charm.charmony.helper.TooltipHelper;
 
 import java.util.List;
 

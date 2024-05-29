@@ -1,8 +1,8 @@
 package svenhjol.charm.feature.nether_portal_blocks.common;
 
 import net.minecraft.world.level.portal.PortalShape;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.nether_portal_blocks.NetherPortalBlocks;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<NetherPortalBlocks> {
     public Registers(NetherPortalBlocks feature) {

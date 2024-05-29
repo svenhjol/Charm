@@ -3,10 +3,10 @@ package svenhjol.charm.feature.coral_squids;
 import net.minecraft.util.Mth;
 import svenhjol.charm.feature.coral_squids.common.Providers;
 import svenhjol.charm.feature.coral_squids.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Coral Squids spawn near coral in warm oceans.")
 public final class CoralSquids extends CommonFeature {

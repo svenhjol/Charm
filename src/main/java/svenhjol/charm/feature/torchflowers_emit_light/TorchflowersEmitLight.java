@@ -2,10 +2,10 @@ package svenhjol.charm.feature.torchflowers_emit_light;
 
 import net.minecraft.util.Mth;
 import svenhjol.charm.feature.torchflowers_emit_light.common.Handlers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Torchflowers emit ambient light.")
 public final class TorchflowersEmitLight extends CommonFeature {

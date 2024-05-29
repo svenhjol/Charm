@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.mob_drops.chicken_drops;
 
 import net.minecraft.sounds.SoundEvent;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

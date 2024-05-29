@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.smooth_glowstone.common;
 
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.smooth_glowstone.SmoothGlowstone;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

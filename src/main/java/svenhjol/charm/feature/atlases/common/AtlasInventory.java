@@ -25,8 +25,8 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.maps.MapId;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.Resolve;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

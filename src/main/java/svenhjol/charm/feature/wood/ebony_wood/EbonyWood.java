@@ -3,10 +3,10 @@ package svenhjol.charm.feature.wood.ebony_wood;
 import svenhjol.charm.feature.wood.Wood;
 import svenhjol.charm.feature.wood.ebony_wood.common.Providers;
 import svenhjol.charm.feature.wood.ebony_wood.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 
 @Feature(description = "Ebony is a dark wood obtainable from ebony trees that grow in savanna biomes.")
 public final class EbonyWood extends CommonFeature implements ChildFeature<Wood> {

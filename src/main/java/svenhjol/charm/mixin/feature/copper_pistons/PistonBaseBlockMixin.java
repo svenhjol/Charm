@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
-import svenhjol.charm.foundation.Resolve;
 
 @SuppressWarnings({"UnnecessaryLocalVariable", "UnreachableCode"})
 @Mixin(PistonBaseBlock.class)

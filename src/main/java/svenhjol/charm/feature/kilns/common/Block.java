@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import svenhjol.charm.feature.kilns.Kilns;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;

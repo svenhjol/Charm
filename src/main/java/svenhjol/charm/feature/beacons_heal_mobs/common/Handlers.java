@@ -8,8 +8,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.beacons_heal_mobs.BeaconsHealMobs;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<BeaconsHealMobs> {
     public Handlers(BeaconsHealMobs feature) {

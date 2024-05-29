@@ -8,7 +8,7 @@ import net.minecraft.world.item.crafting.SingleItemRecipe;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 @SuppressWarnings("unused")
 public class Recipe extends SingleItemRecipe {

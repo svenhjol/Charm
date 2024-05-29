@@ -4,8 +4,8 @@ import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipesClient;
-import svenhjol.charm.foundation.client.ClientRegistry;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.client.ClientRegistry;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.Optional;
 

@@ -5,7 +5,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.level.Level;
-import svenhjol.charm.foundation.helper.ConfigHelper;
+import svenhjol.charm.charmony.common.helper.DebugHelper;
 
 import java.util.function.Predicate;
 
@@ -75,7 +75,7 @@ public class BeeSearchGoal extends Goal {
         } else if (!bee.getNavigation().isInProgress()) {
             bee.pathfindRandomlyTowards(moobloom.blockPosition());
 
-            if (ConfigHelper.isDebugEnabled()) {
+            if (DebugHelper.isDebugEnabled()) {
                 bee.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100));
             }
         } else {
@@ -89,7 +89,7 @@ public class BeeSearchGoal extends Goal {
             if (dist < 2.2) {
                 bee.setHasNectar(false);
 
-                if (ConfigHelper.isDebugEnabled()) {
+                if (DebugHelper.isDebugEnabled()) {
                     bee.removeEffect(MobEffects.GLOWING);
                 }
 

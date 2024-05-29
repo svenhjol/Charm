@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreservingClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<TotemOfPreservingClient> {
     public Registers(TotemOfPreservingClient feature) {

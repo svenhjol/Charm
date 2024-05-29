@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import svenhjol.charm.feature.waypoints.Waypoints;
 import svenhjol.charm.feature.waypoints.common.Networking.S2CClearWaypointInfo;
 import svenhjol.charm.feature.waypoints.common.Networking.S2CUpdateWaypointInfo;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.HashMap;
 import java.util.Map;

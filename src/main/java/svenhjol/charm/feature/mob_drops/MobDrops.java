@@ -1,5 +1,9 @@
 package svenhjol.charm.feature.mob_drops;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.feature.mob_drops.cave_spider_drops.CaveSpiderDrops;
 import svenhjol.charm.feature.mob_drops.chicken_drops.ChickenDrops;
 import svenhjol.charm.feature.mob_drops.common.DropHandler;
@@ -8,10 +12,6 @@ import svenhjol.charm.feature.mob_drops.common.Registers;
 import svenhjol.charm.feature.mob_drops.goat_drops.GoatDrops;
 import svenhjol.charm.feature.mob_drops.husk_drops.HuskDrops;
 import svenhjol.charm.feature.mob_drops.witch_drops.WitchDrops;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public final class MobDrops extends CommonFeature {
     }
 
     @Override
-    public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
+    public List<? extends ChildFeature<? extends svenhjol.charm.charmony.Feature>> children() {
         return List.of(
             new CaveSpiderDrops(loader()),
             new ChickenDrops(loader()),

@@ -4,9 +4,9 @@ import svenhjol.charm.feature.item_frame_hiding.common.Advancements;
 import svenhjol.charm.feature.item_frame_hiding.common.Handlers;
 import svenhjol.charm.feature.item_frame_hiding.common.Networking;
 import svenhjol.charm.feature.item_frame_hiding.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Add amethyst shards to item frames to hide them.")
 public final class ItemFrameHiding extends CommonFeature {

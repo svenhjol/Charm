@@ -9,8 +9,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.mob_textures.MobTextures;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
 import java.util.*;

@@ -6,7 +6,7 @@ import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.api.iface.CompassOverlayItem;
 import svenhjol.charm.api.iface.CompassOverlayProvider;
 import svenhjol.charm.feature.waypoints.WaypointsClient;
-import svenhjol.charm.foundation.feature.ProviderHolder;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 
 import java.util.List;
 

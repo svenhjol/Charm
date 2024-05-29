@@ -4,11 +4,11 @@ import svenhjol.charm.feature.storage_blocks.StorageBlocks;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.common.Advancements;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.common.Handlers;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 
 @Feature(description = "Combine ender pearls to make an ender pearl block.")
 public final class EnderPearlBlock extends CommonFeature implements ChildFeature<StorageBlocks> {

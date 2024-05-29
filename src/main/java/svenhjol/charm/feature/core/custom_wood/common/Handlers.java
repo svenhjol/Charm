@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.core.custom_wood.blocks.CustomChestBlock;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
 

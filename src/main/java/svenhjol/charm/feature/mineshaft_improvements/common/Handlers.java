@@ -15,8 +15,8 @@ import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces;
 import net.minecraft.world.level.levelgen.structure.structures.MineshaftPieces.MineShaftCorridor;
 import net.minecraft.world.level.levelgen.structure.structures.MineshaftStructure;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.mineshaft_improvements.MineshaftImprovements;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.List;
 

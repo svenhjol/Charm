@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.spawners_drop_items.SpawnersDropItems;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;

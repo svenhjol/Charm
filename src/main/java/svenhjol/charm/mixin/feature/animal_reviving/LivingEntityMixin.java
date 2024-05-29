@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {

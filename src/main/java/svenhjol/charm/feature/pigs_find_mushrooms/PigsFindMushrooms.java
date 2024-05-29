@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.pigs_find_mushrooms;
 
 import net.minecraft.util.Mth;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.pigs_find_mushrooms.common.Advancements;
 import svenhjol.charm.feature.pigs_find_mushrooms.common.Handlers;
 import svenhjol.charm.feature.pigs_find_mushrooms.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = """
     Pigs have a chance to find mushrooms from certain blocks. By default mushrooms are unearthed from mycelium and podzol blocks.

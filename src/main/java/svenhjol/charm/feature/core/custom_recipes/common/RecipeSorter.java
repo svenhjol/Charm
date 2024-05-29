@@ -10,7 +10,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 
 import java.util.Map;
 

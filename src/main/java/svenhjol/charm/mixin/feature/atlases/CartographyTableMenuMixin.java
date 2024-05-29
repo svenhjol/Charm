@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 /**
  * Scale atlases on cartography table.

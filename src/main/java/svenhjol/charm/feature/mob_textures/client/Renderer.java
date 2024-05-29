@@ -9,8 +9,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.npc.WanderingTrader;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.mob_textures.MobTextures;
-import svenhjol.charm.foundation.Resolve;
 
 public class Renderer {
     private static final MobTextures MOB_TEXTURES = Resolve.feature(MobTextures.class);

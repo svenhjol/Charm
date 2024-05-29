@@ -3,8 +3,8 @@ package svenhjol.charm.feature.note_blocks.amethyst_note_block.common;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.note_blocks.amethyst_note_block.AmethystNoteBlock;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

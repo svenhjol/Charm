@@ -7,8 +7,8 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHidingClient;
 import svenhjol.charm.feature.item_frame_hiding.common.Networking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.ColorHelper;
+import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.helper.ColorHelper;
 
 public final class Handlers extends FeatureHolder<ItemFrameHidingClient> {
     public Handlers(ItemFrameHidingClient feature) {

@@ -3,13 +3,13 @@ package svenhjol.charm.feature.spawners_drop_items;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.spawners_drop_items.common.Handlers;
 import svenhjol.charm.feature.spawners_drop_items.common.Registers;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = """
     Monster spawners drop mob-related items when broken. This allows items such as gunpowder, string

@@ -9,10 +9,10 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.atlases.AtlasesClient;
 import svenhjol.charm.feature.atlases.common.AtlasInventory;
 import svenhjol.charm.feature.atlases.common.Networking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 import svenhjol.charm.mixin.feature.atlases.CartographyTableScreenMixin;
 
 public final class Handlers extends FeatureHolder<AtlasesClient> {

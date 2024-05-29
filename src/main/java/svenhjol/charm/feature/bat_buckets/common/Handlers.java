@@ -20,11 +20,11 @@ import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.api.enums.ItemStackResult;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.common.helper.MobHelper;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.echolocation.Echolocation;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.MobHelper;
 
 import javax.annotation.Nullable;
 

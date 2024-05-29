@@ -4,8 +4,8 @@ import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.mooblooms.MoobloomsClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

@@ -10,8 +10,8 @@ import net.minecraft.world.item.ComplexItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
 import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Networking extends FeatureHolder<Atlases> {
     public Networking(Atlases feature) {

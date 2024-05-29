@@ -10,8 +10,8 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.animal_damage_immunity.AnimalDamageImmunity;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<AnimalDamageImmunity> {
     public Handlers(AnimalDamageImmunity feature) {

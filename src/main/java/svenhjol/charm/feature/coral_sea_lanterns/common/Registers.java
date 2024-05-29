@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.coral_sea_lanterns.common;
 
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanterns;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

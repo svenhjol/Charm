@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.recipe_improvements.shapeless_recipes;
 
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.feature.recipe_improvements.RecipeImprovements;
 import svenhjol.charm.feature.recipe_improvements.shapeless_recipes.common.Providers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(description = "Adds convenient shapeless recipe versions of common shaped vanilla recipes.")
 public final class ShapelessRecipes extends CommonFeature implements ChildFeature<RecipeImprovements> {

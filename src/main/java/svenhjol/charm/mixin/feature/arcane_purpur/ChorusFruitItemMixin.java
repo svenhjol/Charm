@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 @Mixin(ChorusFruitItem.class)
 public class ChorusFruitItemMixin {

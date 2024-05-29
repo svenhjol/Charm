@@ -4,7 +4,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.coral_squids.CoralSquidsClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

@@ -5,7 +5,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.api.enums.EventResult;
 import svenhjol.charm.feature.storage_blocks.sugar_block.SugarBlock;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<SugarBlock> {
     public Handlers(SugarBlock feature) {

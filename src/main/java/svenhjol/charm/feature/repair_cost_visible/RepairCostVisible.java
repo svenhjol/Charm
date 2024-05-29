@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.repair_cost_visible;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.client.ClientFeature;
+import svenhjol.charm.charmony.client.ClientLoader;
 import svenhjol.charm.feature.repair_cost_visible.client.Handlers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.client.ClientFeature;
-import svenhjol.charm.foundation.client.ClientLoader;
 
 @Feature(description = "An item's repair cost is shown in its tooltip when viewing on the anvil.")
 public final class RepairCostVisible extends ClientFeature {

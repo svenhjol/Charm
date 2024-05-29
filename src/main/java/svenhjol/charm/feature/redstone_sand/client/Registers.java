@@ -2,8 +2,8 @@ package svenhjol.charm.feature.redstone_sand.client;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.redstone_sand.RedstoneSandClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<RedstoneSandClient> {
     public Registers(RedstoneSandClient feature) {

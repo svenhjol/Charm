@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.DoorBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoorHingeSide;
 import svenhjol.charm.feature.doors_open_together.DoorsOpenTogether;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.ArrayList;
 import java.util.List;

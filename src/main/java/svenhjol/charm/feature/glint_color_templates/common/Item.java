@@ -6,7 +6,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.SmithingTemplateItem;
 import svenhjol.charm.feature.glint_color_templates.GlintColorTemplates;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 import java.util.List;
 

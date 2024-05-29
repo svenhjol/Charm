@@ -17,11 +17,11 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+import svenhjol.charm.charmony.common.helper.EnchantmentsHelper;
+import svenhjol.charm.charmony.common.helper.TagHelper;
+import svenhjol.charm.charmony.common.villages.GenericTrades;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.beekeepers.Beekeepers;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.EnchantmentsHelper;
-import svenhjol.charm.foundation.helper.TagHelper;
-import svenhjol.charm.foundation.villages.GenericTrades;
 
 import javax.annotation.Nullable;
 import java.util.List;

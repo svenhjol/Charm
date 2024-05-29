@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.feature.woodcutting.common.Recipe;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 import java.util.List;
 

@@ -7,8 +7,8 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.api.iface.HoverSortableItemProvider;
 import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
 
 import java.util.List;
 

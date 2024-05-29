@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.player_pressure_plates.common;
 
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.player_pressure_plates.PlayerPressurePlates;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

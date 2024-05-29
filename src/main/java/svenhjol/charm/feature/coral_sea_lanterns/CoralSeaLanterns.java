@@ -2,9 +2,9 @@ package svenhjol.charm.feature.coral_sea_lanterns;
 
 import svenhjol.charm.feature.coral_sea_lanterns.common.Providers;
 import svenhjol.charm.feature.coral_sea_lanterns.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Coral can be combined with sea lanterns to make colored variants.")
 public final class CoralSeaLanterns extends CommonFeature  {

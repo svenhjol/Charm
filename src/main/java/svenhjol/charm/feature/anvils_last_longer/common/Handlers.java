@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.anvils_last_longer.common;
 
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.anvils_last_longer.AnvilsLastLonger;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.Random;
 

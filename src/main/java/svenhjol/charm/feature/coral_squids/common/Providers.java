@@ -4,7 +4,7 @@ import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.api.iface.WandererTrade;
 import svenhjol.charm.api.iface.WandererTradeProvider;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
-import svenhjol.charm.foundation.feature.ProviderHolder;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package svenhjol.charm.feature.arcane_purpur.common;
 
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<ArcanePurpur> {
     public Advancements(ArcanePurpur feature) {

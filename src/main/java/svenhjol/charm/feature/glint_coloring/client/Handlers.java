@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.glint_coloring.GlintColoring;
 import svenhjol.charm.feature.glint_coloring.GlintColoringClient;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;

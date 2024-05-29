@@ -3,8 +3,8 @@ package svenhjol.charm.feature.animal_armor_enchanting.common;
 import net.minecraft.world.item.AnimalArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<AnimalArmorEnchanting> {
     public Handlers(AnimalArmorEnchanting feature) {

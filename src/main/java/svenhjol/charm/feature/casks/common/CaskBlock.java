@@ -36,8 +36,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.api.iface.FuelProvider;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 import svenhjol.charm.feature.casks.Casks;
-import svenhjol.charm.foundation.feature.FeatureResolver;
 
 import java.util.List;
 import java.util.Objects;

@@ -10,8 +10,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.phys.Vec3;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.chairs.Chairs;
-import svenhjol.charm.foundation.Resolve;
 
 public class Chair extends Entity {
     private static final Chairs CHAIRS = Resolve.feature(Chairs.class);

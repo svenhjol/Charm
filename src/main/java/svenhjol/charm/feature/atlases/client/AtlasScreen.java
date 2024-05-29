@@ -23,13 +23,13 @@ import net.minecraft.world.level.saveddata.maps.MapDecorationTypes;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import org.joml.Matrix4f;
 import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.client.screen.CharmContainerScreen;
+import svenhjol.charm.charmony.helper.KeyboardHelper;
+import svenhjol.charm.charmony.helper.MapHelper;
 import svenhjol.charm.feature.atlases.common.AtlasInventory;
 import svenhjol.charm.feature.atlases.common.Menu;
 import svenhjol.charm.feature.atlases.common.MoveMode;
 import svenhjol.charm.feature.atlases.common.Networking.C2STransferAtlas;
-import svenhjol.charm.foundation.helper.KeyboardHelper;
-import svenhjol.charm.foundation.helper.MapHelper;
-import svenhjol.charm.foundation.screen.CharmContainerScreen;
 
 import java.util.EnumMap;
 import java.util.EnumSet;

@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.cooking_pots.common;
 
 import net.minecraft.world.item.Item;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.common.item.CharmItem;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.item.CharmItem;
 
 public class MixedStewItem extends CharmItem<CookingPots> {
     private static final CookingPots COOKING_POTS = Resolve.feature(CookingPots.class);

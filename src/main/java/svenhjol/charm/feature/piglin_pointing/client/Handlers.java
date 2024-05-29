@@ -3,8 +3,8 @@ package svenhjol.charm.feature.piglin_pointing.client;
 import net.minecraft.client.model.PiglinModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.piglin.Piglin;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.piglin_pointing.PiglinPointingClient;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.Map;
 import java.util.UUID;

@@ -2,8 +2,8 @@ package svenhjol.charm.feature.bat_buckets.common;
 
 import net.minecraft.sounds.SoundEvent;
 import svenhjol.charm.api.event.EntityUseEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

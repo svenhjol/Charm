@@ -3,10 +3,10 @@ package svenhjol.charm.feature.glint_color_templates;
 import net.minecraft.util.Mth;
 import svenhjol.charm.feature.glint_color_templates.common.Advancements;
 import svenhjol.charm.feature.glint_color_templates.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Smithing template that changes the glint color of any enchanted item.")
 public final class GlintColorTemplates extends CommonFeature {

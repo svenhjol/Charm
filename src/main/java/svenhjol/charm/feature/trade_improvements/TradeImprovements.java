@@ -2,10 +2,10 @@ package svenhjol.charm.feature.trade_improvements;
 
 import svenhjol.charm.feature.trade_improvements.common.Providers;
 import svenhjol.charm.feature.trade_improvements.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Adds more villager trades.")
 public final class TradeImprovements extends CommonFeature {

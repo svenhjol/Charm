@@ -3,7 +3,7 @@ package svenhjol.charm.feature.glint_color_templates.client;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.glint_color_templates.GlintColorTemplatesClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<GlintColorTemplatesClient> {
     public Registers(GlintColorTemplatesClient feature) {

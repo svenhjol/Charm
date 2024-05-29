@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.piglin_pointing.PiglinPointingClient;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(PiglinModel.class)
 public abstract class PiglinModelMixin<T extends Mob> extends PlayerModel<T> {

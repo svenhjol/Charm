@@ -3,9 +3,9 @@ package svenhjol.charm.feature.villager_attracting;
 import svenhjol.charm.feature.villager_attracting.common.Advancements;
 import svenhjol.charm.feature.villager_attracting.common.Handlers;
 import svenhjol.charm.feature.villager_attracting.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = """
     Attract villagers by holding a desired item. By default this is an emerald block.

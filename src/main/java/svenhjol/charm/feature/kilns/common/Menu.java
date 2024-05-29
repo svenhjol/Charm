@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeBookType;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.kilns.Kilns;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 public class Menu extends AbstractFurnaceMenu {
     private static final Kilns KILNS = Resolve.feature(Kilns.class);

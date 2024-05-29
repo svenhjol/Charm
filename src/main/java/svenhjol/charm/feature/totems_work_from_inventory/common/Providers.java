@@ -6,8 +6,8 @@ import net.minecraft.world.item.Items;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.iface.TotemInventoryCheckProvider;
 import svenhjol.charm.feature.totems_work_from_inventory.TotemsWorkFromInventory;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import svenhjol.charm.feature.glint_coloring.GlintColoringClient;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 @Mixin(WolfArmorLayer.class)
 public class WolfArmorLayerMixin {

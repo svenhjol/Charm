@@ -2,8 +2,8 @@ package svenhjol.charm.feature.coral_sea_lanterns.client;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.coral_sea_lanterns.CoralSeaLanternsClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.ArrayList;
 import java.util.Collections;

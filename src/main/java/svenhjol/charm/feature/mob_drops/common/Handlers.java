@@ -5,8 +5,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.mob_drops.MobDrops;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<MobDrops> {
     public Handlers(MobDrops feature) {

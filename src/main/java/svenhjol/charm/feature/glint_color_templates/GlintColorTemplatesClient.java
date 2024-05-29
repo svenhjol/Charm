@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.glint_color_templates;
 
 import svenhjol.charm.feature.glint_color_templates.client.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.client.ClientFeature;
-import svenhjol.charm.foundation.client.ClientLoader;
-import svenhjol.charm.foundation.common.CommonResolver;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.client.ClientFeature;
+import svenhjol.charm.charmony.client.ClientLoader;
+import svenhjol.charm.charmony.common.CommonResolver;
 
 @Feature
 public final class GlintColorTemplatesClient extends ClientFeature implements CommonResolver<GlintColorTemplates> {

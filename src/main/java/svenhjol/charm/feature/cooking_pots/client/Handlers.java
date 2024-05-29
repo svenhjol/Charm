@@ -7,10 +7,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.cooking_pots.CookingPotsClient;
 import svenhjol.charm.feature.cooking_pots.common.CookingPotBlock;
 import svenhjol.charm.feature.cooking_pots.common.Networking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<CookingPotsClient> {
     public Handlers(CookingPotsClient feature) {

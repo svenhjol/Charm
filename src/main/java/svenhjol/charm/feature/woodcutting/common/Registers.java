@@ -3,7 +3,7 @@ package svenhjol.charm.feature.woodcutting.common;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

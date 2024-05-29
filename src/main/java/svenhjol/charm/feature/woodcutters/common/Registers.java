@@ -7,7 +7,7 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

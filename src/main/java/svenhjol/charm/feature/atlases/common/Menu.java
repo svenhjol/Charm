@@ -4,10 +4,10 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.common.menu.CharmConditionalSlot;
+import svenhjol.charm.charmony.common.menu.CharmContainerMenu;
 import svenhjol.charm.feature.atlases.Atlases;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.menu.CharmConditionalSlot;
-import svenhjol.charm.foundation.menu.CharmContainerMenu;
 
 import java.util.Objects;
 

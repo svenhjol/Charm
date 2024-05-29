@@ -2,7 +2,7 @@ package svenhjol.charm.feature.endermite_powder.common;
 
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<EndermitePowder> {
     public Advancements(EndermitePowder feature) {

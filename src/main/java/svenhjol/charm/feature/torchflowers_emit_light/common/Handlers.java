@@ -4,7 +4,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TorchflowerCropBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import svenhjol.charm.feature.torchflowers_emit_light.TorchflowersEmitLight;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.Optional;
 

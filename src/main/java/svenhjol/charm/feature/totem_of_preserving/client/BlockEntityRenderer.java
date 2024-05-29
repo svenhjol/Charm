@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.feature.totem_of_preserving.common.Item;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.feature.totem_of_preserving.common.BlockEntity;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 
 public class BlockEntityRenderer<T extends BlockEntity> implements net.minecraft.client.renderer.blockentity.BlockEntityRenderer<T>, FeatureResolver<TotemOfPreserving> {
     private final ItemStack stack;

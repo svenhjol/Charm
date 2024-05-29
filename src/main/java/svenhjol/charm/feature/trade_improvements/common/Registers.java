@@ -8,8 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import svenhjol.charm.feature.trade_improvements.TradeImprovements;
-import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.villages.GenericTrades;
+import svenhjol.charm.charmony.feature.RegisterHolder;
+import svenhjol.charm.charmony.common.villages.GenericTrades;
 
 import javax.annotation.Nullable;
 import java.util.Optional;

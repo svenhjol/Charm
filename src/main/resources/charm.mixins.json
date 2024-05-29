@@ -117,7 +117,7 @@
     "registry.client_tooltip_component.ClientTooltipComponentMixin",
     "registry.particle_engine.ParticleEngineMixin"
   ],
-  "plugin": "svenhjol.charm.mixin.MixinConfigPlugin",
+  "plugin": "svenhjol.charm.mixin.MixinConfig",
   "injectors": {
     "defaultRequire": 1
   }

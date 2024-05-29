@@ -10,8 +10,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.waypoints.Waypoints;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.NetworkHelper;
+import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.helper.NetworkHelper;
 
 public final class Networking extends FeatureHolder<Waypoints> {
     public Networking(Waypoints feature) {

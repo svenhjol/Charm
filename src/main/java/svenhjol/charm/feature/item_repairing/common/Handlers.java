@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import svenhjol.charm.feature.item_repairing.ItemRepairing;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<ItemRepairing> {
     public Handlers(ItemRepairing feature) {

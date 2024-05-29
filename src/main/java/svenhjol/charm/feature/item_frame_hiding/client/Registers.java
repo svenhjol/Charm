@@ -4,7 +4,7 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.core.particles.SimpleParticleType;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHidingClient;
 import svenhjol.charm.feature.item_frame_hiding.common.Networking;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

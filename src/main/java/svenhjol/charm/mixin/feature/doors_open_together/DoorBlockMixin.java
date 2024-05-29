@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.doors_open_together.DoorsOpenTogether;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(DoorBlock.class)
 public class DoorBlockMixin {

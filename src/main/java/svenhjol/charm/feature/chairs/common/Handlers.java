@@ -12,8 +12,8 @@ import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.chairs.Chairs;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<Chairs> {
     public Handlers(Chairs feature) {

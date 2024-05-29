@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.crafting_from_inventory;
 
 import svenhjol.charm.feature.crafting_from_inventory.common.*;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Allows crafting if the player has a crafting table in their inventory.")
 public final class CraftingFromInventory extends CommonFeature {

@@ -2,7 +2,7 @@ package svenhjol.charm.feature.casks.common;
 
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.feature.casks.Casks;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<Casks> {
     public Advancements(Casks feature) {

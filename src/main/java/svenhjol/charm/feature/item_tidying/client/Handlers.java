@@ -10,7 +10,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.item_tidying.ItemTidyingClient;
 import svenhjol.charm.feature.item_tidying.common.TidyType;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,7 @@ package svenhjol.charm.feature.glint_color_templates.common;
 
 import net.minecraft.world.entity.player.Player;
 import svenhjol.charm.feature.glint_color_templates.GlintColorTemplates;
-import svenhjol.charm.foundation.feature.AdvancementHolder;
+import svenhjol.charm.feature.core.custom_advancements.common.AdvancementHolder;
 
 public final class Advancements extends AdvancementHolder<GlintColorTemplates> {
     public Advancements(GlintColorTemplates feature) {

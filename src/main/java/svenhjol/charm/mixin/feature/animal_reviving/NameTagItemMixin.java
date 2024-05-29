@@ -5,7 +5,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.NameTagItem;
 import org.spongepowered.asm.mixin.Mixin;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 @Mixin(NameTagItem.class)
 public abstract class NameTagItemMixin extends Item {

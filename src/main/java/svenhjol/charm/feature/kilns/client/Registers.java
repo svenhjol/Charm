@@ -4,8 +4,8 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.firing.Firing;
 import svenhjol.charm.feature.kilns.KilnsClient;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<KilnsClient> {
     public Registers(KilnsClient feature) {

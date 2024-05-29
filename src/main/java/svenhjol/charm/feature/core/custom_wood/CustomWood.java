@@ -6,11 +6,11 @@ import svenhjol.charm.feature.core.custom_wood.common.CustomWoodDefinition;
 import svenhjol.charm.feature.core.custom_wood.common.CustomWoodHolder;
 import svenhjol.charm.feature.core.custom_wood.common.Handlers;
 import svenhjol.charm.feature.core.custom_wood.common.Registers;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 
 import java.util.Optional;
 

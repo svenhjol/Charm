@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.RenderType;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.wood.azalea_wood.AzaleaWoodClient;
 import svenhjol.charm.feature.wood.azalea_wood.common.Material;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<AzaleaWoodClient> {
     public Registers(AzaleaWoodClient feature) {

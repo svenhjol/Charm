@@ -2,7 +2,7 @@ package svenhjol.charm.feature.suspicious_effect_improvements.suspicious_effects
 
 import net.minecraft.world.item.component.SuspiciousStewEffects;
 import svenhjol.charm.feature.suspicious_effect_improvements.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.ArrayList;
 import java.util.List;

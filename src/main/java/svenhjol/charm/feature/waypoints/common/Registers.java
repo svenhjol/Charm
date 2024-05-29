@@ -6,7 +6,7 @@ import svenhjol.charm.api.event.PlayerTickEvent;
 import svenhjol.charm.feature.waypoints.Waypoints;
 import svenhjol.charm.feature.waypoints.common.Networking.S2CClearWaypointInfo;
 import svenhjol.charm.feature.waypoints.common.Networking.S2CUpdateWaypointInfo;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

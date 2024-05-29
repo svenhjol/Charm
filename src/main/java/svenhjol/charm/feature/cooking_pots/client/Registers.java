@@ -2,9 +2,9 @@ package svenhjol.charm.feature.cooking_pots.client;
 
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.cooking_pots.CookingPotsClient;
 import svenhjol.charm.feature.cooking_pots.common.Networking;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.List;
 

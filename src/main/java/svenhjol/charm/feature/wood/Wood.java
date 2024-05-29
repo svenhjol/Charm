@@ -4,10 +4,10 @@ import svenhjol.charm.feature.wood.azalea_wood.AzaleaWood;
 import svenhjol.charm.feature.wood.common.Handlers;
 import svenhjol.charm.feature.wood.ebony_wood.EbonyWood;
 import svenhjol.charm.feature.wood.vanilla_wood_variants.VanillaWoodVariants;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public final class Wood extends CommonFeature {
     }
 
     @Override
-    public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
+    public List<? extends ChildFeature<? extends svenhjol.charm.charmony.Feature>> children() {
         return List.of(
             new AzaleaWood(loader()),
             new EbonyWood(loader()),

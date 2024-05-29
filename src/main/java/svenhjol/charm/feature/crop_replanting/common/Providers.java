@@ -4,8 +4,8 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.api.iface.QuickReplantProvider;
 import svenhjol.charm.feature.crop_replanting.CropReplanting;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
 
 import java.util.ArrayList;
 import java.util.List;

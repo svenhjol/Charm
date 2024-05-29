@@ -6,7 +6,7 @@ import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventory;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<CraftingFromInventory> {
     public static final Component LABEL = Component.translatable("container.charm.portable_crafting_table");

@@ -8,8 +8,8 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.crafting.RecipeManager;
 import org.spongepowered.asm.mixin.Mixin;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
-import svenhjol.charm.foundation.Resolve;
 
 import java.util.HashMap;
 import java.util.Map;

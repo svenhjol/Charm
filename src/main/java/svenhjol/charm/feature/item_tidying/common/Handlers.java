@@ -4,8 +4,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import svenhjol.charm.feature.item_tidying.ItemTidying;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.helper.ItemTidyingHelper;
+import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.common.helper.ItemTidyingHelper;
 
 public final class Handlers extends FeatureHolder<ItemTidying> {
     public Handlers(ItemTidying feature) {

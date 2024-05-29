@@ -8,8 +8,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NoteBlock;
 import net.minecraft.world.phys.BlockHitResult;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.note_block_lower_pitch.NoteBlockLowerPitch;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<NoteBlockLowerPitch> {
     public Handlers(NoteBlockLowerPitch feature) {

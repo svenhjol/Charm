@@ -4,8 +4,8 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.potion_of_radiance.PotionOfRadiance;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

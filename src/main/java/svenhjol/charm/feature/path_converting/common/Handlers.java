@@ -9,8 +9,8 @@ import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.BlockHitResult;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.path_converting.PathConverting;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<PathConverting> {
     public Handlers(PathConverting feature) {

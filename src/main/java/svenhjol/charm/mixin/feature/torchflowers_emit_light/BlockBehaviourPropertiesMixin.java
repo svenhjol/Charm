@@ -5,8 +5,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.torchflowers_emit_light.TorchflowersEmitLight;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockBehaviourPropertiesMixin {

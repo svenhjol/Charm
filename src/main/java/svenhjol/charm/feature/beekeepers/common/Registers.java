@@ -4,9 +4,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.common.villages.GenericTrades;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.beekeepers.Beekeepers;
-import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.villages.GenericTrades;
 
 import java.util.List;
 import java.util.function.Supplier;

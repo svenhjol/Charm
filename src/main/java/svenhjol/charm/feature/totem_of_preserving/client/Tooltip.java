@@ -5,7 +5,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.foundation.screen.CharmTooltip;
+import svenhjol.charm.charmony.client.screen.CharmTooltip;
 
 import java.util.List;
 

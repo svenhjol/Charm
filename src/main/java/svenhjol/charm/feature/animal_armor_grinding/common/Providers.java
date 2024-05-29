@@ -4,9 +4,9 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.api.iface.GrindableItemProvider;
+import svenhjol.charm.charmony.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 import svenhjol.charm.feature.animal_armor_grinding.AnimalArmorGrinding;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
 
 import java.util.List;
 

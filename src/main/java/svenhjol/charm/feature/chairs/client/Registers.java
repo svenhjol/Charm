@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.chairs.client;
 
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.chairs.ChairsClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<ChairsClient> {
     public Registers(ChairsClient feature) {

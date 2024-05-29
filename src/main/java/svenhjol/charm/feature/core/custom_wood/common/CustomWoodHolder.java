@@ -6,8 +6,8 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.api.iface.CustomWoodMaterial;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.core.custom_wood.holders.*;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonRegistry;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonRegistry;
 
 import java.util.Optional;
 import java.util.function.Supplier;

@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.arcane_purpur.block;
 
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charm.charmony.common.block.CharmBlock;
+import svenhjol.charm.charmony.common.block.CharmBlockItem;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
-import svenhjol.charm.foundation.block.CharmBlock;
-import svenhjol.charm.foundation.block.CharmBlockItem;
 
 import java.util.function.Supplier;
 

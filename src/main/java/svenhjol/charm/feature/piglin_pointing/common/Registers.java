@@ -11,9 +11,9 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.levelgen.structure.Structure;
+import svenhjol.charm.charmony.common.CommonRegistry;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.piglin_pointing.PiglinPointing;
-import svenhjol.charm.foundation.common.CommonRegistry;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.ArrayList;
 import java.util.List;

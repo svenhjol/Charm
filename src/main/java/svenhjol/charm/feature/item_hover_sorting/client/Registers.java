@@ -2,7 +2,7 @@ package svenhjol.charm.feature.item_hover_sorting.client;
 
 import svenhjol.charm.api.event.MouseScrollEvent;
 import svenhjol.charm.feature.item_hover_sorting.ItemHoverSortingClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<ItemHoverSortingClient> {
     public Registers(ItemHoverSortingClient feature) {

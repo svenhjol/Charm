@@ -3,7 +3,7 @@ package svenhjol.charm.feature.storage_blocks.ender_pearl_block.common;
 import svenhjol.charm.api.iface.ConditionalRecipe;
 import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.EnderPearlBlock;
-import svenhjol.charm.foundation.feature.ProviderHolder;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 
 import java.util.List;
 

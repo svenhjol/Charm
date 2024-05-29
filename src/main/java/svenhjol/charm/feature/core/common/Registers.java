@@ -2,7 +2,7 @@ package svenhjol.charm.feature.core.common;
 
 import svenhjol.charm.api.event.PlayerLoginEvent;
 import svenhjol.charm.feature.core.Core;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<Core> {
     public Registers(Core feature) {

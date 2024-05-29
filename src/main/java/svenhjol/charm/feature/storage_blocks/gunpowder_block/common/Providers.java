@@ -5,7 +5,7 @@ import svenhjol.charm.api.iface.ConditionalAdvancementProvider;
 import svenhjol.charm.api.iface.ConditionalRecipe;
 import svenhjol.charm.api.iface.ConditionalRecipeProvider;
 import svenhjol.charm.feature.storage_blocks.gunpowder_block.GunpowderBlock;
-import svenhjol.charm.foundation.feature.ProviderHolder;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 
 import java.util.List;
 

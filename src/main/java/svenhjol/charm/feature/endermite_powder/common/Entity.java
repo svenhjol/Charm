@@ -11,7 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 public class Entity extends net.minecraft.world.entity.Entity {
     private static final EndermitePowder ENDERMITE_POWDER = Resolve.feature(EndermitePowder.class);

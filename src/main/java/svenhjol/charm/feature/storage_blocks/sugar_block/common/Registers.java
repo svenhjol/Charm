@@ -3,7 +3,7 @@ package svenhjol.charm.feature.storage_blocks.sugar_block.common;
 import net.minecraft.sounds.SoundEvent;
 import svenhjol.charm.api.event.SugarDissolveEvent;
 import svenhjol.charm.feature.storage_blocks.sugar_block.SugarBlock;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

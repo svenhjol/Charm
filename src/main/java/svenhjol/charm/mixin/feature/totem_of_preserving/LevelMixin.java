@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
-import svenhjol.charm.foundation.Resolve;
 
 @Mixin(Level.class)
 public abstract class LevelMixin {

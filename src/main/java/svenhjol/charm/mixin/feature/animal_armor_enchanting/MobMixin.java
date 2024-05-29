@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 @SuppressWarnings("UnreachableCode")
 @Mixin(Mob.class)

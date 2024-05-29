@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.feature.waypoints.WaypointsClient;
 import svenhjol.charm.feature.waypoints.common.Networking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import java.util.Optional;
 

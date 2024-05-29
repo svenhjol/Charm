@@ -6,7 +6,7 @@ import net.minecraft.world.InteractionResult;
 import svenhjol.charm.api.enums.SortDirection;
 import svenhjol.charm.feature.item_hover_sorting.ItemHoverSortingClient;
 import svenhjol.charm.feature.item_hover_sorting.common.Networking;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<ItemHoverSortingClient> {
     public Handlers(ItemHoverSortingClient feature) {

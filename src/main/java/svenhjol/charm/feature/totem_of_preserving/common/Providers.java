@@ -5,8 +5,8 @@ import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.api.enums.TotemType;
 import svenhjol.charm.api.iface.*;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
 
 import java.util.ArrayList;
 import java.util.List;

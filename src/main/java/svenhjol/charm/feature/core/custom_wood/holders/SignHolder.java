@@ -2,10 +2,10 @@ package svenhjol.charm.feature.core.custom_wood.holders;
 
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.feature.core.custom_wood.blocks.CustomStandingSignBlock;
-import svenhjol.charm.foundation.block.CharmWallSignBlock;
+import svenhjol.charm.charmony.common.block.CharmWallSignBlock;
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;
 import svenhjol.charm.feature.core.custom_wood.common.CustomWoodHolder;
-import svenhjol.charm.foundation.item.CharmSignItem;
+import svenhjol.charm.charmony.common.item.CharmSignItem;
 
 import java.util.List;
 import java.util.function.Supplier;

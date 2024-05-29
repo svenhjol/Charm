@@ -6,8 +6,8 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.piglin_pointing.PiglinPointing;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<PiglinPointing> {
     public Handlers(PiglinPointing feature) {

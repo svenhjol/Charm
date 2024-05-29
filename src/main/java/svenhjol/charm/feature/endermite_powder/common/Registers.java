@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import svenhjol.charm.api.event.EntityKilledDropEvent;
 import svenhjol.charm.feature.endermite_powder.EndermitePowder;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

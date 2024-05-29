@@ -15,7 +15,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
 import svenhjol.charm.feature.tooltip_improvements.TooltipImprovements;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
 import java.util.List;

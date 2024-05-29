@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.RecipeBookType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.feature.kilns.Kilns;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.List;
 import java.util.function.Supplier;

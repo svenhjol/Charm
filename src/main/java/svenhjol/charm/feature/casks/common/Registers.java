@@ -3,8 +3,8 @@ package svenhjol.charm.feature.casks.common;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.casks.Casks;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.List;
 import java.util.function.Supplier;

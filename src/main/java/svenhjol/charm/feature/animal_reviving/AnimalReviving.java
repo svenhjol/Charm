@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.animal_reviving;
 
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.animal_reviving.common.Advancements;
 import svenhjol.charm.feature.animal_reviving.common.Handlers;
 import svenhjol.charm.feature.animal_reviving.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = """
     A tamed animal with a name drops its name tag on death.

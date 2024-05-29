@@ -3,8 +3,8 @@ package svenhjol.charm.feature.animal_armor_grinding.common;
 
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.api.event.GrindstoneEvents;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.animal_armor_grinding.AnimalArmorGrinding;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.HashMap;
 import java.util.Map;

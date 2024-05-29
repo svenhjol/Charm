@@ -5,14 +5,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.feature.mob_drops.MobDrops;
 import svenhjol.charm.feature.mob_drops.common.ChanceDropProvider;
 import svenhjol.charm.feature.mob_drops.common.DropHandler;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
 
 import java.util.Optional;
 

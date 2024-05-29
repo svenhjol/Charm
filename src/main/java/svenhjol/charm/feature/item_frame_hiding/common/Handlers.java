@@ -12,7 +12,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHiding;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
 

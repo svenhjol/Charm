@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.bat_buckets;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.bat_buckets.common.Advancements;
 import svenhjol.charm.feature.bat_buckets.common.Handlers;
 import svenhjol.charm.feature.bat_buckets.common.Providers;
 import svenhjol.charm.feature.bat_buckets.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = """
     Right-click a bat with a bucket to capture it.

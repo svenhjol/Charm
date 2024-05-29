@@ -1,15 +1,15 @@
 package svenhjol.charm.feature.recipe_improvements;
 
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.feature.recipe_improvements.bundles_from_leather.BundlesFromLeather;
 import svenhjol.charm.feature.recipe_improvements.common.Handlers;
 import svenhjol.charm.feature.recipe_improvements.common.Providers;
 import svenhjol.charm.feature.recipe_improvements.recipe_unlocking.RecipeUnlocking;
 import svenhjol.charm.feature.recipe_improvements.shapeless_recipes.ShapelessRecipes;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
 
 import java.util.List;
 
@@ -85,7 +85,7 @@ public final class RecipeImprovements extends CommonFeature {
 
 
     @Override
-    public List<? extends ChildFeature<? extends svenhjol.charm.foundation.Feature>> children() {
+    public List<? extends ChildFeature<? extends svenhjol.charm.charmony.Feature>> children() {
         return List.of(
             new BundlesFromLeather(loader()),
             new RecipeUnlocking(loader()),

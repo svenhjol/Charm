@@ -3,10 +3,10 @@ package svenhjol.charm.feature.waypoints;
 import svenhjol.charm.feature.waypoints.client.Handlers;
 import svenhjol.charm.feature.waypoints.client.Providers;
 import svenhjol.charm.feature.waypoints.client.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.client.ClientFeature;
-import svenhjol.charm.foundation.client.ClientLoader;
-import svenhjol.charm.foundation.common.CommonResolver;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.client.ClientFeature;
+import svenhjol.charm.charmony.client.ClientLoader;
+import svenhjol.charm.charmony.common.CommonResolver;
 
 @Feature
 public final class WaypointsClient extends ClientFeature implements CommonResolver<Waypoints> {

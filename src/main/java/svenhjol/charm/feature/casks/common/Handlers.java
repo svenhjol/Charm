@@ -16,8 +16,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.api.enums.EventResult;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.casks.Casks;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.List;
 

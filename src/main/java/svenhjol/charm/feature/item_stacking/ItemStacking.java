@@ -3,10 +3,10 @@ package svenhjol.charm.feature.item_stacking;
 import net.minecraft.util.Mth;
 import svenhjol.charm.feature.atlases.common.Item;
 import svenhjol.charm.feature.item_stacking.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Allows some unstackable items to stack.")
 public final class ItemStacking extends CommonFeature {

@@ -8,8 +8,8 @@ import svenhjol.charm.api.iface.ContainerOffsetTweakProvider;
 import svenhjol.charm.api.iface.ItemTidyingBlacklistProvider;
 import svenhjol.charm.api.iface.ItemTidyingWhitelistProvider;
 import svenhjol.charm.feature.item_tidying.ItemTidyingClient;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
 
 import java.util.ArrayList;
 import java.util.HashMap;

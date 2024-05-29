@@ -3,9 +3,9 @@ package svenhjol.charm.feature.item_tidying;
 import svenhjol.charm.feature.item_tidying.client.Handlers;
 import svenhjol.charm.feature.item_tidying.client.Providers;
 import svenhjol.charm.feature.item_tidying.client.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.client.ClientFeature;
-import svenhjol.charm.foundation.client.ClientLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.client.ClientFeature;
+import svenhjol.charm.charmony.client.ClientLoader;
 
 @Feature
 public final class ItemTidyingClient extends ClientFeature {

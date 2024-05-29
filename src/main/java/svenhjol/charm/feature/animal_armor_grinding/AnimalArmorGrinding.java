@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.animal_armor_grinding;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.animal_armor_grinding.common.Advancements;
 import svenhjol.charm.feature.animal_armor_grinding.common.Handlers;
 import svenhjol.charm.feature.animal_armor_grinding.common.Providers;
 import svenhjol.charm.feature.animal_armor_grinding.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Animal armor returns a single ingot, leather, scute or diamond when used on the grindstone.")
 public final class AnimalArmorGrinding extends CommonFeature {

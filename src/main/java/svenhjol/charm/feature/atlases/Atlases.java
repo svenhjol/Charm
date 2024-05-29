@@ -1,11 +1,11 @@
 package svenhjol.charm.feature.atlases;
 
 import net.minecraft.util.Mth;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.atlases.common.*;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Storage for maps that automatically updates the displayed map as you explore.")
 public final class Atlases extends CommonFeature {

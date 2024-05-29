@@ -6,8 +6,8 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.animal.Pig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
-import svenhjol.charm.foundation.Resolve;
 
 /**
  * Extend the pig model with additional animation methods.

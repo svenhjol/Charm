@@ -3,12 +3,12 @@ package svenhjol.charm.feature.copper_pistons.common;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 import svenhjol.charm.feature.copper_pistons.block.CopperPistonBaseBlock;
 import svenhjol.charm.feature.copper_pistons.block.CopperPistonHeadBlock;
 import svenhjol.charm.feature.copper_pistons.block.MovingCopperPistonBlock;
 import svenhjol.charm.feature.copper_pistons.block.StickyCopperPistonBaseBlock;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.List;
 import java.util.function.Supplier;

@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.item_hover_sorting;
 
 import svenhjol.charm.feature.item_hover_sorting.common.*;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Scroll the mouse while hovering over a bundle or shulker box to cycle the order of its contents.")
 public final class ItemHoverSorting extends CommonFeature {

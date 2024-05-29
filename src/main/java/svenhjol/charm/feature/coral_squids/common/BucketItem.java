@@ -6,7 +6,7 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluids;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 public class BucketItem extends MobBucketItem {
     private static final CoralSquids CORAL_SQUIDS = Resolve.feature(CoralSquids.class);

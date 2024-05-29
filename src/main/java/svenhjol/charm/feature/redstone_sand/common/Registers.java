@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.redstone_sand.common;
 
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.redstone_sand.RedstoneSand;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

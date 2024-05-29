@@ -5,7 +5,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.RandomSource;
-import svenhjol.charm.foundation.particle.CharmParticle;
+import svenhjol.charm.charmony.client.particle.CharmParticle;
 
 @SuppressWarnings("ConstantConditions")
 public class Particle implements ParticleProvider<SimpleParticleType> {

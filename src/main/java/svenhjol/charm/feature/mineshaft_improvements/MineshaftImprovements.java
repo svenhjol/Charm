@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.mineshaft_improvements;
 
 import net.minecraft.util.Mth;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.mineshaft_improvements.common.Handlers;
 import svenhjol.charm.feature.mineshaft_improvements.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 import java.util.List;
 

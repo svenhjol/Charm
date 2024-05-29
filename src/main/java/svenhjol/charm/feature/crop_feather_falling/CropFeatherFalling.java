@@ -1,9 +1,9 @@
 package svenhjol.charm.feature.crop_feather_falling;
 
 import svenhjol.charm.feature.crop_feather_falling.common.Handlers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 
 @Feature(description = "Prevents crop trampling when wearing boots enchanted with Feather Falling.")
 public final class CropFeatherFalling extends CommonFeature {

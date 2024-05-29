@@ -10,8 +10,8 @@ import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.EnderPearlBlock;
-import svenhjol.charm.foundation.feature.FeatureResolver;
-import svenhjol.charm.foundation.helper.MobHelper;
+import svenhjol.charm.charmony.feature.FeatureResolver;
+import svenhjol.charm.charmony.common.helper.MobHelper;
 
 import java.util.EnumSet;
 

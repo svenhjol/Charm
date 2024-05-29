@@ -3,7 +3,7 @@ package svenhjol.charm.feature.storage_blocks.gunpowder_block.client;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.feature.storage_blocks.gunpowder_block.GunpowderBlockClient;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<GunpowderBlockClient> {
     public Registers(GunpowderBlockClient feature) {

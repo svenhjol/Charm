@@ -1,11 +1,11 @@
 package svenhjol.charm.feature.path_converting;
 
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.path_converting.common.Handlers;
 import svenhjol.charm.feature.path_converting.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = "Use a shovel or hoe to convert dirt and path blocks.")
 public final class PathConverting extends CommonFeature {

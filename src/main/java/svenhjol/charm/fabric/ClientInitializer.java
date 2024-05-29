@@ -3,7 +3,7 @@ package svenhjol.charm.fabric;
 import net.fabricmc.api.ClientModInitializer;
 import svenhjol.charm.Charm;
 import svenhjol.charm.CharmClient;
-import svenhjol.charm.foundation.client.ClientLoader;
+import svenhjol.charm.charmony.client.ClientLoader;
 
 public final class ClientInitializer implements ClientModInitializer {
     private static boolean initialized = false;

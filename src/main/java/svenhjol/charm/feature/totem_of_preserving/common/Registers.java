@@ -6,7 +6,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.api.event.AnvilUpdateEvent;
 import svenhjol.charm.api.event.PlayerInventoryDropEvent;
 import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.List;
 import java.util.function.Supplier;

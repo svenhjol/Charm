@@ -12,8 +12,8 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
-import svenhjol.charm.foundation.feature.FeatureResolver;
 
 public class FindMushroomGoal extends Goal implements FeatureResolver<PigsFindMushrooms> {
     private final Pig pig;

@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
-import svenhjol.charm.foundation.Resolve;
 
 @SuppressWarnings("UnreachableCode")
 @Mixin(ReloadableServerResources.class)

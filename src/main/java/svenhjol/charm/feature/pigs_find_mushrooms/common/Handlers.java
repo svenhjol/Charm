@@ -4,8 +4,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.UUID;
 import java.util.WeakHashMap;

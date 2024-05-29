@@ -8,8 +8,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.arcane_purpur.ArcanePurpur;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.Collections;
 import java.util.HashMap;

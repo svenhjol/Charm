@@ -8,7 +8,7 @@ import net.minecraft.world.item.crafting.CookingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import svenhjol.charm.feature.firing.Firing;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 @SuppressWarnings("unused")
 public class Recipe extends AbstractCookingRecipe {

@@ -2,8 +2,8 @@ package svenhjol.charm.feature.aerial_affinity.common;
 
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.aerial_affinity.AerialAffinity;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<AerialAffinity> {
     public Handlers(AerialAffinity feature) {

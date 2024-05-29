@@ -4,8 +4,8 @@ import svenhjol.charm.api.iface.ConditionalAdvancement;
 import svenhjol.charm.api.iface.ConditionalAdvancementProvider;
 import svenhjol.charm.api.iface.ConditionalRecipe;
 import svenhjol.charm.api.iface.ConditionalRecipeProvider;
+import svenhjol.charm.charmony.feature.ProviderHolder;
 import svenhjol.charm.feature.recipe_improvements.shapeless_recipes.ShapelessRecipes;
-import svenhjol.charm.foundation.feature.ProviderHolder;
 
 import java.util.List;
 

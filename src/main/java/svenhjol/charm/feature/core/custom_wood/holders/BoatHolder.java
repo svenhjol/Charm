@@ -7,7 +7,7 @@ import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;
 import svenhjol.charm.feature.core.custom_wood.common.CustomWoodHolder;
-import svenhjol.charm.foundation.helper.EnumHelper;
+import svenhjol.charm.charmony.helper.EnumHelper;
 
 import java.util.Locale;
 import java.util.function.Supplier;

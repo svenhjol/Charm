@@ -7,8 +7,8 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SuspiciousEffectHolder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.suspicious_effect_improvements.suspicious_big_plants.SuspiciousBigPlants;
-import svenhjol.charm.foundation.Resolve;
 
 import java.util.List;
 

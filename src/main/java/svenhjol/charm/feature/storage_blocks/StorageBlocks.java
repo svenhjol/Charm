@@ -3,10 +3,10 @@ package svenhjol.charm.feature.storage_blocks;
 import svenhjol.charm.feature.storage_blocks.ender_pearl_block.EnderPearlBlock;
 import svenhjol.charm.feature.storage_blocks.gunpowder_block.GunpowderBlock;
 import svenhjol.charm.feature.storage_blocks.sugar_block.SugarBlock;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 
 import java.util.List;
 

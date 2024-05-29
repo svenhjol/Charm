@@ -4,8 +4,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.repair_cost_visible.RepairCostVisible;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import java.util.List;
 

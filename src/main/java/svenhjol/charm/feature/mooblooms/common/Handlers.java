@@ -23,8 +23,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import svenhjol.charm.api.enums.EventResult;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<Mooblooms> {
     public Handlers(Mooblooms feature) {

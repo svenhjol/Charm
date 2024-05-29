@@ -2,8 +2,8 @@ package svenhjol.charm.feature.path_converting.common;
 
 import net.minecraft.sounds.SoundEvent;
 import svenhjol.charm.api.event.BlockUseEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.path_converting.PathConverting;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

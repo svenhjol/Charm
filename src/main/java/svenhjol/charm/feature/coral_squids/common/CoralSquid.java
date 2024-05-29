@@ -35,7 +35,7 @@ import net.minecraft.world.level.block.BaseCoralPlantTypeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import svenhjol.charm.feature.coral_squids.CoralSquids;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 
 import javax.annotation.Nullable;
 

@@ -1,14 +1,14 @@
 package svenhjol.charm.feature.casks;
 
 import net.minecraft.util.Mth;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.casks.common.Advancements;
 import svenhjol.charm.feature.casks.common.Handlers;
 import svenhjol.charm.feature.casks.common.Networking;
 import svenhjol.charm.feature.casks.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = """
    Casks are used to hold potions. Use a potion bottle on a cask to add the bottle's contents to the cask.

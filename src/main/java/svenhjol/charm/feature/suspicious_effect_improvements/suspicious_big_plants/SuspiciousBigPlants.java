@@ -3,12 +3,12 @@ package svenhjol.charm.feature.suspicious_effect_improvements.suspicious_big_pla
 import net.minecraft.util.Mth;
 import svenhjol.charm.feature.suspicious_effect_improvements.SuspiciousEffectImprovements;
 import svenhjol.charm.feature.suspicious_effect_improvements.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
-import svenhjol.charm.foundation.Resolve;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 
 @Feature(description = "Suspicious stews can be crafted from pitcher plants and sunflowers.")
 public final class SuspiciousBigPlants extends CommonFeature implements ChildFeature<SuspiciousEffectImprovements> {

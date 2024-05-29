@@ -3,7 +3,7 @@ package svenhjol.charm.feature.storage_blocks.gunpowder_block.common;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import svenhjol.charm.feature.storage_blocks.gunpowder_block.GunpowderBlock;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

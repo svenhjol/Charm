@@ -4,9 +4,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.enchantment.Enchantment;
+import svenhjol.charm.charmony.common.helper.TagHelper;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
-import svenhjol.charm.foundation.feature.RegisterHolder;
-import svenhjol.charm.foundation.helper.TagHelper;
 
 import java.util.ArrayList;
 import java.util.List;

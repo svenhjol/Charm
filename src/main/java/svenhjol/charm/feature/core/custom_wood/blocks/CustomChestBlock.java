@@ -10,7 +10,7 @@ import svenhjol.charm.api.iface.FuelProvider;
 import svenhjol.charm.api.iface.VariantMaterialHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.core.custom_wood.blocks.entity.CustomChestBlockEntity;
-import svenhjol.charm.foundation.Resolve;
+import svenhjol.charm.charmony.Resolve;
 
 import java.util.function.Supplier;
 

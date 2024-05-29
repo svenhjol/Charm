@@ -2,8 +2,8 @@ package svenhjol.charm.feature.pigs_find_mushrooms.common;
 
 import net.minecraft.sounds.SoundEvent;
 import svenhjol.charm.api.event.EntityJoinEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.pigs_find_mushrooms.PigsFindMushrooms;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

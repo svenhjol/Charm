@@ -20,8 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import svenhjol.charm.api.enums.EventResult;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
-import svenhjol.charm.foundation.feature.FeatureResolver;
 
 import javax.annotation.Nullable;
 

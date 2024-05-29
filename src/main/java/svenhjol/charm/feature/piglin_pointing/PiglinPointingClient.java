@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.piglin_pointing;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.client.ClientFeature;
+import svenhjol.charm.charmony.client.ClientLoader;
+import svenhjol.charm.charmony.common.CommonResolver;
 import svenhjol.charm.feature.piglin_pointing.client.Handlers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.client.ClientFeature;
-import svenhjol.charm.foundation.client.ClientLoader;
-import svenhjol.charm.foundation.common.CommonResolver;
 
 @Feature
 public final class PiglinPointingClient extends ClientFeature implements CommonResolver<PiglinPointing> {

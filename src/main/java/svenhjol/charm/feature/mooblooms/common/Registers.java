@@ -8,8 +8,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
 import svenhjol.charm.api.event.EntityJoinEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.mooblooms.Mooblooms;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.item_tidying.common;
 
 import svenhjol.charm.feature.item_tidying.ItemTidying;
-import svenhjol.charm.foundation.feature.RegisterHolder;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 
 public final class Registers extends RegisterHolder<ItemTidying> {
     public Registers(ItemTidying feature) {

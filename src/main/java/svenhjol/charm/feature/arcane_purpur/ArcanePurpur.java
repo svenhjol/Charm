@@ -1,13 +1,13 @@
 package svenhjol.charm.feature.arcane_purpur;
 
 import net.minecraft.util.Mth;
+import svenhjol.charm.charmony.annotation.Configurable;
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.feature.arcane_purpur.common.Advancements;
 import svenhjol.charm.feature.arcane_purpur.common.Handlers;
 import svenhjol.charm.feature.arcane_purpur.common.Registers;
-import svenhjol.charm.foundation.annotation.Configurable;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
 
 @Feature(description = """
     Arcane Purpur is a decorative block made from Purpur and Endermite Powder.

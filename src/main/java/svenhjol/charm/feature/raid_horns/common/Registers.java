@@ -2,8 +2,8 @@ package svenhjol.charm.feature.raid_horns.common;
 
 import net.minecraft.sounds.SoundEvent;
 import svenhjol.charm.api.event.EntityKilledDropEvent;
+import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.raid_horns.RaidHorns;
-import svenhjol.charm.foundation.feature.RegisterHolder;
 
 import java.util.function.Supplier;
 

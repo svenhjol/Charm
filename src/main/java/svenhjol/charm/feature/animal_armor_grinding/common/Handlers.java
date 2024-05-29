@@ -5,8 +5,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.api.event.GrindstoneEvents.GrindstoneMenuInstance;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.animal_armor_grinding.AnimalArmorGrinding;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 @SuppressWarnings("unused")
 public final class Handlers extends FeatureHolder<AnimalArmorGrinding> {

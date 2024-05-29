@@ -2,9 +2,9 @@ package svenhjol.charm.feature.trade_improvements.common;
 
 import svenhjol.charm.api.iface.WandererTradeProvider;
 import svenhjol.charm.feature.trade_improvements.TradeImprovements;
-import svenhjol.charm.foundation.feature.ProviderHolder;
-import svenhjol.charm.foundation.Api;
-import svenhjol.charm.foundation.villages.GenericTrades;
+import svenhjol.charm.charmony.feature.ProviderHolder;
+import svenhjol.charm.charmony.Api;
+import svenhjol.charm.charmony.common.villages.GenericTrades;
 
 public final class Providers extends ProviderHolder<TradeImprovements> implements WandererTradeProvider {
     public Providers(TradeImprovements feature) {

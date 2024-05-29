@@ -9,9 +9,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import svenhjol.charm.charmony.common.villages.GenericTrades;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.lumberjacks.Lumberjacks;
-import svenhjol.charm.foundation.feature.FeatureHolder;
-import svenhjol.charm.foundation.villages.GenericTrades;
 
 import javax.annotation.Nullable;
 import java.util.*;

@@ -8,8 +8,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.compasses_show_position.CompassesShowPosition;
-import svenhjol.charm.foundation.feature.FeatureHolder;
 
 public final class Handlers extends FeatureHolder<CompassesShowPosition> {
     public Handlers(CompassesShowPosition feature) {

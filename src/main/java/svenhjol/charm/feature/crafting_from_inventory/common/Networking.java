@@ -6,7 +6,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventory;
-import svenhjol.charm.foundation.feature.FeatureHolder;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 
 public final class Networking extends FeatureHolder<CraftingFromInventory> {
     public Networking(CraftingFromInventory feature) {

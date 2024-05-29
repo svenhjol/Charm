@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.api.event.SugarDissolveEvent;
 import svenhjol.charm.feature.storage_blocks.sugar_block.SugarBlock;
-import svenhjol.charm.foundation.feature.FeatureResolver;
+import svenhjol.charm.charmony.feature.FeatureResolver;
 
 import java.util.function.Supplier;
 

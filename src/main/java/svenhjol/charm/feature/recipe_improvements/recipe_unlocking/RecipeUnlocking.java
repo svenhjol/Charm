@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.recipe_improvements.recipe_unlocking;
 
+import svenhjol.charm.charmony.annotation.Feature;
+import svenhjol.charm.charmony.common.CommonFeature;
+import svenhjol.charm.charmony.common.CommonLoader;
+import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.feature.recipe_improvements.RecipeImprovements;
 import svenhjol.charm.feature.recipe_improvements.recipe_unlocking.common.Handlers;
 import svenhjol.charm.feature.recipe_improvements.recipe_unlocking.common.Registers;
-import svenhjol.charm.foundation.annotation.Feature;
-import svenhjol.charm.foundation.common.CommonFeature;
-import svenhjol.charm.foundation.common.CommonLoader;
-import svenhjol.charm.foundation.feature.ChildFeature;
 
 @Feature(enabledByDefault = false, description = """
     Unlocks all vanilla recipes when the player joins the game.
