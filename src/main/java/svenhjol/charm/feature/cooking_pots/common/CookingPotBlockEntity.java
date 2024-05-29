@@ -117,8 +117,8 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
                 var pos = getBlockPos();
                 var state = getBlockState();
                 var random = level.getRandom();
-                var hunger = food.nutrition() + random.nextInt(1);
-                var saturation = food.saturation() + (random.nextFloat() * 0.1f);
+                var hunger = food.nutrition() - random.nextInt(1);
+                var saturation = food.saturation() - (random.nextFloat() * 0.1f);
 
                 this.hunger += hunger;
                 this.saturation += saturation;
