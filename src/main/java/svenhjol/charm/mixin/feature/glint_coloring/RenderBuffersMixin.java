@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.feature.glint_coloring.GlintColoringClient;
 import svenhjol.charm.foundation.Resolve;
 
-import java.util.SortedMap;
+import java.util.SequencedMap;
 
 @Mixin(RenderBuffers.class)
 public class RenderBuffersMixin {
@@ -23,7 +23,7 @@ public class RenderBuffersMixin {
         at = @At("TAIL"),
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookInit(int i, CallbackInfo ci, SortedMap<RenderType, ByteBufferBuilder> builders) {
+    private void hookInit(int i, CallbackInfo ci, SequencedMap<RenderType, ByteBufferBuilder> builders) {
         Resolve.feature(GlintColoringClient.class).handlers.setBuilders(builders);
     }
 }

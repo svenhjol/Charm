@@ -15,7 +15,10 @@ import svenhjol.charm.feature.glint_coloring.GlintColoringClient;
 import svenhjol.charm.foundation.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.SequencedMap;
 
 public final class Handlers extends FeatureHolder<GlintColoringClient> {
     public final Map<DyeColor, ResourceLocation> ITEM_TEXTURES = new HashMap<>();
@@ -25,7 +28,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
     public final Map<DyeColor, RenderType> ENTITY_GLINT_DIRECT = new HashMap<>();
     public final Map<DyeColor, RenderType> ARMOR_ENTITY_GLINT = new HashMap<>();
 
-    private SortedMap<RenderType, ByteBufferBuilder> builders;
+    private SequencedMap<RenderType, ByteBufferBuilder> builders;
     private ItemStack targetStack;
     private boolean enabled = false;
 
@@ -47,7 +50,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
         this.targetStack = targetStack;
     }
 
-    public void setBuilders(@Nullable SortedMap<RenderType, ByteBufferBuilder> builders) {
+    public void setBuilders(@Nullable SequencedMap<RenderType, ByteBufferBuilder> builders) {
         this.builders = builders;
         if (initialized || builders == null) return;
 
@@ -155,7 +158,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
         return renderLayer;
     }
 
-    public SortedMap<RenderType, ByteBufferBuilder> getBuilders() {
+    public SequencedMap<RenderType, ByteBufferBuilder> getBuilders() {
         return builders;
     }
 
