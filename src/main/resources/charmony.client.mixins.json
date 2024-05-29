@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "svenhjol.charm.charmony.client.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "${charmony_client_refmap_file}",
+  "mixins": [
+  ],
+  "client": [
+    "event.mouse_scroll.MouseHandlerMixin",
+    "event.player_tick_callback.LocalPlayerMixin",
+    "event.render_block_item.BlockEntityWithoutLevelRendererMixin",
+    "event.render_held_item_callback.ItemInHandRendererMixin",
+    "event.render_screen_callback.AbstractContainerScreenMixin",
+    "event.render_tooltip_callback.GuiGraphicsMixin",
+    "event.render_tooltip_callback.ScreenMixin",
+    "event.setup_screen_callback.ScreenMixin",
+    "registry.client_tooltip_component.ClientTooltipComponentMixin",
+    "registry.particle_engine.ParticleEngineMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

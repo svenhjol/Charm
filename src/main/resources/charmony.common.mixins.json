@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "package": "svenhjol.charm.charmony.common.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "${charmony_common_refmap_file}",
+  "mixins": [
+    "event.anvil_repair.AnvilMenuMixin",
+    "event.anvil_update.AnvilMenuMixin",
+    "event.apply_beacon_effects.BeaconBlockEntityMixin",
+    "event.block_break_speed_callback.PlayerMixin",
+    "event.entity_drop.LivingEntityMixin",
+    "event.entity_hurt.LivingEntityMixin",
+    "event.entity_tick_callback.LivingEntityMixin",
+    "event.grindstone.GrindstoneMenuInputMixin",
+    "event.grindstone.GrindstoneMenuMixin",
+    "event.grindstone.GrindstoneMenuOutputMixin",
+    "event.item_drag_drop.ItemMixin",
+    "event.item_tooltip_image.ItemStackMixin",
+    "event.player_inventory_drop.PlayerMixin",
+    "event.player_login_callback.PlayerListMixin",
+    "event.player_tick_callback.ServerPlayerMixin",
+    "event.smithing_table.SmithingMenuMixin",
+    "event.smithing_table.SmithingTransformRecipeMixin",
+    "event.tooltip_component.ItemMixin",
+    "registry.villager_name.VillagerMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

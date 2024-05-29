@@ -166,7 +166,7 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
 
     /**
      * Particles are registered via mixin.
-     * @see svenhjol.charm.mixin.registry.particle_engine.ParticleEngineMixin
+     * @see svenhjol.charm.charmony.client.mixin.registry.particle_engine.ParticleEngineMixin
      */
     public static List<DeferredParticle> particles() {
         return PARTICLES;
