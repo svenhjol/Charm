@@ -28,10 +28,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.charmony.Charmony;
 import svenhjol.charm.charmony.Log;
+import svenhjol.charm.charmony.callback.BlockBreakSpeedCallback;
 import svenhjol.charm.charmony.callback.EntityTickCallback;
+import svenhjol.charm.charmony.callback.PlayerLoginCallback;
 import svenhjol.charm.charmony.callback.PlayerTickCallback;
-import svenhjol.charm.charmony.common.callback.BlockBreakSpeedCallback;
-import svenhjol.charm.charmony.common.callback.PlayerLoginCallback;
 import svenhjol.charm.charmony.event.*;
 
 import javax.annotation.Nullable;

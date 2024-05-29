@@ -1,4 +1,4 @@
-package svenhjol.charm.charmony.common.callback;
+package svenhjol.charm.charmony.callback;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

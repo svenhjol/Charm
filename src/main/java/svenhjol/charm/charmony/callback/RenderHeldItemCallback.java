@@ -1,4 +1,4 @@
-package svenhjol.charm.charmony.client.callback;
+package svenhjol.charm.charmony.callback;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.fabric.api.event.Event;

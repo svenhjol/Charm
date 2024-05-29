@@ -7,6 +7,7 @@
   ],
   "client": [
     "event.mouse_scroll.MouseHandlerMixin",
+    "event.play_sound_callback.SoundEngineMixin",
     "event.player_tick_callback.LocalPlayerMixin",
     "event.render_block_item.BlockEntityWithoutLevelRendererMixin",
     "event.render_held_item_callback.ItemInHandRendererMixin",
