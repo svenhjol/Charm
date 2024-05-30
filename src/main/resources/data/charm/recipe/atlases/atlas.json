@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "minecraft:writable_book"
+      "item": "minecraft:book"
     },
     {
       "item": "minecraft:map"
