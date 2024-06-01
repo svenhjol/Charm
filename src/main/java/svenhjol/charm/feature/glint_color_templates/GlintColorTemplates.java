@@ -17,7 +17,7 @@ public final class GlintColorTemplates extends CommonFeature {
         name = "Loot table",
         description = "Loot table in which a colored glint smithing template will be added."
     )
-    private static String lootTable = "minecraft:chests/stronghold_library";
+    private static String lootTable = "minecraft:chests/ancient_city";
 
     @Configurable(
         name = "Loot chance",
