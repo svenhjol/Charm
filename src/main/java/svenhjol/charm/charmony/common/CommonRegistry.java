@@ -158,25 +158,26 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         return blockEntity(id, builder, List.of());
     }
 
+    /**
+     * May be run late. Use this to conditionally add blocks to a block entity if the feature is enabled.
+     */
     public <T extends BlockEntity> void blockEntityBlocks(Supplier<BlockEntityType<T>> supplier, List<Supplier<? extends Block>> blocks) {
-        loader.registerDeferred(() -> {
-            var blockEntity = supplier.get();
-            var blockEntityBlocks = blockEntity.validBlocks;
-            List<Block> mutable = new ArrayList<>(blockEntityBlocks);
+        var blockEntity = supplier.get();
+        var blockEntityBlocks = blockEntity.validBlocks;
+        List<Block> mutable = new ArrayList<>(blockEntityBlocks);
 
-            for (Supplier<? extends Block> blockSupplier : blocks) {
-                var block = blockSupplier.get();
-                if (!mutable.contains(block)) {
-                    mutable.add(block);
-                }
+        for (Supplier<? extends Block> blockSupplier : blocks) {
+            var block = blockSupplier.get();
+            if (!mutable.contains(block)) {
+                mutable.add(block);
             }
+        }
 
-            if (ConfigHelper.isDevEnvironment()) {
-                var key = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity);
-                log("Blocks for block entity " + key + ": " + mutable);
-            }
-            blockEntity.validBlocks = new HashSet<>(mutable);
-        });
+        if (ConfigHelper.isDevEnvironment()) {
+            var key = BuiltInRegistries.BLOCK_ENTITY_TYPE.getKey(blockEntity);
+            log("Blocks for block entity " + key + ": " + mutable);
+        }
+        blockEntity.validBlocks = new HashSet<>(mutable);
     }
 
     public Register<BlockSetType> blockSetType(Supplier<CustomWoodMaterial> material) {
