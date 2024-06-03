@@ -19,12 +19,15 @@
     "event.player_inventory_drop.PlayerMixin",
     "event.player_login_callback.PlayerListMixin",
     "event.player_tick_callback.ServerPlayerMixin",
+    "event.server_start.DedicatedServerMixin",
+    "event.server_start.GameTestServerMixin",
     "event.smithing_table.SmithingMenuMixin",
     "event.smithing_table.SmithingTransformRecipeMixin",
     "event.tooltip_component.ItemMixin",
     "registry.villager_name.VillagerMixin"
   ],
   "client": [
+    "event.server_start.IntegratedServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
