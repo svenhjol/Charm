@@ -467,10 +467,10 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public <S extends Structure> Supplier<StructureType<S>> structure(String id, MapCodec<S> codec) {
+    public <S extends Structure> Supplier<StructureType<S>> structure(String id, Supplier<MapCodec<S>> codec) {
         return new Register<>(() -> {
             log("Structure " + id);
-            StructureType<S> registered = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, id(id).toString(), () -> codec);
+            StructureType<S> registered = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, id(id).toString(), codec::get);
             return registered;
         });
     }
