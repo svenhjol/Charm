@@ -2,6 +2,7 @@ package svenhjol.charm.charmony.common;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -64,6 +65,9 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.storage.loot.LootTable;
 import svenhjol.charm.charmony.Log;
 import svenhjol.charm.charmony.common.block.CharmStairBlock;
@@ -460,6 +464,22 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         loader.registerDeferred(() -> {
             AxeItem.STRIPPABLES = new HashMap<>(AxeItem.STRIPPABLES);
             AxeItem.STRIPPABLES.put(block.get(), strippedBlock.get());
+        });
+    }
+
+    public <S extends Structure> Supplier<StructureType<S>> structure(String id, MapCodec<S> codec) {
+        return new Register<>(() -> {
+            log("Structure " + id);
+            StructureType<S> registered = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, id(id).toString(), () -> codec);
+            return registered;
+        });
+    }
+
+    public Supplier<StructurePieceType> structurePiece(String id, Supplier<StructurePieceType> piece) {
+        return new Register<>(() -> {
+            log.debug("Structure piece " + id);
+            var registered = Registry.register(BuiltInRegistries.STRUCTURE_PIECE, id(id), piece.get());
+            return registered;
         });
     }
 
