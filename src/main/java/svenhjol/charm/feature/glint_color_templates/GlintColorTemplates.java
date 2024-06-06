@@ -23,7 +23,7 @@ public final class GlintColorTemplates extends CommonFeature {
         name = "Loot chance",
         description = "Chance (out of 1.0) of a colored glint smithing template appearing in loot."
     )
-    private static double lootChance = 1.0d;
+    private static double lootChance = 0.25d;
 
     public GlintColorTemplates(CommonLoader loader) {
         super(loader);
