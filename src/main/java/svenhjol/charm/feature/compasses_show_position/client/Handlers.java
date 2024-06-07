@@ -21,6 +21,11 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
         var minecraft = Minecraft.getInstance();
         if (minecraft == null || minecraft.player == null) return;
         var player = minecraft.player;
+        
+        // Don't show if Hide GUI is enabled.
+        if (minecraft.options.hideGui) {
+            return;
+        }
 
         if (!feature().alwaysShow()) {
             // Only render hud if player is holding a compass.

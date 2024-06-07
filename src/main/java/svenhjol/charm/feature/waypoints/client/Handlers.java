@@ -113,6 +113,12 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
         if (broadcastMessage == null || broadcastTime == 0) return;
 
         var minecraft = Minecraft.getInstance();
+
+        // Don't show if Hide GUI is enabled.
+        if (minecraft.options.hideGui) {
+            return;
+        }
+        
         var window = minecraft.getWindow();
         var gui = minecraft.gui;
         var pose = guiGraphics.pose();
