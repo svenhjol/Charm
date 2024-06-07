@@ -3,6 +3,7 @@ package svenhjol.charm.charmony.common;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.MapCodec;
+import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -21,7 +22,6 @@ import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
@@ -196,10 +196,11 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         deferredPotionMixes.add(new DeferredPotionMix(input, reagent, output));
     }
 
-    public <T extends CustomPacketPayload> void clientPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<? super FriendlyByteBuf, T> codec) {
+    @SuppressWarnings("unchecked")
+    public <T extends CustomPacketPayload> void clientPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<? extends ByteBuf, T> codec) {
         loader.registerDeferred(() -> {
             log("Client packet sender " + type.id());
-            PayloadTypeRegistry.playC2S().register(type, codec);
+            PayloadTypeRegistry.playC2S().register(type, (StreamCodec<? super ByteBuf, T>)codec);
         });
     }
 
@@ -329,10 +330,11 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public <T extends CustomPacketPayload> void serverPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<? super FriendlyByteBuf, T> codec) {
+    @SuppressWarnings("unchecked")
+    public <T extends CustomPacketPayload> void serverPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<? extends ByteBuf, T> codec) {
         loader.registerDeferred(() -> {
             log("Server packet sender " + type.id());
-            PayloadTypeRegistry.playS2C().register(type, codec);
+            PayloadTypeRegistry.playS2C().register(type, (StreamCodec<? super ByteBuf, T>)codec);
         });
     }
 
