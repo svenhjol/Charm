@@ -196,7 +196,7 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         deferredPotionMixes.add(new DeferredPotionMix(input, reagent, output));
     }
 
-    public <T extends CustomPacketPayload> void clientPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
+    public <T extends CustomPacketPayload> void clientPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<? super FriendlyByteBuf, T> codec) {
         loader.registerDeferred(() -> {
             log("Client packet sender " + type.id());
             PayloadTypeRegistry.playC2S().register(type, codec);
@@ -329,7 +329,7 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public <T extends CustomPacketPayload> void serverPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<FriendlyByteBuf, T> codec) {
+    public <T extends CustomPacketPayload> void serverPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<? super FriendlyByteBuf, T> codec) {
         loader.registerDeferred(() -> {
             log("Server packet sender " + type.id());
             PayloadTypeRegistry.playS2C().register(type, codec);
