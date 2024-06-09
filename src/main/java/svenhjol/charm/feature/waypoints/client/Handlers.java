@@ -15,15 +15,20 @@ import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.waypoints.WaypointsClient;
 import svenhjol.charm.feature.waypoints.common.Networking;
 
+import java.util.List;
 import java.util.Optional;
 
 public final class Handlers extends FeatureHolder<WaypointsClient> {
     public static final String STRENGTH_ICON = "⭐";
+    public static final List<DyeColor> COLORS_WITH_HIGH_BRIGHTNESS;
+    public static final List<DyeColor> COLORS_WITH_LOW_BRIGHTNESS;
+    public static final List<DyeColor> COLORS_WITH_BRIGHT_BACKGROUND;
 
     private DyeColor lastSeenColor; // Cached color of the last message.
     private String lastSeenTitle; // Cached title of the last message.
     private BlockPos lastSeenPos; // Cached target pos of the last message.
     private Component broadcastMessage = null; // Display message component when this is not null.
+    private int broadcastBackground = 0; // Color for the background of the displayed message.
     private int broadcastTime = 0; // Number of ticks that the message component has been shown.
 
     public Handlers(WaypointsClient feature) {
@@ -96,9 +101,26 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
             Minecraft.getInstance().getSoundManager().play(
                 SimpleSoundInstance.forUI(feature().linked().registers.broadcastSound.get(), 0.9f + (0.2f * random.nextFloat()), 0.35f));
         }
-
-        var textColor = color.getFireworkColor() | 0x171717;
+        
+        int textColor;
+        int backgroundColor;
+        
+        if (COLORS_WITH_LOW_BRIGHTNESS.contains(color)) {
+            textColor = color.getTextColor() & 0xe0e0e0;
+        } else if (COLORS_WITH_HIGH_BRIGHTNESS.contains(color)) {
+            textColor = color.getTextColor() | 0x303030;
+        } else {
+            textColor = color.getTextColor();
+        }
+        
+        if (COLORS_WITH_BRIGHT_BACKGROUND.contains(color)) {
+            backgroundColor = 0xffffff;
+        } else {
+            backgroundColor = 0x080808;
+        }
+        
         broadcastMessage = displayTitle.withStyle(style -> style.withColor(textColor));
+        broadcastBackground = backgroundColor;
         broadcastTime = feature().linked().messageDuration() * 60;
     }
 
@@ -151,7 +173,7 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
             var x = -len / 2;
             var y = -4;
             var foreground = 0xffffff | foregroundAlpha;
-            var background = 0x202020 | backgroundAlpha;
+            var background = broadcastBackground | backgroundAlpha;
 
             int n = 3;
             guiGraphics.fill(x - n, y - n, x + len + n - 1, y + 8 + n, background);
@@ -173,5 +195,15 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
             broadcastTime = 0;
             broadcastMessage = null;
         }
+    }
+    
+    static {
+        COLORS_WITH_HIGH_BRIGHTNESS = List.of(
+            DyeColor.RED, DyeColor.ORANGE, DyeColor.YELLOW, DyeColor.LIME,
+            DyeColor.GREEN, DyeColor.CYAN, DyeColor.LIGHT_BLUE, DyeColor.BLUE,
+            DyeColor.PURPLE, DyeColor.MAGENTA, DyeColor.PINK, DyeColor.BROWN
+        );
+        COLORS_WITH_LOW_BRIGHTNESS = List.of(DyeColor.LIGHT_GRAY, DyeColor.GRAY);
+        COLORS_WITH_BRIGHT_BACKGROUND = List.of(DyeColor.BLACK);
     }
 }
