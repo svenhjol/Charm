@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#W#",
+    "#W#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "W": {
+      "item": "charm:ebony_planks"
+    }
+  },
+  "result": {
+    "id": "charm:ebony_fence_gate"
+  }
+}

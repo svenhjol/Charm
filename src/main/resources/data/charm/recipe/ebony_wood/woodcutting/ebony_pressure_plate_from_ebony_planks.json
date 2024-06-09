@@ -1,0 +1,10 @@
+{
+  "type": "charm:woodcutting",
+  "ingredient": {
+    "item": "charm:ebony_planks"
+  },
+  "result": {
+    "id": "charm:ebony_pressure_plate",
+    "count": 1
+  }
+}

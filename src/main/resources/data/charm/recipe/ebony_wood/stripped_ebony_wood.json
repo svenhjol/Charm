@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "charm:stripped_ebony_log"
+    }
+  },
+  "result": {
+    "id": "charm:stripped_ebony_wood",
+    "count": 3
+  }
+}

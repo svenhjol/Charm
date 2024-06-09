@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "charm:chests/normal"
+    },
+    {
+      "item": "charm:ebony_boat"
+    }
+  ],
+  "result": {
+    "id": "charm:ebony_chest_boat"
+  }
+}

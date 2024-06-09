@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "# #",
+    "#P#",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "P": {
+      "item": "charm:ebony_planks"
+    }
+  },
+  "result": {
+    "id": "charm:ebony_ladder",
+    "count": 3
+  }
+}

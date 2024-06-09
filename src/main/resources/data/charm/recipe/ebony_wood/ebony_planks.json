@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "charm:ebony_logs"
+    }
+  ],
+  "result": {
+    "id": "charm:ebony_planks",
+    "count": 4
+  }
+}
