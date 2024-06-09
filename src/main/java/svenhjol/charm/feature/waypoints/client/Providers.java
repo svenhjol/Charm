@@ -2,7 +2,6 @@ package svenhjol.charm.feature.waypoints.client;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.api.iface.CompassOverlayItem;
 import svenhjol.charm.api.iface.CompassOverlayProvider;
 import svenhjol.charm.charmony.feature.ProviderHolder;
@@ -35,7 +34,7 @@ public final class Providers extends ProviderHolder<WaypointsClient> implements 
                 @Override
                 public int color() {
                     return feature().handlers.color()
-                        .map(DyeColor::getTextColor)
+                        .map(dyeColor -> dyeColor.getFireworkColor() | 0x303030)
                         .orElse(0xffffff);
                 }
             }
