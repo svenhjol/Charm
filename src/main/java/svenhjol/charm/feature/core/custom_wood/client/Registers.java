@@ -116,7 +116,7 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.NATURAL_BLOCKS, Items.ACACIA_LEAVES)));
 
                 Optional.ofNullable(map.get(CustomType.LADDER)).ifPresent(
-                    items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.NATURAL_BLOCKS, Items.LADDER)));
+                    items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.LADDER)));
 
                 Optional.ofNullable(map.get(CustomType.LOG)).ifPresent(
                     items -> items.forEach(item -> registry.itemTab(item, CreativeModeTabs.NATURAL_BLOCKS, Items.ACACIA_LOG)));
