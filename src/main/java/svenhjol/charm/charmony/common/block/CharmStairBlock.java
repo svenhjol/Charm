@@ -13,7 +13,9 @@ public class CharmStairBlock extends StairBlock implements IgniteProvider {
     protected final CustomMaterial material;
 
     public CharmStairBlock(CustomMaterial material, BlockState state) {
-        super(state, material.blockProperties());
+        super(state, material.blockProperties()
+            .strength(2.0f, 3.0f));
+        
         this.material = material;
     }
 

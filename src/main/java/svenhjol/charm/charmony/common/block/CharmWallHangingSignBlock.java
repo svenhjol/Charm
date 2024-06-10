@@ -9,7 +9,7 @@ import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 public class CharmWallHangingSignBlock extends WallHangingSignBlock {
     public <B extends Block> CharmWallHangingSignBlock(CustomWoodMaterial material, B drops, WoodType woodType) {
         super(woodType, material.blockProperties()
-            .strength(1.0F)
+            .strength(1.0f)
             .noCollission()
             .ignitedByLava()
             .dropsLike(drops));

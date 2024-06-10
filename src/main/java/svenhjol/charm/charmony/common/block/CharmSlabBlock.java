@@ -13,7 +13,7 @@ public class CharmSlabBlock extends SlabBlock implements IgniteProvider {
 
     public CharmSlabBlock(CustomMaterial material) {
         super(material.blockProperties()
-            .strength(2.0F, 3.0F));
+            .strength(2.0f, 3.0f));
 
         this.material = material;
     }
