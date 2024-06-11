@@ -17,6 +17,6 @@ public class LivingEntityMixin {
             target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z")
     )
     private boolean hookTrapdoorUsableAsLadder(BlockState state, Block block) {
-        return state.is(Tags.LADDERS);
+        return state.is(Tags.FABRIC_LADDERS);
     }
 }

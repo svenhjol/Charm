@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.mob_textures;
 
-import net.minecraft.util.Mth;
 import svenhjol.charm.charmony.annotation.Configurable;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.client.ClientFeature;
@@ -39,10 +38,6 @@ public final class MobTextures extends ClientFeature {
 
     @Configurable(name = "Wandering traders", description = "If true, wandering traders may spawn with different textures.")
     private static boolean wanderingTraders = true;
-
-    @Configurable(name = "Chance of rare types", description = "Approximately 1 in X chance of a mob spawning as a rare type.\n" +
-        "Set to zero to disable rare types.")
-    private static int rareTypeChance = 1000;
 
     public MobTextures(ClientLoader loader) {
         super(loader);
@@ -88,7 +83,7 @@ public final class MobTextures extends ClientFeature {
     }
 
     public int rareTypeChance() {
-        return Mth.clamp(rareTypeChance, 0, 20000);
+        return 1000;
     }
 
     @Override

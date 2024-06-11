@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.core.custom_wood.common;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
@@ -12,6 +13,8 @@ public final class Tags {
         Charm.id("chiseled_bookshelves"));
     public static final TagKey<Block> LADDERS = TagKey.create(Registries.BLOCK,
         Charm.id("ladders"));
+    public static final TagKey<Block> FABRIC_LADDERS = TagKey.create(Registries.BLOCK,
+        new ResourceLocation("c", "ladders"));
     public static final TagKey<Block> OVERWORLD_STRIPPED_LOGS = TagKey.create(Registries.BLOCK,
         Charm.id("overworld_stripped_logs"));
 }
