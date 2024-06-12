@@ -11,6 +11,6 @@ public final class Registers extends RegisterHolder<NetherPortalBlocks> {
 
     @Override
     public void onEnabled() {
-        PortalShape.FRAME = (blockState, blockView, blockPos) -> blockState.is(Tags.NETHER_PORTAL_FRAMES);
+        PortalShape.FRAME = (blockState, blockView, blockPos) -> blockState.is(Tags.NETHER_PORTAL_BLOCKS);
     }
 }

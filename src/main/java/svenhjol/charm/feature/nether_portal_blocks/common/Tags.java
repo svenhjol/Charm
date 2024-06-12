@@ -6,6 +6,6 @@ import net.minecraft.world.level.block.Block;
 import svenhjol.charm.Charm;
 
 public class Tags {
-    public static final TagKey<Block> NETHER_PORTAL_FRAMES = TagKey.create(Registries.BLOCK,
-        Charm.id("nether_portal_frames"));
+    public static final TagKey<Block> NETHER_PORTAL_BLOCKS = TagKey.create(Registries.BLOCK,
+        Charm.id("nether_portal_blocks"));
 }
