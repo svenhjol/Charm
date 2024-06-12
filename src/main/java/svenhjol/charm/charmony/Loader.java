@@ -201,10 +201,8 @@ public abstract class Loader<F extends Feature> {
 
         features.forEach(feature -> {
             if (feature.isEnabled()) {
-                feature.log().info("Running enabled tasks");
                 feature.onEnabled();
             } else {
-                feature.log().info("Running disabled tasks");
                 feature.onDisabled();
             }
         });
