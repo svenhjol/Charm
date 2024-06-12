@@ -9,6 +9,7 @@ import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -128,7 +129,7 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     @Override
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         if (level.getBlockEntity(pos) instanceof CaskBlockEntity cask && cask.bottles > 0) {
-            return Math.round((cask.bottles / (float) feature().maxBottles()) * 16);
+            return Mth.lerpDiscrete((float)cask.bottles / (float) feature().maxBottles(), 0, 15);
         }
         return 0;
     }
