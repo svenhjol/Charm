@@ -28,6 +28,6 @@ public class WolfArmorLayerMixin {
         var armor = wolf.getBodyArmorItem();
         var item = (AnimalArmorItem)armor.getItem();
         Resolve.feature(GlintColoringClient.class).handlers.setTargetStack(armor);
-        return ItemRenderer.getArmorFoilBuffer(multiBufferSource, RenderType.armorCutoutNoCull(item.getTexture()), false);
+        return ItemRenderer.getArmorFoilBuffer(multiBufferSource, RenderType.armorCutoutNoCull(item.getTexture()), armor.hasFoil());
     }
 }
