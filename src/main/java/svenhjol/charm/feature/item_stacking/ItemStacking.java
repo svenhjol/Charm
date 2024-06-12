@@ -25,7 +25,7 @@ public final class ItemStacking extends CommonFeature {
     private static int lingeringPotionStackSize = 1;
 
     @Configurable(name = "Stew", description = "Stew (and beetroot soup) maximum stack size.")
-    private static int stewStackSize = 16;
+    private static int stewStackSize = 64;
 
     @Configurable(name = "Suspicious stew", description = "Suspicious stew maximum stack size.")
     private static int suspiciousStewStackSize = 1;
