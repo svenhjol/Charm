@@ -17,8 +17,8 @@ public final class Registers extends RegisterHolder<ItemFrameHiding> {
 
         particleType = registry.particleType("apply_amethyst", ParticleType::new);
 
-        registry.serverPacketSender(Networking.AddAmethyst.TYPE, Networking.AddAmethyst.CODEC);
-        registry.serverPacketSender(Networking.RemoveAmethyst.TYPE, Networking.RemoveAmethyst.CODEC);
+        registry.serverPacketSender(Networking.S2CAddAmethyst.TYPE, Networking.S2CAddAmethyst.CODEC);
+        registry.serverPacketSender(Networking.S2CRemoveAmethyst.TYPE, Networking.S2CRemoveAmethyst.CODEC);
     }
 
     @Override

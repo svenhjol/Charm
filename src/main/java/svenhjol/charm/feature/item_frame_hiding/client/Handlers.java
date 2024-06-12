@@ -15,7 +15,7 @@ public final class Handlers extends FeatureHolder<ItemFrameHidingClient> {
         super(feature);
     }
 
-    public void addToItemFrame(Player player, Networking.AddAmethyst packet) {
+    public void addToItemFrame(Player player, Networking.S2CAddAmethyst packet) {
         var pos = packet.getPos();
         var sound = packet.getSound();
         player.level().playSound(player, pos, sound, SoundSource.PLAYERS, 1.0f, 1.0f);
@@ -25,7 +25,7 @@ public final class Handlers extends FeatureHolder<ItemFrameHidingClient> {
         }
     }
 
-    public void removeFromItemFrame(Player player, Networking.RemoveAmethyst message) {
+    public void removeFromItemFrame(Player player, Networking.S2CRemoveAmethyst message) {
         var pos = message.getPos();
         var sound = message.getSound();
         player.level().playSound(player, pos, sound, SoundSource.PLAYERS, 1.0f, 1.0f);

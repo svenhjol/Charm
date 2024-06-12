@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import svenhjol.charm.charmony.helper.PlayerHelper;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHiding;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 
@@ -39,7 +40,9 @@ public final class Handlers extends FeatureHolder<ItemFrameHiding> {
                 level.addFreshEntity(itemEntity);
 
                 if (!level.isClientSide()) {
-                    feature().networking.removeAmethyst((ServerPlayer)player, frame.blockPosition());
+                    var framePos = frame.blockPosition();
+                    PlayerHelper.getPlayersInRange(level, framePos, 8.0d).forEach(p -> 
+                        Networking.S2CRemoveAmethyst.send((ServerPlayer)p, framePos));
                 }
 
                 frame.setInvisible(false);
@@ -79,8 +82,11 @@ public final class Handlers extends FeatureHolder<ItemFrameHiding> {
 
             if (!level.isClientSide()) {
                 var serverPlayer = (ServerPlayer)player;
-                feature().networking.addAmethyst(serverPlayer, frame.blockPosition());
-                feature().advancements.hiddenItemFrame(serverPlayer);
+                var framePos = frame.blockPosition();
+                PlayerHelper.getPlayersInRange(level, framePos, 8.0d).forEach(p -> {
+                    Networking.S2CAddAmethyst.send((ServerPlayer)p, framePos);
+                    feature().advancements.hiddenItemFrame(serverPlayer);
+                });
             }
 
             return InteractionResult.sidedSuccess(level.isClientSide());

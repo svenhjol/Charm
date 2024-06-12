@@ -18,9 +18,9 @@ public final class Registers extends RegisterHolder<ItemFrameHidingClient> {
         particle = registry.particle(feature().linked().registers.particleType,
             () -> Particle::new);
 
-        registry.packetReceiver(Networking.AddAmethyst.TYPE,
+        registry.packetReceiver(Networking.S2CAddAmethyst.TYPE,
             () -> feature().handlers::addToItemFrame);
-        registry.packetReceiver(Networking.RemoveAmethyst.TYPE,
+        registry.packetReceiver(Networking.S2CRemoveAmethyst.TYPE,
             () -> feature().handlers::removeFromItemFrame);
     }
 }
