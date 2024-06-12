@@ -170,7 +170,7 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, list, tooltipFlag);
-        var caskData = stack.get(feature().registers.data.get());
+        var caskData = stack.get(feature().registers.caskData.get());
 
         if (caskData == null || caskData.bottles() == 0) {
             return;

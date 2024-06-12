@@ -14,7 +14,8 @@ public final class Registers extends RegisterHolder<Casks> {
     public final Supplier<CaskBlock> block;
     public final Supplier<CaskBlock.BlockItem> blockItem;
     public final Supplier<BlockEntityType<CaskBlockEntity>> blockEntity;
-    public final Supplier<DataComponentType<CaskData>> data;
+    public final Supplier<DataComponentType<CaskData>> caskData;
+    public final Supplier<DataComponentType<HomeBrewData>> homeBrewData;
     public final Supplier<SoundEvent> addSound;
     public final Supplier<SoundEvent> emptySound;
     public final Supplier<SoundEvent> nameSound;
@@ -27,10 +28,17 @@ public final class Registers extends RegisterHolder<Casks> {
         block = registry.block(BLOCK_ID, CaskBlock::new);
         blockItem = registry.item(BLOCK_ID, () -> new CaskBlock.BlockItem(block));
         blockEntity = registry.blockEntity(BLOCK_ID, () -> CaskBlockEntity::new, List.of(block));
-        data = registry.dataComponent("cask",
+        
+        // Cask and homebrew item data.
+        caskData = registry.dataComponent("cask",
             () -> builder -> builder
                 .persistent(CaskData.CODEC)
                 .networkSynchronized(CaskData.STREAM_CODEC));
+        
+        homeBrewData = registry.dataComponent("home_brew",
+            () -> builder -> builder
+                .persistent(HomeBrewData.CODEC)
+                .networkSynchronized(HomeBrewData.STREAM_CODEC));
 
         // Casks can be burned for fuel
         registry.fuel(block);

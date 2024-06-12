@@ -49,10 +49,12 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
     public static final String DURATIONS_TAG = "duration";
     public static final String AMPLIFIERS_TAG = "amplifier";
     public static final String DILUTIONS_TAG = "dilutions";
+    public static final String FERMENTATION_TAG = "fermentation";
 
     // Mapped by data components.
     public Component name;
     public int bottles = 0;
+    public double fermentation = CaskData.DEFAULT_FERMENTATION;
     public Map<ResourceLocation, Integer> durations = new HashMap<>();
     public Map<ResourceLocation, Integer> amplifiers = new HashMap<>();
     public Map<ResourceLocation, Integer> dilutions = new HashMap<>();
@@ -71,6 +73,9 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
 
         if (tag.contains(NAME_TAG)) {
             this.name = Component.Serializer.fromJson(tag.getString(NAME_TAG), provider);
+        }
+        if (tag.contains(FERMENTATION_TAG)) {
+            this.fermentation = tag.getDouble(FERMENTATION_TAG);
         }
         this.bottles = tag.getInt(BOTTLES_TAG);
         this.effects.clear();
@@ -103,8 +108,9 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         if (this.name != null) {
             tag.putString(NAME_TAG, Component.Serializer.toJson(this.name, provider));
         }
-
+        
         tag.putInt(BOTTLES_TAG, this.bottles);
+        tag.putDouble(FERMENTATION_TAG, this.fermentation);
 
         CompoundTag durations = new CompoundTag();
         CompoundTag amplifiers = new CompoundTag();
@@ -251,7 +257,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         }
 
         if (!effects.isEmpty()) {
-            return feature().handlers.makeCustomPotion(effects);
+            return feature().handlers.makeCustomPotion(effects, this.fermentation);
         }
 
         return feature().handlers.getFilledWaterBottle();
@@ -272,6 +278,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         this.dilutions.clear();
         this.amplifiers.clear();
         this.bottles = 0;
+        this.fermentation = 1.0d;
 
         setChanged();
     }
@@ -287,10 +294,11 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
     @Override
     protected void applyImplicitComponents(DataComponentInput input) {
         super.applyImplicitComponents(input);
-        var caskData = input.getOrDefault(feature().registers.data.get(), CaskData.EMPTY);
+        var caskData = input.getOrDefault(feature().registers.caskData.get(), CaskData.EMPTY);
 
         this.name = input.get(DataComponents.CUSTOM_NAME);
         this.bottles = caskData.bottles();
+        this.fermentation = caskData.fermentation();
         this.effects = caskData.effects();
         this.durations = caskData.durations();
         this.amplifiers = caskData.amplifiers();
@@ -300,11 +308,12 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
     @Override
     protected void collectImplicitComponents(DataComponentMap.Builder builder) {
         super.collectImplicitComponents(builder);
-        var caskData = feature().registers.data.get();
+        var caskData = feature().registers.caskData.get();
 
         builder.set(DataComponents.CUSTOM_NAME, this.name);
         builder.set(caskData, new CaskData(
             this.bottles,
+            this.fermentation,
             this.effects,
             this.durations,
             this.amplifiers,

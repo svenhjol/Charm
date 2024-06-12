@@ -20,6 +20,7 @@ import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.casks.Casks;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class Handlers extends FeatureHolder<Casks> {
     public Handlers(Casks feature) {
@@ -47,7 +48,7 @@ public final class Handlers extends FeatureHolder<Casks> {
         return PotionContents.EMPTY;
     }
 
-    public ItemStack makeCustomPotion(List<MobEffectInstance> effects) {
+    public ItemStack makeCustomPotion(List<MobEffectInstance> effects, double fermentation) {
         var stack = feature().handlers.getFilledWaterBottle();
         var basePotion = getPotion(stack);
 
@@ -56,6 +57,9 @@ public final class Handlers extends FeatureHolder<Casks> {
 
         var customName = Component.translatable("item.charm.home_brew");
         stack.set(DataComponents.CUSTOM_NAME, customName);
+        
+        var homeBrewData = new HomeBrewData(fermentation);
+        stack.set(feature().registers.homeBrewData.get(), homeBrewData);
 
         return stack;
     }
@@ -144,4 +148,35 @@ public final class Handlers extends FeatureHolder<Casks> {
         }
     }
 
+    public Optional<ItemStack> restoreCustomPotionEffects(ItemStack original, ItemStack result) {
+        var homeBrewData = feature().registers.homeBrewData.get();
+        
+        if (!original.has(homeBrewData)) {
+            // Do vanilla behavior if the original potion is not a home brew (from the cask).
+            return Optional.empty();
+        }
+        
+        var originalBrewData = original.getOrDefault(homeBrewData, HomeBrewData.EMPTY);
+        var originalPotion = original.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+        var originalCustomEffects = originalPotion.customEffects();
+        
+        var mixedPotion = result.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+        var mixedCustomEffects = mixedPotion.customEffects();
+        
+        if (mixedCustomEffects.isEmpty() && !originalCustomEffects.isEmpty()) {
+            var copy = result.copy();
+            var applyPotion = new PotionContents(mixedPotion.potion(), mixedPotion.customColor(), originalCustomEffects);
+            copy.set(DataComponents.POTION_CONTENTS, applyPotion);
+            
+            if (original.has(DataComponents.CUSTOM_NAME)) {
+                copy.set(DataComponents.CUSTOM_NAME, original.get(DataComponents.CUSTOM_NAME));
+            }
+            
+            // Set the "home brew" data to the result so that we can track that it's a custom cask potion.
+            copy.set(homeBrewData, originalBrewData);
+            return Optional.of(copy);
+        }
+        
+        return Optional.empty();
+    }
 }

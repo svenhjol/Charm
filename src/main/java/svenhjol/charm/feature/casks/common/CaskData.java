@@ -14,6 +14,7 @@ import java.util.Map;
 
 public record CaskData(
     int bottles,
+    double fermentation,
     List<ResourceLocation> effects,
     Map<ResourceLocation, Integer> durations,
     Map<ResourceLocation, Integer> amplifiers,
@@ -22,6 +23,8 @@ public record CaskData(
     public static final Codec<CaskData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         Codec.INT.fieldOf("bottles")
             .forGetter(CaskData::bottles),
+        Codec.DOUBLE.fieldOf("fermentation")
+            .forGetter(CaskData::fermentation),
         ResourceLocation.CODEC.listOf().fieldOf("effects")
             .forGetter(CaskData::effects),
         Codec.unboundedMap(ResourceLocation.CODEC, Codec.INT).fieldOf("durations")
@@ -34,15 +37,19 @@ public record CaskData(
 
     public static final StreamCodec<FriendlyByteBuf, CaskData> STREAM_CODEC = StreamCodec.composite(
         ByteBufCodecs.INT, CaskData::bottles,
+        ByteBufCodecs.DOUBLE, CaskData::fermentation,
         ResourceLocation.STREAM_CODEC.apply(ByteBufCodecs.list()), CaskData::effects,
         ByteBufCodecs.map(HashMap::new, ResourceLocation.STREAM_CODEC, ByteBufCodecs.INT), CaskData::durations,
         ByteBufCodecs.map(HashMap::new, ResourceLocation.STREAM_CODEC, ByteBufCodecs.INT), CaskData::amplifiers,
         ByteBufCodecs.map(HashMap::new, ResourceLocation.STREAM_CODEC, ByteBufCodecs.INT), CaskData::dilutions,
         CaskData::new
     );
+    
+    public static final double DEFAULT_FERMENTATION = 1.0d;
 
     public static final CaskData EMPTY = new CaskData(
         0,
+        DEFAULT_FERMENTATION,
         new ArrayList<>(),
         new HashMap<>(),
         new HashMap<>(),
