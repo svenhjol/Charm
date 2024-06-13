@@ -1,22 +1,20 @@
 package svenhjol.charm.feature.core.custom_recipes.common;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
-import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.common.helper.CommonFeatureHelper;
 import svenhjol.charm.charmony.enums.Side;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.charmony.helper.ResourceLocationHelper;
+import svenhjol.charm.feature.core.custom_recipes.CustomRecipes;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public final class Handlers extends FeatureHolder<CustomRecipes> {
     private final List<String> fuzzyRemove = new ArrayList<>();
@@ -50,14 +48,39 @@ public final class Handlers extends FeatureHolder<CustomRecipes> {
     }
 
     /**
-     * Called by sorting recipe manager.
-     *
+     * Called by sorting recipe manager to sort recipes by name so Charm's take priority.
      * @see RecipeSorter
-     * original: Map<RecipeType<?>, Map<ResourceLocation, RecipeHolder<?>>>
-     * new: Multimap<RecipeType<?>, RecipeHolder<?>>
      */
-    public Multimap<RecipeType<?>, RecipeHolder<?>> sortAndFilter(Multimap<RecipeType<?>, RecipeHolder<?>> byType) {
-        feature().log().debug("Preparing to sort and filter recipes.");
+    public Map<ResourceLocation, RecipeHolder<?>> sortAndFilterByName(Map<ResourceLocation, RecipeHolder<?>> byName) {
+        feature().log().debug("Sorting recipes by name.");
+
+        ImmutableMap.Builder<ResourceLocation, RecipeHolder<?>> builder = ImmutableMap.builder();
+
+        Map<ResourceLocation, RecipeHolder<?>> charmonyRecipeHolders = new HashMap<>();
+        Map<ResourceLocation, RecipeHolder<?>> otherRecipeHolders = new HashMap<>();
+        
+        for (var id : byName.keySet()) {
+            var recipeHolder = byName.get(id);
+            
+            if (Resolve.hasLoader(Side.COMMON, id.getNamespace())) {
+                charmonyRecipeHolders.put(id, recipeHolder);
+            } else {
+                otherRecipeHolders.put(id, recipeHolder);
+            }
+        }
+        
+        charmonyRecipeHolders.forEach(builder::put);
+        otherRecipeHolders.forEach(builder::put);
+
+        return builder.build();
+    }
+
+    /**
+     * Called by sorting recipe manager to sort recipes by type so Charm's take priority.
+     * @see RecipeSorter
+     */
+    public Multimap<RecipeType<?>, RecipeHolder<?>> sortAndFilterByType(Multimap<RecipeType<?>, RecipeHolder<?>> byType) {
+        feature().log().debug("Sorting recipes by type.");
 
         ImmutableMultimap.Builder<RecipeType<?>, RecipeHolder<?>> builder = ImmutableMultimap.builder();
 
@@ -74,7 +97,7 @@ public final class Handlers extends FeatureHolder<CustomRecipes> {
                 .filter(r -> !shouldRemove(r.id())).sorted(Comparator.comparing(r -> r.id().getPath()))
                 .forEach(holders::add);
 
-            // Add other recipes after charm's so that they're parsed afterwards.
+            // Add all other recipes after these.
             otherRecipes.forEach(holders::add);
 
             holders.forEach(holder -> builder.put(type, holder));
