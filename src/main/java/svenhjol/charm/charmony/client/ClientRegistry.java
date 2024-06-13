@@ -179,11 +179,11 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
     }
 
     public <R extends Recipe<?>> void recipeBookCategory(String id, Supplier<RecipeType<R>> recipeType, Supplier<RecipeBookType> recipeBookType) {
-        var upper = id.toUpperCase(Locale.ROOT);
-        var searchCategory = EnumHelper.getValueOrDefault(() -> RecipeBookCategories.valueOf(upper + "_SEARCH"), RecipeBookCategories.CRAFTING_SEARCH);
-        var mainCategory = EnumHelper.getValueOrDefault(() -> RecipeBookCategories.valueOf(upper), RecipeBookCategories.CRAFTING_MISC);
-
         loader.registerDeferred(() -> {
+            var upper = id.toUpperCase(Locale.ROOT);
+            var searchCategory = EnumHelper.getValueOrDefault(() -> RecipeBookCategories.valueOf(upper + "_SEARCH"), RecipeBookCategories.CRAFTING_SEARCH);
+            var mainCategory = EnumHelper.getValueOrDefault(() -> RecipeBookCategories.valueOf(upper), RecipeBookCategories.CRAFTING_MISC);
+            
             RECIPE_BOOK_MAIN_CATEGORY.put(recipeType.get(), mainCategory);
             RECIPE_BOOK_CATEGORY_BY_TYPE.put(recipeBookType.get(), List.of(searchCategory, mainCategory));
 
