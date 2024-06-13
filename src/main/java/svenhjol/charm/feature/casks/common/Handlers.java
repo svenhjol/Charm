@@ -48,14 +48,13 @@ public final class Handlers extends FeatureHolder<Casks> {
         return PotionContents.EMPTY;
     }
 
-    public ItemStack makeCustomPotion(List<MobEffectInstance> effects, double fermentation) {
+    public ItemStack makeCustomPotion(Component customName, List<MobEffectInstance> effects, double fermentation) {
         var stack = feature().handlers.getFilledWaterBottle();
         var basePotion = getPotion(stack);
 
         var newPotionContents = new PotionContents(basePotion.potion(), basePotion.customColor(), effects);
         stack.set(DataComponents.POTION_CONTENTS, newPotionContents);
-
-        var customName = Component.translatable("item.charm.home_brew");
+        
         stack.set(DataComponents.CUSTOM_NAME, customName);
         
         var homeBrewData = new HomeBrewData(fermentation);
