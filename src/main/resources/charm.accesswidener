@@ -12,6 +12,7 @@ accessible field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/f
 accessible field net/minecraft/world/entity/vehicle/Boat$Type CODEC Lnet/minecraft/util/StringRepresentable$EnumCodec;
 accessible field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 accessible field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
+accessible field net/minecraft/world/item/crafting/RecipeManager byName Ljava/util/Map;
 accessible field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
 accessible field net/minecraft/world/level/block/state/properties/NoteBlockInstrument soundEvent Lnet/minecraft/core/Holder;
 accessible field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
@@ -31,6 +32,7 @@ mutable    field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/f
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type CODEC Lnet/minecraft/util/StringRepresentable$EnumCodec;
 mutable    field net/minecraft/world/item/AxeItem STRIPPABLES Ljava/util/Map;
 mutable    field net/minecraft/world/item/Item components Lnet/minecraft/core/component/DataComponentMap;
+mutable    field net/minecraft/world/item/crafting/RecipeManager byName Ljava/util/Map;
 mutable    field net/minecraft/world/item/crafting/RecipeManager byType Lcom/google/common/collect/Multimap;
 mutable    field net/minecraft/world/level/block/state/properties/NoteBlockInstrument soundEvent Lnet/minecraft/core/Holder;
 mutable    field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
