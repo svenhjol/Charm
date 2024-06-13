@@ -17,5 +17,5 @@ public record HomeBrewData(double fermentation) {
         HomeBrewData::new
     );
     
-    public static final HomeBrewData EMPTY = new HomeBrewData(1.0d);
+    public static final HomeBrewData EMPTY = new HomeBrewData(CaskData.DEFAULT_FERMENTATION);
 }
