@@ -54,7 +54,7 @@ public abstract class Config {
                     var annotation = field.getDeclaredAnnotation(Configurable.class);
                     if (annotation == null) continue;
 
-                    // set the static property as writable so that the config can modify it
+                    // Set the static property as writable so that the config can modify it
                     field.setAccessible(true);
                     var fieldName = annotation.name();
 
@@ -179,6 +179,9 @@ public abstract class Config {
         }
     }
 
+    /**
+     * This is for mods that want to query Charm's default config values.
+     */
     @SuppressWarnings("unused")
     public static Map<Field, Object> defaultFieldValues() {
         return DEFAULT_FIELD_VALUES;

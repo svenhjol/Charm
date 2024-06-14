@@ -25,6 +25,10 @@ public class ClientLoader extends Loader<ClientFeature> {
     public Side side() {
         return Side.CLIENT;
     }
+    
+    public ClientConfig config() {
+        return config;
+    }
 
     public static ClientLoader create(String id) {
         return Resolve.register(new ClientLoader(id));

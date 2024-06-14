@@ -8,7 +8,8 @@
   "authors": [
     "svenhjol",
     "Coranthes",
-    "WarlordWossman"
+    "WarlordWossman",
+    "F43nd1r"
   ],
   "icon": "icon.png",
 
@@ -26,6 +27,9 @@
     ],
     "client": [
       "svenhjol.charm.fabric.ClientInitializer"
+    ],
+    "modmenu": [
+      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
     ]
   },
 
@@ -35,5 +39,19 @@
     "fabricloader": ">=${loader_version}",
     "minecraft": "*",
     "java": ">=21"
+  },
+
+  "contact": {
+    "homepage": "https://charmony.work",
+    "sources": "https://github.com/svenhjol/Charm"
+  },
+  
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "${discord_link}"
+      },
+      "update_checker": true
+    }
   }
 }

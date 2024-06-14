@@ -22,6 +22,10 @@ public class CommonLoader extends Loader<CommonFeature> {
     public Side side() {
         return Side.COMMON;
     }
+    
+    public CommonConfig config() {
+        return config;
+    }
 
     public static CommonLoader create(String id) {
         return Resolve.register(new CommonLoader(id));

@@ -3,10 +3,7 @@ package svenhjol.charm.charmony;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.charmony.enums.Side;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Resolving loaders and features.
@@ -31,6 +28,10 @@ public final class Resolve {
             return loaders.containsKey(id);
         }
         return false;
+    }
+    
+    public static <F extends Feature> List<F> features(Side side, String id) {
+        return (List<F>) tryLoader(side, id).map(Loader::features).orElse(List.of());
     }
 
     /**
@@ -83,5 +84,14 @@ public final class Resolve {
     public static <F extends Feature> Optional<F> tryFeature(Class<F> clazz) {
         F resolved = (F) FEATURES.get(clazz);
         return Optional.ofNullable(resolved);
+    }
+    
+    public static <F extends Feature, L extends Loader<F>> Optional<L> tryLoader(Side side, String id) {
+        var sided = LOADERS.get(side);
+        if (sided != null) {
+            L resolved = (L) sided.get(id);
+            return Optional.ofNullable(resolved);
+        }
+        return Optional.empty();
     }
 }

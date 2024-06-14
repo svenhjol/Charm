@@ -292,7 +292,7 @@ public abstract class Loader<F extends Feature> {
     /**
      * Get a reference to this loader's log instance.
      */
-    protected Log log() {
+    public Log log() {
         return log;
     }
 
