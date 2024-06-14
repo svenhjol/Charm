@@ -1,0 +1,31 @@
+{
+  "parent": "charm:core/mobs",
+  "display": {
+    "icon": {
+      "id": "minecraft:stone_sword"
+    },
+    "title": {
+      "translate": "advancements.charm.negated_animal_damage.title"
+    },
+    "description": {
+      "translate": "advancements.charm.negated_animal_damage.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "negated_animal_damage": {
+      "trigger": "charmony_action_performed",
+      "conditions": {
+        "action": "charm:negated_animal_damage"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "negated_animal_damage"
+    ]
+  ]
+}
