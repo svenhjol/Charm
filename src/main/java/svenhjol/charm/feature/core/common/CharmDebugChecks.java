@@ -6,9 +6,9 @@ import svenhjol.charm.charmony.helper.ConfigHelper;
 
 public final class CharmDebugChecks {
     private static boolean hasCheckedDebugConfig = false;
-    private static boolean hasCheckedCompatConfig = false;
+    private static boolean hasCheckedMixinDisableConfig = false;
     private static boolean cachedDebugValue = false;
-    private static boolean cachedCompatValue = false;
+    private static boolean cachedMixinDisableValue = false;
 
     /**
      * Helper method to check if debug mode is enabled in Charm's config file.
@@ -31,19 +31,19 @@ public final class CharmDebugChecks {
     }
 
     /**
-     * Helper method to check if compat mode is enabled in Charm's config file.
+     * Helper method to check if mixin disable mode is enabled in Charm's config file.
      */
-    public static boolean isCompatEnabled() {
-        if (!hasCheckedCompatConfig) {
+    public static boolean isMixinDisableModeEnabled() {
+        if (!hasCheckedMixinDisableConfig) {
             var toml = ConfigHelper.read(ConfigHelper.filename(Charm.ID, Side.COMMON));
-            var key = "Core.\"" + ConfigHelper.COMPAT_MODE + "\"";
+            var key = "Core.\"" + ConfigHelper.MIXIN_DISABLE_MODE + "\"";
             if (toml.contains(key)) {
-                cachedCompatValue = toml.getBoolean(key);
+                cachedMixinDisableValue = toml.getBoolean(key);
             }
 
-            hasCheckedCompatConfig = true;
+            hasCheckedMixinDisableConfig = true;
         }
 
-        return cachedCompatValue;
+        return cachedMixinDisableValue;
     }
 }

@@ -25,16 +25,16 @@ public final class MixinConfig extends MixinConfigPlugin {
     public void onLoad(String mixinPackage) {
         super.onLoad(mixinPackage);
 
-        // Register debug and compat checks in as early as possible.
+        // Register debug and mixin disable checks in as early as possible.
         DebugHelper.registerDebugCheck(CharmDebugChecks::isDebugEnabled);
-        DebugHelper.registerCompatCheck(CharmDebugChecks::isCompatEnabled);
+        DebugHelper.registerMixinDisableCheck(CharmDebugChecks::isMixinDisableModeEnabled);
     }
 
     @Override
     public boolean baseNameCheck(String baseName, String mixinClassName) {
-        // With compat enabled we don't load ANY mixins EXCEPT accessors.
-        if (DebugHelper.isCompatEnabled() && !baseName.equals("accessor")) {
-            LOGGER.warn("Compat mode skipping mixin {}", mixinClassName);
+        // With mixin disable enabled we don't load ANY mixins EXCEPT accessors.
+        if (DebugHelper.isMixinDisableModeEnabled() && !baseName.equals("accessor")) {
+            LOGGER.warn("Mixin disable mode skipping mixin {}", mixinClassName);
             return false;
         }
         return true;

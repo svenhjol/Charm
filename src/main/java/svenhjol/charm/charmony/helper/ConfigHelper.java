@@ -14,7 +14,7 @@ public final class ConfigHelper {
     private static final Log LOGGER = new Log(Charmony.ID, "ConfigHelper");
 
     public static final String DEBUG_MODE = "Debug mode";
-    public static final String COMPAT_MODE = "Compat mode";
+    public static final String MIXIN_DISABLE_MODE = "Mixin disable mode";
 
     public static boolean isModLoaded(String id) {
         FabricLoader instance = FabricLoader.getInstance();

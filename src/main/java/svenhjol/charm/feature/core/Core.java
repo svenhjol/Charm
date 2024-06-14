@@ -30,12 +30,12 @@ public final class Core extends CommonFeature {
     private static boolean debug = false;
 
     @Configurable(
-        name = ConfigHelper.COMPAT_MODE,
+        name = ConfigHelper.MIXIN_DISABLE_MODE,
         description = """
-            Enable mixin compatibility mode. All mixins will be disabled, making Charm mods useless.
+            Enable mixin disable mode. All mixins will be disabled, making Charm mods useless.
             Use this if any Charm mods are crashing to determine if there is a mixin collision with another mod."""
     )
-    private static boolean compat = false;
+    private static boolean mixinDisable = false;
 
     public Core(CommonLoader loader) {
         super(loader);
@@ -54,8 +54,8 @@ public final class Core extends CommonFeature {
         return debug;
     }
 
-    public boolean compat() {
-        return compat;
+    public boolean mixinDisable() {
+        return mixinDisable;
     }
 
     @Override
@@ -70,19 +70,19 @@ public final class Core extends CommonFeature {
 
     @Override
     public void onEnabled() {
-        if (compat) {
+        if (mixinDisable()) {
             log().warn("""
             
             
-            -----------------------------------------------------------------
-                           CHARM IS RUNNING IN COMPAT MODE
-            -----------------------------------------------------------------
+            -------------------------------------------------------------------
+                         CHARM IS RUNNING IN MIXIN DISABLE MODE
+            -------------------------------------------------------------------
             
             No Charm-related mods will work as expected! This mode is used
             to determine if Charm mods have mixin conflicts with another mod.
             
-            Eliminate mods from your mod pack one by one, testing compat mode
-            on and off, to find out where a conflict is happening.
+            Eliminate mods from your mod pack one by one, testing mixin disable
+            mode on and off, to find out where a conflict is happening.
             Then come to Charm's discord and talk to us.
             
             """);
