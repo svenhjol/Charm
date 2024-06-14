@@ -1,5 +1,5 @@
 {
-  "parent": "charm:core/mobs",
+  "parent": "charm:animal_damage_immunity/negated_animal_damage",
   "display": {
     "icon": {
       "id": "minecraft:name_tag",
