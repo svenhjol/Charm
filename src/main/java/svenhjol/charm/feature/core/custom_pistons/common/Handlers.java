@@ -31,10 +31,7 @@ public final class Handlers extends FeatureHolder<CustomPistons> {
             feature().log().dev("found in piston_heads tag: " + block);
             found = state.is(Tags.PISTON_HEADS);
         }
-
-        if (found) return true;
-
-        // Fallthrough to default behavior
-        return state.is(block);
+        
+        return found;
     }
 }

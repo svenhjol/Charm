@@ -1,15 +1,15 @@
 package svenhjol.charm.charmony.common.mixin.event.anvil_repair;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import svenhjol.charm.charmony.event.AnvilRepairEvent;
 
 import javax.annotation.Nullable;
@@ -31,15 +31,19 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      * hook into ElytraItem's canRepair method directly is because
      * there is no world reference.
      */
-    @Redirect(
-        method = "createResult",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/item/Item;isValidRepairItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z"
-        )
+    @ModifyExpressionValue(
+            method = "createResult",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/item/Item;isValidRepairItem(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)Z"
+            )
     )
-    private boolean hookUpdateResultCanRepair(Item leftItem, ItemStack leftStack, ItemStack rightStack) {
+    private boolean hookUpdateResultCanRepair(boolean original,
+                                              @Local(ordinal = 0) ItemStack leftStack,
+                                              @Local(ordinal = 1) ItemStack leftItem,
+                                              @Local(ordinal = 2) ItemStack rightStack
+    ) {
         boolean result = AnvilRepairEvent.INSTANCE.invoke((AnvilMenu) (Object) this, this.player, leftStack, rightStack);
-        return result || leftItem.isValidRepairItem(leftStack, rightStack);
+        return result || original;
     }
 }

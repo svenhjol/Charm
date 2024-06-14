@@ -75,10 +75,6 @@ public final class Handlers extends FeatureHolder<Atlases> {
      * @return True if the player has a map or the player has an atlas that has a map.
      */
     public boolean doesAtlasContainMap(Inventory inventory, Predicate<ItemStack> predicate) {
-        if (inventory.contains(predicate)) {
-            return true;
-        }
-
         for (var hand : InteractionHand.values()) {
             var atlasStack = inventory.player.getItemInHand(hand);
             if (atlasStack.getItem() == feature().registers.item.get()) {
@@ -93,7 +89,7 @@ public final class Handlers extends FeatureHolder<Atlases> {
     }
 
     public void setupAtlasUpscale(Inventory playerInventory, CartographyTableMenu container) {
-        var oldSlot = container.slots.get(0);
+        var oldSlot = container.slots.getFirst();
         container.slots.set(0, new Slot(oldSlot.container, oldSlot.index, oldSlot.x, oldSlot.y) {
             @Override
             public boolean mayPlace(ItemStack stack) {
