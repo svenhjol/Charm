@@ -8,12 +8,12 @@
       {
         "amount": {
           "type": "minecraft:linear",
-          "base": 4.0,
-          "per_level_above_first": 4.0
+          "base": 1.0,
+          "per_level_above_first": 0.0
         },
         "attribute": "charm:player.aerial_mining_speed",
         "id": "charm:enchantment.aerial_affinity",
-        "operation": "add_multiplied_total"
+        "operation": "add_value"
       }
     ]
   },

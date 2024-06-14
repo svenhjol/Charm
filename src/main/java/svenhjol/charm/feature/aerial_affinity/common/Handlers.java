@@ -13,16 +13,13 @@ public final class Handlers extends FeatureHolder<AerialAffinity> {
     public float blockBreakSpeed(Player player, BlockState state, float currentSpeed) {
         var aerialAffinity = feature().registers.attribute.get();
 
-        if (!player.onGround() && !player.level().isClientSide()) {
-            var attribute = player.getAttribute(aerialAffinity);
-            if (attribute != null) {
-                var aerialAffinityValue = attribute.getValue();
-                    
-                log().dev("Aerial affinity value: " + aerialAffinityValue);
-                if (aerialAffinityValue > 0.2d) {
-                    feature().advancements.usedAerialAffinity(player);
-                    return currentSpeed * 5.0f; // Restores the speed penalty introduced in getDestroySpeed().
-                }
+        if (!player.onGround()) {
+            var value = player.getAttributeValue(aerialAffinity);
+                
+            log().dev("Aerial affinity value: " + value);
+            if (value > 0.0d) {
+                feature().advancements.usedAerialAffinity(player);
+                return currentSpeed * 5.0f; // Restores the speed penalty introduced in getDestroySpeed().
             }
         }
 
