@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "svenhjol.charm.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "${refmap_file}",
   "mixins": [
     "feature.animal_armor_enchanting.EnchantmentMixin",
