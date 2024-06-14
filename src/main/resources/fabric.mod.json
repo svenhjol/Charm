@@ -27,9 +27,6 @@
     ],
     "client": [
       "svenhjol.charm.fabric.ClientInitializer"
-    ],
-    "modmenu": [
-      "svenhjol.charm.integration.modmenu.CharmModMenuPlugin"
     ]
   },
 
