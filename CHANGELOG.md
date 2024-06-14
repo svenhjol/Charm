@@ -7,3 +7,7 @@
 - Animal reviving advancement now follows the animal damage immunity advancement in the tree
 - Improve animal damage immunity checking. Tamed animals no longer do the "hurt" animation. Added advancement for animal damage immunity
 - Chore: rename "compat mode" to "mixin disable mode"
+
+## 7.0.22
+
+- Fix registration of Aerial Affinity so that it doesn't always apply
