@@ -1,5 +1,7 @@
 package svenhjol.charm.mixin.feature.piglin_pointing;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
@@ -9,21 +11,21 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.piglin_pointing.PiglinPointing;
 
 @Mixin(PiglinAi.class)
 public abstract class PiglinAiMixin {
-    @Inject(
-        method = "isLovedItem",
-        at = @At("HEAD"),
-        cancellable = true
+
+    @ModifyReturnValue(
+            method = "isLovedItem",
+            at = @At("RETURN")
     )
-    private static void hookIsLovedItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    private static boolean hookIsLovedItem(boolean original, @Local(argsOnly = true) ItemStack stack) {
         if (Resolve.feature(PiglinPointing.class).handlers.isBarteringItem(stack)) {
-            cir.setReturnValue(true);
+            return true;
         }
+        return original;
     }
 
     @Inject(
@@ -44,10 +46,9 @@ public abstract class PiglinAiMixin {
             target = "Lnet/minecraft/world/entity/monster/piglin/PiglinAi;isLovedItem(Lnet/minecraft/world/item/ItemStack;)Z",
             shift = At.Shift.BEFORE
         ),
-        locals = LocalCapture.CAPTURE_FAILHARD,
         cancellable = true
     )
-    private static void hookCheckBeforeLovedItemCheck(Piglin piglin, ItemEntity itemEntity, CallbackInfo ci, ItemStack stack) {
+    private static void hookCheckBeforeLovedItemCheck(Piglin piglin, ItemEntity itemEntity, CallbackInfo ci, @Local ItemStack stack) {
         if (Resolve.feature(PiglinPointing.class).handlers.tryToPickup(piglin, stack)) {
             ci.cancel();
         }
@@ -59,10 +60,9 @@ public abstract class PiglinAiMixin {
             value = "INVOKE",
             target = "Lnet/minecraft/world/entity/monster/piglin/PiglinAi;isBarterCurrency(Lnet/minecraft/world/item/ItemStack;)Z",
             shift = At.Shift.BEFORE
-        ),
-        locals = LocalCapture.CAPTURE_FAILHARD
+        )
     )
-    private static void hookCheckBeforeBarterCurrency(Piglin piglin, boolean bl, CallbackInfo ci, ItemStack stack) {
+    private static void hookCheckBeforeBarterCurrency(Piglin piglin, boolean bl, CallbackInfo ci, @Local ItemStack stack) {
         Resolve.feature(PiglinPointing.class).handlers.checkBlockAndFindStructure(piglin, stack);
     }
 

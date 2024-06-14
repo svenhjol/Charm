@@ -1,22 +1,19 @@
 package svenhjol.charm.mixin.feature.copper_pistons;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.SignalGetter;
+import com.llamalad7.mixinextras.injector.ModifyReceiver;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.Slice;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.copper_pistons.CopperPistons;
 
-@SuppressWarnings({"UnnecessaryLocalVariable", "UnreachableCode"})
+@SuppressWarnings({"UnreachableCode"})
 @Mixin(PistonBaseBlock.class)
 public class PistonBaseBlockMixin {
     /**
@@ -42,37 +39,35 @@ public class PistonBaseBlockMixin {
         return newState != null ? newState : originalState;
     }
 
-    @Redirect(
-        method = "triggerEvent",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/level/block/Block;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
-        )
+    @ModifyReceiver(
+            method = "triggerEvent",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/block/Block;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"
+            )
     )
-    private BlockState modifyMovingPiston(Block originalInstance) {
+    private Block modifyMovingPiston(Block originalInstance) {
         Block newInstance = null;
 
         if (isCopperPistonBlock() || isStickyCopperPistonBlock()) {
             newInstance = Resolve.feature(CopperPistons.class).registers.movingCopperPistonBlock.get();
         }
 
-        var state = (newInstance != null ? newInstance : originalInstance).defaultBlockState();
-        return state;
+        return newInstance != null ? newInstance : originalInstance;
     }
 
-    @Inject(
-        method = "getNeighborSignal",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;",
-            shift = At.Shift.BEFORE // Nudge back by 1 to avoid conflict with carpet
-        ),
-        cancellable = true
+    @ModifyReturnValue(
+            method = "getNeighborSignal",
+            slice = @Slice(
+                    from = @At(value = "INVOKE", target = "Lnet/minecraft/core/BlockPos;above()Lnet/minecraft/core/BlockPos;")
+            ),
+            at = @At(value = "RETURN")
     )
-    private void hookReturnEarlyFromGetNeighbourSignal(SignalGetter signalGetter, BlockPos blockPos, Direction direction, CallbackInfoReturnable<Boolean> cir) {
+    private boolean hookReturnEarlyFromGetNeighbourSignal(boolean original) {
         if (isCopperPistonBlock() || isStickyCopperPistonBlock()) {
-            cir.setReturnValue(false);
+            return false;
         }
+        return original;
     }
 
     @Unique

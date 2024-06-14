@@ -1,5 +1,7 @@
 package svenhjol.charm.charmony.common.mixin.event.smithing_table;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -14,7 +16,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.charmony.event.SmithingTableEvents;
 
 @SuppressWarnings("UnreachableCode")
@@ -57,37 +58,38 @@ public abstract class SmithingMenuMixin extends ItemCombinerMenu {
         }
     }
 
-    @Inject(
-        method = "canMoveIntoInputSlots",
-        at = @At("HEAD"),
-        cancellable = true
+    @ModifyReturnValue(
+            method = "canMoveIntoInputSlots",
+            at = @At("RETURN")
     )
-    private void hookCanMoveIntoInputSlots(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    private boolean hookCanMoveIntoInputSlots(boolean original, @Local(argsOnly = true) ItemStack stack) {
         var template = getTemplate();
 
         if (SmithingTableEvents.CAN_PLACE.invoke(template, 0, stack)
-            || SmithingTableEvents.CAN_PLACE.invoke(template, 1, stack)
-            || SmithingTableEvents.CAN_PLACE.invoke(template, 2, stack)) {
-            cir.setReturnValue(true);
+                || SmithingTableEvents.CAN_PLACE.invoke(template, 1, stack)
+                || SmithingTableEvents.CAN_PLACE.invoke(template, 2, stack)
+        ) {
+            return true;
         }
+        return original;
     }
 
-    @Inject(
-        method = "mayPickup",
-        at = @At("HEAD"),
-        cancellable = true
+    @ModifyReturnValue(
+            method = "mayPickup",
+            at = @At("RETURN")
     )
-    private void hookMayPickup(Player player, boolean bl, CallbackInfoReturnable<Boolean> cir) {
+    private boolean hookMayPickup(boolean original) {
         var instance = SmithingTableEvents.instance(player);
         if (instance != null) {
             var result = SmithingTableEvents.CAN_TAKE.invoke(instance, player);
 
             if (result == InteractionResult.SUCCESS) {
-                cir.setReturnValue(true);
+                return true;
             } else if (result == InteractionResult.FAIL) {
-                cir.setReturnValue(false);
+                return false;
             }
         }
+        return original;
     }
 
     @Inject(

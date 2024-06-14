@@ -1,37 +1,37 @@
 package svenhjol.charm.mixin.feature.animal_reviving;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.animal_reviving.AnimalReviving;
 import svenhjol.charm.charmony.Resolve;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
-    @Inject(
-        method = "shouldDropLoot",
-        at = @At("HEAD"),
-        cancellable = true
+
+    @ModifyReturnValue(
+            method = "shouldDropLoot",
+            at = @At("RETURN")
     )
-    private void hookShouldDropLoot(CallbackInfoReturnable<Boolean> cir) {
+    private boolean hookShouldDropLoot(boolean original) {
         if (this instanceof OwnableEntity ownable
-            && ownable.getOwnerUUID() != null) {
-            cir.setReturnValue(Resolve.feature(AnimalReviving.class).dropLootOnDeath());
+                && ownable.getOwnerUUID() != null) {
+            return Resolve.feature(AnimalReviving.class).dropLootOnDeath();
         }
+        return original;
     }
 
-    @Inject(
-        method = "shouldDropExperience",
-        at = @At("HEAD"),
-        cancellable = true
+    @ModifyReturnValue(
+            method = "shouldDropExperience",
+            at = @At("RETURN")
     )
-    private void hookShouldDropExperience(CallbackInfoReturnable<Boolean> cir) {
+    private boolean hookShouldDropExperience(boolean original) {
         if (this instanceof OwnableEntity ownable
-            && ownable.getOwnerUUID() != null) {
-            cir.setReturnValue(Resolve.feature(AnimalReviving.class).dropExperienceOnDeath());
+                && ownable.getOwnerUUID() != null) {
+            return Resolve.feature(AnimalReviving.class).dropExperienceOnDeath();
         }
+        return original;
     }
 }

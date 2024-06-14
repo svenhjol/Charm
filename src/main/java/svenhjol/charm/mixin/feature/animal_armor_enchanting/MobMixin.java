@@ -1,8 +1,8 @@
 package svenhjol.charm.mixin.feature.animal_armor_enchanting;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Wolf;
@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import svenhjol.charm.feature.animal_armor_enchanting.AnimalArmorEnchanting;
 import svenhjol.charm.charmony.Resolve;
 
@@ -30,16 +29,16 @@ public abstract class MobMixin extends LivingEntity {
     /**
      * Always return the animal's body armor when a slot is requested.
      */
-    @Inject(
-        method = "getItemBySlot",
-        at = @At("HEAD"),
-        cancellable = true
+    @ModifyReturnValue(
+            method = "getItemBySlot",
+            at = @At("RETURN")
     )
-    private void hookGetItemBySlot(EquipmentSlot equipmentSlot, CallbackInfoReturnable<ItemStack> cir) {
+    private ItemStack hookGetItemBySlot(ItemStack original) {
         var mob = (Mob)(Object)(this);
         if ((mob instanceof Wolf || mob instanceof Horse)) {
-            cir.setReturnValue(getBodyArmorItem());
+            return getBodyArmorItem();
         }
+        return original;
     }
 
     /**
