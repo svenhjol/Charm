@@ -92,3 +92,4 @@ accessible method net/minecraft/world/level/block/state/properties/WoodType regi
 accessible field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
 mutable field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
 accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlockStates (Lnet/minecraft/core/Holder;Ljava/util/Set;)V
+mutable field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;

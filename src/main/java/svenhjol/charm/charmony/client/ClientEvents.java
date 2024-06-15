@@ -5,7 +5,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
@@ -78,7 +77,7 @@ public final class ClientEvents {
         ClientTickEvent.INSTANCE.getHandlers().forEach(handler -> handler.run(client));
     }
 
-    private static void handleHudRender(GuiGraphics guiGraphics, DeltaTracker tickDelta) {
+    private static void handleHudRender(GuiGraphics guiGraphics, float tickDelta) {
         HudRenderEvent.INSTANCE.getHandlers().forEach(
             handler -> handler.run(guiGraphics, tickDelta));
     }

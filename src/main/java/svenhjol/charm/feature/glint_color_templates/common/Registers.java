@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootDataManager;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -27,7 +28,6 @@ import java.util.function.Supplier;
 
 public final class Registers extends RegisterHolder<GlintColorTemplates> {
     public final List<ResourceLocation> emptyDyes = new ArrayList<>();
-    public final ResourceKey<LootTable> lootTable;
     public final Supplier<Item> item;
 
     public static final String ITEM_ID = "glint_color_template";
@@ -44,7 +44,6 @@ public final class Registers extends RegisterHolder<GlintColorTemplates> {
         ));
 
         item = registry.item(ITEM_ID, Item::new);
-        lootTable = registry.lootTable(feature().lootTable());
     }
 
     @Override
@@ -56,8 +55,8 @@ public final class Registers extends RegisterHolder<GlintColorTemplates> {
         LootTableModifyEvent.INSTANCE.handle(this::handleLootTableModify);
     }
 
-    private Optional<LootPool.Builder> handleLootTableModify(ResourceKey<LootTable> key, LootTableSource source) {
-        if (key == lootTable) {
+    private Optional<LootPool.Builder> handleLootTableModify(ResourceLocation lootTable, LootTableSource source, LootDataManager manager) {
+        if (lootTable.toString().equals(feature().lootTable())) {
             var builder = LootPool.lootPool();
 
             if (RandomSource.create().nextDouble() < feature().lootChance()) {

@@ -158,6 +158,7 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
         return location;
     }
 
+    @SuppressWarnings({"RedundantCast", "rawtypes", "unchecked"})
     public <T extends PacketRequest, U extends PacketHandler<T>> Supplier<ResourceLocation> clientPacketReceiver(T packet, Supplier<U> handler) {
         ResourceLocation id = packet.id();
         loader.registerDeferred(() -> ClientPlayNetworking.registerGlobalReceiver(packet.id(), (client, listener, buf, sender) -> {

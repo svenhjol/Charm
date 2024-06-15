@@ -1,7 +1,7 @@
 package svenhjol.charm.charmony.common.helper;
 
+import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
-import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -19,17 +19,17 @@ public final class DispenserHelper {
         return new DefaultDispenseItemBehavior() {
             @Override
             public ItemStack execute(BlockSource blockSource, ItemStack itemStack) {
-                Direction direction = blockSource.state().getValue(DispenserBlock.FACING);
-                EntityType<?> entityType = ((SpawnEggItem)itemStack.getItem()).getType(itemStack);
+                Direction direction = blockSource.getBlockState().getValue(DispenserBlock.FACING);
+                EntityType<?> entityType = ((SpawnEggItem)itemStack.getItem()).getType(itemStack.getTag());
                 try {
-                    entityType.spawn(blockSource.level(), itemStack, null, blockSource.pos().relative(direction), MobSpawnType.DISPENSER, direction != Direction.UP, false);
+                    entityType.spawn(blockSource.getLevel(), itemStack, null, blockSource.getPos().relative(direction), MobSpawnType.DISPENSER, direction != Direction.UP, false);
                 }
                 catch (Exception exception) {
-                    LOGGER.error("Error while dispensing spawn egg from dispenser at {}", blockSource.pos(), exception);
+                    LOGGER.error("Error while dispensing spawn egg from dispenser at {}", blockSource.getPos(), exception);
                     return ItemStack.EMPTY;
                 }
                 itemStack.shrink(1);
-                blockSource.level().gameEvent(null, GameEvent.ENTITY_PLACE, blockSource.pos());
+                blockSource.getLevel().gameEvent(null, GameEvent.ENTITY_PLACE, blockSource.getPos());
                 return itemStack;
             }
         };

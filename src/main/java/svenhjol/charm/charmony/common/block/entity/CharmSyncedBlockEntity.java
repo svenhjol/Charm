@@ -1,7 +1,6 @@
 package svenhjol.charm.charmony.common.block.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -27,9 +26,9 @@ public abstract class CharmSyncedBlockEntity<F extends Feature> extends CharmBlo
     }
 
     @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
+    public CompoundTag getUpdateTag() {
         var updateTag = new CompoundTag();
-        this.saveAdditional(updateTag, provider);
+        this.saveAdditional(updateTag);
         return updateTag;
     }
 

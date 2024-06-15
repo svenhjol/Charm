@@ -2,6 +2,7 @@ package svenhjol.charm.charmony.common;
 
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -43,6 +44,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -180,10 +182,11 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public void brewingRecipe(Holder<Potion> input, Supplier<Item> reagent, Holder<Potion> output) {
-        deferredPotionMixes.add(new DeferredPotionMix(input, reagent, output));
+    public void brewingRecipe(Supplier<Potion> input, Supplier<Item> reagent, Supplier<Potion> output) {
+        PotionBrewing.addMix(input.get(), reagent.get(), output.get());
     }
 
+    @SuppressWarnings({"RedundantCast", "rawtypes", "unchecked"})
     public <T extends PacketRequest, U extends PacketHandler<T>> Supplier<ResourceLocation> serverPacketReceiver(T packet, Supplier<U> handler) {
         ResourceLocation id = packet.id();
         loader.registerDeferred(() -> ServerPlayNetworking.registerGlobalReceiver(id, (server, player, listener, buf, sender) -> {
@@ -211,18 +214,18 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public <T extends LivingEntity> void entityAttribute(Supplier<EntityType<T>> entitySupplier, Supplier<Holder<Attribute>> attributeSupplier) {
+    public <T extends LivingEntity> void entityAttribute(Supplier<EntityType<T>> entitySupplier, Supplier<Attribute> attributeSupplier) {
         loader.registerDeferred(() -> {
             // Unwrap suppliers
             var entity = entitySupplier.get();
             var attribute = attributeSupplier.get();
 
-            log("Entity attribute " + attribute.getRegisteredName() + " for entity type " + entity.getDescriptionId());
+            log("Entity attribute " + attribute.getDescriptionId() + " for entity type " + entity.getDescriptionId());
             makeAttributeInstancesMutable(entity); // MUST do this so that we can add custom attributes.
 
             var attributes = DefaultAttributes.getSupplier(entity);
             if (attributes.hasAttribute(attribute)) {
-                log.error("Entity type " + entity.getDescriptionId() + " already has attribute " + attribute.getRegisteredName());
+                log.error("Entity type " + entity.getDescriptionId() + " already has attribute " + attribute.getDescriptionId());
                 return;
             }
             var instance = new AttributeInstance(attribute, x -> {});
@@ -272,10 +275,6 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
 
     private void log(String message) {
         log.debug("Registering " + TextHelper.uncapitalize(message));
-    }
-
-    public ResourceKey<LootTable> lootTable(String name) {
-        return ResourceKey.create(Registries.LOOT_TABLE, id(name));
     }
 
     public <T> Register<MemoryModuleType<T>> memoryModuleType(String id) {
@@ -434,7 +433,7 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public <S extends Structure> Supplier<StructureType<S>> structure(String id, Supplier<MapCodec<S>> codec) {
+    public <S extends Structure> Supplier<StructureType<S>> structure(String id, Supplier<Codec<S>> codec) {
         return new Register<>(() -> {
             log("Structure " + id);
             StructureType<S> registered = Registry.register(BuiltInRegistries.STRUCTURE_TYPE, id(id).toString(), codec::get);
@@ -523,7 +522,7 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
 
     private <T extends LivingEntity> void makeAttributeInstancesMutable(EntityType<T> entityType) {
         var attributes = DefaultAttributes.getSupplier(entityType);
-        if (attributes.instances instanceof LinkedHashMap<Holder<Attribute>, AttributeInstance>) {
+        if (attributes.instances instanceof LinkedHashMap<Attribute, AttributeInstance>) {
             return; // No action needed.
         }
 
