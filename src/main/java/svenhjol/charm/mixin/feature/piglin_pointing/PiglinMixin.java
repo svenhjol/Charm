@@ -1,6 +1,5 @@
 package svenhjol.charm.mixin.feature.piglin_pointing;
 
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.piglin.Piglin;
@@ -22,7 +21,7 @@ public abstract class PiglinMixin extends AbstractPiglin {
         method = "defineSynchedData",
         at = @At("TAIL")
     )
-    private void hookDefineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(Resolve.feature(PiglinPointing.class).registers.entityDataIsPointing, false);
+    private void hookDefineSynchedData(CallbackInfo ci) {
+        entityData.define(Resolve.feature(PiglinPointing.class).registers.entityDataIsPointing, false);
     }
 }

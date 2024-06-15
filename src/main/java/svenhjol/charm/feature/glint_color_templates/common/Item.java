@@ -17,10 +17,10 @@ public class Item extends SmithingTemplateItem {
     private static final ChatFormatting DESCRIPTION_FORMAT = ChatFormatting.BLUE;
 
     static final List<ResourceLocation> EMPTY_ITEMS = List.of(
-        ResourceLocation.parse("item/empty_armor_slot_chestplate"),
-        ResourceLocation.parse("item/empty_armor_slot_helmet"),
-        ResourceLocation.parse("item/empty_slot_sword"),
-        ResourceLocation.parse("item/empty_slot_pickaxe")
+            new ResourceLocation("item/empty_armor_slot_chestplate"),
+            new ResourceLocation("item/empty_armor_slot_helmet"),
+            new ResourceLocation("item/empty_slot_sword"),
+            new ResourceLocation("item/empty_slot_pickaxe")
     );
 
     public Item() {

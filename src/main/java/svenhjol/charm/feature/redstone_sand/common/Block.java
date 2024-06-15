@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.redstone_sand.common;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -15,8 +14,6 @@ import svenhjol.charm.feature.redstone_sand.RedstoneSand;
 import java.util.function.Supplier;
 
 public class Block extends FallingBlock implements FeatureResolver<RedstoneSand> {
-    static final MapCodec<Block> CODEC = simpleCodec(Block::new);
-
     public Block() {
         this(Properties.of()
             .mapColor(MapColor.COLOR_RED)
@@ -26,11 +23,6 @@ public class Block extends FallingBlock implements FeatureResolver<RedstoneSand>
 
     private Block(BlockBehaviour.Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends FallingBlock> codec() {
-        return CODEC;
     }
 
     @Override

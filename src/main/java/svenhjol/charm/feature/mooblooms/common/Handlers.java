@@ -1,7 +1,6 @@
 package svenhjol.charm.feature.mooblooms.common;
 
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -12,10 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ItemUtils;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -51,9 +47,10 @@ public final class Handlers extends FeatureHolder<Mooblooms> {
                 ItemStack stew;
                 var effects = moobloom.getMoobloomType().getFlower().getEffects();
 
-                if (!effects.effects().isEmpty()) {
+                if (!effects.isEmpty()) {
                     stew = new ItemStack(Items.SUSPICIOUS_STEW);
-                    stew.set(DataComponents.SUSPICIOUS_STEW_EFFECTS, effects);
+                    var effect = effects.get(0);
+                    SuspiciousStewItem.saveMobEffect(stew, effect.effect(), effect.duration());
                 } else {
                     stew = new ItemStack(Items.MUSHROOM_STEW);
                 }
@@ -78,7 +75,7 @@ public final class Handlers extends FeatureHolder<Mooblooms> {
             shear(moobloom, SoundSource.PLAYERS);
             moobloom.gameEvent(GameEvent.SHEAR, player);
             if (!level.isClientSide()) {
-                held.hurtAndBreak(1, player, Moobloom.getSlotForHand(hand));
+                held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             }
 
             return EventResult.SUCCESS;

@@ -3,7 +3,7 @@ package svenhjol.charm.feature.mooblooms.common;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.SpawnPlacementTypes;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -42,7 +42,7 @@ public final class Registers extends RegisterHolder<Mooblooms> {
         registry.biomeSpawn(holder -> holder.is(Tags.SPAWNS_SUNFLOWER_MOOBLOOMS),
             MobCategory.CREATURE, entity, 10, 1, 2);
 
-        registry.entitySpawnPlacement(entity, SpawnPlacementTypes.ON_GROUND,
+        registry.entitySpawnPlacement(entity, SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
             Moobloom::canSpawn);
 

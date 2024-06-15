@@ -2,7 +2,7 @@ package svenhjol.charm.mixin.feature.core.custom_recipes;
 
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.RecipeBookCategories;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.Recipe;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,7 +20,7 @@ public class ClientRecipeBookMixin {
         at = @At("HEAD"),
         cancellable = true
     )
-    private static void hookGetCategory(RecipeHolder<?> recipeHolder, CallbackInfoReturnable<RecipeBookCategories> cir) {
+    private static void hookGetCategory(Recipe<?> recipeHolder, CallbackInfoReturnable<RecipeBookCategories> cir) {
         var opt = Resolve.feature(CustomRecipesClient.class).handlers.customRecipeCategory(recipeHolder);
         opt.ifPresent(cir::setReturnValue);
     }

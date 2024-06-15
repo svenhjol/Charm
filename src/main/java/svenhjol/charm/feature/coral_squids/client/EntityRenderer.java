@@ -22,14 +22,14 @@ public class EntityRenderer<T extends CoralSquid> extends MobRenderer<T, Model<T
      * Copypasta from SquidRenderer.
      */
     @Override
-    protected void setupRotations(T squid, PoseStack pose, float f, float g, float h, float i) {
-        var j = Mth.lerp(h, squid.xBodyRot0, squid.xBodyRot);
-        var k = Mth.lerp(h, squid.zBodyRot0, squid.zBodyRot);
-        pose.translate(0.0d, 0.25d, 0.0d);
-        pose.mulPose(Axis.YP.rotationDegrees(180.0f - g));
-        pose.mulPose(Axis.XP.rotationDegrees(j));
-        pose.mulPose(Axis.YP.rotationDegrees(k));
-        pose.translate(0.0d, -0.6d, 0.0d);
+    protected void setupRotations(T squid, PoseStack pose, float f, float g, float h) {
+        var i = Mth.lerp(h, squid.xBodyRot0, squid.xBodyRot);
+        var j = Mth.lerp(h, squid.zBodyRot0, squid.zBodyRot);
+        pose.translate(0.0D, 0.25D, 0.0D);
+        pose.mulPose(Axis.YP.rotationDegrees(180.0F - g));
+        pose.mulPose(Axis.XP.rotationDegrees(i));
+        pose.mulPose(Axis.YP.rotationDegrees(j));
+        pose.translate(0.0D, -0.6D, 0.0D);
     }
 
     @Override

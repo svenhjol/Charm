@@ -1,6 +1,6 @@
 package svenhjol.charm.feature.glint_coloring.client;
 
-import com.mojang.blaze3d.vertex.ByteBufferBuilder;
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.SequencedMap;
+import java.util.SortedMap;
 
 public final class Handlers extends FeatureHolder<GlintColoringClient> {
     public final Map<DyeColor, ResourceLocation> ITEM_TEXTURES = new HashMap<>();
@@ -28,7 +28,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
     public final Map<DyeColor, RenderType> ENTITY_GLINT_DIRECT = new HashMap<>();
     public final Map<DyeColor, RenderType> ARMOR_ENTITY_GLINT = new HashMap<>();
 
-    private SequencedMap<RenderType, ByteBufferBuilder> builders;
+    private SortedMap<RenderType, BufferBuilder> builders;
     private ItemStack targetStack;
     private boolean enabled = false;
 
@@ -50,7 +50,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
         this.targetStack = targetStack;
     }
 
-    public void setBuilders(@Nullable SequencedMap<RenderType, ByteBufferBuilder> builders) {
+    public void setBuilders(@Nullable SortedMap<RenderType, BufferBuilder> builders) {
         this.builders = builders;
         if (initialized || builders == null) return;
 
@@ -94,7 +94,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
                 .setTexturingState(RenderStateShard.GLINT_TEXTURING)
                 .createCompositeState(false));
 
-        getBuilders().put(renderLayer, new ByteBufferBuilder(renderLayer.bufferSize()));
+        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
@@ -114,7 +114,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
                 .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
                 .createCompositeState(false));
 
-        getBuilders().put(renderLayer, new ByteBufferBuilder(renderLayer.bufferSize()));
+        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
@@ -134,7 +134,7 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
                 .setLayeringState(RenderStateShard.VIEW_OFFSET_Z_LAYERING)
                 .createCompositeState(false));
 
-        getBuilders().put(renderLayer, new ByteBufferBuilder(renderLayer.bufferSize()));
+        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
@@ -154,11 +154,11 @@ public final class Handlers extends FeatureHolder<GlintColoringClient> {
                 .setOutputState(RenderStateShard.ITEM_ENTITY_TARGET)
                 .createCompositeState(false));
 
-        getBuilders().put(renderLayer, new ByteBufferBuilder(renderLayer.bufferSize()));
+        getBuilders().put(renderLayer, new BufferBuilder(renderLayer.bufferSize()));
         return renderLayer;
     }
 
-    public SequencedMap<RenderType, ByteBufferBuilder> getBuilders() {
+    public SortedMap<RenderType, BufferBuilder> getBuilders() {
         return builders;
     }
 

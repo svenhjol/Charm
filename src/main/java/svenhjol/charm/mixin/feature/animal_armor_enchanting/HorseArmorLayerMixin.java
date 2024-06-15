@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.layers.HorseArmorLayer;
 import net.minecraft.world.entity.animal.horse.Horse;
-import net.minecraft.world.item.AnimalArmorItem;
+import net.minecraft.world.item.HorseArmorItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -25,9 +25,9 @@ public class HorseArmorLayerMixin {
     )
     private VertexConsumer hookRender(MultiBufferSource instance, RenderType renderType, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, Horse horse) {
         // It's safe to cast to AnimalArmorItem here because it's already been checked further up the render() method.
-        var armor = horse.getBodyArmorItem();
-        var item = (AnimalArmorItem)armor.getItem();
+        var armor = horse.getArmor();
+        var item = (HorseArmorItem)armor.getItem();
         Resolve.feature(GlintColoringClient.class).handlers.setTargetStack(armor);
-        return ItemRenderer.getArmorFoilBuffer(multiBufferSource, RenderType.armorCutoutNoCull(item.getTexture()), armor.hasFoil());
+        return ItemRenderer.getArmorFoilBuffer(multiBufferSource, RenderType.armorCutoutNoCull(item.getTexture()), false, armor.hasFoil());
     }
 }

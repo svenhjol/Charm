@@ -42,7 +42,7 @@ public final class Handlers extends FeatureHolder<ItemFrameHiding> {
                 if (!level.isClientSide()) {
                     var framePos = frame.blockPosition();
                     PlayerHelper.getPlayersInRange(level, framePos, 8.0d).forEach(p -> 
-                        Networking.S2CRemoveAmethyst.send((ServerPlayer)p, framePos));
+                        Networking.RemoveAmethyst.send(framePos, (ServerPlayer)p));
                 }
 
                 frame.setInvisible(false);
@@ -84,7 +84,7 @@ public final class Handlers extends FeatureHolder<ItemFrameHiding> {
                 var serverPlayer = (ServerPlayer)player;
                 var framePos = frame.blockPosition();
                 PlayerHelper.getPlayersInRange(level, framePos, 8.0d).forEach(p -> {
-                    Networking.S2CAddAmethyst.send((ServerPlayer)p, framePos);
+                    Networking.AddAmethyst.send(framePos, (ServerPlayer)p);
                     feature().advancements.hiddenItemFrame(serverPlayer);
                 });
             }

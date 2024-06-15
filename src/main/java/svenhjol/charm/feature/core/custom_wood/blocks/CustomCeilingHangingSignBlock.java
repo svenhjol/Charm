@@ -8,7 +8,7 @@ import svenhjol.charm.charmony.iface.CustomWoodMaterial;
 public class CustomCeilingHangingSignBlock extends CeilingHangingSignBlock {
     protected final CustomWoodMaterial material;
     public CustomCeilingHangingSignBlock(CustomWoodMaterial material, WoodType woodType) {
-        super(woodType, material.blockProperties().strength(1.0F).noCollission().sound(SoundType.HANGING_SIGN));
+        super(material.blockProperties().strength(1.0F).noCollission().sound(SoundType.HANGING_SIGN), woodType);
         this.material = material;
     }
 }

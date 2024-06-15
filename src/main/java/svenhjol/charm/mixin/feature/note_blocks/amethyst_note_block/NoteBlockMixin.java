@@ -27,7 +27,7 @@ public class NoteBlockMixin {
         method = "playNote",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/level/Level;gameEvent(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/core/Holder;Lnet/minecraft/core/BlockPos;)V"
+            target = "Lnet/minecraft/world/level/Level;gameEvent(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/level/gameevent/GameEvent;Lnet/minecraft/core/BlockPos;)V"
         )
     )
     private void hookPlayNote(Entity entity, BlockState state, Level level, BlockPos pos, CallbackInfo ci) {

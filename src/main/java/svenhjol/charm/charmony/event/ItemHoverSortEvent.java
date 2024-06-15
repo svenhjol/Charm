@@ -2,7 +2,6 @@ package svenhjol.charm.charmony.event;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import svenhjol.charm.charmony.enums.SortDirection;
 
 import java.util.List;
 
@@ -36,5 +35,13 @@ public class ItemHoverSortEvent extends CharmEvent<ItemHoverSortEvent.Handler> {
     @FunctionalInterface
     public interface Handler {
         void run(ServerPlayer player, ItemStack stack, SortDirection direction);
+    }
+
+    public static enum SortDirection {
+        UP,
+        DOWN;
+
+        private SortDirection() {
+        }
     }
 }

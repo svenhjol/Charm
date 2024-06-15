@@ -1,7 +1,5 @@
 package svenhjol.charm.feature.grindstone_disenchanting.common;
 
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -9,6 +7,7 @@ import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import svenhjol.charm.charmony.event.GrindstoneEvents;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.grindstone_disenchanting.GrindstoneDisenchanting;
@@ -114,14 +113,8 @@ public final class Handlers extends FeatureHolder<GrindstoneDisenchanting> {
         if (player != null && !hasEnoughXp(player, getCost(in))) return null;
 
         var out = new ItemStack(Items.ENCHANTED_BOOK);
-        var enchantments = EnchantmentHelper.getEnchantmentsForCrafting(in);
-
-        EnchantmentHelper.updateEnchantments(out, mutable -> enchantments.entrySet().forEach(
-            entry -> {
-                var enchantment = entry.getKey();
-                var power = entry.getIntValue();
-                mutable.set(enchantment, mutable.getLevel(enchantment) + power);
-            }));
+        var enchantments = EnchantmentHelper.getEnchantments(in);
+        enchantments.forEach((e, level) -> EnchantedBookItem.addEnchantment(out, new EnchantmentInstance(e, level)));
 
         return out;
     }
@@ -132,25 +125,25 @@ public final class Handlers extends FeatureHolder<GrindstoneDisenchanting> {
 
     public int getCost(ItemStack stack) {
         var cost = feature().initialCost();
-        var enchantments = EnchantmentHelper.getEnchantmentsForCrafting(stack);
+        var enchantments = EnchantmentHelper.getEnchantments(stack);
 
         // Get all enchantments from the left item and create a map of enchantments for the output
         for (var entry : enchantments.entrySet()) {
             var enchantment = entry.getKey();
 
-            var level = entry.getIntValue();
-            if (level > 0 && enchantment.is(EnchantmentTags.TRADEABLE)) {
+            var level = entry.getValue();
+            if (level > 0 && enchantment.isTradeable()) {
                 cost += level;
             }
 
-            if (enchantment.is(EnchantmentTags.TREASURE)) {
+            if (enchantment.isTreasureOnly()) {
                 cost += feature().treasureCost();
             }
         }
 
         // Add repair cost on the input item
         if (feature().addRepairCost()) {
-            cost += stack.getOrDefault(DataComponents.REPAIR_COST, 0);
+            cost += stack.getTag().getInt("RepairCost");
         }
 
         return cost;

@@ -8,9 +8,9 @@ import java.util.function.Supplier;
 
 public class CustomWoodenDoorBlock extends DoorBlock {
     public CustomWoodenDoorBlock(CustomWoodMaterial material) {
-        super(material.blockSetType(), material.blockProperties()
+        super(material.blockProperties()
             .strength(3.0F)
-            .noOcclusion());
+            .noOcclusion(), material.blockSetType());
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

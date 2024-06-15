@@ -1,68 +1,60 @@
 package svenhjol.charm.feature.mineshaft_improvements.common;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import svenhjol.charm.Charm;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.mineshaft_improvements.MineshaftImprovements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class Registers extends RegisterHolder<MineshaftImprovements> {
     // Holds loot tables that will be used to populate custom minecarts.
     public final List<ResourceKey<LootTable>> minecartLoot = new ArrayList<>();
 
-    public final ResourceKey<LootTable> floorBlockLoot;
-    public final ResourceKey<LootTable> pileBlockLoot;
-    public final ResourceKey<LootTable> ceilingBlockLoot;
-    public final ResourceKey<LootTable> roomBlockLoot;
-    public final ResourceKey<LootTable> roomDecorationLoot;
+    static final List<BlockState> FLOOR_BLOCKS = new ArrayList<>();
+    static final List<BlockState> CEILING_BLOCKS = new ArrayList<>();
+    static final List<BlockState> PILE_BLOCKS = new ArrayList<>();
+    static final List<BlockState> ROOM_BLOCKS = new ArrayList<>();
+    static final List<BlockState> ROOM_DECORATIONS = new ArrayList<>();
 
-    public final List<BlockState> blocksForFloor = new ArrayList<>();
-    public final List<BlockState> blocksForCeiling = new ArrayList<>();
-    public final List<BlockState> blocksForPile = new ArrayList<>();
-    public final List<BlockState> blocksForRoom = new ArrayList<>();
-    public final List<BlockState> decorationsForRoom = new ArrayList<>();
+    static final ResourceLocation FLOOR_BLOCK_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/floor_blocks");
+    static final ResourceLocation PILE_BLOCK_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/pile_blocks");
+    static final ResourceLocation CEILING_BLOCK_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/ceiling_blocks");
+    static final ResourceLocation ROOM_BLOCK_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/room_blocks");
+    static final ResourceLocation ROOM_DECORATION_LOOT = new ResourceLocation(Charm.ID, "improved_mineshafts/room_decorations");
 
     public Registers(MineshaftImprovements feature) {
         super(feature);
         var registry = feature.registry();
 
         minecartLoot.addAll(feature().minecartLoot().stream().map(registry::lootTable).toList());
-        floorBlockLoot = registry.lootTable("mineshaft_improvements/floor_blocks");
-        pileBlockLoot = registry.lootTable("mineshaft_improvements/pile_blocks");
-        ceilingBlockLoot = registry.lootTable("mineshaft_improvements/ceiling_blocks");
-        roomBlockLoot = registry.lootTable("mineshaft_improvements/room_blocks");
-        roomDecorationLoot = registry.lootTable("mineshaft_improvements/room_decorations");
     }
 
     @Override
     public void onWorldLoaded(MinecraftServer server, ServerLevel level) {
         var builder = new LootParams.Builder(level);
 
-        blocksForCeiling.clear();
-        blocksForRoom.clear();
-        blocksForPile.clear();
-        blocksForFloor.clear();
-        decorationsForRoom.clear();
-
-        blocksForFloor.addAll(parseLootTable(server, builder, floorBlockLoot));
-        blocksForPile.addAll(parseLootTable(server, builder, pileBlockLoot));
-        blocksForCeiling.addAll(parseLootTable(server, builder, ceilingBlockLoot));
-        blocksForRoom.addAll(parseLootTable(server, builder, roomBlockLoot));
-        decorationsForRoom.addAll(parseLootTable(server, builder, roomDecorationLoot));
+        FLOOR_BLOCKS.addAll(parseLootTable(server, builder, FLOOR_BLOCK_LOOT));
+        CEILING_BLOCKS.addAll(parseLootTable(server, builder, PILE_BLOCK_LOOT));
+        PILE_BLOCKS.addAll(parseLootTable(server, builder, CEILING_BLOCK_LOOT));
+        ROOM_BLOCKS.addAll(parseLootTable(server, builder, ROOM_BLOCK_LOOT));
+        ROOM_DECORATIONS.addAll(parseLootTable(server, builder, ROOM_DECORATION_LOOT));
     }
 
-    private List<BlockState> parseLootTable(MinecraftServer server, LootParams.Builder builder, ResourceKey<LootTable> tableName) {
-        var lootTable = server.reloadableRegistries().getLootTable(tableName);
+    private List<BlockState> parseLootTable(MinecraftServer server, LootParams.Builder builder, ResourceLocation tableName) {
+        var lootTable = server.getLootData().getLootTable(tableName);
         var items = lootTable.getRandomItems(builder.create(LootContextParamSets.EMPTY));
         List<BlockState> states = new ArrayList<>();
 
@@ -77,10 +69,18 @@ public final class Registers extends RegisterHolder<MineshaftImprovements> {
     private BlockState getBlockStateFromItemStack(ItemStack stack) {
         var block = Block.byItem(stack.getItem());
         var state = block.defaultBlockState();
-        var data = stack.get(DataComponents.BLOCK_STATE);
+        var tag = stack.getTag();
 
-        if (data != null) {
-            return data.apply(state);
+        if (tag != null) {
+            var definition = block.getStateDefinition();
+            var blockStateTag = tag.getCompound(BlockItem.BLOCK_STATE_TAG);
+
+            for (String key : blockStateTag.getAllKeys()) {
+                var prop = definition.getProperty(key);
+                if (prop == null) continue;
+                var propString = Objects.requireNonNull(blockStateTag.get(key)).getAsString();
+                state = BlockItem.updateState(state, prop, propString);
+            }
         }
 
         return state;

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.crafting.RecipeType;
 import svenhjol.charm.charmony.Resolve;
@@ -51,26 +51,26 @@ public final class Handlers extends FeatureHolder<CustomRecipes> {
      * Called by sorting recipe manager to sort recipes by name so Charm's take priority.
      * @see RecipeSorter
      */
-    public Map<ResourceLocation, RecipeHolder<?>> sortAndFilterByName(Map<ResourceLocation, RecipeHolder<?>> byName) {
+    public Map<ResourceLocation, Recipe<?>> sortAndFilterByName(Map<ResourceLocation, Recipe<?>> byName) {
         feature().log().debug("Sorting recipes by name.");
 
-        ImmutableMap.Builder<ResourceLocation, RecipeHolder<?>> builder = ImmutableMap.builder();
+        ImmutableMap.Builder<ResourceLocation, Recipe<?>> builder = ImmutableMap.builder();
 
-        Map<ResourceLocation, RecipeHolder<?>> charmonyRecipeHolders = new HashMap<>();
-        Map<ResourceLocation, RecipeHolder<?>> otherRecipeHolders = new HashMap<>();
+        Map<ResourceLocation, Recipe<?>> charmRecipes = new HashMap<>();
+        Map<ResourceLocation, Recipe<?>> otherRecipes = new HashMap<>();
         
         for (var id : byName.keySet()) {
-            var recipeHolder = byName.get(id);
+            var recipe = byName.get(id);
             
             if (Resolve.hasLoader(Side.COMMON, id.getNamespace())) {
-                charmonyRecipeHolders.put(id, recipeHolder);
+                charmRecipes.put(id, recipe);
             } else {
-                otherRecipeHolders.put(id, recipeHolder);
+                otherRecipes.put(id, recipe);
             }
         }
         
-        charmonyRecipeHolders.forEach(builder::put);
-        otherRecipeHolders.forEach(builder::put);
+        charmRecipes.forEach(builder::put);
+        otherRecipes.forEach(builder::put);
 
         return builder.build();
     }
@@ -79,22 +79,22 @@ public final class Handlers extends FeatureHolder<CustomRecipes> {
      * Called by sorting recipe manager to sort recipes by type so Charm's take priority.
      * @see RecipeSorter
      */
-    public Multimap<RecipeType<?>, RecipeHolder<?>> sortAndFilterByType(Multimap<RecipeType<?>, RecipeHolder<?>> byType) {
+    public Multimap<RecipeType<?>, Recipe<?>> sortAndFilterByType(Multimap<RecipeType<?>, Recipe<?>> byType) {
         feature().log().debug("Sorting recipes by type.");
 
-        ImmutableMultimap.Builder<RecipeType<?>, RecipeHolder<?>> builder = ImmutableMultimap.builder();
+        ImmutableMultimap.Builder<RecipeType<?>, Recipe<?>> builder = ImmutableMultimap.builder();
 
         for (var type : byType.keySet()) {
             var recipes = byType.get(type);
             feature().log().debug("Recipe type " + type.toString() + " contains " + recipes.size() + " recipes.");
 
-            var charmonyRecipes = recipes.stream().filter(r -> Resolve.hasLoader(Side.COMMON, r.id().getNamespace()));
-            var otherRecipes = recipes.stream().filter(r -> !Resolve.hasLoader(Side.COMMON, r.id().getNamespace()));
-            var holders = new LinkedList<RecipeHolder<?>>();
+            var charmonyRecipes = recipes.stream().filter(r -> Resolve.hasLoader(Side.COMMON, r.getId().getNamespace()));
+            var otherRecipes = recipes.stream().filter(r -> !Resolve.hasLoader(Side.COMMON, r.getId().getNamespace()));
+            var holders = new LinkedList<Recipe<?>>();
 
             // Sort and filter the charmony recipes.
             charmonyRecipes
-                .filter(r -> !shouldRemove(r.id())).sorted(Comparator.comparing(r -> r.id().getPath()))
+                .filter(r -> !shouldRemove(r.getId())).sorted(Comparator.comparing(r -> r.getId().getPath()))
                 .forEach(holders::add);
 
             // Add all other recipes after these.

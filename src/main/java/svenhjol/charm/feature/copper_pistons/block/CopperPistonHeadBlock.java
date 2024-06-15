@@ -5,6 +5,6 @@ import net.minecraft.world.level.block.piston.PistonHeadBlock;
 
 public class CopperPistonHeadBlock extends PistonHeadBlock {
     public CopperPistonHeadBlock() {
-        super(Properties.ofFullCopy(Blocks.PISTON_HEAD));
+        super(Properties.copy(Blocks.PISTON_HEAD));
     }
 }

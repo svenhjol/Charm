@@ -32,7 +32,8 @@ public final class Handlers extends FeatureHolder<SpawnersDropItems> {
 
         if (state.getBlock() == Blocks.SPAWNER && level.getBlockEntity(pos) instanceof SpawnerBlockEntity spawner) {
             var baseSpawner = spawner.getSpawner();
-            var entity = baseSpawner.getOrCreateDisplayEntity(level, pos);
+            var random = level.getRandom();
+            var entity = baseSpawner.getOrCreateDisplayEntity(level, random, pos);
             if (entity == null) return true;
 
             var type = entity.getType();

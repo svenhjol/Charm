@@ -15,6 +15,6 @@ public abstract class NameTagItemMixin extends Item {
 
     @Override
     public boolean isFoil(ItemStack stack) {
-        return stack.has(Resolve.feature(AnimalReviving.class).registers.data());
+        return stack.getTagElement(Resolve.feature(AnimalReviving.class).handlers.getRevivableTag()) != null;
     }
 }

@@ -17,7 +17,7 @@ public class CustomBarrelBlock extends BarrelBlock {
     private final CustomMaterial material;
 
     public CustomBarrelBlock(CustomMaterial material) {
-        super(Properties.ofFullCopy(Blocks.BARREL));
+        super(Properties.copy(Blocks.BARREL));
         this.material = material;
 
         this.registerDefaultState(this.getStateDefinition()

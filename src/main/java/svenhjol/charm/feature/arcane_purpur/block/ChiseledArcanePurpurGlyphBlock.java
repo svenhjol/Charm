@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public class ChiseledArcanePurpurGlyphBlock extends CharmBlock<ArcanePurpur> {
     public ChiseledArcanePurpurGlyphBlock() {
-        super(Properties.ofFullCopy(Blocks.PURPUR_BLOCK));
+        super(Properties.copy(Blocks.PURPUR_BLOCK));
     }
 
     @Override

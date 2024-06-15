@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.storage_blocks.gunpowder_block.common;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -18,8 +17,6 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "unused"})
 public class Block extends FallingBlock implements FeatureResolver<GunpowderBlock> {
-    static final MapCodec<Block> CODEC = simpleCodec(Block::new);
-
     public Block() {
         this(Properties.of()
             .sound(SoundType.SAND)
@@ -28,11 +25,6 @@ public class Block extends FallingBlock implements FeatureResolver<GunpowderBloc
 
     private Block(BlockBehaviour.Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends FallingBlock> codec() {
-        return CODEC;
     }
 
     @Override

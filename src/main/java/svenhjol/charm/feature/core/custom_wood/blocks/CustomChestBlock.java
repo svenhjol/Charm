@@ -19,7 +19,7 @@ public class CustomChestBlock extends ChestBlock implements VariantMaterialHolde
     private final CustomMaterial material;
 
     public CustomChestBlock(CustomMaterial material) {
-        super(Properties.ofFullCopy(Blocks.CHEST), CUSTOM_WOOD.registers.chestBlockEntity::get);
+        super(Properties.copy(Blocks.CHEST), CUSTOM_WOOD.registers.chestBlockEntity::get);
         this.material = material;
     }
 

@@ -12,11 +12,11 @@ import java.util.function.Supplier;
 
 public class Block extends PressurePlateBlock {
     public Block() {
-        super(BlockSetType.STONE, Properties.of()
+        super(Sensitivity.MOBS, Properties.of()
             .requiresCorrectToolForDrops()
             .noCollission()
             .mapColor(MapColor.COLOR_BLACK)
-            .strength(2f, 1200f));
+            .strength(2f, 1200f), BlockSetType.STONE);
     }
 
     @Override

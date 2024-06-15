@@ -18,7 +18,6 @@ public final class Providers extends ProviderHolder<AnimalArmorGrinding> impleme
     @Override
     public List<Pair<ItemLike, ItemLike>> getItemGrindResults() {
         return List.of(
-            Pair.of(Items.WOLF_ARMOR, Items.ARMADILLO_SCUTE),
             Pair.of(Items.SADDLE, Items.LEATHER),
             Pair.of(Items.LEATHER_HORSE_ARMOR, Items.LEATHER),
             Pair.of(Items.IRON_HORSE_ARMOR, Items.IRON_INGOT),

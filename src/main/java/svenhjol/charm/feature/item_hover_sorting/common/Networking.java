@@ -1,12 +1,12 @@
 package svenhjol.charm.feature.item_hover_sorting.common;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import svenhjol.charm.Charm;
-import svenhjol.charm.charmony.enums.SortDirection;
+import svenhjol.charm.charmony.annotation.Packet;
+import svenhjol.charm.charmony.event.ItemHoverSortEvent;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.iface.PacketRequest;
 import svenhjol.charm.feature.item_hover_sorting.ItemHoverSorting;
 
 public final class Networking extends FeatureHolder<ItemHoverSorting> {
@@ -14,28 +14,43 @@ public final class Networking extends FeatureHolder<ItemHoverSorting> {
         super(feature);
     }
 
-    // Client-to-server packet to set the slot index and direction of scroll.
-    public record C2SScrollOnHover(int slotIndex, SortDirection sortDirection) implements CustomPacketPayload {
-        static Type<C2SScrollOnHover> TYPE = new Type<>(Charm.id("item_hover_sorting_scroll"));
-        static StreamCodec<FriendlyByteBuf, C2SScrollOnHover> CODEC
-            = StreamCodec.of(C2SScrollOnHover::encode, C2SScrollOnHover::decode);
+    @Packet(
+            id = "charm:hover_sorting_scroll_on_item",
+            description = "Send the slot index and direction of scroll to the server."
+    )
+    public static class ScrollOnHover implements PacketRequest {
+        private int slotIndex;
+        private ItemHoverSortEvent.SortDirection sortDirection;
+
+        public ScrollOnHover() {}
+
+        public static void send(int slotIndex, ItemHoverSortEvent.SortDirection sortDirection) {
+            var message = new ScrollOnHover();
+            message.slotIndex = slotIndex;
+            message.sortDirection = sortDirection;
+            FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ClientPlayNetworking.send(message.id(), buffer);
+        }
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeInt(slotIndex);
+            buf.writeEnum(sortDirection);
         }
 
-        private static void encode(FriendlyByteBuf buf, C2SScrollOnHover self) {
-            buf.writeInt(self.slotIndex);
-            buf.writeEnum(self.sortDirection);
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            slotIndex = buf.readInt();
+            sortDirection = buf.readEnum(ItemHoverSortEvent.SortDirection.class);
         }
 
-        private static C2SScrollOnHover decode(FriendlyByteBuf buf) {
-            return new C2SScrollOnHover(buf.readInt(), buf.readEnum(SortDirection.class));
+        public int getSlotIndex() {
+            return slotIndex;
         }
 
-        public static void send(int slotIndex, SortDirection sortDirection) {
-            ClientPlayNetworking.send(new C2SScrollOnHover(slotIndex, sortDirection));
+        public ItemHoverSortEvent.SortDirection getSortDirection() {
+            return sortDirection;
         }
     }
 }

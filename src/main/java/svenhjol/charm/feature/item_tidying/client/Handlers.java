@@ -4,10 +4,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.helper.ScreenHelper;
 import svenhjol.charm.feature.item_tidying.ItemTidyingClient;
 import svenhjol.charm.feature.item_tidying.common.TidyType;
 import svenhjol.charm.charmony.feature.FeatureHolder;
@@ -15,17 +16,14 @@ import svenhjol.charm.charmony.feature.FeatureHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static svenhjol.charm.feature.item_tidying.common.Networking.C2STidyInventory.send;
+import static svenhjol.charm.feature.item_tidying.common.Networking.TidyInventory.send;
 
 public final class Handlers extends FeatureHolder<ItemTidyingClient> {
     private static final int LEFT = 159;
     private static final int TOP = 12;
 
     private final List<ImageButton> sortingButtons = new ArrayList<>();
-    private final WidgetSprites tidyButton = new WidgetSprites(
-        Charm.id("widget/item_tidying/tidy_button"),
-        Charm.id("widget/item_tidying/tidy_button_highlighted")
-    );
+    private static final ResourceLocation INVENTORY_BUTTONS = Charm.id("textures/gui/inventory_buttons.png");
 
     public Handlers(ItemTidyingClient feature) {
         super(feature);
@@ -65,7 +63,7 @@ public final class Handlers extends FeatureHolder<ItemTidyingClient> {
             }
         }
 
-        sortingButtons.forEach(containerScreen::addRenderableWidget);
+        sortingButtons.forEach(b -> ScreenHelper.addRenderableWidget(containerScreen, b));
     }
 
     public void screenRender(AbstractContainerScreen<?> screen, GuiGraphics guiGraphics, int mouseX, int mouseY) {
@@ -77,6 +75,6 @@ public final class Handlers extends FeatureHolder<ItemTidyingClient> {
     }
 
     public void addSortingButton(Screen screen, int x, int y, Button.OnPress callback) {
-        sortingButtons.add(new ImageButton(x, y, 10, 10, tidyButton, callback));
+        sortingButtons.add(new ImageButton(x, y, 10, 10, 40, 0, 10, INVENTORY_BUTTONS, callback));
     }
 }

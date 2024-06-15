@@ -1,6 +1,7 @@
 package svenhjol.charm.mixin.feature.doors_open_together;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -20,10 +21,10 @@ import svenhjol.charm.feature.doors_open_together.DoorsOpenTogether;
 @Mixin(DoorBlock.class)
 public class DoorBlockMixin {
     @Inject(
-        method = "useWithoutItem",
+        method = "use",
         at = @At("RETURN")
     )
-    private void hookUse(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult blockHitResult, CallbackInfoReturnable<InteractionResult> cir) {
+    private void hookUse(BlockState state, Level level, BlockPos pos, Player player, InteractionHand interactionHand, BlockHitResult hit, CallbackInfoReturnable<InteractionResult> cir) {
         if (cir.getReturnValue() == InteractionResult.CONSUME || cir.getReturnValue() == InteractionResult.SUCCESS) {
             Resolve.feature(DoorsOpenTogether.class).handlers.tryOpenNeighbour(level, state, pos, state.getValue(DoorBlock.OPEN));
         }

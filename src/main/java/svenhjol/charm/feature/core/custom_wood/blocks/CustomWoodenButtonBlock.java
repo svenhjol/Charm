@@ -8,10 +8,9 @@ import java.util.function.Supplier;
 
 public class CustomWoodenButtonBlock extends ButtonBlock {
     public CustomWoodenButtonBlock(CustomWoodMaterial material) {
-        super(material.blockSetType(),
-            30,
-            material.blockProperties()
-                .strength(0.5F));
+        super(material.blockProperties().strength(0.5F),
+                material.blockSetType(),
+                30, true);
     }
 
     public static class BlockItem extends net.minecraft.world.item.BlockItem {

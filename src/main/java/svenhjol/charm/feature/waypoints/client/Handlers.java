@@ -1,7 +1,6 @@
 package svenhjol.charm.feature.waypoints.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -131,7 +130,7 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
         lastSeenPos = null;
     }
 
-    public void hudRender(GuiGraphics guiGraphics, DeltaTracker tickDelta) {
+    public void hudRender(GuiGraphics guiGraphics, float tickDelta) {
         if (broadcastMessage == null || broadcastTime == 0) return;
 
         var minecraft = Minecraft.getInstance();
@@ -145,7 +144,7 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
         var gui = minecraft.gui;
         var pose = guiGraphics.pose();
         var font = gui.getFont();
-        var fade = broadcastTime - tickDelta.getGameTimeDeltaTicks();
+        var fade = broadcastTime - tickDelta;
         var foregroundAlpha = 0xffffffff;
         var backgroundAlpha = 0xffffffff;
         var len = 0;

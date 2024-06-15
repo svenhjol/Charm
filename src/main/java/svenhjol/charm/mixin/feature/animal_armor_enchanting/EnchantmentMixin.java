@@ -21,7 +21,7 @@ public class EnchantmentMixin {
         var enchantment = (Enchantment) (Object) this;
         var handlers = Resolve.feature(AnimalArmorEnchanting.class).handlers;
 
-        if (handlers.isValidHorseEnchantment(stack, enchantment) || handlers.isValidWolfEnchantment(stack, enchantment)) {
+        if (handlers.isValidHorseEnchantment(stack, enchantment)) {
             return true;
         }
         return original;

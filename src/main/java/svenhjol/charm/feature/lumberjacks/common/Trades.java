@@ -90,7 +90,7 @@ public final class Trades extends FeatureHolder<Lumberjacks> {
 
             return new MerchantOffer(
                 GenericTrades.getCost(random, Items.EMERALD, 1, 0),
-                Optional.of(GenericTrades.getCost(random, log, 1, 0)),
+                GenericTrades.getCost(random, log, 1, 0),
                 new ItemStack(wood, cost),
                 maxUses,
                 villagerXp,

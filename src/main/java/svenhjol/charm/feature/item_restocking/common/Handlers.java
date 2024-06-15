@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.item_restocking.common;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -9,10 +8,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.feature.item_restocking.ItemRestocking;
 import svenhjol.charm.charmony.feature.FeatureHolder;
-import svenhjol.charm.charmony.common.helper.EnchantmentsHelper;
 
 import java.util.EnumMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.WeakHashMap;
 
 public final class Handlers extends FeatureHolder<ItemRestocking> {
@@ -55,7 +54,7 @@ public final class Handlers extends FeatureHolder<ItemRestocking> {
         for (int i = 9; i < Math.min(36, inventory.getContainerSize()); i++) {
             var possibleReplacement = inventory.getItem(i);
             if (stackData.item == possibleReplacement.getItem()
-                && EnchantmentsHelper.containsSameEnchantments(possibleReplacement, stackData.enchantments)) {
+                && Objects.equals(stackData.enchantments, possibleReplacement.getEnchantmentTags())) {
                 player.setItemInHand(hand, possibleReplacement.copy());
                 inventory.removeItem(i, inventory.getMaxStackSize());
                 feature().advancements.restockedCurrentItem(player);
@@ -72,7 +71,7 @@ public final class Handlers extends FeatureHolder<ItemRestocking> {
         } else {
             var item = stack.getItem();
             var used = getItemUsed(player, item);
-            var enchantments = stack.get(DataComponents.ENCHANTMENTS);
+            var enchantments = stack.getEnchantmentTags();
             var stackData = cached.computeIfAbsent(hand, k -> new StackData());
 
             stackData.item = item;

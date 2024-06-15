@@ -1,7 +1,7 @@
 package svenhjol.charm.mixin.feature.silence;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import com.mojang.authlib.yggdrasil.ServicesKeySet;
+import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilServicesKeyInfo;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,7 +20,7 @@ public class YggdrasilServicesKeyInfoMixin {
         cancellable = true,
         remap = false
     )
-    private static void hookFetch(URL url, MinecraftClient client, CallbackInfoReturnable<Optional<ServicesKeySet>> cir) {
+    private static void hookFetch(URL url, YggdrasilAuthenticationService authenticationService, CallbackInfoReturnable<Optional<ServicesKeySet>> cir) {
         if (Silence.disableDevEnvironmentConnections()) {
             cir.setReturnValue(Optional.empty());
         }

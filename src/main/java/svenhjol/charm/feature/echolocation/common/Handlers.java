@@ -18,7 +18,7 @@ public final class Handlers extends FeatureHolder<Echolocation> {
     public void playerTick(Player player) {
         if (!player.level().isClientSide()
             && player.level().getGameTime() % CHECK_TICKS == 0
-            && player.hasEffect(feature().registers.mobEffect.get())
+            && player.hasEffect(feature().registers.mobEffect.get().value())
         ) {
             var box = player.getBoundingBox().inflate(GLOW_RANGE, GLOW_RANGE / 2.0, GLOW_RANGE);
             var effect = new MobEffectInstance(MobEffects.GLOWING, CHECK_TICKS);

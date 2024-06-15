@@ -1,45 +1,30 @@
 package svenhjol.charm.feature.suspicious_effect_improvements.suspicious_effects_last_longer.common;
 
-import net.minecraft.world.item.component.SuspiciousStewEffects;
+import net.minecraft.world.effect.MobEffect;
 import svenhjol.charm.feature.suspicious_effect_improvements.suspicious_effects_last_longer.SuspiciousEffectsLastLonger;
 import svenhjol.charm.charmony.feature.FeatureHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class Handlers extends FeatureHolder<SuspiciousEffectsLastLonger> {
     public Handlers(SuspiciousEffectsLastLonger feature) {
         super(feature);
     }
 
-    public SuspiciousStewEffects modifyEffects(SuspiciousStewEffects effects) {
-        List<SuspiciousStewEffects.Entry> newEntries = new ArrayList<>();
+    public int modifyEffect(int originalDuration, MobEffect effect) {
+        if (!effect.isInstantenous()) {
+            int newDuration;
 
-        for (SuspiciousStewEffects.Entry entry : effects.effects()) {
-            SuspiciousStewEffects.Entry newEntry;
-            var holder = entry.effect();
-            var effect = holder.value();
-
-            if (!effect.isInstantenous()) {
-                int newDuration;
-                int oldDuration = entry.duration();
-
-                if (effect.isBeneficial()) {
-                    newDuration = entry.duration() * feature().beneficialMultiplier();
-                } else {
-                    newDuration = entry.duration() * feature().detrimentalMultiplier();
-                }
-                feature().log().dev(
-                    "Old duration was " + oldDuration + ", new duration is " + newDuration +
-                        " for effect " + effect.getDescriptionId());
-                newEntry = new SuspiciousStewEffects.Entry(holder, newDuration);
+            if (effect.isBeneficial()) {
+                newDuration = originalDuration * feature().beneficialMultiplier();
             } else {
-                newEntry = entry;
+                newDuration = originalDuration * feature().detrimentalMultiplier();
             }
+            feature().log().dev(
+                    "Old duration was " + originalDuration + ", new duration is " + newDuration +
+                        " for effect " + effect.getDescriptionId());
 
-            newEntries.add(newEntry);
+            return newDuration;
+        } else {
+            return originalDuration;
         }
-
-        return new SuspiciousStewEffects(newEntries);
     }
 }

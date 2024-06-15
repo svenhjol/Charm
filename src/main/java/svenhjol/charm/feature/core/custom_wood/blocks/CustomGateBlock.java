@@ -13,8 +13,7 @@ public class CustomGateBlock extends FenceGateBlock implements IgniteProvider {
     protected final CustomMaterial material;
 
     public CustomGateBlock(CustomWoodMaterial material) {
-        super(material.woodType(), material.blockProperties()
-            .strength(2.0F, 3.0F));
+        super(material.blockProperties().strength(2.0F, 3.0F), material.woodType());
 
         this.material = material;
     }

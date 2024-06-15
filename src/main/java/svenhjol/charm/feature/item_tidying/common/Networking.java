@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.item_tidying.common;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.annotation.Packet;
+import svenhjol.charm.charmony.iface.PacketRequest;
 import svenhjol.charm.feature.item_tidying.ItemTidying;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 
@@ -13,27 +13,35 @@ public final class Networking extends FeatureHolder<ItemTidying> {
         super(feature);
     }
 
-    // Client-to-server packet to tidy the inventory or the viewed container.
-    public record C2STidyInventory(TidyType tidyType) implements CustomPacketPayload {
-        public static Type<C2STidyInventory> TYPE = new Type<>(Charm.id("tidied_items"));
-        public static StreamCodec<FriendlyByteBuf, C2STidyInventory> CODEC
-            = StreamCodec.of(C2STidyInventory::encode, C2STidyInventory::decode);
+    @Packet(
+            id = "charm:tidy_inventory",
+            description = "A packet sent from the client to instruct the server to tidy the inventory or the viewed container."
+    )
+    public static class TidyInventory implements PacketRequest {
+        private TidyType type;
+
+        public TidyInventory() {}
+
+        public static void send(TidyType type) {
+            var message = new TidyInventory();
+            message.type = type;
+            FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ClientPlayNetworking.send(message.id(), buffer);
+        }
+
+        public TidyType getType() {
+            return type;
+        }
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeEnum(type);
         }
 
-        private static C2STidyInventory decode(FriendlyByteBuf buf) {
-            return new C2STidyInventory(buf.readEnum(TidyType.class));
-        }
-
-        private static void encode(FriendlyByteBuf buf, C2STidyInventory self) {
-            buf.writeEnum(self.tidyType);
-        }
-
-        public static void send(TidyType tidyType)  {
-            ClientPlayNetworking.send(new C2STidyInventory(tidyType));
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            this.type = buf.readEnum(TidyType.class);
         }
     }
 }

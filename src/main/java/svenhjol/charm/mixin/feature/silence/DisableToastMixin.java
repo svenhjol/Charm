@@ -11,7 +11,7 @@ import svenhjol.charm.feature.silence.Silence;
 @Mixin(ClientPacketListener.class)
 public class DisableToastMixin {
     @Redirect(
-        method = "handleLogin",
+        method = "handleServerData",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/gui/components/toasts/ToastComponent;addToast(Lnet/minecraft/client/gui/components/toasts/Toast;)V"

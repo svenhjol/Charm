@@ -4,7 +4,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.grower.TreeGrower;
+import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import svenhjol.charm.charmony.iface.CustomMaterial;
 
 import java.util.function.Supplier;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class CustomSaplingBlock extends SaplingBlock {
     protected final CustomMaterial material;
 
-    public CustomSaplingBlock(CustomMaterial material, TreeGrower generator) {
+    public CustomSaplingBlock(CustomMaterial material, AbstractTreeGrower generator) {
         super(generator, Properties.of()
             .noCollission()
             .randomTicks()

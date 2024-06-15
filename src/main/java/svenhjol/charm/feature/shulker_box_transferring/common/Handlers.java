@@ -1,7 +1,7 @@
 package svenhjol.charm.feature.shulker_box_transferring.common;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleContainer;
@@ -10,10 +10,11 @@ import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.charmony.common.helper.ItemTidyingHelper;
 import svenhjol.charm.charmony.event.ItemDragDropEvent;
@@ -37,8 +38,7 @@ public final class Handlers extends FeatureHolder<ShulkerBoxTransferring> {
             return InteractionResult.PASS;
         }
 
-        if (Block.byItem(dest.getItem()) instanceof ShulkerBoxBlock
-            && dest.has(DataComponents.CONTAINER)) {
+        if (Block.byItem(dest.getItem()) instanceof ShulkerBoxBlock shulkerBoxBlock) {
             // Check if the source item is not in the blacklist.
             var blockItem = source.getItem();
             var block = Block.byItem(blockItem);
@@ -47,13 +47,21 @@ public final class Handlers extends FeatureHolder<ShulkerBoxTransferring> {
             }
 
             var containerSize = ShulkerBoxBlockEntity.CONTAINER_SIZE;
-            var data = dest.get(DataComponents.CONTAINER);
+            var shulkerBoxTag = BlockItem.getBlockEntityData(dest);
+            BlockEntity blockEntity;
 
-            if (data != null) {
+            if (shulkerBoxTag == null) {
+                // Generate a new empty blockentity.
+                blockEntity = shulkerBoxBlock.newBlockEntity(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState());
+            } else {
+                // Instantiate existing shulkerbox blockentity from BlockEntityTag.
+                blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState(), shulkerBoxTag);
+            }
+
+            if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBox) {
                 // Main a nonnulllist of itemstacks that represent the container contents.
                 // Read this from the shulkerbox data and then write it back after modification.
                 var containerItems = NonNullList.withSize(containerSize, ItemStack.EMPTY);
-                data.copyInto(containerItems);
 
                 // Populate the container.
                 var container = new SimpleContainer(containerSize);
@@ -97,8 +105,7 @@ public final class Handlers extends FeatureHolder<ShulkerBoxTransferring> {
                     containerItems.set(i, stackInSlot);
                 }
 
-                var itemContainerContents = ItemContainerContents.fromItems(containerItems);
-                dest.set(DataComponents.CONTAINER, itemContainerContents);
+                shulkerBox.saveToItem(dest);
                 feature().advancements.transferredToShulkerBox(player);
                 return InteractionResult.SUCCESS;
             }

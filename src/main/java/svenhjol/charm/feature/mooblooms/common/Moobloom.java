@@ -38,8 +38,8 @@ public class Moobloom extends Cow implements Shearable, FeatureResolver<Moobloom
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag entityTag) {
+        spawnGroupData = super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData, entityTag);
 
         var types = MoobloomType.getTypesForPos(level, blockPosition());
         var type = types.get(random.nextInt(types.size()));
@@ -49,10 +49,10 @@ public class Moobloom extends Cow implements Shearable, FeatureResolver<Moobloom
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(TYPE, MoobloomType.ALLIUM.name());
-        builder.define(POLLINATED, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        entityData.define(TYPE, MoobloomType.ALLIUM.name());
+        entityData.define(POLLINATED, false);
     }
 
     @Override

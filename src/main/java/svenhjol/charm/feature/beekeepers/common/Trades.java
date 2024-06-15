@@ -1,8 +1,7 @@
 package svenhjol.charm.feature.beekeepers.common;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -10,21 +9,22 @@ import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.BlockItemStateProperties;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.trading.MerchantOffer;
-import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
-import svenhjol.charm.charmony.common.helper.EnchantmentsHelper;
 import svenhjol.charm.charmony.common.helper.TagHelper;
 import svenhjol.charm.charmony.common.villages.GenericTrades;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.helper.TextHelper;
 import svenhjol.charm.feature.beekeepers.Beekeepers;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class Trades extends FeatureHolder<Beekeepers> {
     public Trades(Beekeepers feature) {
@@ -120,11 +120,9 @@ public final class Trades extends FeatureHolder<Beekeepers> {
         @Nullable
         @Override
         public MerchantOffer getOffer(Entity merchant, RandomSource random) {
+            Map<Enchantment, Integer> enchantments = new HashMap<>();
             var shears = new ItemStack(Items.SHEARS);
             var cost = baseEmeralds;
-
-            var unbreaking = EnchantmentsHelper.holder(merchant.level().registryAccess(), Enchantments.UNBREAKING);
-            if (unbreaking == null) return null;
 
             int enchantmentLevel;
             if (random.nextDouble() < 0.1d) {
@@ -133,8 +131,8 @@ public final class Trades extends FeatureHolder<Beekeepers> {
                 enchantmentLevel = random.nextInt(2) + 1;
             }
 
-            EnchantmentHelper.updateEnchantments(shears,
-                mutable -> mutable.set(unbreaking, enchantmentLevel));
+            enchantments.put(Enchantments.UNBREAKING, enchantmentLevel);
+            EnchantmentHelper.setEnchantments(enchantments, shears);
 
             if (enchantmentLevel > 1) {
                 cost += (enchantmentLevel * enchantmentLevel);
@@ -170,15 +168,19 @@ public final class Trades extends FeatureHolder<Beekeepers> {
             var out = new ItemStack(Items.BEEHIVE);
 
             var beehive = new BeehiveBlockEntity(BlockPos.ZERO, Blocks.BEEHIVE.defaultBlockState());
+            var beesTag = new CompoundTag();
+            var honeyTag = new CompoundTag();
 
             for (int i = 0; i < NUMBER_OF_BEES; i++) {
                 var bee = new Bee(EntityType.BEE, merchant.level());
-                beehive.addOccupant(bee);
+                beehive.addOccupantWithPresetTicks(bee, false, 0);
             }
 
-            out.applyComponents(beehive.collectComponents());
-            out.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(BeehiveBlock.HONEY_LEVEL, 0));
-            out.set(DataComponents.CUSTOM_NAME, Component.translatable("item.charm.populated_beehive"));
+            beesTag.put("Bees", beehive.writeBees());
+            honeyTag.putInt("honey_level", 0);
+            out.addTagElement("BlockEntityTag", beesTag);
+            out.addTagElement("BlockStateTag", honeyTag);
+            out.setHoverName(TextHelper.translatable("item.charm.populated_beehive"));
 
             return new MerchantOffer(
                 GenericTrades.getCost(random, Items.EMERALD, baseEmeralds, extraEmeralds),

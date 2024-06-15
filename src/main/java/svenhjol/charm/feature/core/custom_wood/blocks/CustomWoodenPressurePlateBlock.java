@@ -12,9 +12,9 @@ public class CustomWoodenPressurePlateBlock extends PressurePlateBlock {
     protected final CustomMaterial material;
 
     public CustomWoodenPressurePlateBlock(CustomWoodMaterial material) {
-        super(material.blockSetType(), material.blockProperties()
+        super(Sensitivity.EVERYTHING, material.blockProperties()
             .strength(0.5F)
-            .noCollission());
+            .noCollission(), material.blockSetType());
 
         this.material = material;
     }

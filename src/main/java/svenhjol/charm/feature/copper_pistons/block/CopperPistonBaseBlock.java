@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 public class CopperPistonBaseBlock extends PistonBaseBlock {
     public CopperPistonBaseBlock() {
-        super(false, Properties.ofFullCopy(Blocks.PISTON)
+        super(false, Properties.copy(Blocks.PISTON)
             .isRedstoneConductor((state, get, pos) -> false));
     }
 

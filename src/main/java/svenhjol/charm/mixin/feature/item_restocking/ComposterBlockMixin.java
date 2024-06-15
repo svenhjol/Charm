@@ -1,8 +1,9 @@
 package svenhjol.charm.mixin.feature.item_restocking;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -22,13 +23,14 @@ public class ComposterBlockMixin {
      * Allows auto restock of a composted item.
      */
     @Inject(
-        method = "useItemOn",
+        method = "use",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V"
         )
     )
-    public void hookOnUse(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
+    public void hookOnUse(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult, CallbackInfoReturnable<InteractionResult> cir,
+                          @Local ItemStack itemStack) {
         Resolve.feature(ItemRestocking.class).handlers.addItemUsedStat(player, itemStack);
     }
 }

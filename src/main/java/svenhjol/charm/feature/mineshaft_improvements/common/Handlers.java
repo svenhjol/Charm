@@ -50,11 +50,11 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
                     var validFloor = validFloorBlock(piece, level, x, 0, z, box);
                     if (!validCeiling) continue;
 
-                    if (validFloor && !registers.blocksForFloor.isEmpty() && random.nextFloat() < feature().floorBlockChance() && piece.hasSturdyNeighbours(level, box, x, 0, z, 2)) {
-                        var state = getRandom(registers.blocksForFloor, random);
+                    if (validFloor && !Registers.FLOOR_BLOCKS.isEmpty() && random.nextFloat() < feature().floorBlockChance() && piece.hasSturdyNeighbours(level, box, x, 0, z, 2)) {
+                        var state = getRandom(Registers.FLOOR_BLOCKS, random);
                         piece.placeBlock(level, state, x, 0, z, box);
-                    } else if (!registers.blocksForCeiling.isEmpty() && random.nextFloat() < feature().ceilingBlockChance() && piece.hasSturdyNeighbours(level, box, x, 2, z, 2)) {
-                        var state = getRandom(registers.blocksForCeiling, random);
+                    } else if (!Registers.CEILING_BLOCKS.isEmpty() && random.nextFloat() < feature().ceilingBlockChance() && piece.hasSturdyNeighbours(level, box, x, 2, z, 2)) {
+                        var state = getRandom(Registers.CEILING_BLOCKS, random);
 
                         // if the ceiling block is a chain then attach a hanging lantern to it
                         if (state.getBlock() == Blocks.CHAIN) {
@@ -67,11 +67,11 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
             }
         }
 
-        if (!registers.blocksForPile.isEmpty() && random.nextFloat() < feature().blockPileChance()) {
+        if (!Registers.PILE_BLOCKS.isEmpty() && random.nextFloat() < feature().blockPileChance()) {
             var z = random.nextInt(7);
             if (validFloorBlock(piece, level, 1, 0, z, box)) {
-                var state1 = getRandom(registers.blocksForPile, random);
-                var state2 = getRandom(registers.blocksForPile, random);
+                var state1 = getRandom(Registers.PILE_BLOCKS, random);
+                var state2 = getRandom(Registers.PILE_BLOCKS, random);
 
                 for (var iy = 0; iy < 3; iy++) {
                     for (var ix = 0; ix <= 2; ix++) {
@@ -107,7 +107,7 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
 
                 if (random.nextFloat() < 0.4F) {
                     minecart = new MinecartChest(serverLevel, cartX, cartY, cartZ);
-                    ((MinecartChest)minecart).setLootTable(loot, random.nextLong());
+                    ((MinecartChest)minecart).setLootTable(loot.location(), random.nextLong());
                 } else if (random.nextFloat() < 0.4F) {
                     minecart = new MinecartTNT(serverLevel, cartX, cartY, cartZ);
                 } else if (random.nextFloat() < 0.4F) {
@@ -124,7 +124,7 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
     public void decorateRoom(MineshaftPieces.MineShaftRoom piece, WorldGenLevel level, RandomSource random, BoundingBox box) {
         var registers = feature().registers;
 
-        if (!registers.blocksForRoom.isEmpty() && !registers.decorationsForRoom.isEmpty()) {
+        if (!Registers.ROOM_BLOCKS.isEmpty() && !Registers.ROOM_DECORATIONS.isEmpty()) {
             var bx = box.maxX() - box.minX();
             var bz = box.maxZ() - box.minZ();
 
@@ -138,10 +138,10 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
                             BlockState state;
 
                             if (y == 1) {
-                                state = random.nextFloat() < 0.5F ? getRandom(registers.blocksForRoom, random) : getRandom(registers.decorationsForRoom, random);
+                                state = random.nextFloat() < 0.5F ? getRandom(Registers.ROOM_BLOCKS, random) : getRandom(Registers.ROOM_DECORATIONS, random);
                             } else {
                                 if (random.nextFloat() < 0.5F) continue;
-                                state = getRandom(registers.blocksForRoom, random);
+                                state = getRandom(Registers.ROOM_BLOCKS, random);
                             }
 
                             var pos = new BlockPos(piece.getBoundingBox().minX() + x, piece.getBoundingBox().minY() + y, piece.getBoundingBox().minZ() + z);

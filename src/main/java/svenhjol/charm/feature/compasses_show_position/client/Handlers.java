@@ -1,7 +1,6 @@
 package svenhjol.charm.feature.compasses_show_position.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,7 +16,7 @@ public final class Handlers extends FeatureHolder<CompassesShowPosition> {
     }
 
     @SuppressWarnings("ConstantValue")
-    public void hudRender(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
+    public void hudRender(GuiGraphics guiGraphics, float tickDelta) {
         var minecraft = Minecraft.getInstance();
         if (minecraft == null || minecraft.player == null) return;
         var player = minecraft.player;

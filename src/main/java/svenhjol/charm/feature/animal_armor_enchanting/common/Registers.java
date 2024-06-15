@@ -13,7 +13,6 @@ import java.util.List;
 
 public final class Registers extends RegisterHolder<AnimalArmorEnchanting> {
     public final List<Enchantment> horseArmorEnchantments = new ArrayList<>();
-    public final List<Enchantment> wolfArmorEnchantments = new ArrayList<>();
 
     public Registers(AnimalArmorEnchanting feature) {
         super(feature);
@@ -26,9 +25,5 @@ public final class Registers extends RegisterHolder<AnimalArmorEnchanting> {
         // Load horse armor from the tag and cache it in our registry.
         horseArmorEnchantments.clear();
         horseArmorEnchantments.addAll(TagHelper.getValues(registry, Tags.ON_HORSE_ARMOR));
-
-        // Load wolf armor from the tag and cache it in our registry.
-        wolfArmorEnchantments.clear();
-        wolfArmorEnchantments.addAll(TagHelper.getValues(registry, Tags.ON_WOLF_ARMOR));
     }
 }

@@ -3,27 +3,21 @@ package svenhjol.charm.charmony.common;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.MapCodec;
-import io.netty.buffer.ByteBuf;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -41,7 +35,6 @@ import net.minecraft.world.entity.ai.village.poi.PoiTypes;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemListing;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
@@ -78,16 +71,11 @@ import svenhjol.charm.charmony.common.helper.DispenserHelper;
 import svenhjol.charm.charmony.helper.ConfigHelper;
 import svenhjol.charm.charmony.helper.EnumHelper;
 import svenhjol.charm.charmony.helper.TextHelper;
-import svenhjol.charm.charmony.iface.CustomMaterial;
-import svenhjol.charm.charmony.iface.CustomWoodMaterial;
-import svenhjol.charm.charmony.iface.FuelProvider;
-import svenhjol.charm.charmony.iface.IgniteProvider;
+import svenhjol.charm.charmony.iface.*;
 
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 
 import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRADES;
@@ -196,20 +184,13 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         deferredPotionMixes.add(new DeferredPotionMix(input, reagent, output));
     }
 
-    @SuppressWarnings("unchecked")
-    public <T extends CustomPacketPayload> void clientPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<? extends ByteBuf, T> codec) {
-        loader.registerDeferred(() -> {
-            log("Client packet sender " + type.id());
-            PayloadTypeRegistry.playC2S().register(type, (StreamCodec<? super ByteBuf, T>)codec);
-        });
-    }
-
-    public <T> Register<DataComponentType<T>> dataComponent(String id, Supplier<UnaryOperator<DataComponentType.Builder<T>>> dataComponent) {
-        return new Register<>(() -> {
-            var res = id(id);
-            log("Data component " + id);
-            return DataComponents.register(res.toString(), dataComponent.get());
-        });
+    public <T extends PacketRequest, U extends PacketHandler<T>> Supplier<ResourceLocation> serverPacketReceiver(T packet, Supplier<U> handler) {
+        ResourceLocation id = packet.id();
+        loader.registerDeferred(() -> ServerPlayNetworking.registerGlobalReceiver(id, (server, player, listener, buf, sender) -> {
+            packet.decode(buf);
+            server.execute(() -> ((PacketHandler) handler.get()).handle(packet, player));
+        }));
+        return () -> id;
     }
 
     public <I extends ItemLike, D extends DispenseItemBehavior> void dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
@@ -260,7 +241,7 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public <T extends Mob> void entitySpawnPlacement(Supplier<EntityType<T>> entity, SpawnPlacementType placementType,
+    public <T extends Mob> void entitySpawnPlacement(Supplier<EntityType<T>> entity, SpawnPlacements.Type placementType,
                                                      Heightmap.Types heightmapType, SpawnPlacements.SpawnPredicate<T> predicate) {
         loader.registerDeferred(() -> {
             log("Entity spawn placement " + entity.get().getDescriptionId());
@@ -319,22 +300,6 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         return new Register<>(() -> {
             log("Mob effect " + id);
             return Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, id(id), supplier.get());
-        });
-    }
-
-    public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, Supplier<BiConsumer<Player, T>> handler) {
-        loader.registerDeferred(() -> {
-            log("Packet receiver " + type.id());
-            ServerPlayNetworking.registerGlobalReceiver(type,
-                (packet, context) -> context.player().server.execute(() -> handler.get().accept(context.player(), packet)));
-        });
-    }
-
-    @SuppressWarnings("unchecked")
-    public <T extends CustomPacketPayload> void serverPacketSender(CustomPacketPayload.Type<T> type, StreamCodec<? extends ByteBuf, T> codec) {
-        loader.registerDeferred(() -> {
-            log("Server packet sender " + type.id());
-            PayloadTypeRegistry.playS2C().register(type, (StreamCodec<? super ByteBuf, T>)codec);
         });
     }
 
@@ -443,7 +408,7 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
 
     public Register<SoundEvent> soundEvent(String id) {
         if (id.contains(":")) {
-            var res = ResourceLocation.parse(id);
+            var res = new ResourceLocation(id);
             return soundEvent(res.getPath(), () -> SoundEvent.createVariableRangeEvent(res));
         } else {
             return soundEvent(id, () -> SoundEvent.createVariableRangeEvent(id(id)));
@@ -489,8 +454,7 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         loader.registerDeferred(() -> {
             log("Villager gift " + id);
             var res = id(id);
-            var lootTableName = res.getNamespace() + ":gameplay/hero_of_the_village/" + res.getPath() + "_gift";
-            var lootTable = lootTable(lootTableName);
+            var lootTable = new ResourceLocation(res.getNamespace(), "gameplay/hero_of_the_village/" + res.getPath() + "_gift");
             var profession = BuiltInRegistries.VILLAGER_PROFESSION.getOptional(res).orElseThrow();
             GiveGiftToHero.GIFTS.put(profession, lootTable);
         });

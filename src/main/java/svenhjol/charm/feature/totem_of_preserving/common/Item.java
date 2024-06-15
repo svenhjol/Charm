@@ -55,7 +55,7 @@ public class Item extends CharmItem<TotemOfPreserving> {
     }
 
     @Override
-    public void appendHoverText(ItemStack totem, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack totem, Level level, List<Component> tooltip, TooltipFlag flag) {
         var data = TotemData.get(totem);
 
         if (!data.message().isEmpty()) {
@@ -68,7 +68,7 @@ public class Item extends CharmItem<TotemOfPreserving> {
             tooltip.add(Component.literal(I18n.get(str, size)));
         }
 
-        super.appendHoverText(totem, context, tooltip, flag);
+        super.appendHoverText(totem, level, tooltip, flag);
     }
 
     @Override

@@ -1,15 +1,15 @@
 package svenhjol.charm.feature.item_frame_hiding.common;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.annotation.Packet;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.iface.PacketRequest;
 import svenhjol.charm.feature.item_frame_hiding.ItemFrameHiding;
 
 public final class Networking extends FeatureHolder<ItemFrameHiding> {
@@ -18,68 +18,82 @@ public final class Networking extends FeatureHolder<ItemFrameHiding> {
     }
     
     // Server-to-client
-    public record S2CAddAmethyst(BlockPos pos) implements CustomPacketPayload, ItemFrameInteraction {
-        public static Type<S2CAddAmethyst> TYPE = new Type<>(Charm.id("add_amethyst_to_item_frame"));
-        static StreamCodec<FriendlyByteBuf, S2CAddAmethyst> CODEC = StreamCodec.of(S2CAddAmethyst::encode, S2CAddAmethyst::decode);
-        
-        public static void send(ServerPlayer player, BlockPos pos) {
-            ServerPlayNetworking.send(player, new S2CAddAmethyst(pos));
-        }
+    @Packet(
+            id = "charm:add_amethyst_to_item_frame",
+            description = "Send the position of the frame that has had an amethyst shard added."
+    )
+    public static class AddAmethyst implements PacketRequest, ItemFrameInteraction {
+        private BlockPos pos;
 
-        @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
+        public AddAmethyst() {}
+
+        public static void send(BlockPos pos, ServerPlayer player) {
+            var message = new AddAmethyst();
+            message.pos = pos;
+            FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ServerPlayNetworking.send(player, message.id(), buffer);
         }
 
         public BlockPos getPos() {
             return pos;
         }
 
+        @Override
         public SoundEvent getSound() {
             return SoundEvents.SMALL_AMETHYST_BUD_PLACE;
         }
 
-        private static S2CAddAmethyst decode(FriendlyByteBuf buf) {
-            return new S2CAddAmethyst(buf.readBlockPos());
+        @Override
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeBlockPos(pos);
         }
 
-        private static void encode(FriendlyByteBuf buf, S2CAddAmethyst self) {
-            buf.writeBlockPos(self.pos);
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            pos = buf.readBlockPos();
         }
     }
 
     // Server-to-client
-    public record S2CRemoveAmethyst(BlockPos pos) implements CustomPacketPayload, ItemFrameInteraction {
-        public static Type<S2CRemoveAmethyst> TYPE = new Type<>(Charm.id("remove_amethyst_from_item_frame"));
-        static StreamCodec<FriendlyByteBuf, S2CRemoveAmethyst> CODEC = StreamCodec.of(S2CRemoveAmethyst::encode, S2CRemoveAmethyst::decode);
+    @Packet(
+            id = "charm:remove_amethyst_from_item_frame",
+            description = "Send the position of the frame that has had an amethyst shard removed."
+    )
+    public static class RemoveAmethyst implements PacketRequest, ItemFrameInteraction {
+        private BlockPos pos;
 
-        public static void send(ServerPlayer player, BlockPos pos) {
-            ServerPlayNetworking.send(player, new S2CRemoveAmethyst(pos));
-        }
-        
-        @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
+        public RemoveAmethyst() {}
+
+        public static void send(BlockPos pos, ServerPlayer player) {
+            var message = new AddAmethyst();
+            message.pos = pos;
+            FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ServerPlayNetworking.send(player, message.id(), buffer);
         }
 
         public BlockPos getPos() {
             return pos;
         }
 
+        @Override
         public SoundEvent getSound() {
-            return SoundEvents.SMALL_AMETHYST_BUD_PLACE;
+            return SoundEvents.SMALL_AMETHYST_BUD_BREAK;
         }
 
-        private static S2CRemoveAmethyst decode(FriendlyByteBuf buf) {
-            return new S2CRemoveAmethyst(buf.readBlockPos());
+        @Override
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeBlockPos(pos);
         }
 
-        private static void encode(FriendlyByteBuf buf, S2CRemoveAmethyst self) {
-            buf.writeBlockPos(self.pos);
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            pos = buf.readBlockPos();
         }
     }
 
-    interface ItemFrameInteraction {
+    public interface ItemFrameInteraction {
         BlockPos getPos();
         SoundEvent getSound();
     }

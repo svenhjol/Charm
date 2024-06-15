@@ -93,7 +93,7 @@ public final class Handlers extends FeatureHolder<CropReplanting> {
 
             // Damage the hoe a bit.
             if (!player.getAbilities().instabuild) {
-                held.hurtAndBreak(1, player, Player.getSlotForHand(hand));
+                held.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             }
 
             return InteractionResult.CONSUME;

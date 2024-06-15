@@ -45,7 +45,7 @@ public final class Handlers extends FeatureHolder<PathConverting> {
 
         if (success) {
             if (!player.getAbilities().instabuild) {
-                stack.hurtAndBreak(1, player, Player.getSlotForHand(hand));
+                stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
             }
             return InteractionResult.sidedSuccess(level.isClientSide);
         }

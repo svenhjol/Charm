@@ -1,7 +1,6 @@
 package svenhjol.charm.feature.bat_buckets.common;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -16,13 +15,13 @@ import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.common.helper.MobHelper;
 import svenhjol.charm.charmony.enums.ItemStackResult;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.helper.ItemNbtHelper;
 import svenhjol.charm.feature.bat_buckets.BatBuckets;
 import svenhjol.charm.feature.echolocation.Echolocation;
 
@@ -31,6 +30,7 @@ import javax.annotation.Nullable;
 public final class Handlers extends FeatureHolder<BatBuckets> {
     private static final Echolocation ECHOLOCATION = Resolve.feature(Echolocation.class);
     private static final int GLOW_TIME = 10; // In seconds.
+    private static final String STORED_BAT_TAG = "stored_bat";
 
     public Handlers(BatBuckets feature) {
         super(feature);
@@ -64,9 +64,9 @@ public final class Handlers extends FeatureHolder<BatBuckets> {
 
             // Spawn the bat.
             MobHelper.spawn(EntityType.BAT, (ServerLevel)level, spawnPos, MobSpawnType.BUCKET, mob -> {
-                var data = held.get(DataComponents.ENTITY_DATA);
+                var data = ItemNbtHelper.getCompound(held, STORED_BAT_TAG);
                 if (data != null) {
-                    mob.readAdditionalSaveData(data.copyTag());
+                    mob.readAdditionalSaveData(data);
                 }
                 playReleaseSound((ServerLevel)level, player.blockPosition());
 
@@ -83,7 +83,7 @@ public final class Handlers extends FeatureHolder<BatBuckets> {
 
         if (!player.level().isClientSide()) {
             feature().advancements.usedBatBucket(player);
-            player.addEffect(new MobEffectInstance(ECHOLOCATION.registers.mobEffect.get(), GLOW_TIME * 20));
+            player.addEffect(new MobEffectInstance(ECHOLOCATION.registers.mobEffect.get().value(), GLOW_TIME * 20));
         }
 
         // Put empty bucket back in player's hand.
@@ -120,7 +120,7 @@ public final class Handlers extends FeatureHolder<BatBuckets> {
         var batBucket = new ItemStack(feature().registers.bucketItem.get());
         var tag = new CompoundTag();
         bat.save(tag);
-        batBucket.set(DataComponents.ENTITY_DATA, CustomData.of(tag));
+        ItemNbtHelper.setCompound(batBucket, STORED_BAT_TAG, bat.saveWithoutId(tag));
 
         if (bucket.getCount() == 1) {
             player.setItemInHand(hand, batBucket);

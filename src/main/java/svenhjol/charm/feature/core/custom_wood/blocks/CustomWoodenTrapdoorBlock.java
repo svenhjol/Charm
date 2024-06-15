@@ -13,10 +13,10 @@ public class CustomWoodenTrapdoorBlock extends TrapDoorBlock implements IgnitePr
     protected final CustomMaterial material;
 
     public CustomWoodenTrapdoorBlock(CustomWoodMaterial material) {
-        super(material.blockSetType(), material.blockProperties()
+        super(material.blockProperties()
             .noOcclusion()
             .strength(3.0F)
-            .isValidSpawn((state, world, pos, type) -> false));
+            .isValidSpawn((state, world, pos, type) -> false), material.blockSetType());
 
         this.material = material;
     }

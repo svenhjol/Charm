@@ -4,6 +4,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import svenhjol.charm.charmony.annotation.Configurable;
@@ -12,7 +13,6 @@ import svenhjol.charm.charmony.common.CommonFeature;
 import svenhjol.charm.charmony.common.CommonLoader;
 import svenhjol.charm.charmony.common.helper.EnchantmentsHelper;
 import svenhjol.charm.charmony.feature.ChildFeature;
-import svenhjol.charm.feature.atlases.common.Item;
 import svenhjol.charm.feature.mob_drops.MobDrops;
 import svenhjol.charm.feature.mob_drops.common.DropHandler;
 import svenhjol.charm.feature.mob_drops.common.KilledDropProvider;
@@ -29,7 +29,7 @@ public final class GoatDrops extends CommonFeature implements ChildFeature<MobDr
     }
 
     public int maxMuttonDrops() {
-        return Mth.clamp(maxMuttonDrops, 0, Item.DEFAULT_MAX_STACK_SIZE);
+        return Mth.clamp(maxMuttonDrops, 0, Item.MAX_STACK_SIZE);
     }
 
     @Override

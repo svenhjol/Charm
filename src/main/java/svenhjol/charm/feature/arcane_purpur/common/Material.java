@@ -32,7 +32,7 @@ public enum Material implements CustomMaterial {
 
     @Override
     public BlockBehaviour.Properties blockProperties() {
-        return BlockBehaviour.Properties.ofFullCopy(Blocks.PURPUR_BLOCK)
+        return BlockBehaviour.Properties.copy(Blocks.PURPUR_BLOCK)
             .mapColor(mapColor())
             .sound(soundType());
     }

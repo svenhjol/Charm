@@ -21,7 +21,7 @@ public final class Registers extends RegisterHolder<PotionOfRadiance> {
         longPotion = registry.potion("long_radiance", LongRadiancePotion::new);
 
         registry.brewingRecipe(
-            Potions.AWKWARD,
+            Holder.direct(Potions.AWKWARD),
             () -> Items.TORCHFLOWER,
             potion.get());
 

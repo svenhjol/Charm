@@ -12,7 +12,7 @@ public class CustomLadderBlock extends LadderBlock implements VariantMaterialHol
     private final CustomMaterial material;
 
     public CustomLadderBlock(CustomMaterial material) {
-        super(Properties.ofFullCopy(Blocks.LADDER));
+        super(Properties.copy(Blocks.LADDER));
         this.material = material;
     }
 

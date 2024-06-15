@@ -5,6 +5,6 @@ import net.minecraft.world.level.block.piston.MovingPistonBlock;
 
 public class MovingCopperPistonBlock extends MovingPistonBlock {
     public MovingCopperPistonBlock() {
-        super(Properties.ofFullCopy(Blocks.MOVING_PISTON));
+        super(Properties.copy(Blocks.MOVING_PISTON));
     }
 }

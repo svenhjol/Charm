@@ -12,7 +12,6 @@ import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.charmony.common.villages.GenericTrades;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
 public final class Registers extends RegisterHolder<TradeImprovements> {
     public Registers(TradeImprovements feature) {
@@ -83,7 +82,7 @@ public final class Registers extends RegisterHolder<TradeImprovements> {
 
             return new MerchantOffer(
                 GenericTrades.getCost(item, 1),
-                Optional.of(GenericTrades.getCost(random, Items.IRON_INGOT, 5, 4)),
+                GenericTrades.getCost(random, Items.IRON_INGOT, 5, 4),
                 new ItemStack(Items.ANVIL),
                 maxUses,
                 villagerXp,

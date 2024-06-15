@@ -1,7 +1,5 @@
 package svenhjol.charm.feature.animal_reviving.common;
 
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -24,6 +22,7 @@ public final class Handlers extends FeatureHolder<AnimalReviving> {
     public Handlers(AnimalReviving feature) {
         super(feature);
     }
+    public static final String REVIVABLE_TAG = "charm_revivable_pet";
 
     public InteractionResultHolder<ItemStack> itemUsed(Player player, Level level, InteractionHand hand) {
         InteractionHand otherHand;
@@ -40,12 +39,12 @@ public final class Handlers extends FeatureHolder<AnimalReviving> {
         if (level.isClientSide
             || !stack.is(Items.NAME_TAG)
             || !otherStack.is(Items.TOTEM_OF_UNDYING)
-            || !stack.has(feature().registers.data())
+            || stack.getTagElement(REVIVABLE_TAG) == null
         ) {
             return InteractionResultHolder.pass(stack);
         }
 
-        var data = stack.get(feature().registers.data());
+        var data = stack.getTagElement(REVIVABLE_TAG);
         if (data != null) {
             var tag = data.copy();
             var revived = (LivingEntity) EntityType.loadEntityRecursive(tag, level, entity -> entity);
@@ -94,13 +93,16 @@ public final class Handlers extends FeatureHolder<AnimalReviving> {
             }
 
             var stack = new ItemStack(Items.NAME_TAG);
-            stack.set(DataComponents.CUSTOM_NAME, entity.getDisplayName());
+            stack.setHoverName(entity.getDisplayName());
 
-            var tag = new CompoundTag();
+            var tag = stack.getOrCreateTagElement(REVIVABLE_TAG);
             entity.save(tag);
-            stack.set(feature().registers.data(), Data.of(tag));
 
             level.addFreshEntity(new ItemEntity(level, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, stack));
         }
+    }
+
+    public String getRevivableTag() {
+        return REVIVABLE_TAG;
     }
 }

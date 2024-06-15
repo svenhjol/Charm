@@ -6,7 +6,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.trading.ItemCost;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.level.ItemLike;
 import svenhjol.charm.charmony.Charmony;
@@ -15,7 +14,6 @@ import svenhjol.charm.charmony.common.helper.TagHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 @SuppressWarnings("unused")
 public final class GenericTrades {
@@ -101,7 +99,7 @@ public final class GenericTrades {
 
             return new MerchantOffer(
                 getCostFromList(random, values1, baseCost, extraCost),
-                Optional.of(getCostFromList(random, values2, baseCost, extraCost)),
+                getCostFromList(random, values2, baseCost, extraCost),
                 getStack(random, Items.EMERALD, baseEmeralds, extraEmeralds),
                 maxUses,
                 villagerXp,
@@ -265,17 +263,17 @@ public final class GenericTrades {
         return getStack(random, list.get(random.nextInt(list.size())), baseCount, extraCount);
     }
 
-    public static <T extends ItemLike> ItemCost getCostFromList(RandomSource random, List<T> list, int baseCount, int extraCount) {
+    public static <T extends ItemLike> ItemStack getCostFromList(RandomSource random, List<T> list, int baseCount, int extraCount) {
         if (list.isEmpty()) LOGGER.die("Item list must be populated");
         return getCost(random, list.get(random.nextInt(list.size())), baseCount, extraCount);
     }
 
-    public static ItemCost getCost(ItemLike itemLike, int baseCost) {
-        return new ItemCost(itemLike, baseCost);
+    public static ItemStack getCost(ItemLike itemLike, int baseCost) {
+        return new ItemStack(itemLike, baseCost);
     }
 
-    public static ItemCost getCost(RandomSource random, ItemLike itemLike, int baseCount, int extraCount) {
-        return new ItemCost(itemLike, baseCount + random.nextInt(extraCount + 1));
+    public static ItemStack getCost(RandomSource random, ItemLike itemLike, int baseCount, int extraCount) {
+        return new ItemStack(itemLike, baseCount + random.nextInt(extraCount + 1));
     }
 
     public static ItemStack getStack(RandomSource random, ItemLike itemLike, int baseCount, int extraCount) {

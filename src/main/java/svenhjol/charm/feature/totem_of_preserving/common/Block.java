@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.totem_of_preserving.common;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
@@ -17,11 +16,10 @@ import svenhjol.charm.feature.totem_of_preserving.TotemOfPreserving;
 import svenhjol.charm.charmony.feature.FeatureResolver;
 
 public class Block extends BaseEntityBlock implements FeatureResolver<TotemOfPreserving> {
-    private static final MapCodec<Block> CODEC = simpleCodec(Block::new);
     private static final VoxelShape SHAPE = net.minecraft.world.level.block.Block.box(2, 2, 2, 14, 14, 14);
 
     public Block() {
-        this(Properties.ofFullCopy(Blocks.GLASS)
+        this(Properties.copy(Blocks.GLASS)
             .strength(-1.0f, 3600000.0f)
             .noCollission()
             .noOcclusion()
@@ -30,11 +28,6 @@ public class Block extends BaseEntityBlock implements FeatureResolver<TotemOfPre
 
     private Block(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
     }
 
     @Nullable

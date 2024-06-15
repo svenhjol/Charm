@@ -20,7 +20,7 @@ public class ParrotMixin {
         method = "mobInteract",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V",
+            target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V",
             shift = At.Shift.BEFORE
         )
     )

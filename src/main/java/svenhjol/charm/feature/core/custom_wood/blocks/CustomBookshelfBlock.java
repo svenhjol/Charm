@@ -12,7 +12,7 @@ public class CustomBookshelfBlock extends Block implements IgniteProvider {
     private final CustomMaterial material;
 
     public CustomBookshelfBlock(CustomMaterial material) {
-        super(Properties.ofFullCopy(Blocks.BOOKSHELF));
+        super(Properties.copy(Blocks.BOOKSHELF));
         this.material = material;
     }
 

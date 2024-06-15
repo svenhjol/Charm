@@ -4,16 +4,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.MapItem;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import svenhjol.charm.feature.tooltip_improvements.TooltipImprovements;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 
@@ -23,7 +23,7 @@ import java.util.Optional;
 
 public final class Handlers extends FeatureHolder<TooltipImprovements> {
     public static final RenderType MAP_BACKGROUND
-        = RenderType.text(ResourceLocation.parse("textures/map/map_background.png"));
+        = RenderType.text(new ResourceLocation("textures/map/map_background.png"));
 
     public Handlers(TooltipImprovements feature) {
         super(feature);
@@ -38,8 +38,8 @@ public final class Handlers extends FeatureHolder<TooltipImprovements> {
             var level = client.level;
             if (level == null) return;
 
-            if (!stack.has(DataComponents.MAP_ID)) return;
-            var mapId = stack.get(DataComponents.MAP_ID);
+            var mapId = MapItem.getMapId(stack);
+            if (mapId == null) return;
 
             var data = MapItem.getSavedData(mapId, level);
             if (data == null) return;
@@ -68,10 +68,10 @@ public final class Handlers extends FeatureHolder<TooltipImprovements> {
             var vertexConsumer = bufferSource.getBuffer(MAP_BACKGROUND);
             var matrix4f = guiGraphics.pose().last().pose();
 
-            vertexConsumer.addVertex(matrix4f, -7.0F, 135.0F, 0.0F).setColor(255, 255, 255, 255).setUv(0.0F, 1.0F).setLight(light);
-            vertexConsumer.addVertex(matrix4f, 135.0F, 135.0F, 0.0F).setColor(255, 255, 255, 255).setUv(1.0F, 1.0F).setLight(light);
-            vertexConsumer.addVertex(matrix4f, 135.0F, -7.0F, 0.0F).setColor(255, 255, 255, 255).setUv(1.0F, 0.0F).setLight(light);
-            vertexConsumer.addVertex(matrix4f, -7.0F, -7.0F, 0.0F).setColor(255, 255, 255, 255).setUv(0.0F, 0.0F).setLight(light);
+            vertexConsumer.vertex(matrix4f, -7.0F, 135.0F, 0.0F).color(255, 255, 255, 255).uv(0.0F, 1.0F).uv2(light).endVertex();
+            vertexConsumer.vertex(matrix4f, 135.0F, 135.0F, 0.0F).color(255, 255, 255, 255).uv(1.0F, 1.0F).uv2(light).endVertex();
+            vertexConsumer.vertex(matrix4f, 135.0F, -7.0F, 0.0F).color(255, 255, 255, 255).uv(1.0F, 0.0F).uv2(light).endVertex();
+            vertexConsumer.vertex(matrix4f, -7.0F, -7.0F, 0.0F).color(255, 255, 255, 255).uv(0.0F, 0.0F).uv2(light).endVertex();
 
             guiGraphics.pose().pushPose();
             guiGraphics.pose().translate(0.0, 0.0, 1.0);
@@ -101,14 +101,15 @@ public final class Handlers extends FeatureHolder<TooltipImprovements> {
     public Optional<TooltipComponent> addGridToShulkerBox(ItemStack stack) {
         var shulkerBoxBlock = tryGetShulkerBoxBlock(stack);
         var level = Minecraft.getInstance().level;
-        if (level != null
-            && shulkerBoxBlock != null
-            && stack.has(DataComponents.CONTAINER)
-        ) {
-            var data = stack.get(DataComponents.CONTAINER);
-            if (data != null) {
-                var items = data.stream().toList();
-                return Optional.of(new ShulkerBoxItemTooltip(items));
+        if (level != null && shulkerBoxBlock != null) {
+            var tag = BlockItem.getBlockEntityData(stack);
+            if (tag != null) {
+                var blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, shulkerBoxBlock.defaultBlockState(), tag);
+
+                if (blockEntity instanceof ShulkerBoxBlockEntity shulkerBox) {
+                    NonNullList<ItemStack> items = shulkerBox.itemStacks;
+                    return Optional.of(new ShulkerBoxItemTooltip(items));
+                }
             }
         }
 

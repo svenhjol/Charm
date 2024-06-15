@@ -8,8 +8,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
@@ -28,7 +26,7 @@ public class Menu extends AbstractContainerMenu {
     private final ContainerLevelAccess access;
     private final DataSlot selectedRecipeIndex;
     private final Level level;
-    private List<RecipeHolder<Recipe>> recipes;
+    private List<Recipe> recipes;
     private ItemStack inputStack;
     private long lastSoundTime;
     final Slot inputSlot;
@@ -101,7 +99,7 @@ public class Menu extends AbstractContainerMenu {
         return this.selectedRecipeIndex.get();
     }
 
-    public List<RecipeHolder<Recipe>> getRecipes() {
+    public List<Recipe> getRecipes() {
         return this.recipes;
     }
 
@@ -139,33 +137,20 @@ public class Menu extends AbstractContainerMenu {
         }
     }
 
-    private static SingleRecipeInput createRecipeInput(Container container) {
-        return new SingleRecipeInput(container.getItem(0));
-    }
-
     private void setupRecipeList(Container container, ItemStack stack) {
         this.recipes.clear();
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.recipes = this.level.getRecipeManager().getRecipesFor(WOODCUTTING.registers.recipeType.get(),
-                createRecipeInput(container), this.level);
+            this.recipes = this.level.getRecipeManager().getRecipesFor(WOODCUTTING.registers.recipeType.get(), container, this.level);
         }
     }
 
     void setupResultSlot() {
         if (!this.recipes.isEmpty() && this.isValidRecipeIndex(this.selectedRecipeIndex.get())) {
-            var recipeHolder = this.recipes.get(this.selectedRecipeIndex.get());
-            var stack = recipeHolder.value()
-                .assemble(createRecipeInput(this.container), this.level.registryAccess());
-
-            if (stack.isItemEnabled(this.level.enabledFeatures())) {
-                this.resultContainer.setRecipeUsed(recipeHolder);
-                this.resultSlot.set(stack);
-            } else {
-                this.resultSlot.set(ItemStack.EMPTY);
-            }
-
+            var woodcuttingRecipe = this.recipes.get(this.selectedRecipeIndex.get());
+            this.resultContainer.setRecipeUsed(woodcuttingRecipe);
+            this.resultSlot.set(woodcuttingRecipe.assemble(this.container, this.level.registryAccess()));
         } else {
             this.resultSlot.set(ItemStack.EMPTY);
         }
@@ -203,7 +188,7 @@ public class Menu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(itemStack2, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.level.getRecipeManager().getRecipeFor(WOODCUTTING.registers.recipeType.get(), new SingleRecipeInput(itemStack2), this.level).isPresent()) {
+            } else if (this.level.getRecipeManager().getRecipeFor(WOODCUTTING.registers.recipeType.get(), new SimpleContainer(itemStack2), this.level).isPresent()) {
                 if (!this.moveItemStackTo(itemStack2, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }

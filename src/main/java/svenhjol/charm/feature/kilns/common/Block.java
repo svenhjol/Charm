@@ -1,10 +1,11 @@
 package svenhjol.charm.feature.kilns.common;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
 import svenhjol.charm.feature.kilns.Kilns;
 import svenhjol.charm.charmony.feature.FeatureResolver;
 
@@ -19,7 +21,6 @@ import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class Block extends AbstractFurnaceBlock implements FeatureResolver<Kilns> {
-    private static final MapCodec<Block> CODEC = simpleCodec(Block::new);
 
     public Block() {
         this(Properties.of()
@@ -32,8 +33,12 @@ public class Block extends AbstractFurnaceBlock implements FeatureResolver<Kilns
     }
 
     @Override
-    protected MapCodec<? extends AbstractFurnaceBlock> codec() {
-        return CODEC;
+    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+        if (!feature().isEnabled()) {
+            return InteractionResult.FAIL;
+        }
+
+        return super.use(blockState, level, blockPos, player, interactionHand, blockHitResult);
     }
 
     @Nullable

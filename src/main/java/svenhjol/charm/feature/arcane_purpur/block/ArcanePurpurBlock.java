@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 
 public class ArcanePurpurBlock extends CharmBlock<ArcanePurpur> {
     public ArcanePurpurBlock() {
-        super(Properties.ofFullCopy(Blocks.PURPUR_BLOCK));
+        super(Properties.copy(Blocks.PURPUR_BLOCK));
     }
 
     @Override

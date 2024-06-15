@@ -31,13 +31,11 @@ import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.RecipeBookType;
@@ -58,10 +56,11 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import svenhjol.charm.charmony.Log;
 import svenhjol.charm.charmony.client.deferred.DeferredParticle;
 import svenhjol.charm.charmony.helper.EnumHelper;
+import svenhjol.charm.charmony.iface.PacketHandler;
+import svenhjol.charm.charmony.iface.PacketRequest;
 
 import javax.annotation.Nullable;
 import java.util.*;
-import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -159,9 +158,13 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
         return location;
     }
 
-    public <T extends CustomPacketPayload> void packetReceiver(CustomPacketPayload.Type<T> type, Supplier<BiConsumer<Player, T>> handler) {
-        loader.registerDeferred(() -> ClientPlayNetworking.registerGlobalReceiver(type,
-            (packet, context) -> context.client().execute(() -> handler.get().accept(context.player(), packet))));
+    public <T extends PacketRequest, U extends PacketHandler<T>> Supplier<ResourceLocation> clientPacketReceiver(T packet, Supplier<U> handler) {
+        ResourceLocation id = packet.id();
+        loader.registerDeferred(() -> ClientPlayNetworking.registerGlobalReceiver(packet.id(), (client, listener, buf, sender) -> {
+            packet.decode(buf);
+            client.execute(() -> ((PacketHandler)handler.get()).handle(packet, Minecraft.getInstance().player));
+        }));
+        return () -> id;
     }
 
     public Supplier<ParticleEngine.SpriteParticleRegistration<SimpleParticleType>> particle(Supplier<SimpleParticleType> particleType,
@@ -211,8 +214,8 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
 
     public void signMaterial(Supplier<WoodType> woodType) {
         loader.registerDeferred(() -> {
-            Sheets.SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, ResourceLocation.parse("entity/signs/" + woodType.get().name())));
-            Sheets.HANGING_SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, ResourceLocation.parse("entity/signs/hanging/" + woodType.get().name())));
+            Sheets.SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/" + woodType.get().name())));
+            Sheets.HANGING_SIGN_MATERIALS.put(woodType.get(), new Material(Sheets.SIGN_SHEET, new ResourceLocation("entity/signs/hanging/" + woodType.get().name())));
         });
     }
 

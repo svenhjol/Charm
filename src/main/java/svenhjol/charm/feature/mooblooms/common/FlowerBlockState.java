@@ -1,11 +1,11 @@
 package svenhjol.charm.feature.mooblooms.common;
 
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.component.SuspiciousStewEffects;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import svenhjol.charm.charmony.compat.EffectEntry;
 
 import java.util.List;
 
@@ -41,26 +41,19 @@ public enum FlowerBlockState {
         return flowerBlockState.getBlock();
     }
 
-    public SuspiciousStewEffects getEffects() {
+    public List<EffectEntry> getEffects() {
         var block = flowerBlockState.getBlock();
 
         if (block instanceof FlowerBlock flowerBlock) {
-
-            return flowerBlock.getSuspiciousEffects();
-
+            var effect = flowerBlock.getSuspiciousEffect();
+            var duration = flowerBlock.getEffectDuration();
+            return List.of(new EffectEntry(effect, duration));
         } else if (this.equals(SUNFLOWER)) {
-
-            return new SuspiciousStewEffects(List.of(
-                new SuspiciousStewEffects.Entry(MobEffects.HEALTH_BOOST, SUNFLOWER_HEALTH_DURATION * 20)
-            ));
-
+            return List.of(new EffectEntry(MobEffects.HEALTH_BOOST, SUNFLOWER_HEALTH_DURATION * 20));
         } else if (this.equals(PINK_PETALS)) {
-
-            return new SuspiciousStewEffects(List.of(
-                new SuspiciousStewEffects.Entry(MobEffects.HEAL, CHERRY_BLOSSOM_HEALING_DURATION * 20)
-            ));
-
+            return List.of(new EffectEntry(MobEffects.HEAL, CHERRY_BLOSSOM_HEALING_DURATION * 20));
         }
-        return SuspiciousStewEffects.EMPTY;
+
+        return List.of();
     }
 }

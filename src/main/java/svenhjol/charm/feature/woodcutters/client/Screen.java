@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import svenhjol.charm.feature.woodcutters.common.Menu;
 import svenhjol.charm.feature.woodcutting.common.Recipe;
 
@@ -19,12 +18,12 @@ import java.util.List;
  * Much copypasta from {@link net.minecraft.client.gui.screens.inventory.StonecutterScreen}.
  */
 public class Screen extends AbstractContainerScreen<Menu> {
-   private static final ResourceLocation SCROLLER_SPRITE = ResourceLocation.parse("container/stonecutter/scroller");
-   private static final ResourceLocation SCROLLER_DISABLED_SPRITE = ResourceLocation.parse("container/stonecutter/scroller_disabled");
-   private static final ResourceLocation RECIPE_SELECTED_SPRITE = ResourceLocation.parse("container/stonecutter/recipe_selected");
-   private static final ResourceLocation RECIPE_HIGHLIGHTED_SPRITE = ResourceLocation.parse("container/stonecutter/recipe_highlighted");
-   private static final ResourceLocation RECIPE_SPRITE = ResourceLocation.parse("container/stonecutter/recipe");
-   private static final ResourceLocation BG_LOCATION = ResourceLocation.parse("textures/gui/container/stonecutter.png");
+   private static final ResourceLocation SCROLLER_SPRITE = new ResourceLocation("container/stonecutter/scroller");
+   private static final ResourceLocation SCROLLER_DISABLED_SPRITE = new ResourceLocation("container/stonecutter/scroller_disabled");
+   private static final ResourceLocation RECIPE_SELECTED_SPRITE = new ResourceLocation("container/stonecutter/recipe_selected");
+   private static final ResourceLocation RECIPE_HIGHLIGHTED_SPRITE = new ResourceLocation("container/stonecutter/recipe_highlighted");
+   private static final ResourceLocation RECIPE_SPRITE = new ResourceLocation("container/stonecutter/recipe");
+   private static final ResourceLocation BG_LOCATION = new ResourceLocation("textures/gui/container/stonecutter.png");
    private float scrollAmount;
    private boolean scrolling;
    private int startIndex;
@@ -47,7 +46,7 @@ public class Screen extends AbstractContainerScreen<Menu> {
       guiGraphics.blit(BG_LOCATION, i, j, 0, 0, this.imageWidth, this.imageHeight);
       int k = (int)(41.0f * this.scrollAmount);
       var sprite = this.isScrollbarActive() ? SCROLLER_SPRITE : SCROLLER_DISABLED_SPRITE;
-      guiGraphics.blitSprite(sprite, i + 119, j + 15 + k, 12, 15);
+      guiGraphics.blit(sprite, i + 119, j + 15 + k,176 + (this.isScrollbarActive() ? 0 : 12), 0, 12, 15);
       int l = this.leftPos + 52;
       int m = this.topPos + 14;
       int n = this.startIndex + 12;
@@ -62,7 +61,7 @@ public class Screen extends AbstractContainerScreen<Menu> {
          int i = this.leftPos + 52;
          int j = this.topPos + 14;
          int k = this.startIndex + 12;
-         List<RecipeHolder<Recipe>> list = (this.menu).getRecipes();
+         List<Recipe> list = (this.menu).getRecipes();
 
          for (int l = this.startIndex; l < k && l < (this.menu).getNumRecipes(); ++l) {
             int m = l - this.startIndex;
@@ -70,7 +69,6 @@ public class Screen extends AbstractContainerScreen<Menu> {
             int o = j + m / 4 * 18 + 2;
             if (x >= n && x < n + 16 && y >= o && y < o + 18) {
                guiGraphics.renderTooltip(this.font, list.get(l)
-                   .value()
                    .getResultItem(this.minecraft.level.registryAccess()), x, y);
             }
          }
@@ -83,10 +81,11 @@ public class Screen extends AbstractContainerScreen<Menu> {
          int p = k + o % 4 * 16;
          int q = o / 4;
          int r = l + q * 18 + 2;
+         int s = this.imageHeight;
          var resourceLocation = n == this.menu.getSelectedRecipeIndex()
              ? RECIPE_SELECTED_SPRITE
              : (i >= p && j >= r && i < p + 16 && j < r + 18 ? RECIPE_HIGHLIGHTED_SPRITE : RECIPE_SPRITE);
-         guiGraphics.blitSprite(resourceLocation, p, r - 1, 16, 18);
+         guiGraphics.blit(resourceLocation, p, r - 1, 0, s, 16, 18);
       }
    }
 
@@ -99,7 +98,7 @@ public class Screen extends AbstractContainerScreen<Menu> {
          int k = x + j % 4 * 16;
          int l = j / 4;
          int m = y + l * 18 + 2;
-         guiGraphics.renderItem(list.get(i).value().getResultItem(this.minecraft.level.registryAccess()), k, m);
+         guiGraphics.renderItem(list.get(i).getResultItem(this.minecraft.level.registryAccess()), k, m);
       }
    }
 
@@ -150,10 +149,10 @@ public class Screen extends AbstractContainerScreen<Menu> {
    }
 
    @Override
-   public boolean mouseScrolled(double mouseX, double mouseY, double f, double g) {
+   public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
       if (this.isScrollbarActive()) {
          int i = this.getMaxScroll();
-         float j = (float)g / (float)i;
+         float j = (float)((double)this.scrollAmount - amount / (double)i);
          this.scrollAmount = Mth.clamp(this.scrollAmount - j, 0.0f, 1.0f);
          this.startIndex = (int)((double)(this.scrollAmount * (float)i) + 0.5d) * 4;
       }
