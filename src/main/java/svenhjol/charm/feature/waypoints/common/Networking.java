@@ -11,7 +11,6 @@ import net.minecraft.world.item.DyeColor;
 import svenhjol.charm.Charm;
 import svenhjol.charm.feature.waypoints.Waypoints;
 import svenhjol.charm.charmony.feature.FeatureHolder;
-import svenhjol.charm.charmony.helper.NetworkHelper;
 
 public final class Networking extends FeatureHolder<Waypoints> {
     public Networking(Waypoints feature) {

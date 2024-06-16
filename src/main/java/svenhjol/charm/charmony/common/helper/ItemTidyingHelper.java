@@ -49,7 +49,7 @@ public final class ItemTidyingHelper {
                 if (stack1.isEmpty()) continue;
 
                 if (stack1.getCount() < stack1.getMaxStackSize()
-                    && ItemStack.isSameItemSameComponents(stack, stack1)
+                    && ItemStack.isSameItemSameTags(stack, stack1)
                 ) {
                     var setSize = stack1.getCount() + stack.getCount();
                     var carryover = Math.max(0, setSize - stack1.getMaxStackSize());

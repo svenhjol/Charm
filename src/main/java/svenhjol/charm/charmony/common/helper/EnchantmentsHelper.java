@@ -5,39 +5,22 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 public final class EnchantmentsHelper {
-    public static boolean hasEnchantment(ItemStack stack, ResourceKey<Enchantment> enchantment) {
-        return getLevel(stack, enchantment) > 0;
-    }
-
-    public static int getLevel(ItemStack stack, ResourceKey<Enchantment> enchantment) {
-        if (stack.has(DataComponents.ENCHANTMENTS)) {
-            var enchantments = stack.get(DataComponents.ENCHANTMENTS);
-            if (enchantments == null) return 0;
-
-            for (Holder<Enchantment> holder : enchantments.keySet()) {
-                if (holder.is(enchantment)) {
-                    return enchantments.getLevel(holder);
-                }
-            }
-        }
-
-        return 0;
+    public static boolean hasEnchantment(ItemStack stack, Enchantment enchantment) {
+        var enchantments = EnchantmentHelper.getEnchantments(stack);
+        return enchantments.containsKey(enchantment);
     }
 
     public static int featherFallingLevel(LivingEntity entity) {
-        var boots = entity.getItemBySlot(EquipmentSlot.FEET);
-        return getLevel(boots, Enchantments.FEATHER_FALLING);
+        return EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, entity);
     }
 
     public static int lootingLevel(DamageSource source) {
@@ -45,11 +28,7 @@ public final class EnchantmentsHelper {
     }
 
     public static int lootingLevel(LivingEntity entity) {
-        return Math.max(lootingLevel(entity, EquipmentSlot.MAINHAND), lootingLevel(entity, EquipmentSlot.OFFHAND));
-    }
-
-    public static int lootingLevel(LivingEntity entity, EquipmentSlot slot) {
-        return getLevel(entity.getItemBySlot(slot), Enchantments.LOOTING);
+        return EnchantmentHelper.getEnchantmentLevel(Enchantments.MOB_LOOTING, entity);
     }
 
     @Nullable
@@ -61,44 +40,5 @@ public final class EnchantmentsHelper {
         if (resolved == null) return null;
 
         return resolved;
-    }
-
-    public static boolean containsSameEnchantments(ItemEnchantments aa, ItemEnchantments bb) {
-        List<Enchantment> pool = new ArrayList<>();
-
-        if (aa != null) {
-            for (Holder<Enchantment> holder : aa.keySet()) {
-                pool.add(holder.value());
-            }
-        }
-
-        if (bb != null) {
-            for (Holder<Enchantment> holder : bb.keySet()) {
-                if (!pool.contains(holder.value())) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    public static boolean containsSameEnchantments(ItemStack stack, ItemEnchantments enchantments) {
-        var fromStack = stack.get(DataComponents.ENCHANTMENTS);
-
-        if (fromStack != null) {
-            return containsSameEnchantments(fromStack, enchantments);
-        }
-
-        return enchantments.isEmpty();
-    }
-
-    public static boolean containsSameEnchantments(ItemStack a, ItemStack b) {
-        var aa = a.get(DataComponents.ENCHANTMENTS);
-        var bb = b.get(DataComponents.ENCHANTMENTS);
-
-        if (aa == null && bb == null) return true;
-
-        return containsSameEnchantments(aa, bb);
     }
 }
