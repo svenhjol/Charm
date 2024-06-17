@@ -2,6 +2,9 @@ package svenhjol.charm.feature.cooking_pots.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -10,6 +13,7 @@ import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
 import svenhjol.charm.charmony.enums.EventResult;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
@@ -83,6 +87,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                     stack.shrink(1);
                     player.getInventory().add(new ItemStack(Items.BUCKET));
                 }
+                return EventResult.SUCCESS;
 
             } else if (isWaterBottle(stack) && pot.canAddWater()) {
 
@@ -92,6 +97,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                     stack.shrink(1);
                     player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
                 }
+                return EventResult.SUCCESS;
 
             } else if (isFood(stack)) {
 
@@ -109,6 +115,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                     }
                     feature().advancements.preparedCookingPot(player);
                 }
+                return EventResult.SUCCESS;
 
             } else if (stack.is(Items.BOWL)) {
 
@@ -122,18 +129,22 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                     player.getInventory().add(out);
                     feature().advancements.tookFoodFromCookingPot(player);
                 }
+                return EventResult.SUCCESS;
             }
-
-            return EventResult.SUCCESS;
         }
 
         return EventResult.PASS;
     }
 
     public void hopperAddToPot(CookingPotBlockEntity pot) {
+        var level = pot.getLevel();
         var input = pot.items.get(0);
         var output = pot.items.get(1);
 
+        if (level == null) {
+            return;
+        }
+        
         if (output.isEmpty()) {
             if (input.is(Items.BOWL)) {
                 var out = pot.take();
@@ -158,8 +169,8 @@ public final class Handlers extends FeatureHolder<CookingPots> {
             } else if (isWaterBottle(input)) {
 
                 if (pot.canAddWater()) {
-                    pot.fillWithBucket();
-                    pot.items.set(1, new ItemStack(Items.BUCKET));
+                    pot.fillWithBottle();
+                    pot.items.set(1, new ItemStack(Items.GLASS_BOTTLE));
                 } else {
                     pot.items.set(1, input.copy());
                 }
@@ -176,6 +187,29 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                     pot.items.set(1, input.copy());
                 }
                 input.shrink(1);
+            }
+        }
+    }
+
+    public void checkForThrownItems(CookingPotBlockEntity pot) {
+        var level = pot.getLevel();
+        var pos = pot.getBlockPos();
+        if (level == null) return;
+        
+        var center = pos.getCenter();
+        
+        var itemEntities = level.getEntitiesOfClass(ItemEntity.class, (new AABB(center, center)).inflate(0.17d));
+        for (var itemEntity : itemEntities) {
+            var stack = itemEntity.getItem();
+            if (isFood(stack) && pot.canAddFood()) {
+                var result = pot.add(stack);
+                if (result) {
+                    level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    stack.shrink(1);
+                }
+            }
+            if (stack.isEmpty()) {
+                itemEntity.discard();
             }
         }
     }

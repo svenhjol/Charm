@@ -21,6 +21,7 @@ public final class Handlers extends FeatureHolder<CookingPotsClient> {
         if (tintIndex == 0) {
             return switch (state.getValue(CookingPotBlock.COOKING_STATUS)) {
                 case EMPTY -> -1;
+                case HAS_SOME_WATER -> 0x1199dd;
                 case FILLED_WITH_WATER -> 0x0088cc;
                 case HAS_SOME_FOOD -> 0x807046;
                 case COOKED -> 0x442800;
