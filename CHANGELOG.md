@@ -11,3 +11,5 @@
 ## 7.0.22
 
 - Fix registration of Aerial Affinity so that it doesn't always apply
+
+## 7.0.23

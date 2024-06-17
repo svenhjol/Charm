@@ -80,8 +80,8 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                 // Add a water bucket to the pot.
                 var result = pot.fillWithBucket();
                 if (result && !player.getAbilities().instabuild) {
-                    player.getInventory().add(new ItemStack(Items.BUCKET));
                     stack.shrink(1);
+                    player.getInventory().add(new ItemStack(Items.BUCKET));
                 }
 
             } else if (isWaterBottle(stack) && pot.canAddWater()) {
@@ -89,8 +89,8 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                 // Add a bottle of water. Increase portions by 1.
                 var result = pot.fillWithBottle();
                 if (result && !player.getAbilities().instabuild) {
-                    player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
                     stack.shrink(1);
+                    player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
                 }
 
             } else if (isFood(stack)) {
@@ -99,12 +99,13 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                 var result = pot.add(stack);
                 if (result) {
                     if (!player.getAbilities().instabuild) {
+                        stack.shrink(1);
+                        
                         // Handle things being given back to player e.g. bowl, bottle
                         var foodContainer = getFoodContainer(stack);
                         if (!foodContainer.isEmpty()) {
                             player.getInventory().add(foodContainer.copy());
                         }
-                        stack.shrink(1);
                     }
                     feature().advancements.preparedCookingPot(player);
                 }
@@ -114,11 +115,11 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                 // Take a bowl of stew from the pot using a wooden bowl.
                 var out = pot.take();
                 if (!out.isEmpty()) {
-                    player.getInventory().add(out);
                     if (!player.getAbilities().instabuild) {
                         stack.shrink(1);
                     }
-
+                    
+                    player.getInventory().add(out);
                     feature().advancements.tookFoodFromCookingPot(player);
                 }
             }
