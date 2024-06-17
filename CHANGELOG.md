@@ -13,3 +13,15 @@
 - Fix registration of Aerial Affinity so that it doesn't always apply
 
 ## 7.0.23
+
+- Fix: Returned items don't go back into the correct inventory slot after adding to cooking pot
+- Slightly less vibrant cooking color index. Added new particle effect when cooking is done
+- Raid horn item icon minor texture change (coranthes)
+- Fix filling pot with water bottle
+- Pots that aren't completely full no longer have white colored water
+- Now possible to throw items into the pot to cook them
+- Fix block interaction when right-clicking on pot and cask with another block
+- Fix incorrect recipe advancement for atlases
+- Ebony leaves now drop ebony saplings
+- Made ebony tree rendering a bit less derpy
+- Ebony leaves no longer drop apples
