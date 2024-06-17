@@ -170,16 +170,18 @@ public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<
                             0.0d, 0.0d, 0.0d);
                     }
                 } else if (status == CookingStatus.COOKED) {
-                    // When cooked, show puffy smoke and small black smoke.
-                    level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,
-                        pos.getX() + 0.13d + (0.7d * random.nextDouble()),
-                        pos.getY() + (portions - 2) * 0.153d,
-                        pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
-                        0.0d, 0.05d, 0.0d);
-
                     var count = random.nextInt(5);
                     for (int i = 0; i < count; i++) {
                         level.addParticle(ParticleTypes.SMOKE,
+                            pos.getX() + 0.13d + (0.7d * random.nextDouble()),
+                            pos.getY() + (portions - 2) * 0.153d,
+                            pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
+                            0.0d, 0.0d, 0.0d);
+                    }
+                    
+                    count = random.nextInt(3);
+                    for (int i = 0; i < count; i++) {
+                        level.addParticle(ParticleTypes.DUST_PLUME,
                             pos.getX() + 0.13d + (0.7d * random.nextDouble()),
                             pos.getY() + (portions - 2) * 0.153d,
                             pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
