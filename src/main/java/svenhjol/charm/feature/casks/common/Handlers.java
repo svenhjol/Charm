@@ -75,6 +75,7 @@ public final class Handlers extends FeatureHolder<Casks> {
 
                 level.playSound(null, pos, feature().registers.nameSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
                 stack.shrink(1);
+                return EventResult.SUCCESS;
 
             } else if (stack.is(Items.GLASS_BOTTLE)) {
 
@@ -89,6 +90,7 @@ public final class Handlers extends FeatureHolder<Casks> {
                         feature().advancements.tookLiquidFromCask(player);
                     }
                 }
+                return EventResult.SUCCESS;
 
             } else if (isValidPotion(stack)) {
 
@@ -110,9 +112,8 @@ public final class Handlers extends FeatureHolder<Casks> {
                         }
                     }
                 }
+                return EventResult.SUCCESS;
             }
-
-            return EventResult.SUCCESS;
         }
 
         return EventResult.PASS;
