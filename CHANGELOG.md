@@ -39,4 +39,4 @@
 
 - Fix an issue where config was not checked properly for enabled/disabled features
 - Fix advancement recipe error for hopper and chest recipes
-- Fix animal armor dying when animal armor enchanting feature is active
+- Fix animal armor dyeing when animal armor enchanting feature is active
