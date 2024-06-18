@@ -33,7 +33,7 @@ public interface CharmTooltip extends TooltipComponent {
     default void defaultRenderImage(Font font, int x, int y, GuiGraphics guiGraphics) {
         var gx = this.gridSizeX();
         var gy = this.gridSizeY();
-        guiGraphics.blitSprite(BACKGROUND_SPRITE, x, y, backgroundWidth(), backgroundHeight());
+        guiGraphics.blit(BACKGROUND_SPRITE, x, y, 0, 0, backgroundWidth(), backgroundHeight());
         int m = 0;
 
         for (int n = 0; n < gy; ++n) {
@@ -60,7 +60,7 @@ public interface CharmTooltip extends TooltipComponent {
     }
 
     default void blit(GuiGraphics guiGraphics, int i, int j) {
-        guiGraphics.blitSprite(Texture.SLOT.sprite, i, j, 0, Texture.SLOT.w, Texture.SLOT.h);
+        guiGraphics.blit(Texture.SLOT.sprite, i, j, 0, 0, Texture.SLOT.w, Texture.SLOT.h);
     }
 
     enum Texture {

@@ -1,11 +1,11 @@
-package svenhjol.charm.charmony.helper;
+package svenhjol.charm.charmony.client.helper;
 
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 
-public class ScreenHelper {
+public final class ScreenHelper {
     public ScreenHelper() {
     }
 

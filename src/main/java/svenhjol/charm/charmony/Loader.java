@@ -1,6 +1,7 @@
 package svenhjol.charm.charmony;
 
 import net.minecraft.resources.ResourceLocation;
+import svenhjol.charm.Charm;
 import svenhjol.charm.charmony.enums.Side;
 import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.charmony.feature.Conditional;
@@ -39,7 +40,7 @@ public abstract class Loader<F extends Feature> {
      */
     public ResourceLocation id(String path) {
         if (path.contains(":")) {
-            return ResourceLocation.tryParse(path);
+            return Charm.id(path);
         }
         return new ResourceLocation(this.id, path);
     }

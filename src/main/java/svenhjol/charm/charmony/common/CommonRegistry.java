@@ -82,7 +82,6 @@ import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRA
 @SuppressWarnings({"unused", "UnusedReturnValue", "UnnecessaryLocalVariable"})
 public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
     private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
-    private final List<DeferredPotionMix> deferredPotionMixes = new ArrayList<>(); // Must be on the instance!
     private final CommonLoader loader;
     private final Log log;
 
@@ -341,10 +340,6 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
             log("Potion " + id);
             return Registry.register(BuiltInRegistries.POTION, id(id), supplier.get());
         });
-    }
-
-    public List<DeferredPotionMix> potionMixes() {
-        return deferredPotionMixes;
     }
 
     public void runnable(Runnable runnable) {

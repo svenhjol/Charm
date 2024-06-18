@@ -8,7 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.resources.ResourceLocation;
 import svenhjol.charm.Charm;
-import svenhjol.charm.charmony.helper.ScreenHelper;
+import svenhjol.charm.charmony.client.helper.ScreenHelper;
 import svenhjol.charm.feature.item_tidying.ItemTidyingClient;
 import svenhjol.charm.feature.item_tidying.common.TidyType;
 import svenhjol.charm.charmony.feature.FeatureHolder;
