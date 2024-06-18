@@ -25,9 +25,9 @@ public final class Registers extends RegisterHolder<AtlasesClient> {
             () -> new KeyMapping("key.charm.open_atlas", GLFW.GLFW_KEY_R, "key.categories.inventory"));
 
         // Client packet receivers
-        feature().registry().packetReceiver(Networking.S2CSwappedAtlasSlot.TYPE,
+        feature().registry().clientPacketReceiver(new Networking.S2CSwappedAtlasSlot(),
             () -> feature().handlers::swappedSlotReceived);
-        feature().registry().packetReceiver(Networking.S2CUpdateInventory.TYPE,
+        feature().registry().clientPacketReceiver(new Networking.S2CUpdateInventory(),
             () -> feature().handlers::updateInventoryReceived);
     }
 

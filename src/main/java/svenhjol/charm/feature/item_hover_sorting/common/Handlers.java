@@ -94,9 +94,9 @@ public final class Handlers extends FeatureHolder<ItemHoverSorting> {
 
     /**
      * Network callback from the client scroll event.
-     * @see Networking.ScrollOnHover
+     * @see Networking.C2SScrollOnHover
      */
-    public void scrollOnHover(Networking.ScrollOnHover packet, Player player) {
+    public void scrollOnHover(Networking.C2SScrollOnHover packet, Player player) {
         var container = player.containerMenu;
         var slotIndex = packet.getSlotIndex();
         var direction = packet.getSortDirection();

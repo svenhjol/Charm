@@ -37,26 +37,26 @@ public final class ItemStacking extends CommonFeature {
     }
 
     public int enchantedBookStackSize() {
-        return Mth.clamp(enchantedBookStackSize, 1, Item.DEFAULT_MAX_STACK_SIZE);
+        return Mth.clamp(enchantedBookStackSize, 1, Item.MAX_STACK_SIZE);
     }
 
     public int potionStackSize() {
-        return Mth.clamp(potionStackSize, 1, Item.DEFAULT_MAX_STACK_SIZE);
+        return Mth.clamp(potionStackSize, 1, Item.MAX_STACK_SIZE);
     }
 
     public int splashPotionStackSize() {
-        return Mth.clamp(splashPotionStackSize, 1, Item.DEFAULT_MAX_STACK_SIZE);
+        return Mth.clamp(splashPotionStackSize, 1, Item.MAX_STACK_SIZE);
     }
 
     public int lingeringPotionStackSize() {
-        return Mth.clamp(lingeringPotionStackSize, 1, Item.DEFAULT_MAX_STACK_SIZE);
+        return Mth.clamp(lingeringPotionStackSize, 1, Item.MAX_STACK_SIZE);
     }
 
     public int stewStackSize() {
-        return Mth.clamp(stewStackSize, 1, Item.DEFAULT_MAX_STACK_SIZE);
+        return Mth.clamp(stewStackSize, 1, Item.MAX_STACK_SIZE);
     }
 
     public int suspiciousStewStackSize() {
-        return Mth.clamp(suspiciousStewStackSize, 1, Item.DEFAULT_MAX_STACK_SIZE);
+        return Mth.clamp(suspiciousStewStackSize, 1, Item.MAX_STACK_SIZE);
     }
 }

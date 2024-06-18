@@ -16,7 +16,7 @@ import svenhjol.charm.charmony.feature.FeatureHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static svenhjol.charm.feature.item_tidying.common.Networking.TidyInventory.send;
+import static svenhjol.charm.feature.item_tidying.common.Networking.C2STidyInventory.send;
 
 public final class Handlers extends FeatureHolder<ItemTidyingClient> {
     private static final int LEFT = 159;

@@ -14,17 +14,20 @@ public final class Networking extends FeatureHolder<ItemTidying> {
     }
 
     @Packet(
-            id = "charm:tidy_inventory",
+            id = "charm:tidied_items",
             description = "A packet sent from the client to instruct the server to tidy the inventory or the viewed container."
     )
-    public static class TidyInventory implements PacketRequest {
+    public static class C2STidyInventory implements PacketRequest {
         private TidyType type;
 
-        public TidyInventory() {}
+        public C2STidyInventory() {this(TidyType.PLAYER);}
+
+        public C2STidyInventory(TidyType type) {
+            this.type = type;
+        }
 
         public static void send(TidyType type) {
-            var message = new TidyInventory();
-            message.type = type;
+            var message = new C2STidyInventory(type);
             FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
             message.encode(buffer);
             ClientPlayNetworking.send(message.id(), buffer);

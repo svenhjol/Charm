@@ -1,15 +1,15 @@
 package svenhjol.charm.feature.cooking_pots.common;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.annotation.Packet;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.charmony.helper.PlayerHelper;
+import svenhjol.charm.charmony.iface.PacketRequest;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
 
 public final class Networking extends FeatureHolder<CookingPots> {
@@ -17,28 +17,37 @@ public final class Networking extends FeatureHolder<CookingPots> {
         super(feature);
     }
 
-    // Server-to-client packet to send the position of the cooking pot to the client.
-    public record S2CAddedToCookingPot(BlockPos pos) implements CustomPacketPayload {
-        public static Type<S2CAddedToCookingPot> TYPE = new Type<>(Charm.id("added_to_cooking_pot"));
-        public static StreamCodec<FriendlyByteBuf, S2CAddedToCookingPot> CODEC =
-            StreamCodec.of(S2CAddedToCookingPot::encode, S2CAddedToCookingPot::decode);
+    @Packet(
+            id = "charm:added_to_cooking_pot",
+            description = "Server-to-client packet to send the position of the cooking pot to the client."
+    )
+    public static class S2CAddedToCookingPot implements PacketRequest {
+        private BlockPos pos;
+
+        public S2CAddedToCookingPot() {this(BlockPos.ZERO);}
+
+        public S2CAddedToCookingPot(BlockPos pos) {this.pos = pos;}
 
         public static void send(ServerLevel level, BlockPos pos) {
+            var message = new S2CAddedToCookingPot(pos);
+            var buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
             PlayerHelper.getPlayersInRange(level, pos, 8.0d)
-                .forEach(player -> ServerPlayNetworking.send((ServerPlayer)player, new S2CAddedToCookingPot(pos)));
+                    .forEach(player -> ServerPlayNetworking.send((ServerPlayer)player, message.id(), buffer));
+        }
+
+        public BlockPos getPos() {
+            return pos;
         }
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeBlockPos(pos);
         }
 
-        private static void encode(FriendlyByteBuf buf, S2CAddedToCookingPot self) {
-            buf.writeBlockPos(self.pos);
-        }
-
-        private static S2CAddedToCookingPot decode(FriendlyByteBuf buf) {
-            return new S2CAddedToCookingPot(buf.readBlockPos());
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            pos = buf.readBlockPos();
         }
     }
 }

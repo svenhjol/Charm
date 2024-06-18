@@ -42,9 +42,5 @@ public final class Registers extends RegisterHolder<CookingPots> {
         addSound = registry.soundEvent("cooking_pot_add");
         ambientSound = registry.soundEvent("cooking_pot_ambient");
         takeSound = registry.soundEvent("cooking_pot_take");
-
-        // Server to client packets
-        registry.serverPacketSender(Networking.S2CAddedToCookingPot.TYPE,
-            Networking.S2CAddedToCookingPot.CODEC);
     }
 }

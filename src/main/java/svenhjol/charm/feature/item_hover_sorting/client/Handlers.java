@@ -23,7 +23,7 @@ public final class Handlers extends FeatureHolder<ItemHoverSortingClient> {
                     return InteractionResult.PASS;
                 }
 
-                Networking.ScrollOnHover.send(hoveredSlot.index,
+                Networking.C2SScrollOnHover.send(hoveredSlot.index,
                     direction > 0 ? ItemHoverSortEvent.SortDirection.UP : ItemHoverSortEvent.SortDirection.DOWN);
 
                 return InteractionResult.SUCCESS;

@@ -1,16 +1,16 @@
 package svenhjol.charm.feature.atlases.common;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ComplexItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MapItem;
-import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.annotation.Packet;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.iface.PacketRequest;
 import svenhjol.charm.feature.atlases.Atlases;
 
 public final class Networking extends FeatureHolder<Atlases> {
@@ -39,109 +39,155 @@ public final class Networking extends FeatureHolder<Atlases> {
         }
     }
 
-    // Server-to-client
-    public record S2CSwappedAtlasSlot(int slot) implements CustomPacketPayload {
-        public static Type<S2CSwappedAtlasSlot> TYPE = new Type<>(Charm.id("swapped_atlas_slot"));
-        public static StreamCodec<FriendlyByteBuf, S2CSwappedAtlasSlot> CODEC =
-            StreamCodec.of(S2CSwappedAtlasSlot::encode, S2CSwappedAtlasSlot::decode);
+    @Packet(
+            id = "charm:swapped_atlas_slot"
+    )
+    public static class S2CSwappedAtlasSlot implements PacketRequest {
+        private int slot;
+
+        public S2CSwappedAtlasSlot() {this(0);}
+
+        public S2CSwappedAtlasSlot(int slot) {this.slot = slot;}
 
         public static void send(ServerPlayer player, int slot) {
-            ServerPlayNetworking.send(player, new S2CSwappedAtlasSlot(slot));
+            var message = new S2CSwappedAtlasSlot(slot);
+            var buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ServerPlayNetworking.send(player, message.id(), buffer);
+        }
+
+        public int getSlot() {return slot;}
+
+        @Override
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeInt(slot);
         }
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
-        }
-
-        private static void encode(FriendlyByteBuf buf, S2CSwappedAtlasSlot self) {
-            buf.writeInt(self.slot);
-        }
-
-        private static S2CSwappedAtlasSlot decode(FriendlyByteBuf buf) {
-            return new S2CSwappedAtlasSlot(buf.readInt());
+        public void decode(FriendlyByteBuf buf) {
+            slot = buf.readInt();
         }
     }
 
-    // Server-to-client
-    public record S2CUpdateInventory(int slot) implements CustomPacketPayload {
-        public static Type<S2CUpdateInventory> TYPE = new Type<>(Charm.id("update_atlas_inventory"));
-        public static StreamCodec<FriendlyByteBuf, S2CUpdateInventory> CODEC =
-            StreamCodec.of(S2CUpdateInventory::encode, S2CUpdateInventory::decode);
+    @Packet(
+            id = "charm:update_atlas_inventory"
+    )
+    public static class S2CUpdateInventory implements PacketRequest {
+        private int slot;
+
+        public S2CUpdateInventory() {this(0);}
+
+        public S2CUpdateInventory(int slot) {this.slot = slot;}
 
         public static void send(ServerPlayer player, int slot) {
-            ServerPlayNetworking.send(player, new S2CUpdateInventory(slot));
+            var message = new S2CUpdateInventory(slot);
+            var buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ServerPlayNetworking.send(player, message.id(), buffer);
         }
+
+        public int getSlot() {return slot;}
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
-        }
-
-        private static void encode(FriendlyByteBuf buf, S2CUpdateInventory self) {
-            if (self.slot >= 0) {
-                buf.writeInt(self.slot);
+        public void encode(FriendlyByteBuf buf) {
+            if (slot >= 0) {
+                buf.writeInt(slot);
             }
         }
 
-        private static S2CUpdateInventory decode(FriendlyByteBuf buf) {
-            return new S2CUpdateInventory(buf.readInt());
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            slot = buf.readInt();
         }
     }
 
-    // Client-to-server
-    public record C2SSwapAtlasSlot(int slot) implements CustomPacketPayload {
-        public static Type<C2SSwapAtlasSlot> TYPE = new Type<>(Charm.id("swap_atlas_slot"));
-        public static StreamCodec<FriendlyByteBuf, C2SSwapAtlasSlot> CODEC =
-            StreamCodec.of(C2SSwapAtlasSlot::encode, C2SSwapAtlasSlot::decode);
+    @Packet(
+            id = "swap_atlas_slot"
+    )
+    public static class C2SSwapAtlasSlot implements PacketRequest {
+        private int slot;
+
+        public C2SSwapAtlasSlot() {this(0);}
+
+        public C2SSwapAtlasSlot(int slot) {this.slot = slot;}
 
         public static void send(int slot) {
-            ClientPlayNetworking.send(new C2SSwapAtlasSlot(slot));
+            var message = new C2SSwapAtlasSlot(slot);
+            var buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ClientPlayNetworking.send(message.id(), buffer);
+        }
+
+        public int getSlot() {
+            return slot;
         }
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeInt(slot);
         }
 
-        private static void encode(FriendlyByteBuf buf, C2SSwapAtlasSlot self) {
-            buf.writeInt(self.slot);
-        }
-
-        private static C2SSwapAtlasSlot decode(FriendlyByteBuf buf) {
-            return new C2SSwapAtlasSlot(buf.readInt());
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            slot = buf.readInt();
         }
     }
 
-    // Client-to-server
-    public record C2STransferAtlas(int atlasSlot, int mapX, int mapZ, MoveMode moveMode) implements CustomPacketPayload {
-        public static Type<C2STransferAtlas> TYPE = new Type<>(Charm.id("transfer_atlas"));
-        public static StreamCodec<FriendlyByteBuf, C2STransferAtlas> CODEC =
-            StreamCodec.of(C2STransferAtlas::encode, C2STransferAtlas::decode);
+    @Packet(
+            id = "charm:transfer_atlas"
+    )
+    public static class C2STransferAtlas implements PacketRequest {
+        private int atlasSlot;
+        private int mapX;
+        private int mapZ;
+        private MoveMode moveMode;
+
+        public C2STransferAtlas() {this(0, 0, 0, MoveMode.TO_HAND);}
+
+        public C2STransferAtlas(int atlasSlot, int mapX, int mapZ, MoveMode moveMode) {
+            this.atlasSlot = atlasSlot;
+            this.mapX = mapX;
+            this.mapZ = mapZ;
+            this.moveMode = moveMode;
+        }
 
         public static void send(int atlasSlot, int mapX, int mapZ, MoveMode moveMode) {
-            ClientPlayNetworking.send(new C2STransferAtlas(atlasSlot, mapX, mapZ, moveMode));
+            var message = new C2STransferAtlas(atlasSlot, mapX, mapZ, moveMode);
+            var buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ClientPlayNetworking.send(message.id(), buffer);
+        }
+
+        public int getAtlasSlot() {
+            return atlasSlot;
+        }
+
+        public int getMapX() {
+            return mapX;
+        }
+
+        public int getMapZ() {
+            return mapZ;
+        }
+
+        public MoveMode getMoveMode() {
+            return moveMode;
         }
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeInt(atlasSlot);
+            buf.writeInt(mapX);
+            buf.writeInt(mapZ);
+            buf.writeEnum(moveMode);
         }
 
-        public static void encode(FriendlyByteBuf buf, C2STransferAtlas self) {
-            buf.writeInt(self.atlasSlot);
-            buf.writeInt(self.mapX);
-            buf.writeInt(self.mapZ);
-            buf.writeEnum(self.moveMode);
-        }
-
-        public static C2STransferAtlas decode(FriendlyByteBuf buf) {
-            return new C2STransferAtlas(
-                buf.readInt(),
-                buf.readInt(),
-                buf.readInt(),
-                buf.readEnum(MoveMode.class)
-            );
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            atlasSlot = buf.readInt();
+            mapX = buf.readInt();
+            mapZ = buf.readInt();
+            moveMode = buf.readEnum(MoveMode.class);
         }
     }
 }

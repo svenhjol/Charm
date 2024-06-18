@@ -1,10 +1,10 @@
 package svenhjol.charm.feature.crafting_from_inventory.common;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.annotation.Packet;
+import svenhjol.charm.charmony.iface.PacketRequest;
 import svenhjol.charm.feature.crafting_from_inventory.CraftingFromInventory;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 
@@ -13,25 +13,18 @@ public final class Networking extends FeatureHolder<CraftingFromInventory> {
         super(feature);
     }
 
-    // Client-to-server packet to instruct the server to try and open the crafting table.
-    public record C2SOpenPortableCrafting() implements CustomPacketPayload {
-        public static Type<C2SOpenPortableCrafting> TYPE = new Type<>(Charm.id("open_portable_crafting"));
-        public static StreamCodec<FriendlyByteBuf, C2SOpenPortableCrafting> CODEC =
-            StreamCodec.of(C2SOpenPortableCrafting::encode, C2SOpenPortableCrafting::decode);
+    @Packet(
+            id = "charm:open_portable_crafting",
+            description = "Client-to-server packet to instruct the server to try and open the crafting table."
+    )
+    public static class C2SOpenPortableCrafting implements PacketRequest {
+        public C2SOpenPortableCrafting(){}
 
         public static void send() {
-            ClientPlayNetworking.send(new C2SOpenPortableCrafting());
-        }
-
-        @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
-        }
-
-        private static void encode(FriendlyByteBuf buf, C2SOpenPortableCrafting self) {}
-
-        private static C2SOpenPortableCrafting decode(FriendlyByteBuf buf) {
-            return new C2SOpenPortableCrafting();
+            var message = new C2SOpenPortableCrafting();
+            var buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            ClientPlayNetworking.send(message.id(), buffer);
         }
     }
 }

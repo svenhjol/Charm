@@ -30,12 +30,12 @@ public final class Handlers extends FeatureHolder<CookingPotsClient> {
         return -1;
     }
 
-    public void handleAddedToCookingPot(Player player, Networking.S2CAddedToCookingPot packet) {
+    public void handleAddedToCookingPot(Networking.S2CAddedToCookingPot packet, Player player) {
         var minecraft = Minecraft.getInstance();
         var level = minecraft.level;
 
         if (level != null) {
-            var pos = packet.pos();
+            var pos = packet.getPos();
             var state = level.getBlockState(pos);
             createParticles(level, pos);
             level.updateNeighborsAt(pos, state.getBlock());

@@ -24,7 +24,7 @@ public final class Registers extends RegisterHolder<ItemHoverSorting> {
         super(feature);
 
         // Server receivers
-        feature.registry().serverPacketReceiver(new Networking.ScrollOnHover(),
+        feature.registry().serverPacketReceiver(new Networking.C2SScrollOnHover(),
                 () -> feature.handlers::scrollOnHover);
     }
 

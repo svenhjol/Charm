@@ -15,19 +15,22 @@ public final class Networking extends FeatureHolder<ItemHoverSorting> {
     }
 
     @Packet(
-            id = "charm:hover_sorting_scroll_on_item",
+            id = "charm:item_hover_sorting_scroll",
             description = "Send the slot index and direction of scroll to the server."
     )
-    public static class ScrollOnHover implements PacketRequest {
+    public static class C2SScrollOnHover implements PacketRequest {
         private int slotIndex;
         private ItemHoverSortEvent.SortDirection sortDirection;
 
-        public ScrollOnHover() {}
+        public C2SScrollOnHover() {this(0, ItemHoverSortEvent.SortDirection.DOWN);}
+
+        public C2SScrollOnHover(int slotIndex, ItemHoverSortEvent.SortDirection sortDirection) {
+            this.slotIndex = slotIndex;
+            this.sortDirection = sortDirection;
+        }
 
         public static void send(int slotIndex, ItemHoverSortEvent.SortDirection sortDirection) {
-            var message = new ScrollOnHover();
-            message.slotIndex = slotIndex;
-            message.sortDirection = sortDirection;
+            var message = new C2SScrollOnHover(slotIndex, sortDirection);
             FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
             message.encode(buffer);
             ClientPlayNetworking.send(message.id(), buffer);

@@ -12,7 +12,7 @@ public final class Registers extends RegisterHolder<CookingPotsClient> {
     public Registers(CookingPotsClient feature) {
         super(feature);
 
-        feature.registry().packetReceiver(Networking.S2CAddedToCookingPot.TYPE,
+        feature.registry().clientPacketReceiver(new Networking.S2CAddedToCookingPot(),
             () -> feature.handlers::handleAddedToCookingPot);
     }
 

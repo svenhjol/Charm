@@ -11,8 +11,8 @@ public final class Registers extends RegisterHolder<CasksClient> {
         super(feature);
 
         // Server to client receivers
-        feature.registry().packetReceiver(Networking.S2CAddedToCask.TYPE,
-            () -> feature().handlers::addedToCaskReceived);
+        feature.registry().clientPacketReceiver(new Networking.S2CAddedToCask(),
+                () -> feature().handlers::addedToCaskReceived);
     }
 
     @Override

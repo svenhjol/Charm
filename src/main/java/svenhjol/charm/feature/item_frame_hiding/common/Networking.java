@@ -25,6 +25,8 @@ public final class Networking extends FeatureHolder<ItemFrameHiding> {
     public static class S2CAddAmethyst implements PacketRequest, ItemFrameInteraction {
         private BlockPos pos;
 
+        public S2CAddAmethyst() {this(BlockPos.ZERO);}
+
         public S2CAddAmethyst(BlockPos pos) {
             this.pos = pos;
         }
@@ -64,13 +66,15 @@ public final class Networking extends FeatureHolder<ItemFrameHiding> {
     public static class S2CRemoveAmethyst implements PacketRequest, ItemFrameInteraction {
         private BlockPos pos;
 
+        public S2CRemoveAmethyst() {this(BlockPos.ZERO);}
+
         public S2CRemoveAmethyst(BlockPos pos) {
             this.pos = pos;
         }
 
         public static void send(BlockPos pos, ServerPlayer player) {
             var message = new S2CAddAmethyst(pos);
-            FriendlyByvarteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+            FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
             message.encode(buffer);
             ServerPlayNetworking.send(player, message.id(), buffer);
         }

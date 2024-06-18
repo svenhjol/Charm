@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.casks.common;
 
-import net.minecraft.core.component.DataComponentType;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.charmony.feature.RegisterHolder;
@@ -48,8 +47,5 @@ public final class Registers extends RegisterHolder<Casks> {
         emptySound = registry.soundEvent("cask_empty");
         nameSound = registry.soundEvent("cask_name");
         takeSound = registry.soundEvent("cask_take");
-
-        // Server to client packets
-        registry.serverPacketSender(Networking.S2CAddedToCask.TYPE, Networking.S2CAddedToCask.CODEC);
     }
 }

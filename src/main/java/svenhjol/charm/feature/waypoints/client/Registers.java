@@ -10,9 +10,9 @@ public final class Registers extends RegisterHolder<WaypointsClient> {
         super(feature);
         var registry = feature.registry();
 
-        registry.packetReceiver(Networking.S2CUpdateWaypointInfo.TYPE,
+        registry.clientPacketReceiver(new Networking.S2CUpdateWaypointInfo(),
             () -> feature.handlers::updateWaypointInfoReceived);
-        registry.packetReceiver(Networking.S2CClearWaypointInfo.TYPE,
+        registry.clientPacketReceiver(new Networking.S2CClearWaypointInfo(),
             () -> feature.handlers::clearWaypointInfoReceived);
     }
 

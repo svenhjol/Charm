@@ -25,6 +25,8 @@ public final class Networking extends FeatureHolder<Waypoints> {
         private Component title;
         private DyeColor color;
         private boolean playSound;
+
+        public S2CUpdateWaypointInfo() {this(BlockPos.ZERO, Component.empty(), DyeColor.WHITE, false);}
         
         public S2CUpdateWaypointInfo(BlockPos pos, Component title, DyeColor color, boolean playSound) {
             this.pos = pos;
@@ -42,6 +44,22 @@ public final class Networking extends FeatureHolder<Waypoints> {
             var buffer = message.newFriendlyByteBuf();
             message.encode(buffer);
             ServerPlayNetworking.send(player, message.id(), buffer);
+        }
+
+        public BlockPos getPos() {
+            return pos;
+        }
+
+        public Component getTitle() {
+            return title;
+        }
+
+        public DyeColor getColor() {
+            return color;
+        }
+
+        public boolean isPlaySound() {
+            return playSound;
         }
 
         public void encode(FriendlyByteBuf buf) {
@@ -69,9 +87,5 @@ public final class Networking extends FeatureHolder<Waypoints> {
             var buffer = message.newFriendlyByteBuf();
             ServerPlayNetworking.send(player, message.id(), buffer);
         }
-
-        public void encode(FriendlyByteBuf buf) {}
-
-        public void decode(FriendlyByteBuf buf) {}
     }
 }

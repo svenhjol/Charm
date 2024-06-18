@@ -24,7 +24,7 @@ public final class Handlers extends FeatureHolder<CraftingFromInventory> {
         return false;
     }
 
-    public void openPortableCraftingReceived(Player player, Networking.C2SOpenPortableCrafting request) {
+    public void openPortableCraftingReceived(Networking.C2SOpenPortableCrafting request, Player player) {
         if (!hasCraftingTable(player)) return;
         var serverPlayer = (ServerPlayer)player;
 

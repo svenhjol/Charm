@@ -95,3 +95,4 @@ accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlo
 mutable field net/minecraft/world/level/block/entity/BlockEntityType validBlocks Ljava/util/Set;
 accessible field net/minecraft/world/item/Item maxStackSize I
 mutable    field net/minecraft/world/item/Item maxStackSize I
+accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setColorsDirty (II)V

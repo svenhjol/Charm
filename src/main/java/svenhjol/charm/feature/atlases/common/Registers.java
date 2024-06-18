@@ -39,22 +39,10 @@ public final class Registers extends RegisterHolder<Atlases> {
                 .persistent(AtlasMapData.CODEC)
                 .networkSynchronized(AtlasMapData.STREAM_CODEC));
 
-        // Server packet senders
-        registry.serverPacketSender(Networking.S2CSwappedAtlasSlot.TYPE,
-            Networking.S2CSwappedAtlasSlot.CODEC);
-        registry.serverPacketSender(Networking.S2CUpdateInventory.TYPE,
-            Networking.S2CUpdateInventory.CODEC);
-
-        // Client packet senders
-        registry.clientPacketSender(Networking.C2SSwapAtlasSlot.TYPE,
-            Networking.C2SSwapAtlasSlot.CODEC);
-        registry.clientPacketSender(Networking.C2STransferAtlas.TYPE,
-            Networking.C2STransferAtlas.CODEC);
-
         // Server packet receivers
-        registry.packetReceiver(Networking.C2SSwapAtlasSlot.TYPE,
+        registry.serverPacketReceiver(new Networking.C2SSwapAtlasSlot(),
             () -> feature().handlers::swappedSlotReceived);
-        registry.packetReceiver(Networking.C2STransferAtlas.TYPE,
+        registry.serverPacketReceiver(new Networking.C2STransferAtlas(),
             () -> feature().handlers::transferAtlasReceived);
     }
 

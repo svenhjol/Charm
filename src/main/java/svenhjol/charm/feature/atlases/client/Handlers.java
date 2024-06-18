@@ -35,15 +35,15 @@ public final class Handlers extends FeatureHolder<AtlasesClient> {
     }
 
 
-    public void updateInventoryReceived(Player player, Networking.S2CUpdateInventory packet) {
-        var slot = packet.slot();
+    public void updateInventoryReceived(Networking.S2CUpdateInventory packet, Player player) {
+        var slot = packet.getSlot();
         ItemStack atlas = player.getInventory().getItem(slot);
         AtlasInventory.get(player.level(), atlas).reload(atlas);
     }
 
     @SuppressWarnings("unused")
-    public void swappedSlotReceived(Player player, Networking.S2CSwappedAtlasSlot packet) {
-        swappedSlot = packet.slot();
+    public void swappedSlotReceived(Networking.S2CSwappedAtlasSlot packet, Player player) {
+        swappedSlot = packet.getSlot();
     }
 
     public void keyPress(String id) {

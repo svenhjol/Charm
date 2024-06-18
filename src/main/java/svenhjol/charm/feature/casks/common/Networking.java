@@ -1,15 +1,15 @@
 package svenhjol.charm.feature.casks.common;
 
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import svenhjol.charm.Charm;
+import svenhjol.charm.charmony.annotation.Packet;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.charmony.helper.PlayerHelper;
+import svenhjol.charm.charmony.iface.PacketRequest;
 import svenhjol.charm.feature.casks.Casks;
 
 public final class Networking extends FeatureHolder<Casks> {
@@ -17,27 +17,39 @@ public final class Networking extends FeatureHolder<Casks> {
         super(feature);
     }
 
-    public record S2CAddedToCask(BlockPos pos) implements CustomPacketPayload {
-        public static Type<S2CAddedToCask> TYPE = new Type<>(Charm.id("added_to_cask"));
-        public static StreamCodec<FriendlyByteBuf, S2CAddedToCask> CODEC =
-            StreamCodec.of(S2CAddedToCask::encode, S2CAddedToCask::decode);
+    @Packet(
+            id = "charm:added_to_cask",
+            description = "Send the position of the cask that has had a potion added."
+    )
+    public static class S2CAddedToCask implements PacketRequest {
+        private BlockPos pos;
+
+        public S2CAddedToCask() {this(BlockPos.ZERO);}
+
+        public S2CAddedToCask(BlockPos pos) {
+            this.pos = pos;
+        }
 
         public static void send(ServerLevel level, BlockPos pos) {
-            PlayerHelper.getPlayersInRange(level, pos, 8.0d)
-                .forEach(player -> ServerPlayNetworking.send((ServerPlayer)player, new S2CAddedToCask(pos)));
+            var message = new S2CAddedToCask(pos);
+            var buffer = new FriendlyByteBuf(Unpooled.buffer());
+            message.encode(buffer);
+            PlayerHelper.getPlayersInRange(level, pos, 8.0d).
+                    forEach(player -> ServerPlayNetworking.send((ServerPlayer) player, message.id(), buffer));
+        }
+
+        public BlockPos getPos() {
+            return pos;
         }
 
         @Override
-        public Type<? extends CustomPacketPayload> type() {
-            return TYPE;
+        public void encode(FriendlyByteBuf buf) {
+            buf.writeBlockPos(pos);
         }
 
-        private static void encode(FriendlyByteBuf buf, S2CAddedToCask self) {
-            buf.writeBlockPos(self.pos);
-        }
-
-        private static S2CAddedToCask decode(FriendlyByteBuf buf) {
-            return new S2CAddedToCask(buf.readBlockPos());
+        @Override
+        public void decode(FriendlyByteBuf buf) {
+            pos = buf.readBlockPos();
         }
     }
 }

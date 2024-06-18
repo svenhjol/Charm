@@ -15,11 +15,11 @@ public final class Handlers extends FeatureHolder<CasksClient> {
     }
 
     @SuppressWarnings("unused")
-    public void addedToCaskReceived(Player player, Networking.S2CAddedToCask packet) {
+    public void addedToCaskReceived(Networking.S2CAddedToCask packet, Player player) {
         var minecraft = Minecraft.getInstance();
 
         if (minecraft.level != null) {
-            createParticles(minecraft.level, packet.pos());
+            createParticles(minecraft.level, packet.getPos());
         }
     }
 

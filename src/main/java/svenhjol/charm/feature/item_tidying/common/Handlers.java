@@ -15,7 +15,7 @@ public final class Handlers extends FeatureHolder<ItemTidying> {
         super(feature);
     }
 
-    public void handleTidyInventory(Networking.TidyInventory packet, Player player) {
+    public void handleTidyInventory(Networking.C2STidyInventory packet, Player player) {
         if (!(player instanceof ServerPlayer serverPlayer)) return;
         if (player.isSpectator()) return;
 

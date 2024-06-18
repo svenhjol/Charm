@@ -70,14 +70,14 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
         return sb.toString();
     }
 
-    public void updateWaypointInfoReceived(Player player, Networking.S2CUpdateWaypointInfo packet) {
+    public void updateWaypointInfoReceived(Networking.S2CUpdateWaypointInfo packet, Player player) {
         var random = player.getRandom();
 
         // Prevent spamming the client if the message and color are the same.
-        var pos = packet.pos();
-        var color = packet.color();
-        var playSound = packet.playSound();
-        var title = packet.title();
+        var pos = packet.getPos();
+        var color = packet.getColor();
+        var playSound = packet.isPlaySound();
+        var title = packet.getTitle();
         var titleAsString = title.getString();
 
         if (lastSeenTitle != null
@@ -124,7 +124,7 @@ public final class Handlers extends FeatureHolder<WaypointsClient> {
     }
 
     @SuppressWarnings("unused")
-    public void clearWaypointInfoReceived(Player player, Networking.S2CClearWaypointInfo packet) {
+    public void clearWaypointInfoReceived(Networking.S2CClearWaypointInfo packet, Player player) {
         lastSeenColor = null;
         lastSeenTitle = null;
         lastSeenPos = null;

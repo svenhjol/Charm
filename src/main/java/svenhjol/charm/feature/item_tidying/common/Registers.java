@@ -9,7 +9,7 @@ public final class Registers extends RegisterHolder<ItemTidying> {
         var registry = feature.registry();
 
         // Server receivers
-        registry.serverPacketReceiver(new Networking.TidyInventory(),
+        registry.serverPacketReceiver(new Networking.C2STidyInventory(),
             () -> feature().handlers::handleTidyInventory);
     }
 }

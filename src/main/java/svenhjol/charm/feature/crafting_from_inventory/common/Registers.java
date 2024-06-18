@@ -8,12 +8,8 @@ public final class Registers extends RegisterHolder<CraftingFromInventory> {
         super(feature);
         var registry = feature.registry();
 
-        // Client packet senders
-        registry.clientPacketSender(Networking.C2SOpenPortableCrafting.TYPE,
-            Networking.C2SOpenPortableCrafting.CODEC);
-
         // Server packet receivers
-        registry.packetReceiver(Networking.C2SOpenPortableCrafting.TYPE,
+        registry.serverPacketReceiver(new Networking.C2SOpenPortableCrafting(),
             () -> feature().handlers::openPortableCraftingReceived);
     }
 }
