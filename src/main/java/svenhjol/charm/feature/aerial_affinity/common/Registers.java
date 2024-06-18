@@ -22,7 +22,7 @@ public final class Registers extends RegisterHolder<AerialAffinity> {
 
         enchantment = registry.enchantment("aerial_affinity");
         attribute = registry.attribute("player.aerial_mining_speed", () -> new RangedAttribute(
-            "attribute.name.player.charm.aerial_mining_speed", 0.2, 0.0, 20.0).setSyncable(true));
+            "attribute.name.player.charm.aerial_mining_speed", 0.0, 0.0, 1.0).setSyncable(true));
 
         // Must attach the aerial_mining_speed to the player for it to function.
         registry.entityAttribute(() -> EntityType.PLAYER, attribute);

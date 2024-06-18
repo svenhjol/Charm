@@ -1,25 +1,8 @@
 # Charm for Minecraft 1.21
 
-Dev tasks:
-- ~~port advancements and advancement trigger methods and lang keys should match name of advancement~~
-- ~~port recipes~~
-- ~~port loot tables~~
-- ~~port tags~~
-- ~~rename API interfaces, clean up unneeded~~
-- ~~move any heavy interaction logic out of item/block and into handlers~~
-- ~~handle custom_wood and variant_wood mess in variants~~
-- ~~ignore unregistered data fixer errors - add feature to Silence?~~
-- ~~all static config props to be private with accessors~~
-- ~~rename player.collection attribute to player.automatic_item_pickup~~
-- ~~check common for matching feature in MixinConfig~~
-- ~~custom sound for coral squid bucket pickup~~
-- ~~custom sound when chicken sheds feather~~
-- ~~test lumberjack and beekeeper hero gifts~~
-- API provider for registering spawner drop items 
-- API event for villager interaction (hook into Villager#startTrading)
-- ~~untranslated item tags warning - add tag.item.<namespace>.<path> with slashes in tag path as periods~~
-- ~~Make MixinConfig read enabledByDefault from feature annotation if config isn't present~~
-- ~~Port waypoints, add optional compass overlay feature to show distance to closest waypoint~~
+Charm is a Minecraft mod using the [Fabric loader](https://fabricmc.net/) that adds over 70 small tweaks, quality of life improvements and features that stick to the theme of the vanilla game without changing core gameplay.
+All Charm features are able to be turned on and off using the extensive configuration file. Some features that do change gameplay are disabled by default.
 
-Bugs:
-- race condition in colored glints being applied, possibly MC-272311?
+- Read more about Charm's features on [the Charmony website](https://charmony.work).
+- Download Charm [from modrinth](https://modrinth.com/mod/charm/versions#all-versions).
+- Visit [our Discord](https://discord.gg/3CVxPZUMDX).

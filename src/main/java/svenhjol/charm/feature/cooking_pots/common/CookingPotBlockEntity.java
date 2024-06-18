@@ -47,6 +47,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, CookingPotBlockEntity pot) {
         COOKING_POTS.handlers.hopperAddToPot(pot);
+        COOKING_POTS.handlers.checkForThrownItems(pot);
     }
 
     @Override
@@ -175,23 +176,49 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
         return ItemStack.EMPTY;
     }
 
-    public boolean fillWithBottle() {
+    public boolean fillOneLevelOfWater() {
         var level = getLevel();
         var pos = getBlockPos();
-        var state = getBlockState().setValue(CookingPotBlock.PORTIONS,
-            getBlockState().getValue(CookingPotBlock.PORTIONS) + 1);
-
-        if (state.getValue(CookingPotBlock.PORTIONS) == Handlers.MAX_PORTIONS) {
-            state = state.setValue(CookingPotBlock.COOKING_STATUS, CookingStatus.FILLED_WITH_WATER);
-        }
-
+        var state = getBlockState();
+        int numberOfPortions = state.getValue(CookingPotBlock.PORTIONS);
+        var currentStatus = state.getValue(CookingPotBlock.COOKING_STATUS);
+        
         if (level == null) {
             return false;
         }
-
+        
+        if (numberOfPortions == Handlers.MAX_PORTIONS) {
+            return false;
+        }
+        
+        if (canAddWater()) {
+            ++numberOfPortions;
+            state = state.setValue(CookingPotBlock.PORTIONS, numberOfPortions);
+            
+            if (numberOfPortions == Handlers.MAX_PORTIONS) {
+                state = state.setValue(CookingPotBlock.COOKING_STATUS, CookingStatus.FILLED_WITH_WATER);
+            } else {
+                state = state.setValue(CookingPotBlock.COOKING_STATUS, CookingStatus.HAS_SOME_WATER);
+            }
+        } else {
+            return false;
+        }
+        
         level.setBlock(pos, state, 2);
-        level.playSound(null, pos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f);
         return true;
+    }
+    
+    public boolean fillWithBottle() {
+        if (level == null) {
+            return false;
+        }
+        
+        var result = fillOneLevelOfWater();
+        if (result) {
+            level.playSound(null, getBlockPos(), SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f);
+        }
+        
+        return result;
     }
 
     public boolean fillWithBucket() {

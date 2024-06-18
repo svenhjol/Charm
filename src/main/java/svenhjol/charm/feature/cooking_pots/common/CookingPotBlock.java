@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
@@ -72,6 +73,16 @@ public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<
                                               InteractionHand hand, BlockHitResult hitResult) {
         return feature().handlers.playerAddToPot(stack, state, level, pos, player)
             .asItemInteractionResult(level.isClientSide);
+    }
+
+    @Override
+    public void handlePrecipitation(BlockState state, Level level, BlockPos pos, Biome.Precipitation precipitation) {
+        if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < 0.05f) {
+            var blockEntity = level.getBlockEntity(pos);
+            if (blockEntity instanceof CookingPotBlockEntity pot) {
+                pot.fillOneLevelOfWater();
+            }
+        }
     }
 
     @Nullable
@@ -170,16 +181,18 @@ public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<
                             0.0d, 0.0d, 0.0d);
                     }
                 } else if (status == CookingStatus.COOKED) {
-                    // When cooked, show puffy smoke and small black smoke.
-                    level.addParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE,
-                        pos.getX() + 0.13d + (0.7d * random.nextDouble()),
-                        pos.getY() + (portions - 2) * 0.153d,
-                        pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
-                        0.0d, 0.05d, 0.0d);
-
                     var count = random.nextInt(5);
                     for (int i = 0; i < count; i++) {
                         level.addParticle(ParticleTypes.SMOKE,
+                            pos.getX() + 0.13d + (0.7d * random.nextDouble()),
+                            pos.getY() + (portions - 2) * 0.153d,
+                            pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
+                            0.0d, 0.0d, 0.0d);
+                    }
+                    
+                    count = random.nextInt(3);
+                    for (int i = 0; i < count; i++) {
+                        level.addParticle(ParticleTypes.DUST_PLUME,
                             pos.getX() + 0.13d + (0.7d * random.nextDouble()),
                             pos.getY() + (portions - 2) * 0.153d,
                             pos.getZ() + 0.13d + (0.7d * random.nextDouble()),

@@ -4,6 +4,7 @@ import net.minecraft.util.StringRepresentable;
 
 public enum CookingStatus implements StringRepresentable {
     EMPTY("empty"),
+    HAS_SOME_WATER("has_some_water"),
     FILLED_WITH_WATER("filled_with_water"),
     HAS_SOME_FOOD("has_some_food"),
     COOKED("cooked");

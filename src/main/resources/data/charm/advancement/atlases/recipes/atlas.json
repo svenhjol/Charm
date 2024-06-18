@@ -7,12 +7,12 @@
       },
       "trigger": "minecraft:recipe_unlocked"
     },
-    "has_writable_book": {
+    "has_book": {
       "conditions": {
         "items": [
           {
             "items": [
-              "minecraft:writable_book"
+              "minecraft:book"
             ]
           }
         ]
@@ -34,7 +34,7 @@
   },
   "requirements": [
     [
-      "has_writable_book",
+      "has_book",
       "has_map",
       "has_the_recipe"
     ]
