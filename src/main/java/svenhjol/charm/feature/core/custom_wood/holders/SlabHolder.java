@@ -17,6 +17,6 @@ public class SlabHolder {
         item = holder.ownerRegistry().item(id, () -> new CharmSlabBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Slabs can set on fire.
-        holder.addCreativeTabItem(CustomType.SLAB, item);
+        holder.addItemToCreativeTab(item, CustomType.SLAB);
     }
 }

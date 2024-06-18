@@ -16,6 +16,6 @@ public class ButtonHolder {
         block = holder.ownerRegistry().block(id, () -> new CustomWoodenButtonBlock(holder.getMaterial()));
         item = holder.ownerRegistry().item(id, () -> new CustomWoodenButtonBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomType.BUTTON, item);
+        holder.addItemToCreativeTab(item, CustomType.BUTTON);
     }
 }

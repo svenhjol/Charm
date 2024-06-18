@@ -16,6 +16,7 @@ public class WoodDefinition implements CustomWoodDefinition {
     public List<CustomType> types() {
         return List.of(
             CustomType.BARREL,
+            CustomType.CHEST_BOAT,
             CustomType.BOAT,
             CustomType.BOOKSHELF,
             CustomType.BUTTON,
@@ -34,6 +35,8 @@ public class WoodDefinition implements CustomWoodDefinition {
             CustomType.SIGN,
             CustomType.SLAB,
             CustomType.STAIRS,
+            CustomType.STRIPPED_LOG,
+            CustomType.STRIPPED_WOOD,
             CustomType.TRAPDOOR,
             CustomType.TRAPPED_CHEST,
             CustomType.WOOD

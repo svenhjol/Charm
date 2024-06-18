@@ -33,6 +33,6 @@ public class SignHolder {
         // Associate with the sign block entity.
         registry.blockEntityBlocks(() -> BlockEntityType.SIGN, List.of(standingBlock, wallBlock));
 
-        holder.addCreativeTabItem(CustomType.SIGN, item);
+        holder.addItemToCreativeTab(item, CustomType.SIGN);
     }
 }

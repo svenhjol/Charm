@@ -26,7 +26,7 @@ public final class Registers extends RegisterHolder<KilnsClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().linked().registers.blockItem,
+            feature().linked().registers.blockItem.get(),
             CreativeModeTabs.FUNCTIONAL_BLOCKS,
             Items.SMOKER
         );

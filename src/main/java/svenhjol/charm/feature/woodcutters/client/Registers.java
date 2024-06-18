@@ -28,7 +28,7 @@ public final class Registers extends RegisterHolder<WoodcuttersClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().linked().registers.block,
+            feature().linked().registers.block.get(),
             CreativeModeTabs.FUNCTIONAL_BLOCKS,
             Items.STONECUTTER
         );

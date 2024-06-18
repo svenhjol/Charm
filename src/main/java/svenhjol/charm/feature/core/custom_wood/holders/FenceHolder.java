@@ -16,6 +16,6 @@ public class FenceHolder {
         item = holder.ownerRegistry().item(id, () -> new CustomFenceBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Fences can set on fire.
-        holder.addCreativeTabItem(CustomType.FENCE, item);
+        holder.addItemToCreativeTab(item, CustomType.FENCE);
     }
 }

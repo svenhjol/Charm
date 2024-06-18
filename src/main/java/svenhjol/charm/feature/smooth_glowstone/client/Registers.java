@@ -13,7 +13,7 @@ public final class Registers extends RegisterHolder<SmoothGlowstoneClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().linked().registers.blockItem,
+            feature().linked().registers.blockItem.get(),
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.AMETHYST_BLOCK
         );

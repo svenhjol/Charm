@@ -20,7 +20,7 @@ public final class Registers extends RegisterHolder<CasksClient> {
         var registry = feature().registry();
 
         registry.itemTab(
-            feature().linked().registers.block,
+            feature().linked().registers.block.get(),
             CreativeModeTabs.FUNCTIONAL_BLOCKS,
             Items.JUKEBOX);
     }

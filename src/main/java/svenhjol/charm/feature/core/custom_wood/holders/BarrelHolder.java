@@ -34,6 +34,6 @@ public class BarrelHolder {
             () -> block.get().getStateDefinition().getPossibleStates());
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomType.BARREL, item);
+        holder.addItemToCreativeTab(item, CustomType.BARREL);
     }
 }

@@ -24,6 +24,6 @@ public class StairsHolder {
         block = stairs.getFirst();
         item = stairs.getSecond();
 
-        holder.addCreativeTabItem(CustomType.STAIRS, item);
+        holder.addItemToCreativeTab(item, CustomType.STAIRS);
     }
 }

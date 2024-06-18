@@ -28,12 +28,12 @@ public final class Registers extends RegisterHolder<CoralSquidsClient> {
         var common = feature().linked();
 
         registry.itemTab(
-            common.registers.bucketItem,
+            common.registers.bucketItem.get(),
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.AXOLOTL_BUCKET
         );
         registry.itemTab(
-            common.registers.spawnEggItem,
+            common.registers.spawnEggItem.get(),
             CreativeModeTabs.SPAWN_EGGS,
             Items.AXOLOTL_SPAWN_EGG
         );

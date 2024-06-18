@@ -130,13 +130,13 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
     /**
      * May be run late. Use this to conditionally add and item to the creative menu if the feature is enabled.
      */
-    public <T extends ItemLike> void itemTab(Supplier<T> item, ResourceKey<CreativeModeTab> key, @Nullable ItemLike showAfter) {
+    public <T extends ItemLike> void itemTab(T item, ResourceKey<CreativeModeTab> key, ItemLike showAfter) {
         if (showAfter != null) {
             ItemGroupEvents.modifyEntriesEvent(key)
-                .register(entries -> entries.addAfter(showAfter, item.get()));
+                .register(entries -> entries.addAfter(showAfter, item));
         } else {
             ItemGroupEvents.modifyEntriesEvent(key)
-                .register(entries -> entries.accept(item.get()));
+                .register(entries -> entries.accept(item));
         }
     }
 

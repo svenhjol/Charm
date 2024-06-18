@@ -36,7 +36,7 @@ public class BoatHolder {
         holder.ownerRegistry().dispenserBehavior(chestBoat, () -> new BoatDispenseItemBehavior(boatType, true));
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomType.BOAT, boat);
-        holder.addCreativeTabItem(CustomType.CHEST_BOAT, chestBoat);
+        holder.addItemToCreativeTab(boat, CustomType.BOAT);
+        holder.addItemToCreativeTab(chestBoat, CustomType.CHEST_BOAT);
     }
 }

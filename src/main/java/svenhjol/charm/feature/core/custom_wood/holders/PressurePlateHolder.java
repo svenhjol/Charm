@@ -16,6 +16,6 @@ public class PressurePlateHolder {
         block = holder.ownerRegistry().block(id, () -> new CustomWoodenPressurePlateBlock(holder.getMaterial()));
         item = holder.ownerRegistry().item(id, () -> new CustomWoodenPressurePlateBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomType.PRESSURE_PLATE, item);
+        holder.addItemToCreativeTab(item, CustomType.PRESSURE_PLATE);
     }
 }

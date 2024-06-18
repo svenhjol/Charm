@@ -15,12 +15,12 @@ public final class Registers extends RegisterHolder<CopperPistonsClient> {
         var registry = feature().registry();
 
         registry.itemTab(
-            feature().linked().registers.stickyCopperPistonBlockItem,
+            feature().linked().registers.stickyCopperPistonBlockItem.get(),
             CreativeModeTabs.REDSTONE_BLOCKS,
             Items.STICKY_PISTON
         );
         registry.itemTab(
-            feature().linked().registers.copperPistonBlockItem,
+            feature().linked().registers.copperPistonBlockItem.get(),
             CreativeModeTabs.REDSTONE_BLOCKS,
             Items.STICKY_PISTON
         );
