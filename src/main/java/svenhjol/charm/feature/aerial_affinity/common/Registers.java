@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.aerial_affinity.common;
 
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -13,7 +12,7 @@ import svenhjol.charm.feature.aerial_affinity.AerialAffinity;
 import java.util.function.Supplier;
 
 public final class Registers extends RegisterHolder<AerialAffinity> {
-    public final Supplier<Holder<Attribute>> attribute;
+    public final Supplier<Attribute> attribute;
     public final ResourceKey<Enchantment> enchantment;
 
     public Registers(AerialAffinity feature) {

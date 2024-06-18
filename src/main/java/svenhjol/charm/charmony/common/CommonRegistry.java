@@ -3,7 +3,6 @@ package svenhjol.charm.charmony.common;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -63,12 +62,10 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
-import net.minecraft.world.level.storage.loot.LootTable;
 import svenhjol.charm.charmony.Log;
 import svenhjol.charm.charmony.common.block.CharmStairBlock;
 import svenhjol.charm.charmony.common.block.CharmWallHangingSignBlock;
 import svenhjol.charm.charmony.common.block.CharmWallSignBlock;
-import svenhjol.charm.charmony.common.deferred.DeferredPotionMix;
 import svenhjol.charm.charmony.common.helper.DispenserHelper;
 import svenhjol.charm.charmony.helper.ConfigHelper;
 import svenhjol.charm.charmony.helper.EnumHelper;
@@ -104,10 +101,10 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         return loader.id(path);
     }
 
-    public Register<Holder<Attribute>> attribute(String id, Supplier<Attribute> supplier) {
+    public Register<Attribute> attribute(String id, Supplier<Attribute> supplier) {
         return new Register<>(() -> {
             log("Attribute " + id);
-            return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, id(id), supplier.get());
+            return Registry.register(BuiltInRegistries.ATTRIBUTE, id(id), supplier.get());
         });
     }
 
@@ -339,10 +336,10 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public Register<Holder<Potion>> potion(String id, Supplier<Potion> supplier) {
+    public Register<Potion> potion(String id, Supplier<Potion> supplier) {
         return new Register<>(() -> {
             log("Potion " + id);
-            return Registry.registerForHolder(BuiltInRegistries.POTION, id(id), supplier.get());
+            return Registry.register(BuiltInRegistries.POTION, id(id), supplier.get());
         });
     }
 

@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.collection.common;
 
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -12,7 +11,7 @@ import svenhjol.charm.feature.collection.Collection;
 import java.util.function.Supplier;
 
 public final class Registers extends RegisterHolder<Collection> {
-    public final Supplier<Holder<Attribute>> attribute;
+    public final Supplier<Attribute> attribute;
     public final ResourceKey<Enchantment> enchantment;
 
     public Registers(Collection feature) {

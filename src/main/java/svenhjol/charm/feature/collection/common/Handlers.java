@@ -26,7 +26,7 @@ public final class Handlers extends FeatureHolder<Collection> {
         var playerAttributes = player.getAttributes();
 
         return playerAttributes.hasAttribute(collection)
-            && playerAttributes.getValue(collection.value()) > 0;
+            && playerAttributes.getValue(collection) > 0;
     }
 
     public void startBreaking(Player player, BlockPos pos) {
