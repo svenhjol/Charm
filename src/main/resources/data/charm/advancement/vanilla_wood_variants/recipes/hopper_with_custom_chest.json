@@ -23,9 +23,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "#charm:chests/normal"
-            ]
+            "items": "#charm:chests/normal"
           }
         ]
       },
