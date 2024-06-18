@@ -97,7 +97,15 @@ public final class Registers extends RegisterHolder<CustomWood> {
     public Map<Boat.Type, ResourceLocation> getBoatPlanks() {
         return boatPlanks;
     }
+    
+    public Optional<BoatItem> getItemForBoat(Boat.Type boatType) {
+        return Optional.of(feature().registers.boatItem.get(boatType)).map(Supplier::get);
+    }
 
+    public Optional<BoatItem> getItemForChestBoat(Boat.Type boatType) {
+        return Optional.of(feature().registers.chestBoatItem.get(boatType)).map(Supplier::get);
+    }
+    
     public void addCreativeTabItem(String modId, CustomType customType, Supplier<? extends Item> item) {
         creativeTabItems.computeIfAbsent(modId, m -> new LinkedHashMap<>())
             .computeIfAbsent(customType, a -> new LinkedList<>()).add(item);

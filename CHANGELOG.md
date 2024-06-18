@@ -14,7 +14,7 @@
 
 ## 7.0.23
 
-- Fix: Returned items don't go back into the correct inventory slot after adding to cooking pot
+- Fix returned items not going back into the correct inventory slot after adding to cooking pot
 - Slightly less vibrant cooking color index. Added new particle effect when cooking is done
 - Raid horn item icon minor texture change (coranthes)
 - Fix filling pot with water bottle
@@ -25,3 +25,9 @@
 - Ebony leaves now drop ebony saplings
 - Made ebony tree rendering a bit less derpy
 - Ebony leaves no longer drop apples
+
+## 7.0.24
+
+- Fix ebony and azalea boats and chestboats not dropping the correct item when broken.
+- Fix missing recipe for ebony and azalea chestboats using vanilla chests
+- (awaiting ebony boat item icon fix)

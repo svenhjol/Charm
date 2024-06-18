@@ -9,9 +9,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.EntityHitResult;
+import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWood;
 import svenhjol.charm.feature.core.custom_wood.blocks.CustomChestBlock;
-import svenhjol.charm.charmony.feature.FeatureHolder;
 
 import javax.annotation.Nullable;
 
@@ -19,7 +19,7 @@ public final class Handlers extends FeatureHolder<CustomWood> {
     public Handlers(CustomWood feature) {
         super(feature);
     }
-
+    
     public InteractionResult animalInteraction(Player player, Level level, InteractionHand hand, Entity entity, @Nullable EntityHitResult hitResult) {
         if (entity instanceof AbstractChestedHorse horse) {
             var held = player.getItemInHand(hand);
