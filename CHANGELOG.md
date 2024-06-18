@@ -28,9 +28,15 @@
 
 ## 7.0.24
 
-- Fix ebony and azalea boats and chestboats not dropping the correct item when broken.
+- Fix ebony and azalea boats and chestboats not dropping the correct item when broken
 - Fix missing recipe for ebony and azalea chestboats using vanilla chests
 - Fix hopper and chest minecart recipes with custom chests
 - Ebony boat icon no longer has normal colored oar
-- Improvements to enchantment glint color balance
+- Improvements to enchantment glint color balance (coranthes)
 - Some cleanup of creative menu, more to follow
+
+## 7.0.25
+
+- Fix an issue where config was not checked properly for enabled/disabled features
+- Fix advancement recipe error for hopper and chest recipes
+- Fix animal armor dying when animal armor enchanting feature is active
