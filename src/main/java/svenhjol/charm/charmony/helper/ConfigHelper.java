@@ -26,7 +26,7 @@ public final class ConfigHelper {
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public static boolean isFeatureEnabled(String modId, String featureName, Side side) {
+    public static boolean isFeatureEnabled(String modId, String featureName) {
         Feature annotation;
 
         if (featureName.contains(".")) {
@@ -42,21 +42,29 @@ public final class ConfigHelper {
             var clazz = Class.forName("svenhjol." + modId + ".feature." + TextHelper.upperCamelToSnake(featureName) + "." + featureName);
             annotation = clazz.getAnnotation(Feature.class);
         } catch (ClassNotFoundException e) {
-            annotation = null;
+            throw new RuntimeException("Missing feature annotation: " + featureName);
         }
 
-        var toml = read(filename(modId, side));
         var path = featureName + ".Enabled";
+        var allSidesAreValid = true;
+        var configExists = false;
 
-        if (toml.contains(path)) {
-            // If the "Enabled" path can be found in the config, use its value.
-            return toml.getBoolean(path);
-        } else if (annotation != null) {
-            // If config can't be found, use the feature's "enabledByDefault" value.
-            return annotation.enabledByDefault();
+        for (Side side : Side.values()) {
+            var fileName = filename(modId, side);
+            if (!configExists(fileName)) {
+                continue;
+            }
+            
+            configExists = true;
+            var toml = read(fileName);
+            
+            if (toml.contains(path)) {
+                // If the "Enabled" path can be found in the config, use its value.
+                allSidesAreValid = allSidesAreValid && toml.getBoolean(path);
+            }
         }
-
-        return true; // Just fall through to enabling the feature.
+        
+        return configExists ? allSidesAreValid : annotation.enabledByDefault();
     }
 
     public static boolean configExists(String filename) {

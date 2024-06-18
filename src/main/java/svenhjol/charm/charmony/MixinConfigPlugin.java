@@ -96,16 +96,8 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
         }
 
         // Check if feature is enabled in config.
-        boolean valid = false;
-        for (var side : sides()) {
-            if (ConfigHelper.isFeatureEnabled(id(), featureName, side)) {
-                valid = true;
-                break;
-            }
-        }
-
+        boolean valid = ConfigHelper.isFeatureEnabled(id(), featureName);
         consoleOutput(valid, mixinClassName);
-
         return valid;
     }
 
