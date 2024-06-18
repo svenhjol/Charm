@@ -30,4 +30,7 @@
 
 - Fix ebony and azalea boats and chestboats not dropping the correct item when broken.
 - Fix missing recipe for ebony and azalea chestboats using vanilla chests
-- (awaiting ebony boat item icon fix)
+- Fix hopper and chest minecart recipes with custom chests
+- Ebony boat icon no longer has normal colored oar
+- Improvements to enchantment glint color balance
+- Some cleanup of creative menu, more to follow
