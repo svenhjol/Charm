@@ -1,7 +1,6 @@
 package svenhjol.charm.charmony.common.mixin.event.apply_beacon_effects;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
@@ -21,7 +20,7 @@ public class BeaconBlockEntityMixin {
         method = "applyEffects",
         at = @At("HEAD")
     )
-    private static void hookApplyEffects(Level level, BlockPos pos, int beaconLevel, Holder<MobEffect> primary, Holder<MobEffect> secondary, CallbackInfo ci) {
+    private static void hookApplyEffects(Level level, BlockPos pos, int beaconLevel, MobEffect primary, MobEffect secondary, CallbackInfo ci) {
         if (level != null) {
             ApplyBeaconEffectsEvent.INSTANCE.invoke(level, pos, beaconLevel, primary, secondary);
         }

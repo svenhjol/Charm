@@ -15,7 +15,7 @@ import svenhjol.charm.charmony.event.PlayerInventoryDropEvent;
 @Mixin(Player.class)
 public abstract class PlayerMixin {
     @Shadow @Final
-    Inventory inventory;
+    private Inventory inventory;
 
     /**
      * Fires the {@link PlayerInventoryDropEvent} event.

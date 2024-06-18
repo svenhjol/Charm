@@ -56,9 +56,6 @@ public class SmithingTransformRecipeMixin {
     @Unique
     private ItemStack getTemplate() {
         var items = List.of(this.template.getItems());
-        if (items.isEmpty()) {
-            return ItemStack.EMPTY;
-        }
-        return items.getFirst();
+        return items.isEmpty() ? ItemStack.EMPTY : items.get(0);
     }
 }

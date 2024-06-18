@@ -13,12 +13,12 @@ public final class DebugHelper {
     private static final List<BooleanSupplier> MIXIN_DISABLE_CHECKS = new ArrayList<>();
 
     public static void registerDebugCheck(BooleanSupplier supplier) {
-        LOGGER.info("Adding debug check: " + supplier);
+        LOGGER.info("Adding debug check: {}", supplier);
         DEBUG_CHECKS.add(supplier);
     }
 
     public static void registerMixinDisableCheck(BooleanSupplier supplier) {
-        LOGGER.info("Adding mixin disable check: " + supplier);
+        LOGGER.info("Adding mixin disable check: {}", supplier);
         MIXIN_DISABLE_CHECKS.add(supplier);
     }
 

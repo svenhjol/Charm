@@ -1,6 +1,5 @@
 package svenhjol.charm.charmony.common.mixin.event.entity_drop;
 
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,9 +18,9 @@ public abstract class LivingEntityMixin {
         method = "dropAllDeathLoot",
         at = @At("TAIL")
     )
-    private void hookDrop(ServerLevel level, DamageSource source, CallbackInfo ci) {
+    private void hookDrop(DamageSource damageSource, CallbackInfo ci) {
         var entity = (LivingEntity)(Object)this;
         
-        EntityKilledDropEvent.INSTANCE.invoke(entity, source);
+        EntityKilledDropEvent.INSTANCE.invoke(entity, damageSource);
     }
 }

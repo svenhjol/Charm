@@ -3,7 +3,6 @@ package svenhjol.charm.charmony.common.mixin.event.anvil_update;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -35,7 +34,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         cancellable = true,
         locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void hookCreateResult(CallbackInfo ci, ItemStack input, int i, long baseCost, int j, ItemStack itemStack2, ItemStack material, ItemEnchantments.Mutable mutable) {
+    private void hookCreateResult(CallbackInfo ci, ItemStack input, int i, int baseCost, int k, ItemStack itemStack2, ItemStack material) {
         var result = AnvilUpdateEvent.INSTANCE.invoke(player, input, material, baseCost);
         if (result.isPresent()) {
             var recipe = result.get();

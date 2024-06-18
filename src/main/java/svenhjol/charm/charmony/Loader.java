@@ -39,7 +39,7 @@ public abstract class Loader<F extends Feature> {
      */
     public ResourceLocation id(String path) {
         if (path.contains(":")) {
-            return ResourceLocation.parse(path);
+            return ResourceLocation.tryParse(path);
         }
         return new ResourceLocation(this.id, path);
     }
