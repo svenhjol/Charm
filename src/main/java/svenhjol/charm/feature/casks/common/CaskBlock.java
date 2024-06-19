@@ -77,7 +77,7 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                               InteractionHand hand, BlockHitResult hitResult) {
         return feature().handlers.playerAddToCask(stack, state, level, pos, player, hand, hitResult)
-            .asItemInteractionResult();
+            .asItemInteractionResult(level.isClientSide());
     }
 
     @Override
