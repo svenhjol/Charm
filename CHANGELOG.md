@@ -51,3 +51,5 @@
 ## 7.0.27
 
 - Incorrect logic when adding water to cask
+- No longer possible to turn water into free awkward potion
+- Fix client desync bugs with cask
