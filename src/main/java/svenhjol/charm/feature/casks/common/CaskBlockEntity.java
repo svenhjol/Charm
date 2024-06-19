@@ -254,9 +254,9 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         if (!effects.isEmpty()) {
             var customName = this.name != null ? this.name : Component.translatable("item.charm.home_brew");
             return feature().handlers.makeCustomPotion(customName, effects, this.fermentation);
+        } else {
+            return feature().handlers.getFilledWaterBottle();
         }
-
-        return feature().handlers.getBasePotionBottle();
     }
 
     private void removeBottle() {

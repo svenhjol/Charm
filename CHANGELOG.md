@@ -47,3 +47,9 @@
 - Updated red, lime and green enchantment glint colors (coranthes)
 - Base homebrew on awkward potion so that redstone is no longer accepted as an ingredient
 - Fix client desync bug with cask
+
+## 7.0.27
+
+- Incorrect logic when adding water to cask
+- No longer possible to turn water into free awkward potion
+- Fix client desync bugs with cask
