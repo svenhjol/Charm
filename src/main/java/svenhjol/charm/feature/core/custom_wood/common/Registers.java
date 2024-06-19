@@ -98,11 +98,17 @@ public final class Registers extends RegisterHolder<CustomWood> {
     }
     
     public Optional<BoatItem> getItemForBoat(Boat.Type boatType) {
-        return Optional.of(feature().registers.boatItem.get(boatType)).map(Supplier::get);
+        if (feature().registers.boatItem.containsKey(boatType)) {
+            return Optional.of(feature().registers.boatItem.get(boatType)).map(Supplier::get);
+        }
+        return Optional.empty();
     }
 
     public Optional<BoatItem> getItemForChestBoat(Boat.Type boatType) {
-        return Optional.of(feature().registers.chestBoatItem.get(boatType)).map(Supplier::get);
+        if (feature().registers.chestBoatItem.containsKey(boatType)) {
+            return Optional.of(feature().registers.chestBoatItem.get(boatType)).map(Supplier::get);
+        }
+        return Optional.empty();
     }
 
     public Table<Supplier<? extends Item>, Supplier<ItemLike>, CustomType> getItemCreativeTabs() {
