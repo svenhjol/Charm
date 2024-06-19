@@ -31,7 +31,7 @@ public class LogBlockHolder {
         // Logs can be stripped.
         registry.strippable(block, strippedBlock);
 
-        holder.addCreativeTabItem(CustomType.LOG, item);
-        holder.addCreativeTabItem(CustomType.STRIPPED_LOG, strippedItem);
+        holder.addItemToCreativeTab(item, CustomType.LOG);
+        holder.addItemToCreativeTab(strippedItem, CustomType.STRIPPED_LOG);
     }
 }

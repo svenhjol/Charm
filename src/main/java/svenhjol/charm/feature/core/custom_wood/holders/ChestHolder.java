@@ -27,6 +27,6 @@ public class ChestHolder {
         registry.blockEntityBlocks(feature.registers.chestBlockEntity, List.of(block));
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomType.CHEST, item);
+        holder.addItemToCreativeTab(item, CustomType.CHEST);
     }
 }

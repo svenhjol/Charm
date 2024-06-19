@@ -27,6 +27,6 @@ public class TrappedChestHolder {
         registry.blockEntityBlocks(feature.registers.trappedChestBlockEntity, List.of(block));
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomType.TRAPPED_CHEST, item);
+        holder.addItemToCreativeTab(item, CustomType.TRAPPED_CHEST);
     }
 }

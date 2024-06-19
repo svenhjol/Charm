@@ -4,7 +4,7 @@
     "criteria": {
       "has_the_recipe": {
         "conditions": {
-          "recipe": "charm:variant_wood/VANILLA_WOOD_ladder"
+          "recipe": "charm:vanilla_wood_variants/VANILLA_WOOD_ladder"
         },
         "trigger": "minecraft:recipe_unlocked"
       },
@@ -42,7 +42,7 @@
     ],
     "rewards": {
       "recipes": [
-        "charm:variant_wood/VANILLA_WOOD_ladder"
+        "charm:vanilla_wood_variants/VANILLA_WOOD_ladder"
       ]
     }
   },

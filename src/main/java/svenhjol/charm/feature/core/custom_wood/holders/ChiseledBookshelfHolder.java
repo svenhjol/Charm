@@ -27,6 +27,6 @@ public class ChiseledBookshelfHolder {
         registry.blockEntityBlocks(() -> BlockEntityType.CHISELED_BOOKSHELF, List.of(block));
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomType.CHISELED_BOOKSHELF, item);
+        holder.addItemToCreativeTab(item, CustomType.CHISELED_BOOKSHELF);
     }
 }

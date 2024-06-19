@@ -1,5 +1,7 @@
 package svenhjol.charm.feature.core.custom_wood.common;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -7,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.charmony.common.CommonFeature;
 import svenhjol.charm.charmony.common.CommonRegistry.Register;
@@ -26,7 +29,7 @@ public final class Registers extends RegisterHolder<CustomWood> {
     public final Map<Boat.Type, Supplier<BoatItem>> boatItem = new HashMap<>();
     public final Map<Boat.Type, Supplier<BoatItem>> chestBoatItem = new HashMap<>();
     public final Map<Boat.Type, ResourceLocation> boatPlanks = new HashMap<>();
-    public final Map<String, Map<CustomType, List<Supplier<? extends Item>>>> creativeTabItems = new HashMap<>();
+    public final Table<Supplier<? extends Item>, Supplier<ItemLike>, CustomType> itemCreativeTabs = HashBasedTable.create();
     public final List<Supplier<CharmSignItem>> signItems = new ArrayList<>();
     public final List<Supplier<CharmHangingSignItem>> hangingSignItems = new ArrayList<>();
     public final Register<BlockEntityType<CustomChestBlockEntity>> chestBlockEntity;
@@ -82,10 +85,6 @@ public final class Registers extends RegisterHolder<CustomWood> {
         });
     }
 
-    public Map<String, Map<CustomType, List<Supplier<? extends Item>>>> getCreativeTabItems() {
-        return creativeTabItems;
-    }
-
     public List<Supplier<CharmSignItem>> getSignItems() {
         return signItems;
     }
@@ -97,10 +96,27 @@ public final class Registers extends RegisterHolder<CustomWood> {
     public Map<Boat.Type, ResourceLocation> getBoatPlanks() {
         return boatPlanks;
     }
+    
+    public Optional<BoatItem> getItemForBoat(Boat.Type boatType) {
+        if (feature().registers.boatItem.containsKey(boatType)) {
+            return Optional.of(feature().registers.boatItem.get(boatType)).map(Supplier::get);
+        }
+        return Optional.empty();
+    }
 
-    public void addCreativeTabItem(String modId, CustomType customType, Supplier<? extends Item> item) {
-        creativeTabItems.computeIfAbsent(modId, m -> new LinkedHashMap<>())
-            .computeIfAbsent(customType, a -> new LinkedList<>()).add(item);
+    public Optional<BoatItem> getItemForChestBoat(Boat.Type boatType) {
+        if (feature().registers.chestBoatItem.containsKey(boatType)) {
+            return Optional.of(feature().registers.chestBoatItem.get(boatType)).map(Supplier::get);
+        }
+        return Optional.empty();
+    }
+
+    public Table<Supplier<? extends Item>, Supplier<ItemLike>, CustomType> getItemCreativeTabs() {
+        return itemCreativeTabs;
+    }
+
+    public void addItemToCreativeTab(Supplier<? extends Item> item, Supplier<ItemLike> after, CustomType type) {
+        itemCreativeTabs.put(item, after, type);
     }
 
     public void setItemForBoat(Boat.Type type, Supplier<BoatItem> item) {

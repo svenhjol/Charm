@@ -25,6 +25,6 @@ public class BookshelfHolder {
         registry.fuel(item);
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomType.BOOKSHELF, item);
+        holder.addItemToCreativeTab(item, CustomType.BOOKSHELF);
     }
 }

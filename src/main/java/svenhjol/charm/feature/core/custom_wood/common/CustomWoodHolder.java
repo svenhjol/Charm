@@ -20,6 +20,7 @@ public class CustomWoodHolder {
     private final CustomWood feature;
     private final CommonFeature owner;
     private final CustomWoodMaterial material;
+    private final CustomWoodDefinition definition;
 
     private BarrelHolder barrel;
     private BoatHolder boat;
@@ -47,6 +48,7 @@ public class CustomWoodHolder {
     public CustomWoodHolder(CustomWood feature, CommonFeature owner, CustomWoodDefinition definition) {
         this.feature = feature;
         this.owner = owner;
+        this.definition = definition;
         this.material = definition.material();
 
         definition.types().forEach(type -> {
@@ -77,8 +79,14 @@ public class CustomWoodHolder {
         });
     }
 
-    public void addCreativeTabItem(CustomType customType, Supplier<? extends Item> item) {
-        feature().registers.addCreativeTabItem(ownerId(), customType, item);
+    public void addItemToCreativeTab(Supplier<? extends Item> item, CustomType customType) {
+        var map = definition.creativeMenuPosition();
+        if (map.isEmpty() || map.get(customType) == null) {
+            throw new RuntimeException("Could not find creative tab position for custom type: " + customType);
+        }
+
+        var after = map.get(customType);
+        feature().registers.addItemToCreativeTab(item, after, customType);
     }
 
     public CustomWood feature() {
@@ -95,6 +103,10 @@ public class CustomWoodHolder {
 
     public CustomWoodMaterial getMaterial() {
         return material;
+    }
+
+    public CustomWoodDefinition getDefinition() {
+        return definition;
     }
 
     public String getMaterialName() {

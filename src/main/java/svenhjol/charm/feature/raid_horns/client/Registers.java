@@ -19,7 +19,7 @@ public final class Registers extends RegisterHolder<RaidHornsClient> {
             feature().linked().registers.item, () -> feature().handlers::handleTooting);
 
         registry.itemTab(
-            feature().linked().registers.item,
+            feature().linked().registers.item.get(),
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.TNT_MINECART
         );

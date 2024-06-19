@@ -26,7 +26,7 @@ public final class Registers extends RegisterHolder<MoobloomsClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().linked().registers.spawnEggItem,
+            feature().linked().registers.spawnEggItem.get(),
             CreativeModeTabs.SPAWN_EGGS,
             Items.MAGMA_CUBE_SPAWN_EGG
         );

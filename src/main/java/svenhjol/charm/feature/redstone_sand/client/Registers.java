@@ -13,7 +13,7 @@ public final class Registers extends RegisterHolder<RedstoneSandClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().linked().registers.block,
+            feature().linked().registers.block.get(),
             CreativeModeTabs.REDSTONE_BLOCKS,
             Items.REDSTONE_BLOCK
         );

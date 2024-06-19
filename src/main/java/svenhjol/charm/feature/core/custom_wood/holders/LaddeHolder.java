@@ -22,6 +22,6 @@ public class LaddeHolder {
         registry.fuel(item);
 
         // Add to creative menu.
-        holder.addCreativeTabItem(CustomType.LADDER, item);
+        holder.addItemToCreativeTab(item, CustomType.LADDER);
     }
 }

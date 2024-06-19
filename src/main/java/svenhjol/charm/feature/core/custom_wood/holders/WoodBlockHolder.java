@@ -31,7 +31,7 @@ public class WoodBlockHolder {
         // Wood can be stripped.
         registry.strippable(block, strippedBlock);
 
-        holder.addCreativeTabItem(CustomType.WOOD, item);
-        holder.addCreativeTabItem(CustomType.STRIPPED_WOOD, strippedItem);
+        holder.addItemToCreativeTab(item, CustomType.WOOD);
+        holder.addItemToCreativeTab(strippedItem, CustomType.STRIPPED_WOOD);
     }
 }

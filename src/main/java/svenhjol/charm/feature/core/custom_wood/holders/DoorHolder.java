@@ -16,6 +16,6 @@ public class DoorHolder {
         block = holder.ownerRegistry().block(id, () -> new CustomWoodenDoorBlock(holder.getMaterial()));
         item = holder.ownerRegistry().item(id, () -> new CustomWoodenDoorBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomType.DOOR, item);
+        holder.addItemToCreativeTab(item, CustomType.DOOR);
     }
 }

@@ -38,6 +38,6 @@ public class Sapling {
         block = holder.ownerRegistry().block(saplingId, () -> new CustomSaplingBlock(holder.getMaterial(), treeGrower));
         item = holder.ownerRegistry().item(saplingId, () -> new CustomSaplingBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomType.SAPLING, item);
+        holder.addItemToCreativeTab(item, CustomType.SAPLING);
     }
 }

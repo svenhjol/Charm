@@ -12,37 +12,37 @@ public final class Registers extends RegisterHolder<ArcanePurpurClient> {
         var common = feature().linked();
 
         registry.itemTab(
-            common.registers.chiseledGlyphBlock,
+            common.registers.chiseledGlyphBlock.get(),
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );
         registry.itemTab(
-            common.registers.chiseledBlock,
+            common.registers.chiseledBlock.get(),
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );
         registry.itemTab(
-            common.registers.glyphBlock,
+            common.registers.glyphBlock.get(),
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );
         registry.itemTab(
-            common.registers.block,
+            common.registers.block.get(),
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );
         registry.itemTab(
-            common.registers.slab,
+            common.registers.slab.get(),
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );
         registry.itemTab(
-            common.registers.stairs,
+            common.registers.stairs.get(),
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );
         registry.itemTab(
-            common.registers.block,
+            common.registers.block.get(),
             CreativeModeTabs.BUILDING_BLOCKS,
             Items.PURPUR_SLAB
         );

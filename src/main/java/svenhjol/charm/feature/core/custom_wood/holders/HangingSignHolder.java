@@ -33,6 +33,6 @@ public class HangingSignHolder {
         // Associate with the hanging sign block entity.
         registry.blockEntityBlocks(() -> BlockEntityType.HANGING_SIGN, List.of(hangingBlock, wallBlock));
 
-        holder.addCreativeTabItem(CustomType.HANGING_SIGN, item);
+        holder.addItemToCreativeTab(item, CustomType.HANGING_SIGN);
     }
 }

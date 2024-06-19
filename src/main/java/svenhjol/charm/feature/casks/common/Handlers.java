@@ -27,8 +27,8 @@ public final class Handlers extends FeatureHolder<Casks> {
         super(feature);
     }
 
-    public ItemStack getFilledWaterBottle() {
-        return PotionContents.createItemStack(Items.POTION, Potions.WATER);
+    public ItemStack getBasePotionBottle() {
+        return PotionContents.createItemStack(Items.POTION, Potions.AWKWARD);
     }
 
     public boolean isValidPotion(ItemStack potion) {
@@ -49,7 +49,7 @@ public final class Handlers extends FeatureHolder<Casks> {
     }
 
     public ItemStack makeCustomPotion(Component customName, List<MobEffectInstance> effects, double fermentation) {
-        var stack = feature().handlers.getFilledWaterBottle();
+        var stack = feature().handlers.getBasePotionBottle();
         var basePotion = getPotion(stack);
 
         var newPotionContents = new PotionContents(basePotion.potion(), basePotion.customColor(), effects);

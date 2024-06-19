@@ -15,7 +15,7 @@ public final class Registers extends RegisterHolder<EndermitePowderClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().linked().registers.item,
+            feature().linked().registers.item.get(),
             CreativeModeTabs.TOOLS_AND_UTILITIES,
             Items.ENDER_EYE
         );

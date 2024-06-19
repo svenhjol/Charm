@@ -23,7 +23,7 @@ public final class Registers extends RegisterHolder<TotemOfPreservingClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().linked().registers.item,
+            feature().linked().registers.item.get(),
             CreativeModeTabs.COMBAT,
             Items.TOTEM_OF_UNDYING
         );

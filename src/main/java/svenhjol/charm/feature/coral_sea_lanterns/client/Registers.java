@@ -19,9 +19,9 @@ public final class Registers extends RegisterHolder<CoralSeaLanternsClient> {
         var lanterns = new ArrayList<>(feature().linked().registers.blockItems.values());
         Collections.reverse(lanterns);
 
-        lanterns.forEach(value -> {
-            registry.itemTab(value, CreativeModeTabs.BUILDING_BLOCKS, Items.SEA_LANTERN);
-            registry.itemTab(value, CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.SEA_LANTERN);
+        lanterns.forEach(supplier -> {
+            registry.itemTab(supplier.get(), CreativeModeTabs.BUILDING_BLOCKS, Items.SEA_LANTERN);
+            registry.itemTab(supplier.get(), CreativeModeTabs.FUNCTIONAL_BLOCKS, Items.SEA_LANTERN);
         });
     }
 }

@@ -16,6 +16,6 @@ public class GateHolder {
         item = holder.ownerRegistry().item(id, () -> new CustomGateBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Gates can set on fire.
-        holder.addCreativeTabItem(CustomType.GATE, item);
+        holder.addItemToCreativeTab(item, CustomType.GATE);
     }
 }

@@ -15,6 +15,6 @@ public class TrapdoorHolder {
         block = holder.ownerRegistry().block(id, () -> new CustomWoodenTrapdoorBlock(holder.getMaterial()));
         item = holder.ownerRegistry().item(id, () -> new CustomWoodenTrapdoorBlock.BlockItem(block));
 
-        holder.addCreativeTabItem(CustomType.TRAPDOOR, item);
+        holder.addItemToCreativeTab(item, CustomType.TRAPDOOR);
     }
 }

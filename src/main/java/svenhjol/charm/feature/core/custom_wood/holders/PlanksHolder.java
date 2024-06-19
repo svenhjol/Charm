@@ -16,6 +16,6 @@ public class PlanksHolder {
         item = holder.ownerRegistry().item(id, () -> new CustomPlanksBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Planks can set on fire.
-        holder.addCreativeTabItem(CustomType.PLANKS, item);
+        holder.addItemToCreativeTab(item, CustomType.PLANKS);
     }
 }

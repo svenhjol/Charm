@@ -17,6 +17,6 @@ public class LeavesHolder {
         item = holder.ownerRegistry().item(id, () -> new CustomLeavesBlock.BlockItem(block));
 
         holder.ownerRegistry().ignite(block); // Leaves can set on fire.
-        holder.addCreativeTabItem(CustomType.LEAVES, item);
+        holder.addItemToCreativeTab(item, CustomType.LEAVES);
     }
 }

@@ -13,7 +13,7 @@ public final class Registers extends RegisterHolder<GunpowderBlockClient> {
     @Override
     public void onEnabled() {
         feature().registry().itemTab(
-            feature().linked().registers.item,
+            feature().linked().registers.item.get(),
             CreativeModeTabs.REDSTONE_BLOCKS,
             Items.HONEY_BLOCK
         );
