@@ -4,6 +4,17 @@
 
 ### This branch is a work in progress conversion from 1.21. It does not build properly yet.
 
+What's left to port before building:
+
+- Atlases
+- Casks
+- Cooking pots
+- Coral squids
+- Crafting from inventory
+- Glint coloring
+- Totem of Preserving
+- Suspicious big plant mixins
+
 ----
 
 
