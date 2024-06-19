@@ -1,22 +1,19 @@
 package svenhjol.charm.feature.casks.common;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -37,6 +34,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 import svenhjol.charm.charmony.feature.FeatureResolver;
+import svenhjol.charm.charmony.helper.BackportHelper;
 import svenhjol.charm.charmony.iface.FuelProvider;
 import svenhjol.charm.feature.casks.Casks;
 
@@ -44,9 +42,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureResolver<Casks> {
     private static final DirectionProperty FACING = BlockStateProperties.FACING;
-    private static final MapCodec<CaskBlock> CODEC = simpleCodec(CaskBlock::new);
     private static final VoxelShape X1, X2, X3, X4;
     private static final VoxelShape Y1, Y2, Y3, Y4;
     private static final VoxelShape Z1, Z2, Z3, Z4;
@@ -69,21 +67,16 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     }
 
     @Override
-    protected MapCodec<? extends BaseEntityBlock> codec() {
-        return CODEC;
-    }
-
-    @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
-                                              InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        var stack = player.getItemInHand(hand);
         return feature().handlers.playerAddToCask(stack, state, level, pos, player, hand, hitResult)
-            .asItemInteractionResult(level.isClientSide());
+            .asInteractionResult(level.isClientSide());
     }
 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (level.getBlockEntity(pos) instanceof CaskBlockEntity cask) {
-            if (stack.has(DataComponents.CUSTOM_NAME)) {
+            if (stack.hasCustomHoverName()) {
                 cask.name = stack.getHoverName();
             }
         }
@@ -129,7 +122,7 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     @Override
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         if (level.getBlockEntity(pos) instanceof CaskBlockEntity cask && cask.bottles > 0) {
-            return Mth.lerpDiscrete((float)cask.bottles / (float) feature().maxBottles(), 0, 15);
+            return BackportHelper.lerpDiscrete((float)cask.bottles / (float) feature().maxBottles(), 0, 15);
         }
         return 0;
     }
@@ -153,7 +146,7 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     }
 
     @Override
-    protected RenderShape getRenderShape(BlockState blockState) {
+    public RenderShape getRenderShape(BlockState blockState) {
         return RenderShape.MODEL;
     }
 
@@ -168,27 +161,27 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, list, tooltipFlag);
-        var caskData = stack.get(feature().registers.caskData.get());
+    public void appendHoverText(ItemStack stack, @Nullable BlockGetter level, List<Component> list, TooltipFlag tooltipFlag) {
+        var tag = BlockItem.getBlockEntityData(stack);
+        if (tag != null) {
 
-        if (caskData == null || caskData.bottles() == 0) {
-            return;
-        }
+            // Dumb hack, don't know why "id" isn't serialized via the loot table drop.
+            // Without it the call to BlockEntity.loadStatic fails.
+            tag.put("id", StringTag.valueOf("strange:cask"));
 
-        list.add(Component.translatable("gui.charm.cask.bottles", caskData.bottles())
-            .withStyle(ChatFormatting.AQUA));
+            var blockEntity = BlockEntity.loadStatic(BlockPos.ZERO, feature().registers.block.get().defaultBlockState(), tag);
+            if (blockEntity instanceof CaskBlockEntity cask && cask.bottles > 0) {
+                list.add(Component.translatable("gui.charm.cask.bottles", cask.bottles).withStyle(ChatFormatting.AQUA));
 
-        if (!caskData.effects().isEmpty()) {
-            for (var effect : caskData.effects()) {
-                var mobEffect = BuiltInRegistries.MOB_EFFECT.get(effect);
-                if (mobEffect == null) continue;
-                list.add(Component.translatable(mobEffect.getDescriptionId())
-                    .withStyle(ChatFormatting.BLUE));
+                if (!cask.effects.isEmpty()) {
+                    for (var effect : cask.effects) {
+                        BuiltInRegistries.MOB_EFFECT.getOptional(effect).ifPresent(
+                            mobEffect -> list.add(Component.translatable(mobEffect.getDescriptionId()).withStyle(ChatFormatting.BLUE)));
+                    }
+                } else {
+                    list.add(Component.translatable("gui.charm.cask.only_contains_water").withStyle(ChatFormatting.BLUE));
+                }
             }
-        } else {
-            list.add(Component.translatable("gui.charm.cask.only_contains_water")
-                .withStyle(ChatFormatting.BLUE));
         }
     }
 
@@ -233,11 +226,11 @@ public class CaskBlock extends BaseEntityBlock implements FuelProvider, FeatureR
         var g = (color >> 8 & 255) / 255.0f;
         var b = (color & 255) / 255.0f;
 
-        level.addParticle(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, r, g, b),
+        level.addParticle(ParticleTypes.ENTITY_EFFECT,
             pos.getX() + 0.13d + (0.7d * random.nextDouble()),
             pos.getY() + 0.5d,
             pos.getZ() + 0.13d + (0.7d * random.nextDouble()),
-            0d, 0d, 0d);
+            r, g, b);
     }
 
     @Override
