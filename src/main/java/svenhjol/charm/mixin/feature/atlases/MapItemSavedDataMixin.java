@@ -10,8 +10,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import svenhjol.charm.feature.atlases.Atlases;
 import svenhjol.charm.charmony.Resolve;
 
-import java.util.function.Predicate;
-
 /**
  * Redirects the normal player inventory contains method to also check for atlases containing maps.
  */
@@ -22,10 +20,10 @@ public class MapItemSavedDataMixin {
             method = "tickCarriedBy",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/world/entity/player/Inventory;contains(Ljava/util/function/Predicate;)Z"
+                    target = "Lnet/minecraft/world/entity/player/Inventory;contains(Lnet/minecraft/world/item/ItemStack;)Z"
             )
     )
-    private boolean hookContains(boolean original, @Local(argsOnly = true) Player player, @Local Predicate<ItemStack> predicate) {
-        return original || Resolve.feature(Atlases.class).handlers.doesAtlasContainMap(player.getInventory(), predicate);
+    private boolean hookContains(boolean original, @Local(argsOnly = true) Player player, @Local(argsOnly = true) ItemStack stack) {
+        return original || Resolve.feature(Atlases.class).handlers.doesAtlasContainMap(player.getInventory(), stack);
     }
 }

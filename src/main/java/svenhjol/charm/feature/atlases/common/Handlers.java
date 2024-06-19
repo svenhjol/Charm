@@ -21,7 +21,6 @@ import svenhjol.charm.mixin.feature.atlases.MapItemSavedDataMixin;
 
 import java.util.UUID;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public final class Handlers extends FeatureHolder<Atlases> {
     public Handlers(Atlases feature) {
@@ -71,15 +70,15 @@ public final class Handlers extends FeatureHolder<Atlases> {
      * Callback from {@link MapItemSavedDataMixin} to check
      * if player is holding a map or a player is holding an atlas that contains a map.
      * @param inventory Inventory to check.
-     * @param predicate Check?.
+     * @param stack Check?.
      * @return True if the player has a map or the player has an atlas that has a map.
      */
-    public boolean doesAtlasContainMap(Inventory inventory, Predicate<ItemStack> predicate) {
+    public boolean doesAtlasContainMap(Inventory inventory, ItemStack stack) {
         for (var hand : InteractionHand.values()) {
             var atlasStack = inventory.player.getItemInHand(hand);
             if (atlasStack.getItem() == feature().registers.item.get()) {
                 var inv = AtlasInventory.get(inventory.player.level(), atlasStack);
-                if (inv.matches(predicate)) {
+                if (inv.hasItemStack(stack)) {
                     return true;
                 }
             }

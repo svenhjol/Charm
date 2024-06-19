@@ -16,9 +16,9 @@ public class PotionBrewingMixin {
             method = "mix",
             at = @At("RETURN")
     )
-    private ItemStack hookMix(ItemStack original,
-                              @Local(ordinal = 0, argsOnly = true) ItemStack itemStack,
-                              @Local(ordinal = 1, argsOnly = true) ItemStack itemStack2
+    private static ItemStack hookMix(ItemStack original,
+                                     @Local(ordinal = 0, argsOnly = true) ItemStack itemStack,
+                                     @Local(ordinal = 1, argsOnly = true) ItemStack itemStack2
     ) {
         var opt = Resolve.feature(Casks.class).handlers.restoreCustomPotionEffects(itemStack2, original);
         return opt.orElse(original);

@@ -27,7 +27,7 @@ public class AdvancementTreeMixin {
             )
     )
     private HashMap<ResourceLocation, Advancement.Builder> hookAdd(Map<ResourceLocation, Advancement.Builder> map) {
-        Map<ResourceLocation, Advancement.Builder> newMap = new HashMap();
+        Map<ResourceLocation, Advancement.Builder> newMap = new HashMap<>();
         map.forEach((id, builder) -> {
             if (Resolve.feature(CustomAdvancements.class).handlers.shouldRemove(id)) {
                 newMap.put(id, builder);

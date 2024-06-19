@@ -28,8 +28,7 @@ public abstract class PigMixin extends Animal {
         var handlers = Resolve.feature(PigsFindMushrooms.class).handlers;
         var uuid = getUUID();
         if (handlers.animationTicks.containsKey(uuid)) {
-            var ticks = handlers.animationTicks.get(uuid);
-            handlers.animationTicks.put(uuid, ticks - 1);
+            handlers.animationTicks.compute(uuid, (k, ticks) -> ticks - 1);
         }
         super.aiStep();
     }
