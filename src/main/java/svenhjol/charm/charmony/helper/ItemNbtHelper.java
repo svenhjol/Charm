@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.charmony.enums.ListType;
+import svenhjol.charm.feature.casks.common.HomeBrewData;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -97,5 +98,13 @@ public final class ItemNbtHelper {
         }
 
         return stack.getTag();
+    }
+    
+    public interface BackportedData {
+        void set(ItemStack stack);
+        
+        HomeBrewData get(ItemStack stack);
+        
+        boolean has(ItemStack stack);
     }
 }
