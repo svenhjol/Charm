@@ -10,6 +10,6 @@ public final class Registers extends RegisterHolder<CustomAdvancements> {
     public Registers(CustomAdvancements feature) {
         super(feature);
 
-        actionPerformed = CriteriaTriggers.register("charmony_action_performed", new ActionPerformed());
+        actionPerformed = CriteriaTriggers.register(new ActionPerformed());
     }
 }

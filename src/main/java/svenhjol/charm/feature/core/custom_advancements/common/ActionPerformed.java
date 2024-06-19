@@ -1,46 +1,46 @@
 package svenhjol.charm.feature.core.custom_advancements.common;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import com.google.gson.JsonObject;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-
-import java.util.Optional;
+import net.minecraft.util.GsonHelper;
 
 public final class ActionPerformed extends SimpleCriterionTrigger<ActionPerformed.TriggerInstance> {
+    public static ResourceLocation ID = new ResourceLocation("charmony_action_performed");
+
     public void trigger(ResourceLocation action, ServerPlayer player) {
         this.trigger(player, conditions -> conditions.matches(action));
     }
 
     @Override
-    public Codec<TriggerInstance> codec() {
-        return TriggerInstance.CODEC;
+    protected TriggerInstance createInstance(JsonObject jsonObject, ContextAwarePredicate predicate, DeserializationContext deserializer) {
+        ResourceLocation action = new ResourceLocation(GsonHelper.getAsString(jsonObject, "action"));
+        return new TriggerInstance(action, predicate);
     }
 
-    public record TriggerInstance(ResourceLocation action, Optional<ContextAwarePredicate> player)
-        implements SimpleInstance {
+    @Override
+    public ResourceLocation getId() {
+        return ID;
+    }
 
-        /**
-         * @see net.minecraft.advancements.critereon.LootTableTrigger
-         * Similar implementation with player.
-         */
-        public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            ResourceLocation.CODEC.fieldOf("action")
-                .forGetter(TriggerInstance::action),
-            EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player")
-                .forGetter(TriggerInstance::player)
-        ).apply(instance, TriggerInstance::new));
+    public static class TriggerInstance extends AbstractCriterionTriggerInstance {
+        private final ResourceLocation action;
 
-        public boolean matches(ResourceLocation action) {
-            return this.action.equals(action);
+        public TriggerInstance(ResourceLocation action, ContextAwarePredicate predicate) {
+            super(ID, predicate);
+            this.action = action;
         }
 
         @Override
-        public Optional<ContextAwarePredicate> player() {
-            return this.player;
+        public JsonObject serializeToJson(SerializationContext context) {
+            JsonObject jsonObject = super.serializeToJson(context);
+            jsonObject.addProperty("action", this.action.toString());
+            return jsonObject;
+        }
+
+        public boolean matches(ResourceLocation action) {
+            return this.action.equals(action);
         }
     }
 }

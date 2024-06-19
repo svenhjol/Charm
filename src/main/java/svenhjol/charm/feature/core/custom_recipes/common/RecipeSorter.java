@@ -34,14 +34,14 @@ public final class RecipeSorter extends SimpleJsonResourceReloadListener impleme
         if (manager != null) {
             feature().log().debug("Holding recipe manager reference: " + manager);
             var byName = manager.byName;
-            var byType = manager.byType;
+            var byType = manager.recipes;
 
             if (!byName.isEmpty()) {
                 manager.byName = feature().handlers.sortAndFilterByName(byName);
             }
             
             if (!byType.isEmpty()) {
-                manager.byType = feature().handlers.sortAndFilterByType(byType);
+                manager.recipes = feature().handlers.sortAndFilterByType(byType);
             }
         }
     }

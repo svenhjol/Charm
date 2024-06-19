@@ -1,8 +1,6 @@
 package svenhjol.charm.feature.core.custom_recipes.common;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -79,26 +77,26 @@ public final class Handlers extends FeatureHolder<CustomRecipes> {
      * Called by sorting recipe manager to sort recipes by type so Charm's take priority.
      * @see RecipeSorter
      */
-    public Multimap<RecipeType<?>, Recipe<?>> sortAndFilterByType(Multimap<RecipeType<?>, Recipe<?>> byType) {
+    public Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> sortAndFilterByType(Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> byType) {
         feature().log().debug("Sorting recipes by type.");
 
-        ImmutableMultimap.Builder<RecipeType<?>, Recipe<?>> builder = ImmutableMultimap.builder();
+        ImmutableMap.Builder<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> builder = ImmutableMap.builder();
 
         for (var type : byType.keySet()) {
             var recipes = byType.get(type);
             feature().log().debug("Recipe type " + type.toString() + " contains " + recipes.size() + " recipes.");
 
-            var charmonyRecipes = recipes.stream().filter(r -> Resolve.hasLoader(Side.COMMON, r.getId().getNamespace()));
-            var otherRecipes = recipes.stream().filter(r -> !Resolve.hasLoader(Side.COMMON, r.getId().getNamespace()));
-            var holders = new LinkedList<Recipe<?>>();
+            var charmonyRecipes = recipes.entrySet().stream().filter(r -> Resolve.hasLoader(Side.COMMON, r.getKey().getNamespace()));
+            var otherRecipes = recipes.entrySet().stream().filter(r -> !Resolve.hasLoader(Side.COMMON, r.getKey().getNamespace()));
+            var holders = new LinkedList<Map<ResourceLocation, Recipe<?>>>();
 
             // Sort and filter the charmony recipes.
             charmonyRecipes
-                .filter(r -> !shouldRemove(r.getId())).sorted(Comparator.comparing(r -> r.getId().getPath()))
-                .forEach(holders::add);
+                .filter(r -> !shouldRemove(r.getKey())).sorted(Comparator.comparing(r -> r.getKey().getPath()))
+                .forEach(entry -> holders.add(ImmutableMap.of(entry.getKey(), entry.getValue())));
 
             // Add all other recipes after these.
-            otherRecipes.forEach(holders::add);
+            otherRecipes.forEach(entry -> holders.add(ImmutableMap.of(entry.getKey(), entry.getValue())));
 
             holders.forEach(holder -> builder.put(type, holder));
             feature().log().debug("Recipe type " + type + " reassembled with " + holders.size() + " recipes");

@@ -1,6 +1,5 @@
 package svenhjol.charm.feature.mineshaft_improvements.common;
 
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -9,7 +8,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import svenhjol.charm.Charm;
 import svenhjol.charm.charmony.feature.RegisterHolder;
@@ -21,7 +19,7 @@ import java.util.Objects;
 
 public final class Registers extends RegisterHolder<MineshaftImprovements> {
     // Holds loot tables that will be used to populate custom minecarts.
-    public final List<ResourceKey<LootTable>> minecartLoot = new ArrayList<>();
+    public final List<ResourceLocation> minecartLoot = new ArrayList<>();
 
     static final List<BlockState> FLOOR_BLOCKS = new ArrayList<>();
     static final List<BlockState> CEILING_BLOCKS = new ArrayList<>();
@@ -37,9 +35,8 @@ public final class Registers extends RegisterHolder<MineshaftImprovements> {
 
     public Registers(MineshaftImprovements feature) {
         super(feature);
-        var registry = feature.registry();
 
-        minecartLoot.addAll(feature().minecartLoot().stream().map(registry::lootTable).toList());
+        minecartLoot.addAll(feature().minecartLoot().stream().map(ResourceLocation::new).toList());
     }
 
     @Override

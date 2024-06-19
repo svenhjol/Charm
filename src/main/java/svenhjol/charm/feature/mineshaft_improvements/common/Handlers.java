@@ -107,7 +107,7 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
 
                 if (random.nextFloat() < 0.4F) {
                     minecart = new MinecartChest(serverLevel, cartX, cartY, cartZ);
-                    ((MinecartChest)minecart).setLootTable(loot.location(), random.nextLong());
+                    ((MinecartChest)minecart).setLootTable(loot, random.nextLong());
                 } else if (random.nextFloat() < 0.4F) {
                     minecart = new MinecartTNT(serverLevel, cartX, cartY, cartZ);
                 } else if (random.nextFloat() < 0.4F) {
@@ -122,7 +122,6 @@ public final class Handlers extends FeatureHolder<MineshaftImprovements> {
     }
 
     public void decorateRoom(MineshaftPieces.MineShaftRoom piece, WorldGenLevel level, RandomSource random, BoundingBox box) {
-        var registers = feature().registers;
 
         if (!Registers.ROOM_BLOCKS.isEmpty() && !Registers.ROOM_DECORATIONS.isEmpty()) {
             var bx = box.maxX() - box.minX();
