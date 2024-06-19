@@ -31,6 +31,10 @@ public final class Handlers extends FeatureHolder<Casks> {
         return PotionContents.createItemStack(Items.POTION, Potions.AWKWARD);
     }
 
+    public ItemStack getFilledWaterBottle() {
+        return PotionContents.createItemStack(Items.POTION, Potions.WATER);
+    }
+
     public boolean isValidPotion(ItemStack potion) {
         boolean valid = potion.is(Items.POTION);
 
@@ -69,25 +73,30 @@ public final class Handlers extends FeatureHolder<Casks> {
         if (blockEntity instanceof CaskBlockEntity cask) {
             if (stack.getItem() == Items.NAME_TAG && stack.has(DataComponents.CUSTOM_NAME)) {
 
-                // Name the cask using a name tag.
-                cask.name = stack.getHoverName();
-                cask.setChanged();
+                if (!level.isClientSide()) {
+                    // Name the cask using a name tag.
+                    cask.name = stack.getHoverName();
+                    cask.setChanged();
 
-                level.playSound(null, pos, feature().registers.nameSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-                stack.shrink(1);
+                    level.playSound(null, pos, feature().registers.nameSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
+                    stack.shrink(1);
+                }
+                
                 return EventResult.SUCCESS;
 
             } else if (stack.is(Items.GLASS_BOTTLE)) {
 
                 // Take a bottle of liquid from the cask using a glass bottle.
-                var out = cask.take();
-                if (out != null) {
-                    player.getInventory().add(out);
+                if (!level.isClientSide()) {
+                    var out = cask.take();
+                    if (out != null) {
+                        player.getInventory().add(out);
 
-                    stack.shrink(1);
+                        stack.shrink(1);
 
-                    if (cask.effects.size() > 1) {
-                        feature().advancements.tookLiquidFromCask(player);
+                        if (cask.effects.size() > 1) {
+                            feature().advancements.tookLiquidFromCask(player);
+                        }
                     }
                 }
                 return EventResult.SUCCESS;
@@ -95,20 +104,22 @@ public final class Handlers extends FeatureHolder<Casks> {
             } else if (isValidPotion(stack)) {
 
                 // Add a bottle of liquid to the cask using a filled glass bottle.
-                var result = cask.add(stack);
-                if (result) {
-                    stack.shrink(1);
+                if (!level.isClientSide()) {
+                    var result = cask.add(stack);
+                    if (result) {
+                        stack.shrink(1);
 
-                    // give the glass bottle back to the player
-                    player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
+                        // give the glass bottle back to the player
+                        player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
 
-                    if (!level.isClientSide()) {
-                        // Let nearby players know an item was added to the cask
-                        Networking.S2CAddedToCask.send((ServerLevel) level, pos);
+                        if (!level.isClientSide()) {
+                            // Let nearby players know an item was added to the cask
+                            Networking.S2CAddedToCask.send((ServerLevel) level, pos);
 
-                        // do advancement for filling with potions
-                        if (cask.bottles > 1 && cask.effects.size() > 1) {
-                            feature().advancements.addedLiquidToCask(player);
+                            // do advancement for filling with potions
+                            if (cask.bottles > 1 && cask.effects.size() > 1) {
+                                feature().advancements.addedLiquidToCask(player);
+                            }
                         }
                     }
                 }
