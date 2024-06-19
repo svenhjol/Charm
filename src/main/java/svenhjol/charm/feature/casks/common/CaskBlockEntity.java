@@ -2,10 +2,7 @@ package svenhjol.charm.feature.casks.common;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -25,6 +22,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -68,11 +66,9 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.loadAdditional(tag, provider);
-
+    public void load(CompoundTag tag) {
         if (tag.contains(NAME_TAG)) {
-            this.name = Component.Serializer.fromJson(tag.getString(NAME_TAG), provider);
+            this.name = Component.Serializer.fromJson(tag.getString(NAME_TAG));
         }
         if (tag.contains(FERMENTATION_TAG)) {
             this.fermentation = tag.getDouble(FERMENTATION_TAG);
@@ -87,7 +83,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         list.stream()
             .map(Tag::getAsString)
             .map(i -> i.replace("\"", "")) // madness
-            .forEach(item -> this.effects.add(ResourceLocation.parse(item)));
+            .forEach(item -> this.effects.add(new ResourceLocation(item)));
 
         CompoundTag durations = tag.getCompound(DURATIONS_TAG);
         CompoundTag amplifiers = tag.getCompound(AMPLIFIERS_TAG);
@@ -98,15 +94,15 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
             this.dilutions.put(effect, dilutions.getInt(effect.toString()));
         });
 
-        ContainerHelper.loadAllItems(tag, items, provider);
+        ContainerHelper.loadAllItems(tag, items);
     }
 
     @Override
-    public void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        super.saveAdditional(tag, provider);
+    public void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
 
         if (this.name != null) {
-            tag.putString(NAME_TAG, Component.Serializer.toJson(this.name, provider));
+            tag.putString(NAME_TAG, Component.Serializer.toJson(this.name));
         }
         
         tag.putInt(BOTTLES_TAG, this.bottles);
@@ -129,7 +125,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         tag.put(AMPLIFIERS_TAG, amplifiers);
         tag.put(DILUTIONS_TAG, dilutions);
 
-        ContainerHelper.saveAllItems(tag, items, provider);
+        ContainerHelper.saveAllItems(tag, items);
     }
 
     @SuppressWarnings("unused")
@@ -143,9 +139,8 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
             return false;
         }
 
-        var potion = feature().handlers.getPotion(input);
-        List<MobEffectInstance> potionEffects = new ArrayList<>();
-        potion.getAllEffects().forEach(potionEffects::add);
+        var potion = PotionUtils.getPotion(input);
+        List<MobEffectInstance> potionEffects = PotionUtils.getCustomEffects(input);
 
         if (bottles < feature().maxBottles()) {
 
@@ -155,8 +150,8 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
             }
 
             // Potions without effects just dilute the mix
-            if (potion.is(Potions.WATER) || !potionEffects.isEmpty()) {
-                var currentEffects = potionEffects.isEmpty() && !potion.customEffects().isEmpty() ? potion.customEffects() : potionEffects;
+            if (potion != Potions.WATER || !potionEffects.isEmpty()) {
+                var currentEffects = potionEffects.isEmpty() && !potion.getEffects().isEmpty() ? potion.getEffects() : potionEffects;
 
                 // Strip out immediate effects and other weird things
                 currentEffects = currentEffects.stream()
@@ -168,7 +163,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
                     var duration = effect.getDuration();
                     var amplifier = effect.getAmplifier();
                     var type = effect.getEffect();
-                    var effectId = BuiltInRegistries.MOB_EFFECT.getKey(type.value());
+                    var effectId = BuiltInRegistries.MOB_EFFECT.getKey(type);
 
                     if (effectId == null) {
                         return;
@@ -246,14 +241,14 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         List<MobEffectInstance> effects = new ArrayList<>();
 
         for (var effectId : this.effects) {
-            var holder = BuiltInRegistries.MOB_EFFECT.getHolder(effectId);
-            if (holder.isEmpty()) continue;
+            var effect = BuiltInRegistries.MOB_EFFECT.get(effectId);
+            if (effect == null) continue;
 
             int duration = this.durations.get(effectId);
             int amplifier = this.amplifiers.get(effectId);
             int dilution = this.dilutions.get(effectId);
 
-            effects.add(new MobEffectInstance(holder.get(), duration / dilution, amplifier));
+            effects.add(new MobEffectInstance(effect, duration / dilution, amplifier));
         }
 
         if (!effects.isEmpty()) {
@@ -293,38 +288,8 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
     }
 
     @Override
-    protected void applyImplicitComponents(DataComponentInput input) {
-        super.applyImplicitComponents(input);
-        var caskData = input.getOrDefault(feature().registers.caskData.get(), CaskData.EMPTY);
-
-        this.name = input.get(DataComponents.CUSTOM_NAME);
-        this.bottles = caskData.bottles();
-        this.fermentation = caskData.fermentation();
-        this.effects = caskData.effects();
-        this.durations = caskData.durations();
-        this.amplifiers = caskData.amplifiers();
-        this.dilutions = caskData.dilutions();
-    }
-
-    @Override
-    protected void collectImplicitComponents(DataComponentMap.Builder builder) {
-        super.collectImplicitComponents(builder);
-        var caskData = feature().registers.caskData.get();
-
-        builder.set(DataComponents.CUSTOM_NAME, this.name);
-        builder.set(caskData, new CaskData(
-            this.bottles,
-            this.fermentation,
-            this.effects,
-            this.durations,
-            this.amplifiers,
-            this.dilutions
-        ));
-    }
-
-    @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider provider) {
-        return saveWithoutMetadata(provider);
+    public CompoundTag getUpdateTag() {
+        return saveWithoutMetadata();
     }
 
     @Nullable
