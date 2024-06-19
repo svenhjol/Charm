@@ -96,3 +96,6 @@ mutable field net/minecraft/world/level/block/entity/BlockEntityType validBlocks
 accessible field net/minecraft/world/item/Item maxStackSize I
 mutable    field net/minecraft/world/item/Item maxStackSize I
 accessible method net/minecraft/world/level/saveddata/maps/MapItemSavedData setColorsDirty (II)V
+accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;
+mutable field net/minecraft/world/level/levelgen/feature/configurations/TreeConfiguration trunkProvider Lnet/minecraft/world/level/levelgen/feature/stateproviders/BlockStateProvider;

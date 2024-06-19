@@ -6,13 +6,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.feature.villager_attracting.VillagerAttracting;
 import svenhjol.charm.charmony.feature.FeatureHolder;
-
-import java.util.function.Predicate;
 
 public final class Handlers extends FeatureHolder<VillagerAttracting> {
     public Handlers(VillagerAttracting feature) {
@@ -22,7 +20,7 @@ public final class Handlers extends FeatureHolder<VillagerAttracting> {
     @SuppressWarnings("UnusedReturnValue")
     public InteractionResult entityJoin(Entity entity, Level level) {
         if (entity instanceof Villager villager) {
-            Predicate<ItemStack> ingredient = stack -> stack.is(Tags.VILLAGER_LOVED);
+            Ingredient ingredient = Ingredient.of(Tags.VILLAGER_LOVED);
             var goalSelector = villager.goalSelector;
 
             if (goalSelector.getAvailableGoals().stream().noneMatch(g -> g.getGoal() instanceof TemptGoal)) {
