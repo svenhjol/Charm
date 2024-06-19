@@ -40,3 +40,10 @@
 - Fix an issue where config was not checked properly for enabled/disabled features
 - Fix advancement recipe error for hopper and chest recipes
 - Fix animal armor dyeing when animal armor enchanting feature is active
+
+## 7.0.26
+
+- Fix unbreakable vanilla boat variants (pajicadcance)
+- Updated red, lime and green enchantment glint colors (coranthes)
+- Base homebrew on awkward potion so that redstone is no longer accepted as an ingredient
+- Fix client desync bug with cask
