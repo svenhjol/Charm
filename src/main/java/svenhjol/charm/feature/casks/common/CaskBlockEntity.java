@@ -155,7 +155,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
             }
 
             // Potions without effects just dilute the mix
-            if (potion.is(Potions.WATER) || !potionEffects.isEmpty()) {
+            if (!potion.is(Potions.WATER) || !potionEffects.isEmpty()) {
                 var currentEffects = potionEffects.isEmpty() && !potion.customEffects().isEmpty() ? potion.customEffects() : potionEffects;
 
                 // Strip out immediate effects and other weird things
