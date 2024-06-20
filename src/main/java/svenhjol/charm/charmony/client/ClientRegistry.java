@@ -103,7 +103,7 @@ public final class ClientRegistry implements svenhjol.charm.charmony.Registry {
     }
 
     public <T extends Entity> void entityRenderer(Supplier<EntityType<T>> entity, Supplier<EntityRendererProvider<T>> provider) {
-        loader.registerDeferred(() -> EntityRendererRegistry.register(entity.get(), provider.get()));
+        EntityRendererRegistry.register(entity.get(), provider.get());
     }
 
     public void itemColor(List<Supplier<? extends ItemLike>> items) {

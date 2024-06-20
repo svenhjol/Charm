@@ -8,7 +8,11 @@ import svenhjol.charm.feature.mob_textures.MobTextures;
 public final class Registers extends RegisterHolder<MobTextures> {
     public Registers(MobTextures feature) {
         super(feature);
-        var registry = feature.registry();
+    }
+
+    @Override
+    public void onEnabled() {
+        var registry = feature().registry();
 
         if (feature().chickens()) {
             registry.entityRenderer(() -> EntityType.CHICKEN,
@@ -54,10 +58,7 @@ public final class Registers extends RegisterHolder<MobTextures> {
             registry.entityRenderer(() -> EntityType.WANDERING_TRADER,
                 () -> Renderer.RenderWanderingTrader::new);
         }
-    }
-
-    @Override
-    public void onEnabled() {
+        
         ClientEntityJoinEvent.INSTANCE.handle(feature().handlers::playerJoin);
     }
 }
