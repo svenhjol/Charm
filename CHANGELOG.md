@@ -53,3 +53,7 @@
 - Incorrect logic when adding water to cask
 - No longer possible to turn water into free awkward potion
 - Fix client desync bugs with cask
+
+## 7.0.28
+
+- Fix entity rendering and mob texture register
