@@ -57,3 +57,7 @@
 ## 7.0.28
 
 - Fix entity rendering and mob texture register
+
+## 7.0.29
+
+- Fix ItemTidying not respecting being disabled in the config
