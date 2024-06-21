@@ -21,7 +21,7 @@ public final class Casks extends CommonFeature {
     public final Advancements advancements;
 
     @Configurable(name = "Maximum bottles", description = "Maximum number of bottles a cask can hold.")
-    private static int maxBottles = 64;
+    private static int maxBottles = 16;
 
     @Configurable(name = "Allow splash and lingering", description = "If true, splash and lingering potions may be added to a cask.")
     private static boolean allowSplashAndLingering = false;
