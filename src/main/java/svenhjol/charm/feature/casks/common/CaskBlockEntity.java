@@ -1,9 +1,7 @@
 package svenhjol.charm.feature.casks.common;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -17,16 +15,10 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Nameable;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.common.block.entity.CharmBlockEntity;
@@ -38,10 +30,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Container, WorldlyContainer, Nameable {
+public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable {
     private static final Casks CASKS = Resolve.feature(Casks.class);
-    private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{1};
 
     public static final String NAME_TAG = "name";
     public static final String BOTTLES_TAG = "bottles";
@@ -59,9 +49,6 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
     public Map<ResourceLocation, Integer> amplifiers = new HashMap<>();
     public Map<ResourceLocation, Integer> dilutions = new HashMap<>();
     public List<ResourceLocation> effects = new ArrayList<>();
-
-    // Queue for hopper items.
-    public final NonNullList<ItemStack> items = NonNullList.withSize(2, ItemStack.EMPTY);
 
     public CaskBlockEntity(BlockPos pos, BlockState state) {
         super(CASKS.registers.blockEntity.get(), pos, state);
@@ -97,8 +84,6 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
             this.amplifiers.put(effect, amplifiers.getInt(effect.toString()));
             this.dilutions.put(effect, dilutions.getInt(effect.toString()));
         });
-
-        ContainerHelper.loadAllItems(tag, items, provider);
     }
 
     @Override
@@ -128,13 +113,6 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
         tag.put(DURATIONS_TAG, durations);
         tag.put(AMPLIFIERS_TAG, amplifiers);
         tag.put(DILUTIONS_TAG, dilutions);
-
-        ContainerHelper.saveAllItems(tag, items, provider);
-    }
-
-    @SuppressWarnings("unused")
-    public static void serverTick(Level level, BlockPos pos, BlockState state, CaskBlockEntity cask) {
-        CASKS.handlers.hopperAddToCask(cask);
     }
 
     @SuppressWarnings("Java8MapApi")
@@ -331,101 +309,6 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Containe
     @Override
     public Packet<ClientGamePacketListener> getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public int getContainerSize() {
-        return items.size();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return bottles == 0;
-    }
-
-    public boolean isFull() {
-        return bottles == CASKS.maxBottles();
-    }
-
-    @Override
-    public ItemStack getItem(int i) {
-        if (i >= 0 && i < items.size()) {
-            return items.get(i);
-        }
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ItemStack removeItem(int i, int j) {
-        return ContainerHelper.removeItem(items, i, j);
-    }
-
-    @Override
-    public ItemStack removeItemNoUpdate(int i) {
-        return ContainerHelper.takeItem(items, i);
-    }
-
-    @Override
-    public void setItem(int i, ItemStack stack) {
-        if (i >= 0 && i < items.size()) {
-            items.set(i, stack);
-        }
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return Container.stillValidBlockEntity(this, player);
-    }
-
-    @Override
-    public void clearContent() {
-        items.clear();
-    }
-
-    @Override
-    public int[] getSlotsForFace(Direction direction) {
-        if (direction == Direction.UP) {
-            return SLOTS_FOR_UP;
-        }
-        if (direction == Direction.DOWN) {
-            return SLOTS_FOR_DOWN;
-        }
-        return new int[]{};
-    }
-
-    @Override
-    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction direction) {
-        return items.get(slot).isEmpty() && canPlaceItem(slot, stack);
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
-        return !items.get(slot).isEmpty();
-    }
-
-    @Override
-    public boolean canPlaceItem(int slot, ItemStack stack) {
-        var handlers = feature().handlers;
-
-        if (!items.get(0).isEmpty() || !items.get(1).isEmpty()) {
-            // Don't add items if there's stuff still in the queue.
-            return false;
-        }
-
-        if (stack.is(Items.GLASS_BOTTLE) && !isEmpty()) {
-            return true;
-        }
-
-        if (handlers.isValidPotion(stack) && !isFull()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public int getMaxStackSize() {
-        return 1;
     }
 
     @Override

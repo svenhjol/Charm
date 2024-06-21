@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.casks.common;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -129,34 +130,27 @@ public final class Handlers extends FeatureHolder<Casks> {
 
         return EventResult.PASS;
     }
-
-    public void hopperAddToCask(CaskBlockEntity cask) {
-        var input = cask.items.get(0);
-        var output = cask.items.get(1);
-
-        if (output.isEmpty()) {
-            if (input.is(Items.GLASS_BOTTLE)) {
-                var out = cask.take();
-                if (out != null) {
-                    cask.items.set(1, out);
-                    cask.setChanged();
-                } else {
-                    cask.items.set(1, new ItemStack(Items.GLASS_BOTTLE));
-                }
-                input.shrink(1);
-
-            } else if (isValidPotion(input)) {
-
-                var result = cask.add(input);
-                if (result) {
-                    cask.items.set(1, new ItemStack(Items.GLASS_BOTTLE));
-                    cask.setChanged();
-                } else {
-                    cask.items.set(1, input);
-                }
-                input.shrink(1);
-            }
+    
+    public Optional<ItemStack> dispenserTakeFromCask(CaskBlockEntity cask) {
+        var out = cask.take();
+        return Optional.ofNullable(out);
+    }
+    
+    public boolean dispenserAddToCask(CaskBlockEntity cask, ItemStack stack) {
+        var level = cask.getLevel();
+        var pos = cask.getBlockPos();
+        
+        if (level == null) {
+            return false;
         }
+        
+        var result = cask.add(stack);
+        if (result) {
+            // Drop a glass bottle out from the bottom.
+            CaskBlock.popResourceFromFace(level, pos, Direction.DOWN, new ItemStack(Items.GLASS_BOTTLE));
+        }
+        
+        return result;
     }
 
     public Optional<ItemStack> restoreCustomPotionEffects(ItemStack original, ItemStack result) {

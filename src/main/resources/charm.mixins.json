@@ -16,6 +16,8 @@
     "feature.beekeepers.PoiTypesMixin",
     "feature.beekeepers.VillagerMixin",
     "feature.campfires_heal_players.CampfireBlockEntityMixin",
+    "feature.casks.DispenserBlockGlassBottleMixin",
+    "feature.casks.DispenserBlockPotionMixin",
     "feature.casks.PotionBrewingMixin",
     "feature.collection.BlockMixin",
     "feature.collection.ServerPlayerGameModeMixin",
