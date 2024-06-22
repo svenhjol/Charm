@@ -52,22 +52,6 @@
       "when": {
         "portions": "6"
       }
-    },
-    {
-      "apply": {
-        "model": "charm:block/cooking_pot_level7"
-      },
-      "when": {
-        "portions": "7"
-      }
-    },
-    {
-      "apply": {
-        "model": "charm:block/cooking_pot_level8"
-      },
-      "when": {
-        "portions": "8"
-      }
     }
   ]
 }

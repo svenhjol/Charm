@@ -32,8 +32,8 @@ public final class Registers extends RegisterHolder<CookingPots> {
         blockEntity = registry.blockEntity(BLOCK_ID, () -> CookingPotBlockEntity::new, List.of(block));
 
         mixedStewFoodProperties = new FoodProperties.Builder()
-            .nutrition(feature.hungerPerStew())
-            .saturationModifier(feature.saturationPerStew())
+            .nutrition(feature.stewHungerRestored())
+            .saturationModifier(feature.stewSaturationRestored())
             .usingConvertsTo(Items.BOWL)
             .build();
 

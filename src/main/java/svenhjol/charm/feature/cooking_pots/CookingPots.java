@@ -19,25 +19,25 @@ public final class CookingPots extends CommonFeature {
     public final Advancements advancements;
 
     @Configurable(
-        name = "Hunger restored",
+        name = "Stew hunger restored",
         description = """
             Number of hunger points restored from a single portion of mixed stew."""
     )
-    private static int hungerPerStew = 5;
+    private static int stewHungerRestored = 6;
 
     @Configurable(
-        name = "Saturation restored",
+        name = "Stew saturation restored",
         description = """
             Amount of saturation restored from a single portion of mixed stew."""
     )
-    private static double saturationPerStew = 0.5f;
+    private static double stewSaturationRestored = 0.6f;
 
     @Configurable(
-        name = "Mixed stew stack size",
+        name = "Stew stack size",
         description = """
             Maximum stack size of stew obtained from the cooking pot."""
     )
-    private static int stewStackSize = 64;
+    private static int stewStackSize = 16;
 
     public CookingPots(CommonLoader loader) {
         super(loader);
@@ -47,12 +47,12 @@ public final class CookingPots extends CommonFeature {
         advancements = new Advancements(this);
     }
 
-    public int hungerPerStew() {
-        return Mth.clamp(hungerPerStew, 0, 64);
+    public int stewHungerRestored() {
+        return Mth.clamp(stewHungerRestored, 0, 64);
     }
 
-    public float saturationPerStew() {
-        return (float)Mth.clamp(saturationPerStew, 0.0f, 64.0f);
+    public float stewSaturationRestored() {
+        return (float)Mth.clamp(stewSaturationRestored, 0.0f, 64.0f);
     }
 
     public int stewStackSize() {

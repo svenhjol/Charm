@@ -39,7 +39,7 @@ import java.util.function.Supplier;
 
 public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<CookingPots> {
     public static IntegerProperty PORTIONS = IntegerProperty.create("portions", 0,
-        Resolve.feature(CookingPots.class).handlers.getMaxPortions());
+        Resolve.feature(CookingPots.class).handlers.maxPortions());
     public static EnumProperty<CookingStatus> COOKING_STATUS = EnumProperty.create("cooking_status", CookingStatus.class);
 
     private static final MapCodec<CookingPotBlock> CODEC = simpleCodec(CookingPotBlock::new);
@@ -80,7 +80,7 @@ public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<
         if (precipitation == Biome.Precipitation.RAIN && level.getRandom().nextFloat() < 0.05f) {
             var blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof CookingPotBlockEntity pot) {
-                pot.fillOneLevelOfWater();
+                pot.fillTwoLevelsOfWater();
             }
         }
     }

@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodConstants;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
@@ -16,27 +17,28 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import svenhjol.charm.charmony.enums.EventResult;
 import svenhjol.charm.charmony.feature.FeatureHolder;
+import svenhjol.charm.charmony.helper.PlayerHelper;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
 
 import java.util.Objects;
 
 public final class Handlers extends FeatureHolder<CookingPots> {
-    public static final int MAX_PORTIONS = 8;
+    public static final int MAX_PORTIONS = 6;
 
     public Handlers(CookingPots feature) {
         super(feature);
     }
 
-    public int getMaxPortions() {
+    public int maxPortions() {
         return MAX_PORTIONS;
     }
 
-    public int getMaxHunger() {
-        return feature().hungerPerStew() * MAX_PORTIONS;
+    public int maxHunger() {
+        return feature().stewHungerRestored() * MAX_PORTIONS;
     }
 
-    public float getMaxSaturation() {
-        return feature().saturationPerStew() * MAX_PORTIONS;
+    public float maxSaturation() {
+        return FoodConstants.saturationByModifier(feature().stewHungerRestored(), feature().stewSaturationRestored()) * MAX_PORTIONS;
     }
 
     public ItemStack getFoodContainer(ItemStack input) {
@@ -47,7 +49,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
     }
 
     public boolean isFull(BlockState state) {
-        return state.getValue(CookingPotBlock.PORTIONS) == getMaxPortions();
+        return state.getValue(CookingPotBlock.PORTIONS) == maxPortions();
     }
 
     public boolean isEmpty(BlockState state) {
@@ -87,35 +89,17 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                     stack.shrink(1);
                     player.getInventory().add(new ItemStack(Items.BUCKET));
                 }
-                return EventResult.SUCCESS;
+                return EventResult.CONSUME;
 
             } else if (isWaterBottle(stack) && pot.canAddWater()) {
 
-                // Add a bottle of water. Increase portions by 1.
+                // Add a bottle of water. Increase portions by 2.
                 var result = pot.fillWithBottle();
                 if (result && !player.getAbilities().instabuild) {
                     stack.shrink(1);
                     player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
                 }
-                return EventResult.SUCCESS;
-
-            } else if (isFood(stack)) {
-
-                // Add a food item to the pot.
-                var result = pot.add(stack);
-                if (result) {
-                    if (!player.getAbilities().instabuild) {
-                        stack.shrink(1);
-                        
-                        // Handle things being given back to player e.g. bowl, bottle
-                        var foodContainer = getFoodContainer(stack);
-                        if (!foodContainer.isEmpty()) {
-                            player.getInventory().add(foodContainer.copy());
-                        }
-                    }
-                    feature().advancements.preparedCookingPot(player);
-                }
-                return EventResult.SUCCESS;
+                return EventResult.CONSUME;
 
             } else if (stack.is(Items.BOWL)) {
 
@@ -129,66 +113,11 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                     player.getInventory().add(out);
                     feature().advancements.tookFoodFromCookingPot(player);
                 }
-                return EventResult.SUCCESS;
+                return EventResult.CONSUME;
             }
         }
 
         return EventResult.PASS;
-    }
-
-    public void hopperAddToPot(CookingPotBlockEntity pot) {
-        var level = pot.getLevel();
-        var input = pot.items.get(0);
-        var output = pot.items.get(1);
-
-        if (level == null) {
-            return;
-        }
-        
-        if (output.isEmpty()) {
-            if (input.is(Items.BOWL)) {
-                var out = pot.take();
-                if (!out.isEmpty()) {
-                    pot.items.set(1, out);
-                    pot.setChanged();
-                } else {
-                    pot.items.set(1, input.copy());
-                }
-                input.shrink(1);
-
-            } else if (isWaterBucket(input)) {
-
-                if (pot.canAddWater()) {
-                    pot.fillWithBucket();
-                    pot.items.set(1, new ItemStack(Items.BUCKET));
-                } else {
-                    pot.items.set(1, input.copy());
-                }
-                input.shrink(1);
-
-            } else if (isWaterBottle(input)) {
-
-                if (pot.canAddWater()) {
-                    pot.fillWithBottle();
-                    pot.items.set(1, new ItemStack(Items.GLASS_BOTTLE));
-                } else {
-                    pot.items.set(1, input.copy());
-                }
-                input.shrink(1);
-
-            } else if (isFood(input)) {
-
-                if (pot.canAddFood() && pot.add(input)) {
-                    var foodContainer = getFoodContainer(input);
-                    if (!foodContainer.isEmpty()) {
-                        pot.items.set(1, foodContainer.copy());
-                    }
-                } else {
-                    pot.items.set(1, input.copy());
-                }
-                input.shrink(1);
-            }
-        }
     }
 
     public void checkForThrownItems(CookingPotBlockEntity pot) {
@@ -205,6 +134,17 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                 var result = pot.add(stack);
                 if (result) {
                     level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    
+                    // Do prepare cooking pot advancement for all nearby players.
+                    PlayerHelper.getPlayersInRange(level, pos, 8.0d)
+                        .forEach(player -> feature().advancements.preparedCookingPot(player));
+                    
+                    // Handle containers e.g. bowl, bottle. They sit in the pot until taken out by player or hopper.
+                    var foodContainer = getFoodContainer(stack);
+                    if (!foodContainer.isEmpty()) {
+                        level.addFreshEntity(new ItemEntity(level, center.x(), center.y(), center.z(), foodContainer));
+                    }
+                    
                     stack.shrink(1);
                 }
             }

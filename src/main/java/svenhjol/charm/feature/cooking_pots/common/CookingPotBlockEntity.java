@@ -3,7 +3,6 @@ package svenhjol.charm.feature.cooking_pots.common;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -13,11 +12,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.charmony.Resolve;
@@ -27,16 +23,10 @@ import svenhjol.charm.feature.cooking_pots.CookingPots;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> implements Container, WorldlyContainer {
+public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> {
     private static final CookingPots COOKING_POTS = Resolve.feature(CookingPots.class);
     private static final String HUNGER_TAG = "hunger";
     private static final String SATURATION_TAG = "saturation";
-    private static final int[] SLOTS_FOR_UP = new int[]{0};
-    private static final int[] SLOTS_FOR_SIDES = new int[]{0};
-    private static final int[] SLOTS_FOR_DOWN = new int[]{1};
-
-    // This is a queue to hold items for processing that are fed into and out of the pot via hoppers.
-    public final NonNullList<ItemStack> items = NonNullList.withSize(2, ItemStack.EMPTY);
 
     private int hunger = 0;
     private float saturation = 0.0f;
@@ -46,7 +36,6 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, CookingPotBlockEntity pot) {
-        COOKING_POTS.handlers.hopperAddToPot(pot);
         COOKING_POTS.handlers.checkForThrownItems(pot);
     }
 
@@ -56,8 +45,6 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
 
         hunger = tag.getInt(HUNGER_TAG);
         saturation = tag.getFloat(SATURATION_TAG);
-
-        ContainerHelper.loadAllItems(tag, items, provider);
     }
 
     @Override
@@ -66,8 +53,6 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
 
         tag.putInt(HUNGER_TAG, hunger);
         tag.putDouble(SATURATION_TAG, saturation);
-
-        ContainerHelper.saveAllItems(tag, items, provider);
     }
 
     public boolean canAddFood() {
@@ -81,8 +66,8 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
     }
 
     public boolean hasFinishedCooking() {
-        return hunger >= feature().handlers.getMaxHunger()
-            && saturation >= feature().handlers.getMaxSaturation();
+        return hunger >= feature().handlers.maxHunger()
+            && saturation >= feature().handlers.maxSaturation();
     }
 
     public boolean hasFire() {
@@ -97,7 +82,6 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
         return false;
     }
 
-    @Override
     public boolean isEmpty() {
         return feature().handlers.isEmpty(getBlockState());
     }
@@ -113,25 +97,26 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
 
         var food = Objects.requireNonNull(input.get(DataComponents.FOOD));
 
-        if (this.hunger <= feature().handlers.getMaxHunger() || this.saturation <= feature().handlers.getMaxSaturation()) {
+        if (this.hunger <= feature().handlers.maxHunger() || this.saturation <= feature().handlers.maxSaturation()) {
             if (level != null) {
                 var pos = getBlockPos();
                 var state = getBlockState();
                 var random = level.getRandom();
-                var hunger = food.nutrition() - random.nextInt(1);
+                var hunger = food.nutrition() - random.nextInt(2);
                 var saturation = food.saturation() - (random.nextFloat() * 0.1f);
 
                 this.hunger += hunger;
                 this.saturation += saturation;
 
                 if (!level.isClientSide()) {
+                    feature().log().dev("-- Adding item to cooking pot --");
                     feature().log().dev("ItemStack: " + input);
                     feature().log().dev("FoodProperties: " + food);
                     feature().log().dev("Hunger to add: " + hunger);
-                    feature().log().dev("Pot hunger now at: " + this.hunger);
                     feature().log().dev("Saturation to add: " + saturation);
-                    feature().log().dev("Pot saturation now at: " + this.saturation);
                 }
+                
+                debugShowContents();
 
                 if (hasFinishedCooking()) {
                     state = state.setValue(CookingPotBlock.COOKING_STATUS, CookingStatus.COOKED);
@@ -176,7 +161,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
         return ItemStack.EMPTY;
     }
 
-    public boolean fillOneLevelOfWater() {
+    public boolean fillTwoLevelsOfWater() {
         var level = getLevel();
         var pos = getBlockPos();
         var state = getBlockState();
@@ -192,7 +177,9 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
         }
         
         if (canAddWater()) {
-            ++numberOfPortions;
+            numberOfPortions += 2;
+            numberOfPortions = Math.min(numberOfPortions, Handlers.MAX_PORTIONS);
+            
             state = state.setValue(CookingPotBlock.PORTIONS, numberOfPortions);
             
             if (numberOfPortions == Handlers.MAX_PORTIONS) {
@@ -213,7 +200,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
             return false;
         }
         
-        var result = fillOneLevelOfWater();
+        var result = fillTwoLevelsOfWater();
         if (result) {
             level.playSound(null, getBlockPos(), SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f);
         }
@@ -225,7 +212,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
         var level = getLevel();
         var pos = getBlockPos();
         var state = getBlockState()
-            .setValue(CookingPotBlock.PORTIONS, feature().handlers.getMaxPortions())
+            .setValue(CookingPotBlock.PORTIONS, feature().handlers.maxPortions())
             .setValue(CookingPotBlock.COOKING_STATUS, CookingStatus.FILLED_WITH_WATER);
 
         if (level == null) {
@@ -274,46 +261,6 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
         return new ItemStack(feature().registers.mixedStewItem.get());
     }
 
-    @SuppressWarnings("RedundantIfStatement")
-    @Override
-    public boolean canPlaceItem(int slot, ItemStack stack) {
-        var handlers = feature().handlers;
-
-        if (!items.get(0).isEmpty() || !items.get(1).isEmpty()) {
-            // Don't add any items if there's stuff stuck in the queue.
-            return false;
-        }
-
-        if ((handlers.isWaterBucket(stack) || handlers.isWaterBottle(stack)) && canAddWater()) {
-            return true;
-        }
-
-        if (handlers.isFood(stack) && canAddFood()) {
-            return true;
-        }
-
-        if (stack.is(Items.BOWL) && hasFinishedCooking()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public int getMaxStackSize() {
-        return 1;
-    }
-
-    @Override
-    public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction direction) {
-        return items.get(slot).isEmpty() && canPlaceItem(slot, stack);
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction direction) {
-        return !items.get(slot).isEmpty();
-    }
-
     @Override
     public void setChanged() {
         super.setChanged();
@@ -321,43 +268,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
         }
     }
-
-    @Override
-    public ItemStack getItem(int slot) {
-        if (slot >= 0 && slot < items.size()) {
-            return items.get(slot);
-        }
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public ItemStack removeItem(int slot, int split) {
-        return ContainerHelper.removeItem(items, slot, split);
-    }
-
-    @Override
-    public ItemStack removeItemNoUpdate(int slot) {
-        return ContainerHelper.takeItem(items, slot);
-    }
-
-    @Override
-    public void setItem(int slot, ItemStack stack) {
-        if (slot >= 0 && slot < items.size()) {
-            items.set(slot, stack);
-        }
-    }
-
-    @Override
-    public void clearContent() {
-        items.clear();
-    }
-
-    @Override
-    public int getContainerSize() {
-        return items.size();
-    }
-
-    @Override
+    
     public boolean stillValid(Player player) {
         return Container.stillValidBlockEntity(this, player);
     }
@@ -369,19 +280,13 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> impleme
     }
 
     @Override
-    public int[] getSlotsForFace(Direction direction) {
-        if (direction == Direction.UP) {
-            return SLOTS_FOR_UP;
-        }
-        if (direction == Direction.DOWN) {
-            return SLOTS_FOR_DOWN;
-        }
-
-        return SLOTS_FOR_SIDES;
-    }
-
-    @Override
     public Class<CookingPots> typeForFeature() {
         return CookingPots.class;
+    }
+    
+    void debugShowContents() {
+        feature().log().dev("-- Cooking pot contents --");
+        feature().log().dev("Pot hunger now at: " + this.hunger);
+        feature().log().dev("Pot saturation now at: " + this.saturation);
     }
 }
