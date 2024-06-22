@@ -135,18 +135,15 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
             // Potions without effects just dilute the mix
             if (!potion.is(Potions.WATER) || !potionEffects.isEmpty()) {
                 var currentEffects = potionEffects.isEmpty() && !potion.customEffects().isEmpty() ? potion.customEffects() : potionEffects;
-
-                // Strip out immediate effects and other weird things
-                currentEffects = currentEffects.stream()
-                    .filter(e -> e.getDuration() > 1)
-                    .toList();
-
+                
                 currentEffects.forEach(effect -> {
                     var changedAmplifier = false;
                     var duration = effect.getDuration();
                     var amplifier = effect.getAmplifier();
-                    var type = effect.getEffect();
-                    var effectId = BuiltInRegistries.MOB_EFFECT.getKey(type.value());
+                    var holder = effect.getEffect();
+                    var type = holder.value();
+                    var instantenous = type.isInstantenous();
+                    var effectId = BuiltInRegistries.MOB_EFFECT.getKey(type);
 
                     if (effectId == null) {
                         return;
@@ -156,21 +153,30 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
                         effects.add(effectId);
                     }
 
-                    if (amplifiers.containsKey(effectId)) {
-                        int existingAmplifier = amplifiers.get(effectId);
-                        changedAmplifier = amplifier != existingAmplifier;
-                    }
-                    amplifiers.put(effectId, amplifier);
+                    if (!instantenous) {
+                        // For effects that have duration.
+                        if (amplifiers.containsKey(effectId)) {
+                            int existingAmplifier = amplifiers.get(effectId);
+                            changedAmplifier = amplifier != existingAmplifier;
+                        }
+                        amplifiers.put(effectId, amplifier);
 
-                    if (!durations.containsKey(effectId)) {
-                        durations.put(effectId, duration);
-                    } else {
-                        var existingDuration = durations.get(effectId);
-                        if (changedAmplifier) {
+                        if (!durations.containsKey(effectId)) {
                             durations.put(effectId, duration);
                         } else {
-                            durations.put(effectId, existingDuration + duration);
+                            var existingDuration = durations.get(effectId);
+                            if (changedAmplifier) {
+                                durations.put(effectId, duration);
+                            } else {
+                                durations.put(effectId, existingDuration + duration);
+                            }
                         }
+                    } else {
+                        // For effects that apply immediately (instant health, harming etc).
+                        var existingDuration = durations.getOrDefault(effectId, 0);
+                        var existingAmplifier = amplifiers.getOrDefault(effectId, 0);
+                        durations.put(effectId, existingDuration + 1); // Keep track of how many we've added.
+                        amplifiers.put(effectId, amplifier);
                     }
                 });
             }
@@ -219,19 +225,43 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
         return null;
     }
 
+    /**
+     * Create one bottle of potion from the cask's contents.
+     */
     private ItemStack getBottle() {
-        // create a potion from the cask's contents
         List<MobEffectInstance> effects = new ArrayList<>();
+        List<ResourceLocation> effectsToRemove = new ArrayList<>();
 
         for (var effectId : this.effects) {
-            var holder = BuiltInRegistries.MOB_EFFECT.getHolder(effectId);
-            if (holder.isEmpty()) continue;
+            var opt = BuiltInRegistries.MOB_EFFECT.getHolder(effectId);
+            if (opt.isEmpty()) continue;
+            
+            var holder = opt.get();
+            var type = holder.value();
 
             int duration = this.durations.get(effectId);
             int amplifier = this.amplifiers.get(effectId);
             int dilution = this.dilutions.get(effectId);
-
-            effects.add(new MobEffectInstance(holder.get(), duration / dilution, amplifier));
+            
+            if (!type.isInstantenous()) {
+                effects.add(new MobEffectInstance(holder, duration / dilution, amplifier));
+            } else {
+                if (duration > 0) {
+                    --duration;
+                    this.durations.put(effectId, duration);
+                    effects.add(new MobEffectInstance(holder, 1, Math.max(1, amplifier / dilution)));
+                }
+                if (duration == 0) {
+                    effectsToRemove.add(effectId);
+                }
+            }
+        }
+        
+        if (!effectsToRemove.isEmpty()) {
+            for (var effectId : effectsToRemove) {
+                this.effects.remove(effectId);
+            }
+            this.setChanged();
         }
 
         if (!effects.isEmpty()) {
