@@ -61,3 +61,12 @@
 ## 7.0.29
 
 - Fix ItemTidying not respecting being disabled in the config
+
+## 7.0.30
+
+Please note this version is for testing and might have unforeseen bugs.
+Please use .29 for a more stable beta version.
+
+- Casks: now hold 16 bottles by default (configurable)
+- Casks: Dispenser support. Remove hopper functionality and item buffer
+- Casks: Support for instantaneous potions
