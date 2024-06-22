@@ -20,6 +20,7 @@ public final class Registers extends RegisterHolder<CookingPots> {
     public final Supplier<MixedStewItem> mixedStewItem;
     public final Supplier<SoundEvent> addSound;
     public final Supplier<SoundEvent> ambientSound;
+    public final Supplier<SoundEvent> finishSound;
     public final Supplier<SoundEvent> takeSound;
     public final FoodProperties mixedStewFoodProperties;
 
@@ -41,6 +42,7 @@ public final class Registers extends RegisterHolder<CookingPots> {
 
         addSound = registry.soundEvent("cooking_pot_add");
         ambientSound = registry.soundEvent("cooking_pot_ambient");
+        finishSound = registry.soundEvent("cooking_pot_finish");
         takeSound = registry.soundEvent("cooking_pot_take");
 
         // Server to client packets

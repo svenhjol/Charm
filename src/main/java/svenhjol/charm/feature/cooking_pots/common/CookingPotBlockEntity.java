@@ -120,6 +120,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> {
 
                 if (hasFinishedCooking()) {
                     state = state.setValue(CookingPotBlock.COOKING_STATUS, CookingStatus.COOKED);
+                    level.playSound(null, pos, feature().registers.finishSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
                 } else {
                     state = state.setValue(CookingPotBlock.COOKING_STATUS, CookingStatus.HAS_SOME_FOOD);
                 }

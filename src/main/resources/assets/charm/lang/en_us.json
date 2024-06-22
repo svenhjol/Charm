@@ -345,6 +345,7 @@
   "subtitles.charm.block.cask.take": "Cask empties",
   "subtitles.charm.block.cooking_pot.add": "Cooking pot fills up",
   "subtitles.charm.block.cooking_pot.ambient": "Cooking pot simmers",
+  "subtitles.charm.block.cooking_pot.finish": "Cooking pot finishes cooking",
   "subtitles.charm.block.cooking_pot.take": "Cooking pot empties",
   "subtitles.charm.block.gunpowder_block.dissolve": "Gunpowder dissolves",
   "subtitles.charm.block.kiln.bake": "Kiln bakes",

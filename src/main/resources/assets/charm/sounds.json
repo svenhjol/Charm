@@ -137,6 +137,15 @@
     ],
     "subtitle": "subtitles.charm.block.cooking_pot.ambient"
   },
+  "cooking_pot_finish": {
+    "sounds": [
+      {
+        "name": "charm:cooking_pot_finish",
+        "volume": 1.0
+      }
+    ],
+    "subtitle": "subtitles.charm.block.cooking_pot.finish"
+  },
   "cooking_pot_take": {
     "sounds": [
       {
