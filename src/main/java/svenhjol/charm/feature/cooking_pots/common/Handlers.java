@@ -133,7 +133,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
             if (isFood(stack) && pot.canAddFood()) {
                 var result = pot.add(stack);
                 if (result) {
-                    level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 1.0f, 1.0f);
+                    level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, 0.25f, 1.0f);
                     
                     // Do prepare cooking pot advancement for all nearby players.
                     PlayerHelper.getPlayersInRange(level, pos, 8.0d)
