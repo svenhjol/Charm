@@ -174,9 +174,9 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
                     } else {
                         // For effects that apply immediately (instant health, harming etc).
                         var existingDuration = durations.getOrDefault(effectId, 0);
-                        var existingAmplifier = amplifiers.getOrDefault(effectId, 0);
+                        var existingAmplifier = amplifiers.getOrDefault(effectId, -1);
                         durations.put(effectId, existingDuration + 1); // Keep track of how many we've added.
-                        amplifiers.put(effectId, amplifier);
+                        amplifiers.put(effectId, existingAmplifier == -1 ? amplifier : Math.min(existingAmplifier, amplifier)); // Always take the smallest amplifier.
                     }
                 });
             }
@@ -196,6 +196,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
                 level.playSound(null, getBlockPos(), feature().registers.addSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
             }
 
+            debugShowContents();
             setChanged();
             return true;
         }
@@ -219,6 +220,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
                 }
             }
 
+            debugShowContents();
             return bottle;
         }
 
@@ -249,7 +251,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
                 if (duration > 0) {
                     --duration;
                     this.durations.put(effectId, duration);
-                    effects.add(new MobEffectInstance(holder, 1, Math.max(1, amplifier / dilution)));
+                    effects.add(new MobEffectInstance(holder, 1, Math.max(0, amplifier)));
                 }
                 if (duration == 0) {
                     effectsToRemove.add(effectId);
@@ -289,6 +291,7 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
         this.bottles = 0;
         this.fermentation = 1.0d;
 
+        debugShowContents();
         setChanged();
     }
 
@@ -360,12 +363,36 @@ public class CaskBlockEntity extends CharmBlockEntity<Casks> implements Nameable
         return this.name;
     }
 
-    Component getDefaultName() {
-        return Component.translatable("container.charm.cask");
-    }
-
     @Override
     public Class<Casks> typeForFeature() {
         return Casks.class;
+    }
+    
+    void debugShowContents() {
+        var log = feature().log();
+        
+        log.dev("-- Cask contents --");
+        if (!effects.isEmpty()) {
+            log.dev("Effects:");
+            effects.forEach(e -> log.dev("  " + e.toString()));
+        }
+        if (!durations.isEmpty()) {
+            log.dev("Durations:");
+            durations.forEach((key, value) -> log.dev("  " + key.toString() + " = " + value));
+        }
+        if (!amplifiers.isEmpty()) {
+            log.dev("Amplifiers:");
+            amplifiers.forEach((key, value) -> log.dev("  " + key.toString() + " = " + value));
+        }
+        if (!durations.isEmpty()) {
+            log.dev("Dilutions:");
+            dilutions.forEach((key, value) -> log.dev("  " + key.toString() + " = " + value));
+        }
+        log.dev("Bottles: " + bottles);
+        log.dev("Fermentation: " + fermentation);
+    }
+
+    Component getDefaultName() {
+        return Component.translatable("container.charm.cask");
     }
 }
