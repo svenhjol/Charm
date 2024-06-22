@@ -36,6 +36,7 @@ public final class Registers extends RegisterHolder<CookingPots> {
             .nutrition(feature.stewHungerRestored())
             .saturationModifier(feature.stewSaturationRestored())
             .usingConvertsTo(Items.BOWL)
+            .fast()
             .build();
 
         mixedStewItem = registry.item(MIXED_STEW_ID, MixedStewItem::new);
