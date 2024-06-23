@@ -84,3 +84,11 @@ Please use .29 for a more stable beta version.
 - Mixed stew from a pot can be consumed more rapidly (this is subject to change)
 - Mixed stew size reduced to 16 - buff stew hunger and saturation
 - Fix lectern recipe using custom bookshelves
+
+## 7.0.32
+
+- Update magenta, orange, pink and purple glint overlays (coranthes)
+- Use correct custom boat ordering in creative menu tools and utilities tab
+- Standardise woodcutter recipe order for all wood types
+- Fix azalea and ebony signs being cursed in creative menu and woodcutter menu on server
+- Additional checks for background music suppression while music discs are playing
