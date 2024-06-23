@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.common.block.entity.CharmBlockEntity;
@@ -33,10 +32,6 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> {
 
     public CookingPotBlockEntity(BlockPos pos, BlockState state) {
         super(Resolve.feature(CookingPots.class).registers.blockEntity.get(), pos, state);
-    }
-
-    public static void serverTick(Level level, BlockPos pos, BlockState state, CookingPotBlockEntity pot) {
-        COOKING_POTS.handlers.checkForThrownItems(pot);
     }
 
     @Override
@@ -102,8 +97,8 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> {
                 var pos = getBlockPos();
                 var state = getBlockState();
                 var random = level.getRandom();
-                var hunger = food.nutrition() - random.nextInt(2);
-                var saturation = food.saturation() - (random.nextFloat() * 0.1f);
+                var hunger = food.nutrition();
+                var saturation = food.saturation();
 
                 this.hunger += hunger;
                 this.saturation += saturation;
@@ -142,9 +137,10 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> {
         return false;
     }
 
+    @Nullable
     public ItemStack take() {
         if (!hasFinishedCooking() || isEmpty()) {
-            return ItemStack.EMPTY;
+            return null;
         }
 
         if (level != null) {
@@ -159,7 +155,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> {
             return bowl;
         }
 
-        return ItemStack.EMPTY;
+        return null;
     }
 
     public boolean fillTwoLevelsOfWater() {

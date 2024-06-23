@@ -6,6 +6,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
+import svenhjol.charm.feature.cooking_pots.common.dispenser.BowlBehavior;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -49,5 +50,7 @@ public final class Registers extends RegisterHolder<CookingPots> {
         // Server to client packets
         registry.serverPacketSender(Networking.S2CAddedToCookingPot.TYPE,
             Networking.S2CAddedToCookingPot.CODEC);
+        
+        registry.conditionalDispenserBehavior(() -> Items.BOWL, BowlBehavior::new);
     }
 }

@@ -21,6 +21,8 @@
     "feature.casks.PotionBrewingMixin",
     "feature.collection.BlockMixin",
     "feature.collection.ServerPlayerGameModeMixin",
+    "feature.cooking_pots.DispenserBlockPotionMixin",
+    "feature.cooking_pots.DispenserBlockWaterBucketMixin",
     "feature.copper_pistons.PistonBaseBlockMixin",
     "feature.copper_pistons.PistonHeadBlockMixin",
     "feature.copper_pistons.PistonMovingBlockEntityMixin",

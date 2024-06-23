@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -16,9 +17,6 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -71,7 +69,7 @@ public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<
     @Override
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
                                               InteractionHand hand, BlockHitResult hitResult) {
-        return feature().handlers.playerAddToPot(stack, state, level, pos, player)
+        return feature().handlers.playerAddToPot(stack, state, level, pos, player, hand)
             .asItemInteractionResult(level.isClientSide);
     }
 
@@ -136,13 +134,13 @@ public class CookingPotBlock extends BaseEntityBlock implements FeatureResolver<
         return RenderShape.MODEL;
     }
 
-    @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntity) {
-        if (level.isClientSide()) return null;
-        return CookingPotBlock.createTickerHelper(blockEntity,
-            feature().registers.blockEntity.get(),
-            CookingPotBlockEntity::serverTick);
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (level.getBlockEntity(pos) instanceof CookingPotBlockEntity pot) {
+            feature().handlers.entityInside(level, pos, state, entity, pot);
+            return;
+        }
+        super.entityInside(state, level, pos, entity);
     }
 
     @Override
