@@ -58,9 +58,15 @@ public final class Registers extends RegisterHolder<CustomWood> {
         holders.put(definition.material(), new CustomWoodHolder(feature(), owner, definition));
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onWorldLoaded(MinecraftServer server, ServerLevel level) {
+        fixSignItems();
+    }
+
+    @SuppressWarnings("deprecation")
+    public void fixSignItems() {
+        log().dev("Fixing sign items");
+        
         // Set each boat type's planks.
         getBoatPlanks().forEach(
             (type, id) -> BuiltInRegistries.BLOCK.getOptional(id).ifPresent(

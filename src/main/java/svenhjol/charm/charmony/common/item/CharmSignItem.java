@@ -14,6 +14,8 @@ public class CharmSignItem extends SignItem {
     protected final Supplier<? extends WallSignBlock> wallSignBlock;
 
     public <S extends SignBlock, W extends WallSignBlock> CharmSignItem(CustomWoodMaterial material, Supplier<S> signBlock, Supplier<W> wallSignBlock) {
+        // We have to specify blocks as part of the registration but they might not have been registered yet.
+        // Default to oak but hold the blocks to register.
         super(new Properties().stacksTo(16),
             Blocks.OAK_SIGN, Blocks.OAK_WALL_SIGN);
 

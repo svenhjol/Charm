@@ -1,7 +1,10 @@
 package svenhjol.charm.feature.core.custom_wood.client;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -36,5 +39,10 @@ public final class Handlers extends FeatureHolder<CustomWoodClient> {
         }
 
         return Optional.empty();
+    }
+
+    public void clientEntityJoin(Entity entity, Level level) {
+        if (!(entity instanceof Player)) return;
+        feature().linked().registers.fixSignItems();
     }
 }

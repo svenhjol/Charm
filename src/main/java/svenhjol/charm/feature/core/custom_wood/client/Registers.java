@@ -10,6 +10,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import svenhjol.charm.charmony.event.BlockItemRenderEvent;
+import svenhjol.charm.charmony.event.ClientEntityJoinEvent;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.core.custom_wood.CustomWoodClient;
 import svenhjol.charm.feature.core.custom_wood.common.CustomType;
@@ -88,6 +89,9 @@ public final class Registers extends RegisterHolder<CustomWoodClient> {
 
         // Without this event handler the chest textures will be invisible.
         BlockItemRenderEvent.INSTANCE.handle(feature().handlers::renderChestBlockItem);
+        
+        // When the player enters the game this will apply fixes to custom sign items.
+        ClientEntityJoinEvent.INSTANCE.handle(feature().handlers::clientEntityJoin);
         
         // Build the creative menu.
         var table = feature().linked().registers.getItemCreativeTabs();

@@ -8,7 +8,7 @@ public class CustomStandingSignBlock extends StandingSignBlock {
     protected final CustomWoodMaterial material;
 
     public CustomStandingSignBlock(CustomWoodMaterial material, WoodType woodType) {
-        super(woodType, material.blockProperties().strength(1.0F).noCollission());
+        super(woodType, material.blockProperties().strength(1.0f).noCollission());
 
         this.material = material;
     }
