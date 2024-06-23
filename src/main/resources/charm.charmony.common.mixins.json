@@ -24,6 +24,7 @@
     "event.smithing_table.SmithingMenuMixin",
     "event.smithing_table.SmithingTransformRecipeMixin",
     "event.tooltip_component.ItemMixin",
+    "registry.dispenser_behavior.DispenserBlockMixin",
     "registry.villager_name.VillagerMixin"
   ],
   "client": [
