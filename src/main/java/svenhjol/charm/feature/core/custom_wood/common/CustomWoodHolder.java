@@ -32,7 +32,7 @@ public class CustomWoodHolder {
     private FenceHolder fence;
     private GateHolder gate;
     private HangingSignHolder hangingSign;
-    private LaddeHolder ladder;
+    private LadderHolder ladder;
     private LeavesHolder leaves;
     private LogBlockHolder log;
     private PlanksHolder planks;
@@ -63,7 +63,7 @@ public class CustomWoodHolder {
                 case FENCE -> fence = new FenceHolder(this);
                 case GATE -> gate = new GateHolder(this);
                 case HANGING_SIGN -> hangingSign = new HangingSignHolder(this);
-                case LADDER -> ladder = new LaddeHolder(this);
+                case LADDER -> ladder = new LadderHolder(this);
                 case LEAVES -> leaves = new LeavesHolder(this);
                 case LOG -> log = new LogBlockHolder(this);
                 case PLANKS -> planks = new PlanksHolder(this);
@@ -165,7 +165,7 @@ public class CustomWoodHolder {
         return Optional.ofNullable(hangingSign);
     }
 
-    public Optional<LaddeHolder> ladder() {
+    public Optional<LadderHolder> ladder() {
         return Optional.ofNullable(ladder);
     }
 

@@ -6,11 +6,11 @@ import svenhjol.charm.feature.core.custom_wood.common.CustomWoodHolder;
 
 import java.util.function.Supplier;
 
-public class LaddeHolder {
+public class LadderHolder {
     public final Supplier<CustomLadderBlock> block;
     public final Supplier<CustomLadderBlock.BlockItem> item;
 
-    public LaddeHolder(CustomWoodHolder holder) {
+    public LadderHolder(CustomWoodHolder holder) {
         var registry = holder.ownerRegistry();
         var material = holder.getMaterial();
         var id = holder.getMaterialName() + "_ladder";
