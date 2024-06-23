@@ -7,6 +7,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
 import svenhjol.charm.feature.cooking_pots.common.dispenser.BowlBehavior;
+import svenhjol.charm.feature.cooking_pots.common.dispenser.PotionBehavior;
+import svenhjol.charm.feature.cooking_pots.common.dispenser.WaterBucketBehavior;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -52,5 +54,7 @@ public final class Registers extends RegisterHolder<CookingPots> {
             Networking.S2CAddedToCookingPot.CODEC);
         
         registry.conditionalDispenserBehavior(() -> Items.BOWL, BowlBehavior::new);
+        registry.conditionalDispenserBehavior(() -> Items.POTION, PotionBehavior::new);
+        registry.conditionalDispenserBehavior(() -> Items.WATER_BUCKET, WaterBucketBehavior::new);
     }
 }

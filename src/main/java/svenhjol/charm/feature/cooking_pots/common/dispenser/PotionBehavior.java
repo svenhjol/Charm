@@ -11,14 +11,9 @@ import svenhjol.charm.feature.cooking_pots.common.CookingPotBlockEntity;
 
 import java.util.Optional;
 
-public class BowlBehavior implements FeatureResolver<CookingPots>, ConditionalDispenseItemBehavior {
+public class PotionBehavior implements FeatureResolver<CookingPots>, ConditionalDispenseItemBehavior {
     private ItemStack stack;
     
-    @Override
-    public Class<CookingPots> typeForFeature() {
-        return CookingPots.class;
-    }
-
     @Override
     public boolean accept(CompositeDispenseItemBehavior behavior, BlockSource blockSource, ItemStack stack) {
         var serverLevel = blockSource.level();
@@ -26,9 +21,10 @@ public class BowlBehavior implements FeatureResolver<CookingPots>, ConditionalDi
         var pos = blockSource.pos().relative(dispenserState.getValue(DispenserBlock.FACING));
 
         if (serverLevel.getBlockEntity(pos) instanceof CookingPotBlockEntity cask) {
-            var opt = feature().handlers.dispenserTakeFromPot(cask);
-            if (opt.isPresent()) {
-                this.stack = behavior.consumeWithRemainder(blockSource, stack, opt.get());
+            var result = feature().handlers.dispenserAddToPot(cask, stack);
+            if (result) {
+                stack.shrink(1);
+                this.stack = stack;
                 return true;
             }
         }
@@ -39,5 +35,10 @@ public class BowlBehavior implements FeatureResolver<CookingPots>, ConditionalDi
     @Override
     public Optional<ItemStack> stack() {
         return Optional.ofNullable(stack);
+    }
+
+    @Override
+    public Class<CookingPots> typeForFeature() {
+        return CookingPots.class;
     }
 }

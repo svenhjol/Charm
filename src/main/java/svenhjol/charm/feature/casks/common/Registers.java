@@ -2,9 +2,12 @@ package svenhjol.charm.feature.casks.common;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.casks.Casks;
+import svenhjol.charm.feature.casks.common.dispenser.GlassBottleBehavior;
+import svenhjol.charm.feature.casks.common.dispenser.PotionBehavior;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -51,5 +54,8 @@ public final class Registers extends RegisterHolder<Casks> {
 
         // Server to client packets
         registry.serverPacketSender(Networking.S2CAddedToCask.TYPE, Networking.S2CAddedToCask.CODEC);
+    
+        registry.conditionalDispenserBehavior(() -> Items.GLASS_BOTTLE, GlassBottleBehavior::new);
+        registry.conditionalDispenserBehavior(() -> Items.POTION, PotionBehavior::new);
     }
 }
