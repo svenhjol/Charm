@@ -70,3 +70,17 @@ Please use .29 for a more stable beta version.
 - Casks: now hold 16 bottles by default (configurable)
 - Casks: Dispenser support. Remove hopper functionality and item buffer
 - Casks: Support for instantaneous potions
+
+## 7.0.31
+
+Please note this version is for testing and might have unforeseen bugs.
+Please use .29 for a more stable beta version.
+
+- Stews and soups now stack to 16 (instead of 64). This change does not override the value in charm-common.toml
+- New sound effect for feedback that pot is done cooking. Reduced "pop" sound volume when food added to pot.
+- Conditional dispenser behavior to avoid conflict with vanilla and other mods
+- Cooking pot dispenser support
+- Removed cooking pot hopper functions, hidden inventory and ticket
+- Mixed stew from a pot can be consumed more rapidly (this is subject to change)
+- Mixed stew size reduced to 16 - buff stew hunger and saturation
+- Fix lectern recipe using custom bookshelves
