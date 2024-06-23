@@ -1,6 +1,7 @@
 package svenhjol.charm.feature.woodcutters.common;
 
 import com.google.common.collect.Lists;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -8,15 +9,16 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.SingleRecipeInput;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
+import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.feature.woodcutters.Woodcutters;
 import svenhjol.charm.feature.woodcutting.Woodcutting;
 import svenhjol.charm.feature.woodcutting.common.Recipe;
-import svenhjol.charm.charmony.Resolve;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Much copypasta from {@link StonecutterMenu}.
@@ -148,7 +150,7 @@ public class Menu extends AbstractContainerMenu {
         this.selectedRecipeIndex.set(-1);
         this.resultSlot.set(ItemStack.EMPTY);
         if (!stack.isEmpty()) {
-            this.recipes = this.level.getRecipeManager().getRecipesFor(WOODCUTTING.registers.recipeType.get(),
+            this.recipes = this.getRecipesFor(this.level.getRecipeManager(), WOODCUTTING.registers.recipeType.get(),
                 createRecipeInput(container), this.level);
         }
     }
@@ -203,7 +205,8 @@ public class Menu extends AbstractContainerMenu {
                 if (!this.moveItemStackTo(itemStack2, 2, 38, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.level.getRecipeManager().getRecipeFor(WOODCUTTING.registers.recipeType.get(), new SingleRecipeInput(itemStack2), this.level).isPresent()) {
+            } else if (this.level.getRecipeManager().getRecipeFor(WOODCUTTING.registers.recipeType.get(),
+                new SingleRecipeInput(itemStack2), this.level).isPresent()) {
                 if (!this.moveItemStackTo(itemStack2, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }
@@ -235,5 +238,21 @@ public class Menu extends AbstractContainerMenu {
         super.removed(player);
         this.resultContainer.removeItemNoUpdate(1);
         this.access.execute((level, blockPos) -> this.clearContainer(player, this.container));
+    }
+
+    /**
+     * This alphabetically sorts only the registered item path, not the namespace + path.
+     * @see RecipeManager#getRecipesFor(RecipeType, RecipeInput, Level)
+     */
+    private <I extends RecipeInput, T extends net.minecraft.world.item.crafting.Recipe<I>> List<RecipeHolder<T>> getRecipesFor(
+        RecipeManager recipeManager, RecipeType<T> recipeType, I recipeInput, Level level) {
+        return recipeManager.byType(recipeType).stream()
+            .filter(recipeHolder -> recipeHolder.value().matches(recipeInput, level))
+            .sorted(Comparator.comparing(recipeHolder -> {
+                var stack = recipeHolder.value().getResultItem(level.registryAccess());
+                var id = BuiltInRegistries.ITEM.getKey(stack.getItem());
+                return id.getPath();
+            }))
+            .collect(Collectors.toList());
     }
 }

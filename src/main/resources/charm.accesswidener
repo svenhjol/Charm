@@ -22,6 +22,7 @@ accessible method net/minecraft/core/dispenser/DefaultDispenseItemBehavior consu
 accessible method net/minecraft/resources/ResourceLocation <init> (Ljava/lang/String;Ljava/lang/String;)V
 accessible method net/minecraft/world/entity/ai/village/poi/PoiTypes registerBlockStates (Lnet/minecraft/core/Holder;Ljava/util/Set;)V
 accessible method net/minecraft/world/entity/npc/VillagerProfession register (Ljava/lang/String;Lnet/minecraft/resources/ResourceKey;Lcom/google/common/collect/ImmutableSet;Lcom/google/common/collect/ImmutableSet;Lnet/minecraft/sounds/SoundEvent;)Lnet/minecraft/world/entity/npc/VillagerProfession;
+accessible method net/minecraft/world/item/crafting/RecipeManager byType (Lnet/minecraft/world/item/crafting/RecipeType;)Ljava/util/Collection;
 accessible method net/minecraft/world/level/block/state/BlockBehaviour$BlockStateBase asState ()Lnet/minecraft/world/level/block/state/BlockState;
 accessible method net/minecraft/world/level/block/state/properties/BlockSetType register (Lnet/minecraft/world/level/block/state/properties/BlockSetType;)Lnet/minecraft/world/level/block/state/properties/BlockSetType;
 accessible method net/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type <init> (Ljava/lang/String;I)V
