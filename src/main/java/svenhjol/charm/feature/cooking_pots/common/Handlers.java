@@ -96,7 +96,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
 
                 // Add a water bucket to the pot.
                 if (!level.isClientSide()) {
-                    if (pot.fillWithBucket() && !player.getAbilities().instabuild) {
+                    if (pot.fillWithBucket() && !player.hasInfiniteMaterials()) {
                         player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.BUCKET)));
                     }
                 }
@@ -106,7 +106,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
 
                 // Add a bottle of water. Increase portions by 2.
                 if (!level.isClientSide()) {
-                    if (pot.fillWithBottle() && !player.getAbilities().instabuild) {
+                    if (pot.fillWithBottle() && !player.hasInfiniteMaterials()) {
                         player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
                     }
                 }
@@ -118,7 +118,7 @@ public final class Handlers extends FeatureHolder<CookingPots> {
                 if (!level.isClientSide()) {
                     var out = pot.take();
                     if (out != null) {
-                        if (!player.getAbilities().instabuild) {
+                        if (!player.hasInfiniteMaterials()) {
                             player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, out));
                         } else {
                             // Creative mode

@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
@@ -80,7 +81,10 @@ public final class Handlers extends FeatureHolder<Casks> {
                     cask.setChanged();
 
                     level.playSound(null, pos, feature().registers.nameSound.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
-                    stack.shrink(1);
+                    
+                    if (!player.hasInfiniteMaterials()) {
+                        stack.shrink(1);
+                    }
                 }
                 
                 return EventResult.SUCCESS;
@@ -91,9 +95,12 @@ public final class Handlers extends FeatureHolder<Casks> {
                 if (!level.isClientSide()) {
                     var out = cask.take();
                     if (out != null) {
-                        player.getInventory().add(out);
-
-                        stack.shrink(1);
+                        if (!player.hasInfiniteMaterials()) {
+                            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, out));
+                        } else {
+                            // Creative mode
+                            player.getInventory().add(out);
+                        }
 
                         if (cask.effects.size() > 1) {
                             feature().advancements.tookLiquidFromCask(player);
@@ -106,21 +113,17 @@ public final class Handlers extends FeatureHolder<Casks> {
 
                 // Add a bottle of liquid to the cask using a filled glass bottle.
                 if (!level.isClientSide()) {
-                    var result = cask.add(stack);
-                    if (result) {
-                        stack.shrink(1);
+                    if (cask.add(stack)) {
+                        if (!player.hasInfiniteMaterials()) {
+                            player.setItemInHand(hand, ItemUtils.createFilledResult(stack, player, new ItemStack(Items.GLASS_BOTTLE)));
+                        }
 
-                        // give the glass bottle back to the player
-                        player.getInventory().add(new ItemStack(Items.GLASS_BOTTLE));
+                        // Let nearby players know an item was added to the cask
+                        Networking.S2CAddedToCask.send((ServerLevel) level, pos);
 
-                        if (!level.isClientSide()) {
-                            // Let nearby players know an item was added to the cask
-                            Networking.S2CAddedToCask.send((ServerLevel) level, pos);
-
-                            // do advancement for filling with potions
-                            if (cask.bottles > 1 && cask.effects.size() > 1) {
-                                feature().advancements.addedLiquidToCask(player);
-                            }
+                        // do advancement for filling with potions
+                        if (cask.bottles > 1 && cask.effects.size() > 1) {
+                            feature().advancements.addedLiquidToCask(player);
                         }
                     }
                 }
@@ -132,8 +135,7 @@ public final class Handlers extends FeatureHolder<Casks> {
     }
     
     public Optional<ItemStack> dispenserTakeFromCask(CaskBlockEntity cask) {
-        var out = cask.take();
-        return Optional.ofNullable(out);
+        return Optional.ofNullable(cask.take());
     }
     
     public boolean dispenserAddToCask(CaskBlockEntity cask, ItemStack stack) {
