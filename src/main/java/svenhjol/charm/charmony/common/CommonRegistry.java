@@ -74,6 +74,7 @@ import svenhjol.charm.charmony.common.block.CharmStairBlock;
 import svenhjol.charm.charmony.common.block.CharmWallHangingSignBlock;
 import svenhjol.charm.charmony.common.block.CharmWallSignBlock;
 import svenhjol.charm.charmony.common.deferred.DeferredPotionMix;
+import svenhjol.charm.charmony.common.dispenser.ConditionalDispenseItemBehavior;
 import svenhjol.charm.charmony.common.helper.DispenserHelper;
 import svenhjol.charm.charmony.helper.ConfigHelper;
 import svenhjol.charm.charmony.helper.EnumHelper;
@@ -95,6 +96,7 @@ import static net.minecraft.world.entity.npc.VillagerTrades.WANDERING_TRADER_TRA
 @SuppressWarnings({"unused", "UnusedReturnValue", "UnnecessaryLocalVariable"})
 public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
     private static final List<String> RECIPE_BOOK_TYPE_ENUMS = new ArrayList<>();
+    private static final Map<ItemLike, List<ConditionalDispenseItemBehavior>> CONDITIONAL_DISPENSER_BEHAVIORS = new HashMap<>();
     private final List<DeferredPotionMix> deferredPotionMixes = new ArrayList<>(); // Must be on the instance!
     private final CommonLoader loader;
     private final Log log;
@@ -203,6 +205,18 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
             PayloadTypeRegistry.playC2S().register(type, (StreamCodec<? super ByteBuf, T>)codec);
         });
     }
+    
+    public <I extends ItemLike, C extends ConditionalDispenseItemBehavior> void conditionalDispenserBehavior(Supplier<I> itemSupplier, Supplier<C> behaviorSupplier) {
+        loader.registerDeferred(() -> {
+            var item = itemSupplier.get();
+            var behavior = behaviorSupplier.get();
+            CONDITIONAL_DISPENSER_BEHAVIORS.computeIfAbsent(item, a -> new ArrayList<>()).add(behavior);
+        });
+    }
+    
+    public static Map<ItemLike, List<ConditionalDispenseItemBehavior>> conditionalDispenserBehaviors() {
+        return CONDITIONAL_DISPENSER_BEHAVIORS;
+    }
 
     public <T> Register<DataComponentType<T>> dataComponent(String id, Supplier<UnaryOperator<DataComponentType.Builder<T>>> dataComponent) {
         return new Register<>(() -> {
@@ -212,10 +226,11 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
         });
     }
 
-    public <I extends ItemLike, D extends DispenseItemBehavior> void dispenserBehavior(Supplier<I> item, Supplier<D> dispenserBehavior) {
+    public <I extends ItemLike, D extends DispenseItemBehavior> void dispenserBehavior(Supplier<I> itemSupplier, Supplier<D> behaviorSupplier) {
         loader.registerDeferred(() -> {
-            var behavior = dispenserBehavior.get();
-            DispenserBlock.registerBehavior(item.get(), behavior);
+            var item = itemSupplier.get();
+            var behavior = behaviorSupplier.get();
+            DispenserBlock.registerBehavior(item, behavior);
         });
     }
 
