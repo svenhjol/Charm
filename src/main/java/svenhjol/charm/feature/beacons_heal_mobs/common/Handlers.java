@@ -11,12 +11,19 @@ import net.minecraft.world.phys.AABB;
 import svenhjol.charm.charmony.feature.FeatureHolder;
 import svenhjol.charm.feature.beacons_heal_mobs.BeaconsHealMobs;
 
+import javax.annotation.Nullable;
+
 public final class Handlers extends FeatureHolder<BeaconsHealMobs> {
     public Handlers(BeaconsHealMobs feature) {
         super(feature);
     }
 
-    public void applyBeaconEffects(Level level, BlockPos pos, int levels, Holder<MobEffect> primary, Holder<MobEffect> secondary) {
+    public void applyBeaconEffects(Level level, BlockPos pos, int levels,
+                                   @Nullable Holder<MobEffect> primary, @Nullable Holder<MobEffect> secondary) {
+        if (primary == null || secondary == null) {
+            return;
+        }
+
         if (!level.isClientSide()) {
             var d0 = levels * 10.0d + 10.0d;
             var bb = (new AABB(pos)).inflate(d0).inflate(0.0d, level.getMaxBuildHeight(), 0.0d);

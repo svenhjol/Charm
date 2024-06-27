@@ -11,6 +11,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import svenhjol.charm.charmony.event.ApplyBeaconEffectsEvent;
 
+import javax.annotation.Nullable;
+
 @Mixin(BeaconBlockEntity.class)
 public class BeaconBlockEntityMixin {
     /**
@@ -21,7 +23,9 @@ public class BeaconBlockEntityMixin {
         method = "applyEffects",
         at = @At("HEAD")
     )
-    private static void hookApplyEffects(Level level, BlockPos pos, int beaconLevel, Holder<MobEffect> primary, Holder<MobEffect> secondary, CallbackInfo ci) {
+    private static void hookApplyEffects(Level level, BlockPos pos, int beaconLevel,
+                                         @Nullable Holder<MobEffect> primary, @Nullable Holder<MobEffect> secondary,
+                                         CallbackInfo ci) {
         if (level != null) {
             ApplyBeaconEffectsEvent.INSTANCE.invoke(level, pos, beaconLevel, primary, secondary);
         }
