@@ -10,8 +10,8 @@ import java.util.function.Supplier;
 public final class Registers extends RegisterHolder<Woodcutting> {
     public static final String RECIPE_ID = "woodcutting";
 
-    public final Supplier<RecipeType<Recipe>> recipeType;
-    public final Supplier<RecipeSerializer<Recipe>> recipeSerializer;
+    public final Supplier<RecipeType<WoodcuttingRecipe>> recipeType;
+    public final Supplier<RecipeSerializer<WoodcuttingRecipe>> recipeSerializer;
 
     public Registers(Woodcutting feature) {
         super(feature);
@@ -19,6 +19,6 @@ public final class Registers extends RegisterHolder<Woodcutting> {
 
         recipeType = registry.recipeType(RECIPE_ID);
         recipeSerializer = registry.recipeSerializer(RECIPE_ID,
-            () -> new Recipe.Serializer<>(Recipe::new));
+            () -> new WoodcuttingRecipe.Serializer<>(WoodcuttingRecipe::new));
     }
 }
