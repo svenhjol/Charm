@@ -37,6 +37,17 @@ public final class Core extends CommonFeature {
     )
     private static boolean mixinDisable = false;
 
+    @Configurable(
+        name = "customOnTakeBehavior",
+        description = """
+            Enable custom onTake behavior for anvils.
+            This changes the vanilla anvil behavior to avoid destroying entire stacks.
+            There is a small chance that a mod depends on the default behavior, in which case you should
+            disable this config option and change the stack size of ItemStacking "Enchanted book" to 1.
+            """
+    )
+    private static boolean customOnTakeBehavior = true;
+
     public Core(CommonLoader loader) {
         super(loader);
 
@@ -56,6 +67,10 @@ public final class Core extends CommonFeature {
 
     public boolean mixinDisable() {
         return mixinDisable;
+    }
+
+    public boolean customOnTakeBehavior() {
+        return customOnTakeBehavior;
     }
 
     @Override
