@@ -18,7 +18,7 @@ public class DispenserBlockMixin {
     )
     private DispenseItemBehavior hookGetDispenseMethod(DispenseItemBehavior original, Level level, ItemStack stack) {
         if (CommonRegistry.conditionalDispenserBehaviors().containsKey(stack.getItem())) {
-            return new CompositeDispenseItemBehavior();   
+            return new CompositeDispenseItemBehavior(original);
         }
         return original;
     }

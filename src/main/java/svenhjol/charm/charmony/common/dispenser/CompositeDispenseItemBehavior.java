@@ -2,14 +2,21 @@ package svenhjol.charm.charmony.common.dispenser;
 
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.world.item.ItemStack;
 import svenhjol.charm.charmony.common.CommonRegistry;
 
 import java.util.List;
 
 public class CompositeDispenseItemBehavior extends DefaultDispenseItemBehavior {
+    private final DispenseItemBehavior originalBehavior;
+
+    public CompositeDispenseItemBehavior(DispenseItemBehavior originalBehavior) {
+        this.originalBehavior = originalBehavior;
+    }
+
     @Override
-    protected ItemStack execute(BlockSource blockSource, ItemStack stack) {
+    public ItemStack execute(BlockSource blockSource, ItemStack stack) {
         var behaviors = CommonRegistry.conditionalDispenserBehaviors()
             .getOrDefault(stack.getItem(), List.of());
 
@@ -19,7 +26,11 @@ public class CompositeDispenseItemBehavior extends DefaultDispenseItemBehavior {
                 return behavior.stack().orElse(stack);
             }
         }
-        
-        return super.execute(blockSource, stack);
+
+        if (originalBehavior instanceof DefaultDispenseItemBehavior defaultBehavior) {
+            return defaultBehavior.execute(blockSource, stack);
+        } else {
+            return super.execute(blockSource, stack);
+        }
     }
 }

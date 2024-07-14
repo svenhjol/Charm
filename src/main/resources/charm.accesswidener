@@ -28,6 +28,7 @@ accessible method net/minecraft/world/level/block/state/properties/BlockSetType 
 accessible method net/minecraft/world/level/block/state/properties/NoteBlockInstrument$Type <init> (Ljava/lang/String;I)V
 accessible method net/minecraft/world/level/block/state/properties/WoodType register (Lnet/minecraft/world/level/block/state/properties/WoodType;)Lnet/minecraft/world/level/block/state/properties/WoodType;
 accessible method net/minecraft/world/level/levelgen/feature/stateproviders/SimpleStateProvider <init> (Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible method net/minecraft/core/dispenser/DefaultDispenseItemBehavior execute (Lnet/minecraft/core/dispenser/BlockSource;Lnet/minecraft/world/item/ItemStack;)Lnet/minecraft/world/item/ItemStack;
 mutable    field net/minecraft/stats/RecipeBookSettings TAG_FIELDS Ljava/util/Map;
 mutable    field net/minecraft/world/entity/ai/attributes/AttributeSupplier instances Ljava/util/Map;
 mutable    field net/minecraft/world/entity/vehicle/Boat$Type BY_ID Ljava/util/function/IntFunction;
