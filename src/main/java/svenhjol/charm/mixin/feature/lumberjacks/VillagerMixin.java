@@ -26,8 +26,10 @@ public abstract class VillagerMixin {
     private void hookStartTrading(Player player, CallbackInfo ci) {
         var lumberjacks = Resolve.feature(Lumberjacks.class);
         var data = getVillagerData();
-        if (data.getProfession() == lumberjacks.registers.profession.get()) {
-            lumberjacks.advancements.tradedWithLumberjack(player);
-        }
+        lumberjacks.registers.profession().ifPresent(profession -> {
+            if (data.getProfession() == profession.get()) {
+                lumberjacks.advancements.tradedWithLumberjack(player);
+            }
+        });
     }
 }

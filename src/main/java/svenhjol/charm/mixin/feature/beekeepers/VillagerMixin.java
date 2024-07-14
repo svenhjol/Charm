@@ -26,8 +26,10 @@ public abstract class VillagerMixin {
     private void hookStartTrading(Player player, CallbackInfo ci) {
         var beekeepers = Resolve.feature(Beekeepers.class);
         var data = getVillagerData();
-        if (data.getProfession() == beekeepers.registers.profession.get()) {
-            beekeepers.advancements.tradedWithBeekeeper(player);
-        }
+        beekeepers.registers.profession().ifPresent(profession -> {
+            if (data.getProfession() == profession.get()) {
+                beekeepers.advancements.tradedWithBeekeeper(player);
+            }
+        });
     }
 }

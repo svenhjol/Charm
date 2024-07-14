@@ -59,14 +59,14 @@ public abstract class Loader<F extends Feature> {
         // Instantiate features from each feature class.
         instantiate(classes);
 
-        // Call deferred runnables such as feature registration.
-        deferred();
-
         // Load configuration state for the features.
         configure();
 
         // Last chance for feature to set itself as enabled/disabled.
         checks();
+
+        // Call deferred runnables such as feature registration.
+        deferred();
     }
 
     /**

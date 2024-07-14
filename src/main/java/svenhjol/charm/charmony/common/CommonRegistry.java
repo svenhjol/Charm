@@ -69,6 +69,7 @@ import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.storage.loot.LootTable;
+import svenhjol.charm.charmony.Feature;
 import svenhjol.charm.charmony.Log;
 import svenhjol.charm.charmony.common.block.CharmStairBlock;
 import svenhjol.charm.charmony.common.block.CharmWallHangingSignBlock;
@@ -506,13 +507,20 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
             var res = id(id);
             var lootTableName = res.getNamespace() + ":gameplay/hero_of_the_village/" + res.getPath() + "_gift";
             var lootTable = lootTable(lootTableName);
-            var profession = BuiltInRegistries.VILLAGER_PROFESSION.getOptional(res).orElseThrow();
-            GiveGiftToHero.GIFTS.put(profession, lootTable);
+            BuiltInRegistries.VILLAGER_PROFESSION.getOptional(res).ifPresent(
+                profession -> GiveGiftToHero.GIFTS.put(profession, lootTable));
         });
     }
 
-    public <B extends Block> Supplier<VillagerProfession> villagerProfession(String professionId, String poitId, List<Supplier<B>> jobSiteBlocks, Supplier<SoundEvent> workSound) {
+    public <B extends Block> Supplier<Optional<VillagerProfession>> villagerProfession(Feature feature, String professionId,
+                                                                                       String poitId, List<Supplier<B>> jobSiteBlocks,
+                                                                                       Supplier<SoundEvent> workSound) {
         return new Register<>(() -> {
+            if (!feature.isEnabled()) {
+                log.warnIfDebug("Villager profession " + professionId + " is disabled");
+                return Optional.empty();
+            }
+
             log("Villager profession " + professionId + " with POIT " + poitId);
             var res = id(professionId);
             var poitKey = ResourceKey.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE.key(), id(poitId));
@@ -526,7 +534,7 @@ public final class CommonRegistry implements svenhjol.charm.charmony.Registry {
                 workSound.get()
             ));
             loader.registerDeferred(() -> TRADES.put(registered, new Int2ObjectOpenHashMap<>()));
-            return registered;
+            return Optional.of(registered);
         });
     }
 
