@@ -30,6 +30,6 @@ public final class Handlers extends FeatureHolder<AnimalArmorEnchanting> {
     public boolean isValidWolfEnchantment(ItemStack stack, Enchantment enchantment) {
         return stack.getItem() instanceof AnimalArmorItem armor
             && armor.getBodyType() == AnimalArmorItem.BodyType.CANINE
-            && feature().registers.horseArmorEnchantments.contains(enchantment);
+            && feature().registers.wolfArmorEnchantments.contains(enchantment);
     }
 }
