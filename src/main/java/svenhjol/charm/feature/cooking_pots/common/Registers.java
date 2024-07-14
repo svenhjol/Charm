@@ -1,9 +1,11 @@
 package svenhjol.charm.feature.cooking_pots.common;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import svenhjol.charm.charmony.common.helper.ItemOverrideHelper;
 import svenhjol.charm.charmony.feature.RegisterHolder;
 import svenhjol.charm.feature.cooking_pots.CookingPots;
 import svenhjol.charm.feature.cooking_pots.common.dispenser.BowlBehavior;
@@ -35,13 +37,7 @@ public final class Registers extends RegisterHolder<CookingPots> {
         blockItem = registry.item(BLOCK_ID, () -> new CookingPotBlock.BlockItem(block));
         blockEntity = registry.blockEntity(BLOCK_ID, () -> CookingPotBlockEntity::new, List.of(block));
 
-        mixedStewFoodProperties = new FoodProperties.Builder()
-            .nutrition(feature.stewHungerRestored())
-            .saturationModifier(feature.stewSaturationRestored())
-            .usingConvertsTo(Items.BOWL)
-            .fast()
-            .build();
-
+        mixedStewFoodProperties = feature().handlers.buildFoodProperties();
         mixedStewItem = registry.item(MIXED_STEW_ID, MixedStewItem::new);
 
         addSound = registry.soundEvent("cooking_pot_add");
@@ -56,5 +52,11 @@ public final class Registers extends RegisterHolder<CookingPots> {
         registry.conditionalDispenserBehavior(() -> Items.BOWL, BowlBehavior::new);
         registry.conditionalDispenserBehavior(() -> Items.POTION, PotionBehavior::new);
         registry.conditionalDispenserBehavior(() -> Items.WATER_BUCKET, WaterBucketBehavior::new);
+    }
+
+    @Override
+    public void onEnabled() {
+        var foodProperties = feature().handlers.buildFoodProperties();
+        ItemOverrideHelper.dataComponentValue(mixedStewItem.get(), DataComponents.FOOD, foodProperties);
     }
 }

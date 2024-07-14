@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodConstants;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
@@ -29,6 +30,22 @@ public final class Handlers extends FeatureHolder<CookingPots> {
 
     public Handlers(CookingPots feature) {
         super(feature);
+    }
+
+    public FoodProperties buildFoodProperties() {
+        return new FoodProperties.Builder()
+            .nutrition(feature().stewHungerRestored())
+            .saturationModifier(feature().stewSaturationRestored())
+            .usingConvertsTo(Items.BOWL)
+            .fast()
+            .build();
+    }
+
+    public ItemStack getStew() {
+        var stew = new ItemStack(feature().registers.mixedStewItem.get());
+        var copy = stew.copy();
+        copy.set(DataComponents.FOOD, feature().handlers.buildFoodProperties());
+        return copy;
     }
 
     public int maxPortions() {

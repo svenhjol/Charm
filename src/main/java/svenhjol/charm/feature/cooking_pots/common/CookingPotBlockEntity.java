@@ -144,7 +144,7 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> {
         }
 
         if (level != null) {
-            var bowl = getPortion();
+            var bowl = feature().handlers.getStew();
 
             removePortion();
 
@@ -252,10 +252,6 @@ public class CookingPotBlockEntity extends CharmBlockEntity<CookingPots> {
             level.setBlock(pos, state, 2);
             setChanged();
         }
-    }
-
-    private ItemStack getPortion() {
-        return new ItemStack(feature().registers.mixedStewItem.get());
     }
 
     @Override

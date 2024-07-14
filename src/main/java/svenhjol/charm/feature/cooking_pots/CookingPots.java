@@ -42,8 +42,8 @@ public final class CookingPots extends CommonFeature {
     public CookingPots(CommonLoader loader) {
         super(loader);
 
-        registers = new Registers(this);
         handlers = new Handlers(this);
+        registers = new Registers(this);
         advancements = new Advancements(this);
     }
 
