@@ -11,12 +11,13 @@ import svenhjol.charm.feature.torchflowers_emit_light.TorchflowersEmitLight;
 public abstract class BlockBehaviourPropertiesMixin {
 
     @ModifyReturnValue(
-            method = "getLightEmission",
-            at = @At("RETURN")
+        method = "getLightEmission",
+        at = @At("RETURN")
     )
     private int hookGetLightEmission(int original) {
-        return Resolve.feature(TorchflowersEmitLight.class).handlers
-                .lightLevel((BlockBehaviour.BlockStateBase)(Object)this)
-                .orElse(original);
+        return Resolve.tryFeature(TorchflowersEmitLight.class)
+            .map(feature -> feature.handlers.lightLevel((BlockBehaviour.BlockStateBase)(Object)this)
+                .orElse(original))
+            .orElse(original);
     }
 }
