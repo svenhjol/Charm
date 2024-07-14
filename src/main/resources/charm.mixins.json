@@ -41,6 +41,7 @@
     "feature.item_restocking.AnimalMixin",
     "feature.item_restocking.ComposterBlockMixin",
     "feature.item_restocking.ParrotMixin",
+    "feature.item_stacking.PlayerMixin",
     "feature.lumberjacks.VillagerMixin",
     "feature.mineshaft_improvements.MineshaftPiecesMixin",
     "feature.note_blocks.NoteBlockInstrumentMixin",
