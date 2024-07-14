@@ -30,7 +30,7 @@ public final class CookingPots extends CommonFeature {
         description = """
             Amount of saturation restored from a single portion of mixed stew."""
     )
-    private static double stewSaturationRestored = 0.6f;
+    private static double stewSaturationRestored = 0.6d;
 
     @Configurable(
         name = "Stew stack size",
