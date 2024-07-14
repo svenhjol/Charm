@@ -1,5 +1,20 @@
 # Changelog
 
+## 7.0.34
+
+Please note this version is for testing and might have unforeseen bugs.
+Please use .33 for a more stable beta version.
+
+- Fix anvil consuming full stack of books. https://trello.com/c/w9Awwcd4
+- Fix ebony leaves not being mined faster with hoe. https://trello.com/c/TW0AJ6kW
+- Fix bowl/glass not thrown if there's no space left in the inventory and itemstacking is enabled. https://trello.com/c/gV2REqiS
+- Fix water bucket dispense behavior by passing original dispense behavior. https://trello.com/c/LCtW9cNU
+- Fix charm custom chests not working when crafting shulker boxes. https://trello.com/c/HizVxf4H
+- Fix incorrect registry in animal armor enchantment. https://trello.com/c/dzexvOdc
+- Fix custom villager professions not respecting config. https://trello.com/c/VXuDACDA
+- Fix mixed stew not using hunger and saturation values from config. https://trello.com/c/SpMj7FVo
+- Wrap torchflower feature test so that it doesn't crash with BetterEnd mod. Maybe fixes https://trello.com/c/LVZhAKoX
+
 ## 7.0.33
 
 - REI integration for woodcutters and kilns
