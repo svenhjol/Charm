@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Component;
 import svenhjol.charm.charmony.Feature;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.enums.Side;
+import svenhjol.charm.charmony.helper.ConfigHelper;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -80,6 +81,9 @@ public class CharmSettingsScreen extends Screen {
             features.addAll(Resolve.features(Side.CLIENT, modId));
 
             features.sort(Comparator.comparing(Feature::name));
+            features = features.stream()
+                .filter(feature -> (feature.canBeDisabled() || ConfigHelper.featureHasConfig(feature)))
+                .toList();
 
             cachedFeatures.clear();
             cachedFeatures.addAll(features);

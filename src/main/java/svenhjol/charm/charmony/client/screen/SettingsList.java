@@ -1,5 +1,6 @@
 package svenhjol.charm.charmony.client.screen;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
@@ -10,6 +11,9 @@ import net.minecraft.network.chat.Component;
 import svenhjol.charm.charmony.Feature;
 import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.charmony.helper.ConfigHelper;
+import svenhjol.charm.charmony.helper.TextHelper;
+
+import java.util.Optional;
 
 public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntry> {
     private final Screen parent;
@@ -50,7 +54,11 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
             Button.OnPress enableButtonAction;
             boolean enableButtonActive;
 
-            if (feature.isEnabled()) {
+            if (!feature.canBeDisabled()) {
+                enableButtonText = Component.literal("Disable");
+                enableButtonAction = button -> {};
+                enableButtonActive = false;
+            } else if (feature.isEnabled()) {
                 enableButtonText = Component.literal("Disable");
                 enableButtonAction = button -> {};
                 enableButtonActive = true;
@@ -81,8 +89,21 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
 
             var font = SettingsList.this.minecraft.font;
             var color = feature.isEnabled() ? 0xffffff : 0x888888;
+            var name = Component.literal(feature.name());
+            var descriptionLines = TextHelper.toComponents(feature.description(), 48);
+            var nameWidth = font.width(name);
+            var textLeft = offsetX + 5;
+            var textTop = y + 2;
 
-            guiGraphics.drawString(font, feature.name(), offsetX + 5, y + 2, color);
+            // Prepend the feature name to the description lines.
+            descriptionLines.addFirst(name.copy().withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD));
+
+            guiGraphics.drawString(font, name, offsetX + 5, y + 2, color);
+
+            if (mouseX >= textLeft && mouseX <= textLeft + nameWidth
+                && mouseY >= textTop && mouseY <= textTop + 6) {
+                guiGraphics.renderTooltip(font, descriptionLines, Optional.empty(), mouseX, mouseY);
+            }
 
             this.enableButton.setPosition(enableX, buttonY);
             this.enableButton.render(guiGraphics, mouseX, mouseY, tickDelta);

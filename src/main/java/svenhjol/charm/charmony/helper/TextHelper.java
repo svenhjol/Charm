@@ -1,7 +1,11 @@
 package svenhjol.charm.charmony.helper;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.base.Function;
 import net.minecraft.network.chat.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class TextHelper {
     public static Component empty() {
@@ -67,6 +71,29 @@ public final class TextHelper {
         }
 
         return out.toString();
+    }
+
+    public static List<Component> toComponents(String string, int lineLength) {
+        List<Component> out = new ArrayList<>();
+        int lineSize = 0;
+        StringBuilder buffer = new StringBuilder();
+        Function<String, Component> convertText =
+            s -> Component.literal(s.trim().replace("\n", " "));
+
+        for (int i = 0; i < string.length(); i++) {
+            var currentChar = string.charAt(i);
+            buffer.append(currentChar);
+            if (lineSize++ >= lineLength) {
+                if (currentChar == ' ' && string.length() - i > 4) {
+                    out.add(convertText.apply(buffer.toString()));
+                    buffer = new StringBuilder();
+                    lineSize = 0;
+                }
+            }
+        }
+
+        out.add(convertText.apply(buffer.toString()));
+        return out;
     }
 
     /**
