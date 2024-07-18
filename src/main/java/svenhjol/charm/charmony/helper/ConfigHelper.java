@@ -4,17 +4,25 @@ import com.moandjiezana.toml.Toml;
 import net.fabricmc.loader.api.FabricLoader;
 import svenhjol.charm.charmony.Charmony;
 import svenhjol.charm.charmony.Log;
+import svenhjol.charm.charmony.annotation.Configurable;
 import svenhjol.charm.charmony.annotation.Feature;
 import svenhjol.charm.charmony.enums.Side;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class ConfigHelper {
     private static final Log LOGGER = new Log(Charmony.ID, "ConfigHelper");
 
     public static final String DEBUG_MODE = "Debug mode";
     public static final String MIXIN_DISABLE_MODE = "Mixin disable mode";
+
+    public static boolean featureHasConfig(svenhjol.charm.charmony.Feature feature) {
+        var fields = new ArrayList<>(Arrays.asList(feature.getClass().getDeclaredFields()));
+        return fields.stream().anyMatch(field -> field.getDeclaredAnnotation(Configurable.class) != null);
+    }
 
     public static boolean isModLoaded(String id) {
         FabricLoader instance = FabricLoader.getInstance();

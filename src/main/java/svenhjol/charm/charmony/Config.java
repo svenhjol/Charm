@@ -179,9 +179,6 @@ public abstract class Config {
         }
     }
 
-    /**
-     * This is for mods that want to query Charm's default config values.
-     */
     @SuppressWarnings("unused")
     public static Map<Field, Object> defaultFieldValues() {
         return DEFAULT_FIELD_VALUES;

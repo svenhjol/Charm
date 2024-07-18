@@ -28,6 +28,9 @@
     "client": [
       "svenhjol.charm.fabric.ClientInitializer"
     ],
+    "modmenu": [
+      "svenhjol.charm.integration.modmenu.ModMenuPlugin"
+    ],
     "rei_common": [
       "svenhjol.charm.integration.rei.ServerPlugin"
     ],
