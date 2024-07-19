@@ -16,7 +16,7 @@ import svenhjol.charm.charmony.helper.ConfigHelper;
 
 import java.util.List;
 
-@Feature(priority = 100)
+@Feature(priority = 100, description = "Core functionality for Charm.")
 public final class Core extends CommonFeature {
     public final Registers registers;
     public final Handlers handlers;
