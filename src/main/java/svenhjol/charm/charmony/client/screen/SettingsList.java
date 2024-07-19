@@ -4,7 +4,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
-import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -40,51 +41,73 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
     public class FeatureEntry extends AbstractSelectionList.Entry<FeatureEntry> {
         private final Screen screen;
         private final Feature feature;
-        private final Button enableButton;
-        private final Button moreButton;
+        private final ImageButton enableButton;
+        private final ImageButton disableButton;
+        private final ImageButton configureButton;
+        private final Tooltip enableButtonTooltip;
+        private final Tooltip disableButtonTooltip;
+        private final Tooltip configureButtonTooltip;
 
         public FeatureEntry(Feature feature, Screen screen) {
             this.screen = screen;
             this.feature = feature;
 
-            this.moreButton = Button.builder(Component.literal("More"),
-                button -> {}).width(40).build();
+            this.enableButton = new ImageButton(0, 0, 20, 20,
+                CharmSettingsScreen.ENABLE_BUTTON, button -> enable());
 
-            Component enableButtonText;
-            Button.OnPress enableButtonAction;
-            boolean enableButtonActive;
+            this.disableButton = new ImageButton(0, 0, 20, 20,
+                CharmSettingsScreen.DISABLE_BUTTON, button -> disable());
+
+            this.configureButton = new ImageButton(0, 0, 20, 20,
+                CharmSettingsScreen.CONFIG_BUTTON, button -> configure());
+
+            // Default button state before feature processing.
+            this.configureButton.visible = true;
+            this.configureButton.active = false;
+            this.disableButton.visible = false;
+            this.disableButton.active = false;
+            this.enableButton.visible = false;
+            this.enableButton.active = false;
 
             if (!feature.canBeDisabled()) {
-                enableButtonText = Component.literal("Disable");
-                enableButtonAction = button -> {};
-                enableButtonActive = false;
+                this.disableButton.visible = true;
+                this.disableButton.active = false;
             } else if (feature.isEnabled()) {
-                enableButtonText = Component.literal("Disable");
-                enableButtonAction = button -> {};
-                enableButtonActive = true;
+                this.disableButton.visible = true;
+                this.disableButton.active = true;
             } else if (feature instanceof ChildFeature<?> child && !child.parent().isEnabled()) {
-                enableButtonText = Component.literal("Enable");
-                enableButtonAction = button -> {};
-                enableButtonActive = false;
+                this.enableButton.visible = true;
+                this.enableButton.active = false;
             } else {
-                enableButtonText = Component.literal("Enable");
-                enableButtonAction = button -> {};
-                enableButtonActive = true;
+                this.enableButton.visible = true;
+                this.enableButton.active = true;
             }
 
-            this.enableButton = Button.builder(enableButtonText, enableButtonAction)
-                .width(50).build();
-            this.enableButton.active = enableButtonActive;
-
-            if (!feature.isEnabled() || !ConfigHelper.featureHasConfig(feature))  {
-                this.moreButton.active = false;
+            if (feature.isEnabled() && ConfigHelper.featureHasConfig(feature))  {
+                this.configureButton.active = true;
             }
+
+            enableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.enable_feature", feature.name()));
+            disableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.disable_feature", feature.name()));
+            configureButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.configure_feature", feature.name()));
+        }
+
+        private void enable() {
+
+        }
+
+        private void disable() {
+
+        }
+
+        private void configure() {
+
         }
 
         @Override
         public void render(GuiGraphics guiGraphics, int i, int y, int offsetX, int l, int m, int mouseX, int mouseY, boolean bl, float tickDelta) {
-            int enableX = SettingsList.this.getScrollbarPosition() - this.enableButton.getWidth() - 10;
-            int moreX = enableX - 4 - this.moreButton.getWidth();
+            int enableX = SettingsList.this.getScrollbarPosition() - enableButton.getWidth() - 10;
+            int moreX = enableX - 4 - configureButton.getWidth();
             int buttonY = y - 2;
 
             var font = SettingsList.this.minecraft.font;
@@ -105,11 +128,26 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
                 guiGraphics.renderTooltip(font, descriptionLines, Optional.empty(), mouseX, mouseY);
             }
 
-            this.enableButton.setPosition(enableX, buttonY);
-            this.enableButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+            disableButton.setPosition(enableX, buttonY);
+            disableButton.render(guiGraphics, mouseX, mouseY, tickDelta);
 
-            this.moreButton.setPosition(moreX, buttonY);
-            this.moreButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+            enableButton.setPosition(enableX, buttonY);
+            enableButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+
+            configureButton.setPosition(moreX, buttonY);
+            configureButton.render(guiGraphics, mouseX, mouseY, tickDelta);
+
+            if (disableButton.active) {
+                disableButton.setTooltip(disableButtonTooltip);
+            }
+
+            if (enableButton.active) {
+                enableButton.setTooltip(enableButtonTooltip);
+            }
+
+            if (configureButton.active) {
+                configureButton.setTooltip(configureButtonTooltip);
+            }
         }
     }
 }
