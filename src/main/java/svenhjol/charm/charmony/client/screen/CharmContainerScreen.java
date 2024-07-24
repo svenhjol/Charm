@@ -11,8 +11,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 public abstract class CharmContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
     protected final ResourceLocation texture;
 
-    public CharmContainerScreen(T menu, Inventory inv, Component titleIn, ResourceLocation texture) {
-        super(menu, inv, titleIn);
+    public CharmContainerScreen(T menu, Inventory inv, Component title, ResourceLocation texture) {
+        super(menu, inv, title);
         this.texture = texture;
     }
 

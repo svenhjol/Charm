@@ -7,6 +7,7 @@ import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.enums.Side;
 
 import java.util.Comparator;
+import java.util.Optional;
 
 public class ClientLoader extends Loader<ClientFeature> {
     private final ClientConfig config;
@@ -26,8 +27,8 @@ public class ClientLoader extends Loader<ClientFeature> {
         return Side.CLIENT;
     }
     
-    public ClientConfig config() {
-        return config;
+    public Optional<ClientConfig> config() {
+        return Optional.of(config);
     }
 
     public static ClientLoader create(String id) {

@@ -5,6 +5,8 @@ import svenhjol.charm.charmony.Log;
 import svenhjol.charm.charmony.Resolve;
 import svenhjol.charm.charmony.enums.Side;
 
+import java.util.Optional;
+
 public class CommonLoader extends Loader<CommonFeature> {
     private final CommonConfig config;
     private final CommonRegistry registry;
@@ -23,8 +25,8 @@ public class CommonLoader extends Loader<CommonFeature> {
         return Side.COMMON;
     }
     
-    public CommonConfig config() {
-        return config;
+    public Optional<CommonConfig> config() {
+        return Optional.of(config);
     }
 
     public static CommonLoader create(String id) {

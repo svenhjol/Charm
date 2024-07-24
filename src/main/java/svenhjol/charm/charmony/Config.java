@@ -115,6 +115,8 @@ public abstract class Config {
         // This blank config is appended and then written out. LinkedHashMap supplier sorts the contents alphabetically.
         var config = TomlFormat.newConfig(LinkedHashMap::new);
 
+        features.sort(Comparator.comparing(Feature::name));
+
         // Make a map of children separately so the config formats in alphabetical order.
         List<Feature> sortedByChildren = new LinkedList<>();
         List<Feature> parents = new LinkedList<>();

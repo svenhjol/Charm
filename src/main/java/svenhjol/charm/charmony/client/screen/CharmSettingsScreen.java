@@ -54,7 +54,7 @@ public class CharmSettingsScreen extends Screen {
     }
 
     protected void addFooter() {
-        layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).width(200).build());
+        layout.addToFooter(Button.builder(CommonComponents.GUI_DONE, button -> done()).width(200).build());
     }
 
     protected void addContents() {
@@ -73,11 +73,11 @@ public class CharmSettingsScreen extends Screen {
         }
     }
 
-    @Override
-    public void onClose() {
-        if (minecraft != null) {
-            minecraft.setScreen(parent);
-        }
+    public void done() {
+        if (minecraft == null) return;
+
+        var screen = settings != null && settings.requiresRestart() ? new ConfirmRestartScreen() : parent;
+        minecraft.setScreen(screen);
     }
 
     protected List<Feature> features() {

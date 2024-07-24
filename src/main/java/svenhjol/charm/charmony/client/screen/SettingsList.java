@@ -17,7 +17,8 @@ import svenhjol.charm.charmony.helper.TextHelper;
 import java.util.Optional;
 
 public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntry> {
-    private final Screen parent;
+    private final CharmSettingsScreen parent;
+    private boolean requiresRestart = false;
 
     public SettingsList(Minecraft minecraft, int width, CharmSettingsScreen parent) {
         super(minecraft, width, parent.layout().getContentHeight(), parent.layout().getHeaderHeight(), 25);
@@ -34,12 +35,15 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
         return 310;
     }
 
+    public boolean requiresRestart() {
+        return requiresRestart;
+    }
+
     public void addFeature(Feature feature) {
         children().add(new FeatureEntry(feature, parent));
     }
 
     public class FeatureEntry extends AbstractSelectionList.Entry<FeatureEntry> {
-        private final Screen screen;
         private final Feature feature;
         private final ImageButton enableButton;
         private final ImageButton disableButton;
@@ -49,7 +53,6 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
         private final Tooltip configureButtonTooltip;
 
         public FeatureEntry(Feature feature, Screen screen) {
-            this.screen = screen;
             this.feature = feature;
 
             this.enableButton = new ImageButton(0, 0, 20, 20,
@@ -61,7 +64,15 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
             this.configureButton = new ImageButton(0, 0, 20, 20,
                 CharmSettingsScreen.CONFIG_BUTTON, button -> configure());
 
-            // Default button state before feature processing.
+            enableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.enable_feature", feature.name()));
+            disableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.disable_feature", feature.name()));
+            configureButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.configure_feature", feature.name()));
+
+            toggleButtonState();
+        }
+
+        private void toggleButtonState() {
+            // Set default state.
             this.configureButton.visible = true;
             this.configureButton.active = false;
             this.disableButton.visible = false;
@@ -86,22 +97,51 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
             if (feature.isEnabled() && ConfigHelper.featureHasConfig(feature))  {
                 this.configureButton.active = true;
             }
+        }
 
-            enableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.enable_feature", feature.name()));
-            disableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.disable_feature", feature.name()));
-            configureButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.configure_feature", feature.name()));
+        private void setStateAndUpdate(boolean state) {
+            feature.setEnabled(state);
+            feature.setEnabledInConfig(state);
+            writeConfig();
+            toggleButtonState();
+            SettingsList.this.requiresRestart = true;
         }
 
         private void enable() {
-
+            setStateAndUpdate(true);
         }
 
         private void disable() {
-
+            setStateAndUpdate(false);
         }
 
         private void configure() {
 
+        }
+
+        private void writeConfig() {
+            var loader = feature.loader();
+            var features = loader.features();
+
+            loader.config().ifPresent(config -> config.writeConfig(features));
+        }
+
+        @Override
+        public boolean mouseClicked(double mouseX, double mouseY, int click) {
+            if (enableButton.isMouseOver(mouseX, mouseY)) {
+                enableButton.mouseClicked(mouseX, mouseY, click);
+                return false;
+            }
+            if (disableButton.isMouseOver(mouseX, mouseY)) {
+                disableButton.mouseClicked(mouseX, mouseY, click);
+                return false;
+            }
+            if (configureButton.isMouseOver(mouseX, mouseY)) {
+                configureButton.mouseClicked(mouseX, mouseY, click);
+                return false;
+            }
+
+            return super.mouseClicked(mouseX, mouseY, click);
         }
 
         @Override
@@ -119,7 +159,9 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
             var textTop = y + 2;
 
             // Prepend the feature name to the description lines.
-            descriptionLines.addFirst(name.copy().withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.GOLD));
+            descriptionLines.addFirst(name.copy()
+                .withStyle(ChatFormatting.BOLD)
+                .withStyle(feature.isEnabled() ? ChatFormatting.GOLD : ChatFormatting.GRAY));
 
             guiGraphics.drawString(font, name, offsetX + 5, y + 2, color);
 

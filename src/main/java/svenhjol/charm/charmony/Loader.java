@@ -296,6 +296,10 @@ public abstract class Loader<F extends Feature> {
         return log;
     }
 
+    public Optional<? extends Config> config() {
+        return Optional.empty();
+    }
+
     protected void sortFeaturesByPriority() {
         features.sort(Comparator.comparingInt(Feature::priority));
         Collections.reverse(features);
