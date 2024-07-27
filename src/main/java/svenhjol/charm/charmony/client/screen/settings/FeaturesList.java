@@ -122,21 +122,21 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
         }
 
         @Override
-        public boolean mouseClicked(double mouseX, double mouseY, int click) {
+        public boolean mouseClicked(double mouseX, double mouseY, int button) {
             if (enableButton.isMouseOver(mouseX, mouseY)) {
-                enableButton.mouseClicked(mouseX, mouseY, click);
+                enableButton.mouseClicked(mouseX, mouseY, button);
                 return false;
             }
             if (disableButton.isMouseOver(mouseX, mouseY)) {
-                disableButton.mouseClicked(mouseX, mouseY, click);
+                disableButton.mouseClicked(mouseX, mouseY, button);
                 return false;
             }
             if (configureButton.isMouseOver(mouseX, mouseY)) {
-                configureButton.mouseClicked(mouseX, mouseY, click);
+                configureButton.mouseClicked(mouseX, mouseY, button);
                 return false;
             }
 
-            return super.mouseClicked(mouseX, mouseY, click);
+            return super.mouseClicked(mouseX, mouseY, button);
         }
 
         @Override

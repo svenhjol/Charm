@@ -181,9 +181,8 @@ public abstract class Config {
         }
     }
 
-    @SuppressWarnings("unused")
-    public static Map<Field, Object> defaultFieldValues() {
-        return DEFAULT_FIELD_VALUES;
+    public Optional<Object> defaultValue(Field field) {
+        return Optional.ofNullable(DEFAULT_FIELD_VALUES.get(field));
     }
 
     private Toml read() {
