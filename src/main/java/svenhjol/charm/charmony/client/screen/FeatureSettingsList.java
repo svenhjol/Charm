@@ -16,11 +16,11 @@ import svenhjol.charm.charmony.helper.TextHelper;
 
 import java.util.Optional;
 
-public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntry> {
+public class FeatureSettingsList extends AbstractSelectionList<FeatureSettingsList.FeatureEntry> {
     private final CharmSettingsScreen parent;
     private boolean requiresRestart = false;
 
-    public SettingsList(Minecraft minecraft, int width, CharmSettingsScreen parent) {
+    public FeatureSettingsList(Minecraft minecraft, int width, CharmSettingsScreen parent) {
         super(minecraft, width, parent.layout().getContentHeight(), parent.layout().getHeaderHeight(), 25);
         this.parent = parent;
     }
@@ -104,7 +104,7 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
             feature.setEnabledInConfig(state);
             writeConfig();
             toggleButtonState();
-            SettingsList.this.requiresRestart = true;
+            FeatureSettingsList.this.requiresRestart = true;
         }
 
         private void enable() {
@@ -116,7 +116,7 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
         }
 
         private void configure() {
-
+            minecraft.setScreen(new FeatureConfigScreen(feature, parent));
         }
 
         private void writeConfig() {
@@ -146,11 +146,11 @@ public class SettingsList extends AbstractSelectionList<SettingsList.FeatureEntr
 
         @Override
         public void render(GuiGraphics guiGraphics, int i, int y, int offsetX, int l, int m, int mouseX, int mouseY, boolean bl, float tickDelta) {
-            int enableX = SettingsList.this.getScrollbarPosition() - enableButton.getWidth() - 10;
+            int enableX = FeatureSettingsList.this.getScrollbarPosition() - enableButton.getWidth() - 10;
             int moreX = enableX - 4 - configureButton.getWidth();
             int buttonY = y - 2;
 
-            var font = SettingsList.this.minecraft.font;
+            var font = FeatureSettingsList.this.minecraft.font;
             var color = feature.isEnabled() ? 0xffffff : 0x888888;
             var name = Component.literal(feature.name());
             var descriptionLines = TextHelper.toComponents(feature.description(), 48);

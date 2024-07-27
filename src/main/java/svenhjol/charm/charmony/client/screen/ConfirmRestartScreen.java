@@ -44,7 +44,7 @@ public class ConfirmRestartScreen extends Screen {
         int midX = width / 2;
         var font = minecraft.font;
 
-        guiGraphics.drawCenteredString(font, TITLE, midX, 30, 0xffffff);
+        guiGraphics.drawCenteredString(font, title, midX, 30, 0xffffff);
         guiGraphics.drawCenteredString(font, DESC, midX, 60, 0xa0a0a0);
 
         restartLater.setPosition(midX + 5, 150);

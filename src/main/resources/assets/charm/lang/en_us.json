@@ -311,6 +311,7 @@
   "gui.charm.settings.confirm_restart.desc": "You must restart the game in order to apply changes.",
   "gui.charm.settings.disable_feature": "Disable %s",
   "gui.charm.settings.enable_feature": "Enable %s",
+  "gui.charm.settings.feature.title": "%s configuration",
   "gui.charm.settings.restart_later": "Restart later",
   "gui.charm.settings.restart_now": "Restart now",
   "gui.charm.settings.title": "Settings",

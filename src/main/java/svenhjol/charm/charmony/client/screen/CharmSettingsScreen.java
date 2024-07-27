@@ -28,7 +28,7 @@ public class CharmSettingsScreen extends Screen {
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     private final List<Feature> cachedFeatures = new LinkedList<>();
 
-    private SettingsList settings;
+    private FeatureSettingsList settings;
 
     public CharmSettingsScreen(String modId, Screen parent) {
         super(TITLE);
@@ -58,7 +58,7 @@ public class CharmSettingsScreen extends Screen {
     }
 
     protected void addContents() {
-        settings = layout.addToContents(new SettingsList(minecraft, width, this));
+        settings = layout.addToContents(new FeatureSettingsList(minecraft, width, this));
 
         for (var feature : features()) {
             settings.addFeature(feature);
