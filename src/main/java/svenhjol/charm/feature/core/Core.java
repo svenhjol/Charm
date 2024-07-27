@@ -38,7 +38,7 @@ public final class Core extends CommonFeature {
     private static boolean mixinDisable = false;
 
     @Configurable(
-        name = "customOnTakeBehavior",
+        name = "Custom on-take behavior",
         description = """
             Enable custom onTake behavior for anvils.
             This changes the vanilla anvil behavior to avoid destroying entire stacks.
