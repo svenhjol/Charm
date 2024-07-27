@@ -1,11 +1,11 @@
-package svenhjol.charm.charmony.client.screen;
+package svenhjol.charm.charmony.client.screen.settings;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-public class ConfirmRestartScreen extends Screen {
+public class RestartScreen extends Screen {
     private static final Component TITLE = Component.translatable("gui.charm.settings.confirm_restart.title");
     private static final Component DESC = Component.translatable("gui.charm.settings.confirm_restart.desc");
     private static final Component RESTART_NOW = Component.translatable("gui.charm.settings.restart_now");
@@ -14,7 +14,7 @@ public class ConfirmRestartScreen extends Screen {
     private Button restartNow;
     private Button restartLater;
 
-    public ConfirmRestartScreen() {
+    public RestartScreen() {
         super(TITLE);
     }
 

@@ -1,4 +1,4 @@
-package svenhjol.charm.charmony.client.screen;
+package svenhjol.charm.charmony.client.screen.settings;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -16,18 +16,17 @@ import svenhjol.charm.charmony.helper.TextHelper;
 
 import java.util.Optional;
 
-public class FeatureSettingsList extends AbstractSelectionList<FeatureSettingsList.FeatureEntry> {
-    private final CharmSettingsScreen parent;
-    private boolean requiresRestart = false;
+public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
+    private final FeaturesScreen parent;
 
-    public FeatureSettingsList(Minecraft minecraft, int width, CharmSettingsScreen parent) {
+    public FeaturesList(Minecraft minecraft, int width, FeaturesScreen parent) {
         super(minecraft, width, parent.layout().getContentHeight(), parent.layout().getHeaderHeight(), 25);
         this.parent = parent;
     }
 
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
-
+        // no op
     }
 
     @Override
@@ -35,15 +34,11 @@ public class FeatureSettingsList extends AbstractSelectionList<FeatureSettingsLi
         return 310;
     }
 
-    public boolean requiresRestart() {
-        return requiresRestart;
-    }
-
     public void addFeature(Feature feature) {
-        children().add(new FeatureEntry(feature, parent));
+        children().add(new Entry(feature, parent));
     }
 
-    public class FeatureEntry extends AbstractSelectionList.Entry<FeatureEntry> {
+    public class Entry extends AbstractSelectionList.Entry<Entry> {
         private final Feature feature;
         private final ImageButton enableButton;
         private final ImageButton disableButton;
@@ -52,26 +47,26 @@ public class FeatureSettingsList extends AbstractSelectionList<FeatureSettingsLi
         private final Tooltip disableButtonTooltip;
         private final Tooltip configureButtonTooltip;
 
-        public FeatureEntry(Feature feature, Screen screen) {
+        public Entry(Feature feature, Screen screen) {
             this.feature = feature;
 
             this.enableButton = new ImageButton(0, 0, 20, 20,
-                CharmSettingsScreen.ENABLE_BUTTON, button -> enable());
+                FeaturesScreen.ENABLE_BUTTON, button -> enable());
 
             this.disableButton = new ImageButton(0, 0, 20, 20,
-                CharmSettingsScreen.DISABLE_BUTTON, button -> disable());
+                FeaturesScreen.DISABLE_BUTTON, button -> disable());
 
             this.configureButton = new ImageButton(0, 0, 20, 20,
-                CharmSettingsScreen.CONFIG_BUTTON, button -> configure());
+                FeaturesScreen.CONFIG_BUTTON, button -> configure());
 
             enableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.enable_feature", feature.name()));
             disableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.disable_feature", feature.name()));
             configureButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.configure_feature", feature.name()));
 
-            toggleButtonState();
+            setButtonState();
         }
 
-        private void toggleButtonState() {
+        private void setButtonState() {
             // Set default state.
             this.configureButton.visible = true;
             this.configureButton.active = false;
@@ -103,8 +98,8 @@ public class FeatureSettingsList extends AbstractSelectionList<FeatureSettingsLi
             feature.setEnabled(state);
             feature.setEnabledInConfig(state);
             writeConfig();
-            toggleButtonState();
-            FeatureSettingsList.this.requiresRestart = true;
+            setButtonState();
+            FeaturesList.this.parent.requiresRestart();
         }
 
         private void enable() {
@@ -146,11 +141,11 @@ public class FeatureSettingsList extends AbstractSelectionList<FeatureSettingsLi
 
         @Override
         public void render(GuiGraphics guiGraphics, int i, int y, int offsetX, int l, int m, int mouseX, int mouseY, boolean bl, float tickDelta) {
-            int enableX = FeatureSettingsList.this.getScrollbarPosition() - enableButton.getWidth() - 10;
+            int enableX = FeaturesList.this.getScrollbarPosition() - enableButton.getWidth() - 10;
             int moreX = enableX - 4 - configureButton.getWidth();
             int buttonY = y - 2;
 
-            var font = FeatureSettingsList.this.minecraft.font;
+            var font = FeaturesList.this.minecraft.font;
             var color = feature.isEnabled() ? 0xffffff : 0x888888;
             var name = Component.literal(feature.name());
             var descriptionLines = TextHelper.toComponents(feature.description(), 48);

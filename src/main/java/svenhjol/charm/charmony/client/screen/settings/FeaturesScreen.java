@@ -1,4 +1,4 @@
-package svenhjol.charm.charmony.client.screen;
+package svenhjol.charm.charmony.client.screen.settings;
 
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.WidgetSprites;
@@ -16,7 +16,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CharmSettingsScreen extends Screen {
+public class FeaturesScreen extends Screen {
     private static final Component TITLE = Component.translatable("gui.charm.settings.title");
 
     public static final WidgetSprites CONFIG_BUTTON = makeButton("config");
@@ -28,9 +28,10 @@ public class CharmSettingsScreen extends Screen {
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     private final List<Feature> cachedFeatures = new LinkedList<>();
 
-    private FeatureSettingsList settings;
+    private boolean requiresRestart;
+    private FeaturesList list;
 
-    public CharmSettingsScreen(String modId, Screen parent) {
+    public FeaturesScreen(String modId, Screen parent) {
         super(TITLE);
         this.parent = parent;
         this.modId = modId;
@@ -43,6 +44,10 @@ public class CharmSettingsScreen extends Screen {
         addFooter();
         this.layout.visitWidgets(this::addRenderableWidget);
         repositionElements();
+    }
+
+    public void requiresRestart() {
+        this.requiresRestart = true;
     }
 
     public HeaderAndFooterLayout layout() {
@@ -58,25 +63,25 @@ public class CharmSettingsScreen extends Screen {
     }
 
     protected void addContents() {
-        settings = layout.addToContents(new FeatureSettingsList(minecraft, width, this));
+        list = layout.addToContents(new FeaturesList(minecraft, width, this));
 
         for (var feature : features()) {
-            settings.addFeature(feature);
+            list.addFeature(feature);
         }
     }
 
     @Override
     protected void repositionElements() {
         layout.arrangeElements();
-        if (settings != null) {
-            settings.updateSize(width, layout);
+        if (list != null) {
+            list.updateSize(width, layout);
         }
     }
 
     public void done() {
         if (minecraft == null) return;
 
-        var screen = settings != null && settings.requiresRestart() ? new ConfirmRestartScreen() : parent;
+        var screen = requiresRestart ? new RestartScreen() : parent;
         minecraft.setScreen(screen);
     }
 
