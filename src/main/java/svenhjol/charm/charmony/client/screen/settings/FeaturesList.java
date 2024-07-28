@@ -63,6 +63,7 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
             this.configureButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.configure_feature", feature.name()));
 
             refreshState();
+            FeaturesList.this.parent.addChildren(enableButton, disableButton, configureButton);
         }
 
         private void refreshState() {
@@ -77,6 +78,7 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
             if (!feature.canBeDisabled()) {
                 disableButton.visible = true;
                 disableButton.active = false;
+                enableButton.active = false;
             } else if (feature.isEnabled()) {
                 disableButton.visible = true;
                 disableButton.active = true;
@@ -118,24 +120,6 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
             var features = loader.features();
 
             loader.config().ifPresent(config -> config.writeConfig(features));
-        }
-
-        @Override
-        public boolean mouseClicked(double mouseX, double mouseY, int button) {
-            if (enableButton.isMouseOver(mouseX, mouseY)) {
-                enableButton.mouseClicked(mouseX, mouseY, button);
-                return false;
-            }
-            if (disableButton.isMouseOver(mouseX, mouseY)) {
-                disableButton.mouseClicked(mouseX, mouseY, button);
-                return false;
-            }
-            if (configureButton.isMouseOver(mouseX, mouseY)) {
-                configureButton.mouseClicked(mouseX, mouseY, button);
-                return false;
-            }
-
-            return super.mouseClicked(mouseX, mouseY, button);
         }
 
         @Override
