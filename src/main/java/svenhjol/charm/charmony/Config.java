@@ -181,6 +181,28 @@ public abstract class Config {
         }
     }
 
+    public boolean hasDefaultValues(Feature feature) {
+        var featureName = feature.name();
+        var fields = new ArrayList<>(Arrays.asList(feature.getClass().getDeclaredFields()));
+        for (var field : fields) {
+            try {
+                var annotation = field.getDeclaredAnnotation(Configurable.class);
+                if (annotation == null) continue;
+
+                field.setAccessible(true);
+                var val = field.get(null);
+                var defaultVal = defaultValue(field);
+                if (defaultVal.isPresent() && !val.equals(defaultVal.get())) {
+                    return false;
+                }
+            } catch (Exception e) {
+                log.warn("Failed to read config field in feature " + featureName + ": " + e.getMessage());
+            }
+        }
+
+        return true;
+    }
+
     public Optional<Object> defaultValue(Field field) {
         return Optional.ofNullable(DEFAULT_FIELD_VALUES.get(field));
     }

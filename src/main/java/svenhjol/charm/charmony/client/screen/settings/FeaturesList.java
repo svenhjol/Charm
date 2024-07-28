@@ -8,19 +8,38 @@ import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import svenhjol.charm.charmony.Feature;
+import svenhjol.charm.charmony.Resolve;
+import svenhjol.charm.charmony.enums.Side;
 import svenhjol.charm.charmony.feature.ChildFeature;
 import svenhjol.charm.charmony.helper.ConfigHelper;
 import svenhjol.charm.charmony.helper.TextHelper;
 
-import java.util.Optional;
+import java.util.*;
 
 public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
+    private static final MutableComponent FEATURE_IS_DISABLED = Component.translatable("gui.charm.settings.feature.disabled");
+    private static final MutableComponent NOT_USING_DEFAULTS = Component.translatable("gui.charm.settings.not_using_defaults");
     private final FeaturesScreen parent;
+    private final String modId;
+    private final List<Entry> entries = new ArrayList<>();
+    private final List<Feature> cachedFeatures = new LinkedList<>();
 
-    public FeaturesList(Minecraft minecraft, int width, FeaturesScreen parent) {
+    public FeaturesList(Minecraft minecraft, String modId, int width, FeaturesScreen parent) {
         super(minecraft, width, parent.layout().getContentHeight(), parent.layout().getHeaderHeight(), 25);
         this.parent = parent;
+        this.modId = modId;
+
+        for (var feature : features()) {
+            var entry = new Entry(feature);
+            entries.add(entry);
+            addEntry(entry);
+        }
+    }
+
+    public void refreshState() {
+        entries.forEach(Entry::refreshState);
     }
 
     @Override
@@ -33,8 +52,22 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
         return 310;
     }
 
-    public void addFeature(Feature feature) {
-        addEntry(new Entry(feature));
+    protected List<Feature> features() {
+        if (cachedFeatures.isEmpty()) {
+            List<Feature> features = new LinkedList<>();
+
+            features.addAll(Resolve.features(Side.COMMON, modId));
+            features.addAll(Resolve.features(Side.CLIENT, modId));
+
+            features.sort(Comparator.comparing(Feature::name));
+            features = features.stream()
+                .filter(feature -> (feature.canBeDisabled() || ConfigHelper.featureHasConfig(feature)))
+                .toList();
+
+            cachedFeatures.clear();
+            cachedFeatures.addAll(features);
+        }
+        return cachedFeatures;
     }
 
     public class Entry extends AbstractSelectionList.Entry<Entry> {
@@ -45,6 +78,8 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
         private final Tooltip enableButtonTooltip;
         private final Tooltip disableButtonTooltip;
         private final Tooltip configureButtonTooltip;
+
+        private boolean hasDefaultValues = false;
 
         public Entry(Feature feature) {
             this.feature = feature;
@@ -63,11 +98,9 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
             this.configureButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.configure_feature", feature.name()));
 
             refreshState();
-            FeaturesList.this.parent.addChildren(enableButton, disableButton, configureButton);
         }
 
-        private void refreshState() {
-            // Set default state.
+        public void refreshState() {
             configureButton.visible = true;
             configureButton.active = false;
             disableButton.visible = false;
@@ -93,6 +126,8 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
             if (feature.isEnabled() && ConfigHelper.featureHasConfig(feature))  {
                 configureButton.active = true;
             }
+
+            feature.loader().config().ifPresent(config -> hasDefaultValues = config.hasDefaultValues(feature));
         }
 
         private void setStateAndUpdate(boolean state) {
@@ -118,8 +153,28 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
         private void writeConfig() {
             var loader = feature.loader();
             var features = loader.features();
-
             loader.config().ifPresent(config -> config.writeConfig(features));
+        }
+
+        /**
+         * We must implement our own behavior here or the scrolling causes erroneous button clicks.
+         */
+        @Override
+        public boolean mouseClicked(double mouseX, double mouseY, int button) {
+            if (enableButton.isMouseOver(mouseX, mouseY)) {
+                enableButton.mouseClicked(mouseX, mouseY, button);
+                return false;
+            }
+            if (disableButton.isMouseOver(mouseX, mouseY)) {
+                disableButton.mouseClicked(mouseX, mouseY, button);
+                return false;
+            }
+            if (configureButton.isMouseOver(mouseX, mouseY)) {
+                configureButton.mouseClicked(mouseX, mouseY, button);
+                return false;
+            }
+
+            return super.mouseClicked(mouseX, mouseY, button);
         }
 
         @Override
@@ -129,12 +184,23 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
             int buttonY = y - 2;
 
             var font = FeaturesList.this.minecraft.font;
-            var color = feature.isEnabled() ? 0xffffff : 0x888888;
+            var color = feature.isEnabled() ? 0xffffff : 0x888888; // Mute feature name color if disabled
             var name = Component.literal(feature.name());
             var descriptionLines = TextHelper.toComponents(feature.description(), 48);
             var nameWidth = font.width(name);
             var textLeft = offsetX + 5;
             var textTop = y + 2;
+
+            // Show that the feature is not using default values.
+            if (feature.isEnabled() && !hasDefaultValues) {
+                name = name.withStyle(ChatFormatting.YELLOW);
+                descriptionLines.add(NOT_USING_DEFAULTS.withStyle(ChatFormatting.YELLOW));
+            }
+
+            // Add message to tooltip if feature is disabled.
+            if (!feature.isEnabled()) {
+                descriptionLines.add(FEATURE_IS_DISABLED.withStyle(ChatFormatting.DARK_GRAY));
+            }
 
             // Prepend the feature name to the description lines.
             descriptionLines.addFirst(name.copy()

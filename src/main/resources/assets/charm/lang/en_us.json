@@ -317,6 +317,8 @@
   "gui.charm.settings.enabled": "Enabled",
   "gui.charm.settings.false": "False",
   "gui.charm.settings.feature.title": "%s configuration",
+  "gui.charm.settings.feature.disabled": "Feature is disabled.",
+  "gui.charm.settings.not_using_defaults": "Configuration has been modified.",
   "gui.charm.settings.requires_restart": "Changing this value requires game restart.",
   "gui.charm.settings.restart_later": "Restart later",
   "gui.charm.settings.restart_now": "Restart now",

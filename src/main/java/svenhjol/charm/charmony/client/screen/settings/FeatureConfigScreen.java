@@ -44,6 +44,7 @@ public class FeatureConfigScreen extends SettingsScreen {
     @Override
     public void onClose() {
         if (minecraft != null) {
+            parent.refreshState();
             minecraft.setScreen(parent);
         }
     }

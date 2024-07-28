@@ -5,14 +5,6 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import svenhjol.charm.charmony.Feature;
-import svenhjol.charm.charmony.Resolve;
-import svenhjol.charm.charmony.enums.Side;
-import svenhjol.charm.charmony.helper.ConfigHelper;
-
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 
 public class FeaturesScreen extends SettingsScreen {
     private static final Component TITLE = Component.translatable("gui.charm.settings.title");
@@ -23,7 +15,6 @@ public class FeaturesScreen extends SettingsScreen {
 
     private final Screen parent;
     private final String modId;
-    private final List<Feature> cachedFeatures = new LinkedList<>();
 
     private FeaturesList list;
 
@@ -41,11 +32,7 @@ public class FeaturesScreen extends SettingsScreen {
 
     @Override
     protected void addContents() {
-        list = layout().addToContents(new FeaturesList(minecraft, width, this));
-
-        for (var feature : features()) {
-            list.addFeature(feature);
-        }
+        list = layout().addToContents(new FeaturesList(minecraft, modId, width, this));
     }
 
     @Override
@@ -56,28 +43,19 @@ public class FeaturesScreen extends SettingsScreen {
         }
     }
 
+    /**
+     * Updates feature data after being modified by a child screen.
+     * Typically this is called by the feature config screen to inform this screen
+     * that one or more config items are no longer defaults.
+     */
+    public void refreshState() {
+        list.refreshState();
+    }
+
     public void done() {
         if (minecraft == null) return;
 
         var screen = requiresRestart ? new RestartScreen() : parent;
         minecraft.setScreen(screen);
-    }
-
-    protected List<Feature> features() {
-        if (cachedFeatures.isEmpty()) {
-            List<Feature> features = new LinkedList<>();
-
-            features.addAll(Resolve.features(Side.COMMON, modId));
-            features.addAll(Resolve.features(Side.CLIENT, modId));
-
-            features.sort(Comparator.comparing(Feature::name));
-            features = features.stream()
-                .filter(feature -> (feature.canBeDisabled() || ConfigHelper.featureHasConfig(feature)))
-                .toList();
-
-            cachedFeatures.clear();
-            cachedFeatures.addAll(features);
-        }
-        return cachedFeatures;
     }
 }
