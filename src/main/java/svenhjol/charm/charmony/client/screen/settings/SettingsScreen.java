@@ -8,6 +8,9 @@ import net.minecraft.network.chat.Component;
 import svenhjol.charm.Charm;
 
 public abstract class SettingsScreen extends Screen {
+    public static final int CONTENT_TOP_MARGIN = 6;
+    public static final int CONTENT_BOTTOM_MARGIN = 10;
+
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     protected boolean requiresRestart = false;
 

@@ -25,7 +25,7 @@ public class FeatureConfigList extends AbstractSelectionList<FeatureConfigList.E
     private int extraScrollHeight = 0;
 
     public FeatureConfigList(Feature feature, Minecraft minecraft, int width, FeatureConfigScreen parent) {
-        super(minecraft, width, parent.layout().getContentHeight() - parent.layout().getFooterHeight(), parent.layout().getHeaderHeight(), 25);
+        super(minecraft, width, parent.layout().getContentHeight() - parent.layout().getFooterHeight() + 10, parent.layout().getHeaderHeight(), 25);
         this.feature = feature;
         this.parent = parent;
         this.readConfig();
@@ -48,7 +48,7 @@ public class FeatureConfigList extends AbstractSelectionList<FeatureConfigList.E
 
     @Override
     protected int getMaxPosition() {
-        return super.getMaxPosition() + extraScrollHeight;
+        return super.getMaxPosition() + extraScrollHeight + SettingsScreen.CONTENT_BOTTOM_MARGIN;
     }
 
     public void readConfig() {
@@ -464,6 +464,8 @@ public class FeatureConfigList extends AbstractSelectionList<FeatureConfigList.E
 
         @Override
         public void render(GuiGraphics guiGraphics, int i, int y, int offsetX, int l, int m, int mouseX, int mouseY, boolean bl, float tickDelta) {
+            y += SettingsScreen.CONTENT_TOP_MARGIN;
+
             var font = FeatureConfigList.this.minecraft.font;
             var color = 0xefefef;
             var isDefaultVal = defaultVal.equals(val);
@@ -478,7 +480,7 @@ public class FeatureConfigList extends AbstractSelectionList<FeatureConfigList.E
 
             if (mouseX >= textLeft && mouseX <= textLeft + labelWidth
                 && mouseY >= textTop && mouseY <= textTop + 6) {
-                guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY + 10);
+                guiGraphics.renderTooltip(font, tooltip, Optional.empty(), mouseX, mouseY);
             }
 
             guiGraphics.drawString(font, label, offsetX + 5, y + 2, color);

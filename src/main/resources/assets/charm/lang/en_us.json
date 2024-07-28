@@ -323,7 +323,7 @@
   "gui.charm.settings.restart_later": "Restart later",
   "gui.charm.settings.restart_now": "Restart now",
   "gui.charm.settings.save": "Save",
-  "gui.charm.settings.title": "Settings",
+  "gui.charm.settings.title": "%s Settings",
   "gui.charm.settings.true": "True",
   "gui.charm.totem_of_preserving.death_position": "Your totem is near %s %s %s",
   "gui.charm.workstation_selector.title": "Choose workstation",

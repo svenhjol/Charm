@@ -52,6 +52,11 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
         return 310;
     }
 
+    @Override
+    protected int getMaxPosition() {
+        return super.getMaxPosition() + SettingsScreen.CONTENT_BOTTOM_MARGIN;
+    }
+
     protected List<Feature> features() {
         if (cachedFeatures.isEmpty()) {
             List<Feature> features = new LinkedList<>();
@@ -179,12 +184,14 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
 
         @Override
         public void render(GuiGraphics guiGraphics, int i, int y, int offsetX, int l, int m, int mouseX, int mouseY, boolean bl, float tickDelta) {
+            y += SettingsScreen.CONTENT_TOP_MARGIN;
+
             int enableX = FeaturesList.this.getScrollbarPosition() - enableButton.getWidth() - 10;
             int moreX = enableX - 4 - configureButton.getWidth();
             int buttonY = y - 2;
 
             var font = FeaturesList.this.minecraft.font;
-            var color = feature.isEnabled() ? 0xffffff : 0x888888; // Mute feature name color if disabled
+            var color = feature.isEnabled() ? 0xffffff : 0x808080; // Mute feature name color if disabled
             var name = Component.literal(feature.name());
             var descriptionLines = TextHelper.toComponents(feature.description(), 48);
             var nameWidth = font.width(name);

@@ -5,10 +5,9 @@ import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import svenhjol.charm.charmony.helper.TextHelper;
 
 public class FeaturesScreen extends SettingsScreen {
-    private static final Component TITLE = Component.translatable("gui.charm.settings.title");
-
     public static final WidgetSprites CONFIG_BUTTON = makeButton("config");
     public static final WidgetSprites DISABLE_BUTTON = makeButton("disable");
     public static final WidgetSprites ENABLE_BUTTON = makeButton("enable");
@@ -19,7 +18,7 @@ public class FeaturesScreen extends SettingsScreen {
     private FeaturesList list;
 
     public FeaturesScreen(String modId, Screen parent) {
-        super(TITLE);
+        super(Component.translatable("gui.charm.settings.title", TextHelper.capitalize(modId)));
         this.parent = parent;
         this.modId = modId;
     }
