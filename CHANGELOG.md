@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.35
+
+- Charm's configuration can now be modified in the GUI if ModMenu is present.
+
 ## 7.0.34
 
 Please note this version is for testing and might have unforeseen bugs.
