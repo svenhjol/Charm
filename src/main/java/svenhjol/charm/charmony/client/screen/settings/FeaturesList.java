@@ -7,7 +7,6 @@ import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import svenhjol.charm.charmony.Feature;
 import svenhjol.charm.charmony.feature.ChildFeature;
@@ -35,7 +34,7 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
     }
 
     public void addFeature(Feature feature) {
-        children().add(new Entry(feature, parent));
+        addEntry(new Entry(feature));
     }
 
     public class Entry extends AbstractSelectionList.Entry<Entry> {
@@ -47,7 +46,7 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
         private final Tooltip disableButtonTooltip;
         private final Tooltip configureButtonTooltip;
 
-        public Entry(Feature feature, Screen screen) {
+        public Entry(Feature feature) {
             this.feature = feature;
 
             this.enableButton = new ImageButton(0, 0, 20, 20,
@@ -59,38 +58,38 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
             this.configureButton = new ImageButton(0, 0, 20, 20,
                 FeaturesScreen.CONFIG_BUTTON, button -> configure());
 
-            enableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.enable_feature", feature.name()));
-            disableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.disable_feature", feature.name()));
-            configureButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.configure_feature", feature.name()));
+            this.enableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.enable_feature", feature.name()));
+            this.disableButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.disable_feature", feature.name()));
+            this.configureButtonTooltip = Tooltip.create(Component.translatable("gui.charm.settings.configure_feature", feature.name()));
 
-            setButtonState();
+            refreshState();
         }
 
-        private void setButtonState() {
+        private void refreshState() {
             // Set default state.
-            this.configureButton.visible = true;
-            this.configureButton.active = false;
-            this.disableButton.visible = false;
-            this.disableButton.active = false;
-            this.enableButton.visible = false;
-            this.enableButton.active = false;
+            configureButton.visible = true;
+            configureButton.active = false;
+            disableButton.visible = false;
+            disableButton.active = false;
+            enableButton.visible = false;
+            enableButton.active = false;
 
             if (!feature.canBeDisabled()) {
-                this.disableButton.visible = true;
-                this.disableButton.active = false;
+                disableButton.visible = true;
+                disableButton.active = false;
             } else if (feature.isEnabled()) {
-                this.disableButton.visible = true;
-                this.disableButton.active = true;
+                disableButton.visible = true;
+                disableButton.active = true;
             } else if (feature instanceof ChildFeature<?> child && !child.parent().isEnabled()) {
-                this.enableButton.visible = true;
-                this.enableButton.active = false;
+                enableButton.visible = true;
+                enableButton.active = false;
             } else {
-                this.enableButton.visible = true;
-                this.enableButton.active = true;
+                enableButton.visible = true;
+                enableButton.active = true;
             }
 
             if (feature.isEnabled() && ConfigHelper.featureHasConfig(feature))  {
-                this.configureButton.active = true;
+                configureButton.active = true;
             }
         }
 
@@ -98,7 +97,7 @@ public class FeaturesList extends AbstractSelectionList<FeaturesList.Entry> {
             feature.setEnabled(state);
             feature.setEnabledInConfig(state);
             writeConfig();
-            setButtonState();
+            refreshState();
             FeaturesList.this.parent.requiresRestart();
         }
 

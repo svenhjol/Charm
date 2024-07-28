@@ -1,16 +1,16 @@
 package svenhjol.charm.charmony.client.screen.settings;
 
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import svenhjol.charm.charmony.Feature;
 
-public class FeatureConfigScreen extends Screen {
+public class FeatureConfigScreen extends SettingsScreen {
+    private static final Component DEFAULTS = Component.translatable("gui.charm.settings.defaults");
+    private static final Component SAVE = Component.translatable("gui.charm.settings.save");
     private final Feature feature;
     private final FeaturesScreen parent;
-    private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
 
     private FeatureConfigList list;
 
@@ -21,45 +21,44 @@ public class FeatureConfigScreen extends Screen {
     }
 
     @Override
-    protected void init() {
-        addTitle();
-        addContents();
-        addFooter();
-        this.layout.visitWidgets(this::addRenderableWidget);
-        repositionElements();
-    }
-
-    public HeaderAndFooterLayout layout() {
-        return layout;
-    }
-
-    protected void addTitle() {
-        layout.addTitleHeader(title, font);
-    }
-
-    protected void addFooter() {
-        layout.addToFooter(Button.builder(CommonComponents.GUI_BACK, button -> done()).width(100).build());
-    }
-
     protected void addContents() {
-        list = layout.addToContents(new FeatureConfigList(feature, minecraft, width, this));
+        list = layout().addToContents(new FeatureConfigList(feature, minecraft, width, this));
+    }
+
+    @Override
+    protected void addFooter() {
+        var linearLayout = layout().addToFooter(LinearLayout.horizontal().spacing(8));
+        linearLayout.addChild(Button.builder(CommonComponents.GUI_CANCEL, button -> onClose()).width(90).build());
+        linearLayout.addChild(Button.builder(DEFAULTS, button -> defaults()).width(90).build());
+        linearLayout.addChild(Button.builder(SAVE, button -> save()).width(90).build());
     }
 
     @Override
     protected void repositionElements() {
-        layout.arrangeElements();
+        super.repositionElements();
         if (list != null) {
-            list.updateSize(width, layout);
+            list.updateSize(width, layout());
         }
     }
 
-    public void done() {
+    @Override
+    public void onClose() {
+        if (minecraft != null) {
+            minecraft.setScreen(parent);
+        }
+    }
+
+    protected void save() {
+        list.writeConfig();
+
         if (list.requiresRestart()) {
             parent.requiresRestart();
         }
 
-        if (minecraft != null) {
-            minecraft.setScreen(parent);
-        }
+        onClose();
+    }
+
+    protected void defaults() {
+        list.defaults();
     }
 }
