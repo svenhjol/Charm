@@ -18,18 +18,37 @@ import svenhjol.charm.charmony.feature.FeatureHolder;
 import java.util.Optional;
 
 public final class Handlers extends FeatureHolder<CustomWoodClient> {
-    private final CustomChestBlockEntity cachedNormalChest;
-    private final CustomTrappedChestBlockEntity cachedTrappedChest;
+    private CustomChestBlockEntity cachedNormalChest;
+    private CustomTrappedChestBlockEntity cachedTrappedChest;
 
     public Handlers(CustomWoodClient feature) {
         super(feature);
+    }
 
-        // Cache the chest block entities for fast lookup by the renderer.
-        cachedNormalChest = new CustomChestBlockEntity(BlockPos.ZERO, Blocks.CHEST.defaultBlockState());
-        cachedTrappedChest = new CustomTrappedChestBlockEntity(BlockPos.ZERO, Blocks.TRAPPED_CHEST.defaultBlockState());
+    private void initializeCachedChests() {
+        if (cachedNormalChest == null) {
+            var linkedRegisters = feature().linked().registers;
+            var customChestBlock = linkedRegisters.holders.values().stream()
+                    .flatMap(holder -> holder.chest().stream())
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("No custom chest block found"))
+                    .block.get();
+            cachedNormalChest = new CustomChestBlockEntity(BlockPos.ZERO, customChestBlock.defaultBlockState());
+        }
+        if (cachedTrappedChest == null) {
+            var linkedRegisters = feature().linked().registers;
+            var customTrappedChestBlock = linkedRegisters.holders.values().stream()
+                    .flatMap(holder -> holder.trappedChest().stream())
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException("No custom trapped chest block found"))
+                    .block.get();
+            cachedTrappedChest = new CustomTrappedChestBlockEntity(BlockPos.ZERO, customTrappedChestBlock.defaultBlockState());
+        }
     }
 
     public Optional<BlockEntity> renderChestBlockItem(ItemStack stack, Block block) {
+        initializeCachedChests();
+
         if (block instanceof CustomTrappedChestBlock trappedChest) {
             cachedTrappedChest.setMaterial(trappedChest.getMaterial());
             return Optional.of(cachedTrappedChest);
