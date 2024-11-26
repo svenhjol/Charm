@@ -285,6 +285,7 @@
   "container.charm.woodcutter": "Woodcutter",
   "container.charm.portable_crafting_table": "Portable Crafting",
   "effect.charm.echolocation": "Echolocation",
+  "effect.charm.echolocation.description": "Causes all living entities around the player to glow. Can be obtained by using Bat in a Bucket.",
   "enchantment.charm.aerial_affinity": "Aerial Affinity",
   "enchantment.charm.aerial_affinity.desc": "Increases mining rate when not on the ground",
   "enchantment.charm.collection": "Collection",
