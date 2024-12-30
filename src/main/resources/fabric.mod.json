@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "id": "charm",
+  "version": "${mod_version}",
+
+  "name": "Charm",
+  "description": "Charm",
+
+  "authors": [
+    "svenhjol",
+    "Coranthes",
+    "F43nd1r",
+    "WarlordWossman",
+    "ridjack"
+  ],
+  "icon": "assets/charm/textures/gui/sprites/icon.png",
+  "license": "MIT",
+  "environment": "*",
+  
+  
+
+  "mixins": [],
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "*",
+    "java": ">=${java_version}",
+    "fabric-api": "*",
+    "charmony": ">=${charmony_version}",
+    "charmony-api": ">=${api_version}",
+    "charmony-chairs": ">=${chairs_version}",
+    "charmony-glint-colors": ">=${glint_colors_version}",
+    "charmony-mooblooms": ">=${mooblooms_version}",
+    "charmony-totem-of-preserving": ">=${totem_of_preserving_version}",
+    "charmony-travel-journal": ">=${travel_journal_version}",
+    "charmony-tweaks": ">=${tweaks_version}"
+  },
+
+  "contact": {
+    "homepage": "${homepage_link}",
+    "sources": "https://github.com/svenhjol/${mod_id}"
+  },
+
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "${discord_link}"
+      },
+      "update_checker": true
+    }
+  }
+}

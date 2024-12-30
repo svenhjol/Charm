@@ -1,0 +1,12 @@
+plugins {
+    id 'fabric-loom' version '1.8-SNAPSHOT'
+    id 'maven-publish'
+}
+
+//apply from: resources.text.fromInsecureUri("http://charmony.work/1.22/build.gradle")
+apply from: "https://charmony.work/1.22/build.gradle"
+
+def file = new File("${projectDir}/local.gradle")
+if (file.exists()) {
+    apply from: file
+}
