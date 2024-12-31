@@ -3,33 +3,10 @@ new URL("https://charmony.work/1.22/build.properties").withInputStream { props.l
 file("gradle.properties").withInputStream { props.load(it) }
 
 dependencies {
-    // Include Chairs.
-    fetchJar("charmony-chairs-${props.chairs_version}.jar")
-    include "svenhjol.charmony:charmony-chairs:${props.chairs_version}"
-    modImplementation "svenhjol.charmony:charmony-chairs:${props.chairs_version}"
-
-    // Include Glint Colors.
-    fetchJar("charmony-glint-colors-${props.glint_colors_version}.jar")
-    include "svenhjol.charmony:charmony-glint-colors:${props.glint_colors_version}"
-    modImplementation "svenhjol.charmony:charmony-glint-colors:${props.glint_colors_version}"
-
-    // Include Mooblooms.
-    fetchJar("charmony-mooblooms-${props.mooblooms_version}.jar")
-    include "svenhjol.charmony:charmony-mooblooms:${props.mooblooms_version}"
-    modImplementation "svenhjol.charmony:charmony-mooblooms:${props.mooblooms_version}"
-
-    // Include Glint Colors.
-    fetchJar("charmony-totem-of-preserving-${props.totem_of_preserving_version}.jar")
-    include "svenhjol.charmony:charmony-totem-of-preserving:${props.totem_of_preserving_version}"
-    modImplementation "svenhjol.charmony:charmony-totem-of-preserving:${props.totem_of_preserving_version}"
-
-    // Include Travel Journal.
-    fetchJar("charmony-travel-journal-${props.travel_journal_version}.jar")
-    include "svenhjol.charmony:charmony-travel-journal:${props.travel_journal_version}"
-    modImplementation "svenhjol.charmony:charmony-travel-journal:${props.travel_journal_version}"
-
-    // Include Tweaks.
-    fetchJar("charmony-tweaks-${props.tweaks_version}.jar")
-    include "svenhjol.charmony:charmony-tweaks:${props.tweaks_version}"
-    modImplementation "svenhjol.charmony:charmony-tweaks:${props.tweaks_version}"
+    embedMod "charmony-chairs", props.chairs_version
+    embedMod "charmony-glint-colors", props.glint_colors_version
+    embedMod "charmony-mooblooms", props.mooblooms_version
+    embedMod "charmony-totem-of-preserving", props.totem_of_preserving_version
+    embedMod "charmony-travel-journal", props.travel_journal_version
+    embedMod "charmony-tweaks", props.tweaks_version
 }
