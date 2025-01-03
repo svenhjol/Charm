@@ -26,14 +26,7 @@
     "minecraft": "*",
     "java": ">=${java_version}",
     "fabric-api": "*",
-    "charmony": ">=${charmony_version}",
-    "charmony-api": ">=${api_version}",
-    "charmony-chairs": ">=${chairs_version}",
-    "charmony-glint-colors": ">=${glint_colors_version}",
-    "charmony-mooblooms": ">=${mooblooms_version}",
-    "charmony-totem-of-preserving": ">=${totem_of_preserving_version}",
-    "charmony-travel-journal": ">=${travel_journal_version}",
-    "charmony-tweaks": ">=${tweaks_version}"
+    "charmony": ">=${charmony_version}"
   },
 
   "contact": {
