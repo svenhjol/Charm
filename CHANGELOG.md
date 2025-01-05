@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.0.4
+
+- Add icon and description.
+- Move travel journal to Strange.
+
 ## 8.0.2
 
 - Refactor for Charmony 1.19.x.

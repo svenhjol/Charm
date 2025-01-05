@@ -7,7 +7,5 @@ dependencies {
     embedMod "charmony-cooking", props.cooking_version
     embedMod "charmony-glint-colors", props.glint_colors_version
     embedMod "charmony-mooblooms", props.mooblooms_version
-    embedMod "charmony-totem-of-preserving", props.totem_of_preserving_version
-    embedMod "charmony-travel-journal", props.travel_journal_version
     embedMod "charmony-tweaks", props.tweaks_version
 }

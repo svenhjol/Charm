@@ -4,7 +4,7 @@
   "version": "${mod_version}",
 
   "name": "Charm",
-  "description": "Charm",
+  "description": "Adds tweaks and features in keeping with vanilla Minecraft.",
 
   "authors": [
     "svenhjol",
