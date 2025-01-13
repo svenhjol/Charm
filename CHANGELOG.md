@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.0.5
+
+- Add totem of preserving.
+- Update mods and tooling.
+
 ## 8.0.4
 
 - Add icon and description.

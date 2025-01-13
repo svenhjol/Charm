@@ -3,8 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
-//apply from: resources.text.fromInsecureUri("http://charmony.work/1.22/build.gradle")
-apply from: "https://charmony.work/1.22/build.gradle"
+//apply from: resources.text.fromInsecureUri("http://charmony.work/main/build.gradle")
+apply from: "https://charmony.work/main/build.gradle"
 
 def file = new File("${projectDir}/local.gradle")
 if (file.exists()) {
