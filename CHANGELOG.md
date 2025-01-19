@@ -1,5 +1,7 @@
 # Changelog
 
+## 8.0.12
+
 ## 8.0.10
 
 - Update mods.
