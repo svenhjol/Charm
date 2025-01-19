@@ -1,6 +1,8 @@
 # Changelog
 
-## 8.0.12
+## 8.0.13
+
+- Use correct build location.
 
 ## 8.0.10
 

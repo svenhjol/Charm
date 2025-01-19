@@ -1,5 +1,5 @@
 def props = new Properties()
-new URL("https://charmony.work/main/build.properties").withInputStream { props.load(it) }
+new URL("https://charmony.dev/files/main/build.properties").withInputStream { props.load(it) }
 file("gradle.properties").withInputStream { props.load(it) }
 
 dependencies {
