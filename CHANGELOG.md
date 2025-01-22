@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.0.14
+
+- Add collection mod.
+
 ## 8.0.13
 
 - Use correct build location.
