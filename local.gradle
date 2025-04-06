@@ -3,6 +3,7 @@ new URL("https://charmony.dev/files/main/build.properties").withInputStream { pr
 file("gradle.properties").withInputStream { props.load(it) }
 
 dependencies {
+    embedMod "charmony-azalea-wood", props.azalea_wood_version
     embedMod "charmony-chairs", props.chairs_version
     embedMod "charmony-collection", props.collection_version
     embedMod "charmony-cooking", props.cooking_version
