@@ -3,10 +3,20 @@ plugins {
     id 'maven-publish'
 }
 
-//apply from: resources.text.fromInsecureUri("http://charmony.dev/files/main/build.gradle")
-apply from: "https://charmony.dev/files/main/build.gradle"
+def javaDir = "${projectDir}/../../java"
+def buildFile = new File("${javaDir}/build.gradle")
+def buildUrl = "https://charmony.dev/files/main/build.gradle"
 
-def file = new File("${projectDir}/local.gradle")
-if (file.exists()) {
-    apply from: file
+apply from: buildFile.exists() ? buildFile : buildUrl
+
+dependencies {
+    embedMod "charmony-azalea-wood", "azalea_wood"
+    embedMod "charmony-chairs", "chairs"
+    embedMod "charmony-collection", "collection"
+    embedMod "charmony-cooking", "cooking"
+    embedMod "charmony-ebony-wood", "ebony_wood"
+    embedMod "charmony-glint-colors", "glint_colors"
+    embedMod "charmony-mooblooms", "mooblooms"
+    embedMod "charmony-totem-of-preserving", "totem_of_preserving"
+    embedMod "charmony-tweaks", "tweaks"
 }
