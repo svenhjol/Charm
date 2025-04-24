@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.4.0
+
+- Update mods.
+
 ## 8.3.0
 
 - Update for Minecraft 1.21.5.
