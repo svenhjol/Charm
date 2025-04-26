@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.5.0
+
+- Update for API 1.18
+
 ## 8.4.1
 
 - Update mods.
