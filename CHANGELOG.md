@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.6.2
+
+- Update mods.
+
 ## 8.6.0
 
 - Update for API 1.22
