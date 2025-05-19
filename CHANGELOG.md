@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.7.0
+
+- Update for Charmony and API.
+
 ## 8.6.3
 
 - Update mods.
