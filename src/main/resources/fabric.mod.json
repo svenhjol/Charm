@@ -13,7 +13,7 @@
     "WarlordWossman",
     "ridjack"
   ],
-  "icon": "assets/charm/textures/gui/sprites/icon.png",
+  "icon": "assets/charmony/textures/gui/sprites/charm.png",
   "license": "MIT",
   "environment": "*",
   
