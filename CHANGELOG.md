@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.8.0
+
+- Update for 1.21.6
+
 ## 8.7.0
 
 - Update for Charmony and API.
