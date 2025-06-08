@@ -1,6 +1,6 @@
 # Changelog
 
-## 8.8.5
+## 8.8.7
 
 - Update for 1.21.6
 
