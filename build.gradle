@@ -12,8 +12,8 @@ apply from: buildFile.exists() ? buildFile : buildUrl
 dependencies {
     embedMod "charmony-azalea-wood", "azalea_wood"
     embedMod "charmony-brew-and-stew", "brew_and_stew"
-    embedMod "charmony-chairs", "chairs"
     embedMod "charmony-collection", "collection"
+    embedMod "charmony-decor", "decor"
     embedMod "charmony-ebony-wood", "ebony_wood"
     embedMod "charmony-glint-colors", "glint_colors"
     embedMod "charmony-mooblooms", "mooblooms"
